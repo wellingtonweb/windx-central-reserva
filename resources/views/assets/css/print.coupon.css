@@ -1,0 +1,39 @@
+.table-responsive table{
+    font-size: 15px;
+    text-align: center;
+}
+
+.table-responsive table tr td{
+    vertical-align: middle;
+}
+
+.xpto{
+    width:76mm;
+    height:auto;
+    background:#ffffff;
+    border: 1px solid #dddddd;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    color: #000000;
+    text-align: center;
+}
+
+td, th {
+    border: none !important;
+    text-align: center;
+    padding: 8px;
+}
+td.right {
+    text-align: right !important;
+}
+td.left {
+    text-align: left !important;
+}
+
+tr:nth-child(even) {
+    /*background-color: #dddddd;*/
+}

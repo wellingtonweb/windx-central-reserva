@@ -5,161 +5,149 @@
         <section>
             <div class="container-fluid">
                 <main role="main" class="inner fadeIn">
-
-{{--                    {{dd(session('customerActive')->full_name)}}--}}
-                    <section>
-                        <div id="checkout" class="contents">
-{{--                            {{dd(session('customer')->id)}}--}}
-
-{{--                            <div class="row checkout">--}}
-{{--                                <div class="col-12 checkout-status- bg-white rounded-7 mb-2 text-left">--}}
-{{--                                    <a href="javascript:history.back()" class="btn btn-primary ml-0">--}}
-{{--                                        <i class="fas fa fa-arrow-left pr-1"--}}
-{{--                                           aria-hidden="true"></i>Voltar</a>--}}
-{{--                                    <a class="btn btn-primary click-loader" href="{{route('terminal.payments', ['customerId' => session('customerActive')[0]->id])}}">--}}
-{{--                                        <span class="container-icon"><i class="fas fa-file-alt" aria-hidden="true"></i></span>--}}
-{{--                                        <span class="container-text">Comprovantes</span>--}}
-{{--                                    </a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-                            <div id="contract-container" class="row row-invoices animate__animated animate__fadeIn d-none-">
-                                <div class="col-12">
-                                    <div class="row navigator-control justify-content-between">
-                                        <div class="col-3 text-left align-items-center">
-{{--                                            <a href="{{route('central.contracts')}}"--}}
-{{--                                               class="btn btn-primary click-loader {{count(session('customer')) == 1 ? 'd-none' : ''}}">--}}
-{{--                                                <i class="fas fa fa-th-list pr-1" aria-hidden="true"></i>--}}
-{{--                                                Contratos--}}
-{{--                                            </a>--}}
+{{--                    <div class="container">--}}
+                        <div  class="row contents animate__animated animate__fadeIn">
+                            <div class="col-md-4 order-md-2 py-4 mb-4">
+                                <h4 class="d-flex justify-content-center align-items-center mb-3">
+                                    Checkout
+{{--                                    <span class="badge badge-secondary badge-pill">3</span>--}}
+                                </h4>
+                                <ul class="list-group mb-3 " style="border-radius: .5rem">
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h4 class="my-0">Faturas selecionadas</h4>
                                         </div>
-                                        @if(count(session('customer')->billets) != 0)
-                                            <div class="col-3 d-flex justify-content-center align-items-center">
-                                                <span class="text-left">Selecionadas: </span>
-                                                <span class="total-count pl-1"></span>
-                                            </div>
-                                            <div class="col-3 d-flex justify-content-center align-items-center" style="border-left: #002046 1px solid;">
-                                                <span class="text-left pr-1">Total:</span>
-                                                R$<span class="total-cart pl-1"></span>
-                                            </div>
-                                        @endif
-                                        <div class="col-3 text-left">
-                                            <a class="btn btn-primary click-loader" href="{{route('central.payments', ['customerId' => session('customer')->id])}}">
-{{--                                                <i class="fas fa-file-alt pr-1" aria-hidden="true"></i>--}}
-                                                Comprovantes
-                                            </a>
+                                        <span class="total-count badge badge-secondary badge-pill px-3 py-0 d-flex justify-content-center align-items-center "></span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0">Valor:</h6>
+{{--                                            <small class="text-muted">Brief description</small>--}}
                                         </div>
-
-                                    </div>
-                                    <div id="invoices-container"
-                                         class="row row-invoices animate__animated animate__fadeIn">
-{{--                                        {{count($customer[0]->billets)}}--}}
-                                        @if(count(session('customer')->billets) != 0)
-
-{{--                                            {{dd($customer[0]->document, strlen($customer[0]->document))}}--}}
-                                        <div class="col-12">
-
-                                            <div class="row">
-                                                <div class="col-12">
-
-                                                    <div id="news-slider" class="owl-carousel owl-theme">
-                                                        @foreach(session('customer')->billets as $key => $billet)
-                                                            <div id="invoice-{{$key}}" class="invoice-slide" data-id="{{ $billet->Id }}">
-                                                                <div class="invoice-content">
-                                                                    <h3 id="title-{{$key}}" class="invoice-title title-card {{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}" data-id="{{ $billet->Id }}">
-                                                                        {{ $billet->Referencia != '' ? $billet->Referencia : 'SEM REFERÊNCIA' }}
-                                                                    </h3>
-                                                                    <ul class="list-group list-group-flush {{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}">
-                                                                        <li id="billet_id" class="list-group-item d-none">{{ $billet->Id }}</li>
-                                                                        <li id="addition" class="list-group-item d-none">0</li>
-{{--                                                                        <li id="addition" class="list-group-item d-none">{!! number_format(\App\Services\Functions::calcFees($billet->Vencimento, $billet->Valor), 2, ',', '') !!}</li>--}}
-                                                                        <li id="discount" class="list-group-item d-none">0</li>
-                                                                        <li id="month" class="list-group-item d-none">{{ $billet->Referencia }}</li>
-                                                                        <li class="list-group-item d-none">{!! $fees = 0 !!}</li>
-{{--                                                                        <li class="list-group-item d-none">{!! $fees = \App\Services\Functions::calcFees($billet->Vencimento, $billet->Valor) !!}</li>--}}
-                                                                        <li class="list-group-item"><b>Nosso nº: </b><span id="reference">{{ $number = $billet->NossoNumero }}</span></li>
-                                                                        <li class="list-group-item"><b>Vencimento: </b><span id="payday">{!! $dueDate = '14/07/2023' !!}</span></li>
-{{--                                                                        <li class="list-group-item"><b>Vencimento: </b><span id="payday">{!! $dueDate = \App\Services\Functions::dateToPt($billet->Vencimento) !!}</span></li>--}}
-                                                                        <li class="list-group-item"><b>Valor:  </b><span>R$ <span id="value">{{ number_format($billet->Valor, 2, ',', '') }}</span></span></li>
-                                                                        <li class="list-group-item"><b>Valor atual: </b><b> R$ <span id="total">{{ number_format($fees + $billet->Valor, 2, ',', '') }}</span></b></li>
-                                                                    </ul>
-                                                                    <ul class="list-group list-group-flush pt-0 pb-0">
-                                                                        <li class="list-group-item invoice-actions">
-                                                                            {{--                                                                <a href="#" id="print-billet-{{$key}}"--}}
-{{--                                                                            {{dd(strval(json_encode($billet)))}}--}}
-                                                                            <a href="{{ route('central.printInvoice', ['id'=> $billet->Id ]) }}" id="print-billet-{{$key}}"
-                                                                               class="btn btn-info btn-print-billet" data-id="{{ $billet->Id }}">
-                                                                                <i class="fa fa-print" aria-hidden="true"></i> <span class="action-name">imprimir</span>
-                                                                            </a>
-                                                                            <a href="#" id="select-billet-{{$key}}"
-                                                                               class="add-to-cart btn btn-success"
-                                                                               data-reference="{{ $number }}" data-value="{{ $billet->Valor }}"
-                                                                               data-duedate="{!! $dueDate !!}"
-                                                                               data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
-                                                                               data-price="{{ number_format($fees + $billet->Valor, 2, '.', '') }}"
-                                                                               data-addition="{{ number_format($fees, 2, '.', '') }}">
-                                                                                <i class="fa fa-check" aria-hidden="true"></i>
-{{--                                                                                <i class="fas fa-spinner fa-pulse d-none"></i>--}}
-                                                                                <span class="action-name">pagar</span>
-                                                                            </a>
-                                                                            <a href="#" id="remove-billet-{{$key}}" class="btn btn-danger delete-item d-none"
-                                                                               data-reference="{{ $number }}" data-id="{{ $billet->Id }}">
-                                                                                <i class="fa fa-trash" aria-hidden="true"></i>
-
-                                                                                <span class="action-name">remover</span>
-                                                                            </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="container-icon-move-hand {{count(session('customer')->billets) == 1 ? 'd-none': ''}}">
-                                                                    <img src="{{asset('assets/img/slide-icon.jpg')}}" width="25px" height="25px" alt="">
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-                                                    </div>
-
-                                                </div>
-                                            </div>
-{{--                                            <div class="row-">--}}
-{{--                                                <div class="col-12-">--}}
-                                                    <div class="checkout-controls" style="{{count($customer[0]->billets) > 1 ? 'margin-top: -1rem' : ''}}">
-                                                        <button type="button" id="btn-pix"
-                                                                class="btn btn-windx font-weight-bold btn-payment-type">
-                                                            Pix
-                                                        </button>
-                                                        <button type="button" id="btn-picpay"
-                                                                class="btn btn-windx font-weight-bold btn-payment-type">
-                                                            PicPay
-                                                        </button>
-                                                        <button type="button" id="btn-credit"
-                                                                class="btn btn-windx font-weight-bold btn-payment-type">
-                                                            Crédito
-                                                        </button>
-                                                        <button type="button" id="btn-debit"
-                                                                class="btn btn-windx font-weight-bold btn-payment-type">
-                                                            Débito
-                                                        </button>
-                                                        <button type="button" id="clear-cart"
-                                                                class="btn btn-danger clear-cart btn-radius-50"
-                                                                disabled>Cancelar
-                                                        </button>
-                                                    </div>
-
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                        <span class="text-muted">R$ 8,00</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                        <div>
+                                            <h6 class="my-0">Juros + Multa:</h6>
+{{--                                            <small class="text-muted">Brief description</small>--}}
                                         </div>
-                                        @else
+                                        <span class="text-muted">R$ 5,00</span>
+                                    </li>
+{{--                                    <li class="list-group-item d-flex justify-content-between bg-light">--}}
+{{--                                        <div class="text-success">--}}
+{{--                                            <h6 class="my-0">Promo code</h6>--}}
+{{--                                            <small>EXAMPLECODE</small>--}}
+{{--                                        </div>--}}
+{{--                                        <span class="text-success">-$5</span>--}}
+{{--                                    </li>--}}
+                                    <li class="list-group-item d-flex justify-content-between" style="font-size: 1.1rem">
+                                        <strong>Valor total: </strong>
+                                        <strong>R$<span class="total-cart pl-1"></span></strong>
+                                    </li>
+                                </ul>
 
-                                            <div class="col-12 w-100 justify-content-center  mt-2 ">
-                                                <div class="alert alert-info rounded-7 pt-5 pb-5" role="alert">
-                                                    <h3>Este cadastro não possui faturas em aberto.<br><br>
-                                                        Agradecemos pela pontualidade!</h3>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
+                                <div class="checkout-controls">
 
+                                    <ul class="list-group mb-3 bg-transparent w-100 border-0">
+                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                            <button id="btn-pix" type="button" class="btn btn-windx">Pix</button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                            <button id="btn-picpay" type="button" class="btn btn-secondary">PicPay</button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                            <button id="btn-credit" type="button" class="btn btn-secondary">Crédito</button>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                            <button id="btn-debit" type="button" class="btn btn-secondary">Débito</button>
+                                        </li>
+                                    </ul>
+
+
+{{--                                    <button type="button" id="btn-pix"--}}
+{{--                                            class="btn btn-windx font-weight-bold btn-payment-type_">--}}
+{{--                                        Pix--}}
+{{--                                    </button>--}}
+{{--                                    <button type="button" id="btn-picpay"--}}
+{{--                                            class="btn btn-windx font-weight-bold btn-payment-type_">--}}
+{{--                                        PicPay--}}
+{{--                                    </button>--}}
+{{--                                    <button type="button" id="btn-credit"--}}
+{{--                                            class="btn btn-windx font-weight-bold btn-payment-type_">--}}
+{{--                                        Crédito--}}
+{{--                                    </button>--}}
+{{--                                    <button type="button" id="btn-debit"--}}
+{{--                                            class="btn btn-windx font-weight-bold btn-payment-type_">--}}
+{{--                                        Débito--}}
+{{--                                    </button>--}}
+                                    <button type="button" id="clear-cart"
+                                            class="btn btn-danger clear-cart btn-radius-50"
+                                            disabled>Cancelar
+                                    </button>
                                 </div>
-                    </section>
+                            </div>
+                            <div class="col-md-8 order-md-1 py-4 ">
+                                <h4 class="mb-3">Selecione a fatura a pagar</h4>
+                                <div id="news-slider" class="owl-carousel owl-theme">
+                                    @foreach(session('customer')->billets as $key => $billet)
+                                        <div id="invoice-{{$key}}" class="invoice-slide" data-id="{{ $billet->Id }}">
+                                            <div class="invoice-content">
+                                                <h3 id="title-{{$key}}" class="invoice-title title-card {{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}" data-id="{{ $billet->Id }}">
+                                                    {{ $billet->Referencia != '' ? $billet->Referencia : 'SEM REFERÊNCIA' }}
+                                                </h3>
+                                                <ul class="list-group list-group-flush {{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}">
+                                                    <li id="billet_id" class="list-group-item d-none">{{ $billet->Id }}</li>
+                                                    <li id="addition" class="list-group-item d-none">0</li>
+                                                    {{--                                                                        <li id="addition" class="list-group-item d-none">{!! number_format(\App\Services\Functions::calcFees($billet->Vencimento, $billet->Valor), 2, ',', '') !!}</li>--}}
+                                                    <li id="discount" class="list-group-item d-none">0</li>
+                                                    <li id="month" class="list-group-item d-none">{{ $billet->Referencia }}</li>
+                                                    <li class="list-group-item d-none">{!! $fees = 0 !!}</li>
+                                                    {{--                                                                        <li class="list-group-item d-none">{!! $fees = \App\Services\Functions::calcFees($billet->Vencimento, $billet->Valor) !!}</li>--}}
+                                                    <li class="list-group-item"><b>Nosso nº: </b><span id="reference">{{ $number = $billet->NossoNumero }}</span></li>
+                                                    <li class="list-group-item"><b>Vencimento: </b><span id="payday">{!! $dueDate = '14/07/2023' !!}</span></li>
+                                                    {{--                                                                        <li class="list-group-item"><b>Vencimento: </b><span id="payday">{!! $dueDate = \App\Services\Functions::dateToPt($billet->Vencimento) !!}</span></li>--}}
+                                                    <li class="list-group-item"><b>Valor:  </b><span>R$ <span id="value">{{ number_format($billet->Valor, 2, ',', '') }}</span></span></li>
+                                                    <li class="list-group-item"><b>Valor atual: </b><b> R$ <span id="total">{{ number_format($fees + $billet->Valor, 2, ',', '') }}</span></b></li>
+                                                </ul>
+                                                <ul class="list-group list-group-flush pt-0 pb-0">
+                                                    <li class="list-group-item invoice-actions">
+                                                        {{--                                                                <a href="#" id="print-billet-{{$key}}"--}}
+                                                        {{--                                                                            {{dd(strval(json_encode($billet)))}}--}}
+                                                        <a href="{{ route('central.printInvoice', ['id'=> $billet->Id ]) }}" id="print-billet-{{$key}}"
+                                                           class="btn btn-info btn-print-billet" data-id="{{ $billet->Id }}">
+                                                            <i class="fa fa-print" aria-hidden="true"></i> <span class="action-name">imprimir</span>
+                                                        </a>
+                                                        <a href="#" id="select-billet-{{$key}}"
+                                                           class="add-to-cart btn btn-success"
+                                                           data-reference="{{ $number }}" data-value="{{ $billet->Valor }}"
+                                                           data-duedate="{!! $dueDate !!}"
+                                                           data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
+                                                           data-price="{{ number_format($fees + $billet->Valor, 2, '.', '') }}"
+                                                           data-addition="{{ number_format($fees, 2, '.', '') }}">
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                                            {{--                                                                                <i class="fas fa-spinner fa-pulse d-none"></i>--}}
+                                                            <span class="action-name">pagar</span>
+                                                        </a>
+                                                        <a href="#" id="remove-billet-{{$key}}" class="btn btn-danger delete-item d-none"
+                                                           data-reference="{{ $number }}" data-id="{{ $billet->Id }}">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+
+                                                            <span class="action-name">remover</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="container-icon-move-hand {{count(session('customer')->billets) == 1 ? 'd-none': ''}}">
+                                                <img src="{{asset('assets/img/slide-icon.jpg')}}" width="25px" height="25px" alt="">
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+
+{{--                    </div>--}}
                     <section>
                         <div id="container-modal">
                             {{--                            <!-- Modal -->--}}
@@ -301,6 +289,18 @@
 @endsection
 
 @section('css')
+    <style >
+
+
+    .checkout-controls .btn {
+        margin: 5px !important
+    }
+
+     .checkout-controls .list-group-item {
+         padding: 0;
+         border: 0;
+     }
+    </style>
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
 @endsection
 
@@ -308,8 +308,6 @@
     <script>
         var idCustomer = {{session('customer')->id}};
         var customerActive = @json(session('customer'));
-
-
     </script>
     <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
@@ -317,7 +315,7 @@
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
 @endsection
 
 

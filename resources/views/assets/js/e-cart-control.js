@@ -119,6 +119,8 @@ function getCheckBillet(id){
 $('.clear-cart').click(function() {
     // billetsCart.clearCart();
     clearAllSections();
+    $('#v-pills-tab').removeClass('d-none')
+    $('#v-pills-tabContent').addClass('d-none')
     // removePaintAll()
     // displayCart();
     notify('Todas as faturas foram removidas!')

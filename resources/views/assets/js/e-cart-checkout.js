@@ -37,17 +37,21 @@ function resetCardFields() {
 
 /* Button payment type */
 $('button.btn-payment-type').click(function (){
+    $('#methodTitle').text($(this).text())
+    $('#v-pills-tab').addClass('d-none')
+    $('#v-pills-tabContent').removeClass('d-none')
+
     switch (this.id){
         case 'btn-picpay':
         case 'btn-pix':
-            $('.payment_type_label').text((this.id == 'btn-picpay'?'Picpay':'Pix'));
+            // $('.payment_type_label').text((this.id == 'btn-picpay'?'Picpay':'Pix'));
             $('#payment_type').val((this.id == 'btn-picpay'?'picpay':'pix'));
             $('#method').val((this.id == 'btn-picpay'?'picpay':'ecommerce'));
             resetCardFields();
             $('#form_checkout').submit();
             break
         default:
-            $('.payment_type_label').text((this.id == 'btn-credit'?'Crédito':'Débito'));
+            // $('.payment_type_label').text((this.id == 'btn-credit'?'Crédito':'Débito'));
             $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
             $('#method').val('tef');
             //$('#terminal_id').val('2');
@@ -231,19 +235,23 @@ function setQrcode(qrcode, payment_type, qrString){
     let pref64 = 'data:image\\/png;base64,';
     displayCart()
 
+    if(payment_type == 'pix'){
+        $('#qrcode-img').attr('src', pref64 + qrcode)
+    }
+
     //callbackTransaction()
     Swal.fire({
         // title: 'Windx Telecomunicações',
-        html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong>'+count+'</strong> '+ (count>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
-            '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+$('.total-cart').html()+'</span>' +
-            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
-            '<p>Leia o QRCode com seu app</p>' +
-            // '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
-            // '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
-            // '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
-            // 'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
-            '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
-            '<p id="timer" class="text-danger"></p></div>',
+        // html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong>'+count+'</strong> '+ (count>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
+        //     '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+$('.total-cart').html()+'</span>' +
+        //     '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
+        //     '<p>Leia o QRCode com seu app</p>' +
+        //     // '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
+        //     // '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
+        //     // '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
+        //     // 'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
+        //     '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
+        //     '<p id="timer" class="text-danger"></p></div>',
         // timer: 10000,
         // timer: 60000,
         // timer: 90000,//1.5min

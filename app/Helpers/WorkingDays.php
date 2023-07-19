@@ -27,11 +27,11 @@ class WorkingDays
     public static function pay($data,$DIAS_PGTO=0)
     {
         $data = date('Y-m-d', strtotime($data. '+ '.$DIAS_PGTO.' days'));
-        if(getDayOfWeek($data)==("Sábado"))
+        if(self::getDayOfWeek($data)==("Sábado"))
         {
             $data = date('Y-m-d', strtotime($data. ' + 2 days'));
         }
-        else if(getDayOfWeek($data)==("Domingo"))
+        else if(self::getDayOfWeek($data)==("Domingo"))
         {
             $data = date('Y-m-d', strtotime($data. '+ 1 days'));
         }
@@ -40,16 +40,16 @@ class WorkingDays
 
     public static function Workday($data,$DIAS_PGTO=0)
     {
-        $holidays= new holidays(date('Y',strtotime($data)));
-        $dutil=FALSE;
+        $holidays = self::holidays(date('Y',strtotime($data)));
+        $dutil = FALSE;
         while (!$dutil) {
-            $data=pay($data,$DIAS_PGTO);
-            if (array_value_recursive($data, $holidays) <> NULL)
+            $data = self::pay($data,$DIAS_PGTO);
+            if (self::array_value_recursive($data, $holidays) <> NULL)
             {
                 $data = date('Y-m-d', strtotime($data. '+ 1 days'));
-                $data=pay($data,$DIAS_PGTO);
+                $data = self::pay($data,$DIAS_PGTO);
             }else{
-                $dutil=TRUE;
+                $dutil = TRUE;
             }
         }
         return $data;
@@ -127,7 +127,7 @@ class WorkingDays
         $dias_uteis =0;
         $dc = $di;
         while ($df > $dc) {
-            if ($dc == Workday($dc)) $dias_uteis++;
+            if ($dc == self::Workday($dc)) $dias_uteis++;
             $do = new DateTime($dc);
             $do->add( new DateInterval( "P1D" ) );
             $dc = $do->format( "Y-m-d" ) ;
@@ -139,7 +139,7 @@ class WorkingDays
         $dataCorrente = $dataInicial;
         $i = 0;
         while ($i <= $diasUteis) {
-            if ($dataCorrente == Workday($dataCorrente)) $i++;
+            if ($dataCorrente == self::Workday($dataCorrente)) $i++;
             $dataObjeto = new DateTime($dataCorrente);
             $dataObjeto->add( new DateInterval( "P1D" ) );
             $dataCorrente = $i <= $diasUteis ? $dataObjeto->format( "Y-m-d" ) :  $dataCorrente;
@@ -151,21 +151,23 @@ class WorkingDays
 
         $holidays= self::holidays(2023);
 
-        return $holidays;
+//        return $holidays;
 
-//        echo "<pre> sexta santa '2019-04-19' prox dia util->". Workday('2019-04-19')."  ".getDayOfWeek(Workday('2019-04-19'))."</pre>";
+        echo "<pre> Tiradentes '2023-04-21' prox dia util->". self::Workday('2023-04-21')."  ".self::getDayOfWeek(self::Workday('2023-04-21'))."</pre>";
+
+        echo "<pre> Independência do Brasil '2023-09-07' prox dia util->". self::Workday('2023-09-07')."  ".self::getDayOfWeek(self::Workday('2023-09-07'))."</pre>";
 //
-//        echo "<pre> sabado de carnaval '2019-03-02' prox dia util->". Workday('2019-03-02')."  ".getDayOfWeek(Workday('2019-03-02'))."</pre>";
+//        echo "<pre> sabado de carnaval '2023-02-18' prox dia util->". self::Workday('2023-02-18')."  ".self::getDayOfWeek(self::Workday('2023-02-18'))."</pre>";
 //
-//        echo "<pre> confraternização '2019-01-01' prox dia util->". Workday('2019-01-01')."  ".getDayOfWeek(Workday('2019-01-01'))."</pre>";
+        echo "<pre> confraternização '2023-01-01' prox dia util->". self::Workday('2023-01-01')."  ".self::getDayOfWeek(self::Workday('2023-01-01'))."</pre>";
 //
-//        echo "<pre> um sabado '2019-11-30' prox dia util->". Workday('2019-11-30')."  ".getDayOfWeek(Workday('2019-11-30'))."</pre>";
+        echo "<pre> um sabado '2023-07-22' prox dia util->". self::Workday('2023-07-22')."  ".self::getDayOfWeek(self::Workday('2023-07-22'))."</pre>";
 //
-//        echo "<pre> dia comum '2019-11-07' prox dia util->". Workday('2019-11-07')."  ".getDayOfWeek(Workday('2019-11-07'))."</pre>";
+        echo "<pre> dia comum '2023-07-19' prox dia util->". self::Workday('2023-07-19')."  ".self::getDayOfWeek(self::Workday('2023-07-19'))."</pre>";
 //
-//        echo "<pre> conta dias uteis '2019-03-02' a '2019-03-12' possuem ". conta_dias_uteis('2019-03-02','2019-03-12')." dias úteis</pre>";
+        echo "<pre> conta dias uteis '2024-02-12' a '2024-02-17' possuem ". self::conta_dias_uteis('2024-02-12','2024-02-17')." dias úteis</pre>";
 //
-//        echo "<pre> calcula data baseado em data inicial + dias úteis. Data Inicial = 2019-03-02 dias úteis= 4  a data final é:". calcDataDiaUteis('2019-03-02',4)."<br> Já serve como teste de mesa para função anterior</pre>";
+        echo "<pre> calcula data baseado em data inicial + dias úteis. Data Inicial = 2023-03-07 dias úteis= 4  a data final é:". self::calcDataDiaUteis('2023-03-07',4)."<br> Já serve como teste de mesa para função anterior</pre>";
 
     }
 

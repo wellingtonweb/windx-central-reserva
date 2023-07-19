@@ -29,7 +29,7 @@ class Functions
         session()->regenerateToken();
     }
 
-    public function calcFees(String $date, string $val)
+    public static function calcFees(String $date, string $val)
     {
         $now = date_create(date('Y-m-d'));
         $dueDate = date_create(date('Y-m-d', strtotime($date)));
@@ -51,17 +51,19 @@ class Functions
         }
     }
 
-    public function dateToPt(String $date)
+
+
+    public static function dateToPt(String $date)
     {
         return date("d/m/Y", strtotime($date));
     }
 
-    public function dateToPtSlim(String $date)
+    public static function dateToPtSlim(String $date)
     {
         return date("d/m/y", strtotime($date));
     }
 
-    public function dateTimeToPt(String $date)
+    public static function dateTimeToPt(String $date)
     {
         return date("d/m/Y H:i", strtotime($date));
     }

@@ -200,12 +200,15 @@
                         </div>
                         <div class="col-md-9 order-md-1 py-4 ">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
+                            {{ dd(\App\Helpers\WorkingDays::getDataAll()) }}
+
                             <div class="table-responsive">
                                 <table id="table-invoices" class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th style="padding: .3rem !important;">Nosso Nº</th>
                                         <th style="padding: .3rem !important;">Referência</th>
+                                        <th style="padding: .3rem !important;">Vencimento</th>
                                         <th style="padding: .3rem !important;">Valor</th>
                                         <th style="padding: .3rem !important;">Juros + Multa</th>
                                         <th style="padding: .3rem !important;">Total</th>
@@ -215,35 +218,43 @@
                                     <tbody>
                                     @if(count(session('customer')->billets) > 0)
                                         @foreach(session('customer')->billets as $key => $billet)
-                                            <tr>
-                                                <td data-label="Nosso Nº">{{ $billet->Id }}</td>
+                                            <tr id="invoice-{{$key}}" data-id="{{ $billet->Id }}" class="{{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}">
+                                                <td hidden>{{ $billet->Id }}</td>
+                                                <td hidden>{{ $fees = \App\Services\Functions::calcFees($billet->Vencimento, $billet->Valor) }}</td>
+                                                <td data-label="Nosso Nº">{{ $billet->NossoNumero }}</td>
                                                 <td data-label="Referência">{{ $billet->Referencia != '' ? $billet->Referencia : 'SEM REFERÊNCIA' }}</td>
+                                                <td data-label="Vencimento">{!! $dueDate = \App\Services\Functions::dateToPt($billet->Vencimento) !!}</td>
                                                 <td data-label="Valor">
                                                     R$ {{ number_format($billet->Valor, 2, ',', '') }}</td>
-                                                <td data-label="Juros + Multa">0</td>
-                                                <td data-label="Total">14</td>
-                                                <td data-label="Ações">
+                                                <td data-label="Juros + Multa">{{ number_format($fees, 2, '.', '') }}</td>
+                                                <td data-label="Total">{{ number_format($fees + $billet->Valor, 2, '.', '') }}</td>
+                                                <td>
                                                     <a href="{{ route('central.printInvoice', ['id'=> $billet->Id ]) }}"
                                                        id="print-billet-{{$key}}"
                                                        class="btn btn-info btn-print-billet"
                                                        data-id="{{ $billet->Id }}">
-                                                        <i class="fa fa-print" aria-hidden="true"></i> <span
-                                                            class="action-name">imprimir</span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-down text-white" viewBox="0 0 16 16">
+                                                            <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                                        </svg>
+{{--                                                        <i class="fa fa-print" aria-hidden="true"></i> --}}
+                                                        <span
+                                                            class="action-name">baixar</span>
                                                     </a>
                                                     <a href="#" id="select-billet-{{$key}}"
                                                        class="add-to-cart btn btn-success"
-                                                       data-reference="{{ 0 }}" data-value="{{ $billet->Valor }}"
-                                                       data-duedate="{!! 0 !!}"
+                                                       data-reference="{{ $billet->NossoNumero }}" data-value="{{ $billet->Valor }}"
+                                                       data-duedate="{!! $dueDate !!}"
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
-                                                       data-price="{{ number_format(0 + $billet->Valor, 2, '.', '') }}"
-                                                       data-addition="{{ number_format(0, 2, '.', '') }}">
+                                                       data-price="{{ number_format($fees + $billet->Valor, 2, '.', '') }}"
+                                                       data-addition="{{ number_format($fees, 2, '.', '') }}">
                                                         <i class="fa fa-check" aria-hidden="true"></i>
                                                         <i class="fas fa-spinner fa-pulse d-none"></i>
                                                         <span class="action-name">pagar</span>
                                                     </a>
                                                     <a href="#" id="remove-billet-{{$key}}"
                                                        class="btn btn-danger delete-item d-none"
-                                                       data-reference="{{ 0 }}" data-id="{{ $billet->Id }}">
+                                                       data-reference="{{ $billet->NossoNumero }}" data-id="{{ $billet->Id }}">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                         <span class="action-name">remover</span>
                                                     </a>
@@ -301,9 +312,11 @@
             margin: 10px 5px;
         }
 
+        #table-invoices tr {
+            color: #5a6268;
+        }
         #table-invoices tr td {
             background-color: whitesmoke;
-            color: #5a6268;
         }
 
         .table thead th {
@@ -1227,6 +1240,58 @@
             $('#v-pills-tab').removeClass('d-none')
             $('#v-pills-tabContent').addClass('d-none')
         });
+
+        var Minha_data = new Date();
+        console.log(Minha_data)
+
+        // alert(Minha_data.getDay() == 0 || Minha_data.getDay() == 6 ? 'É final de semana' : 'Não é final de semana');
+
+        function verificarDataAtual(data) {
+            var dataAtual = new Date();
+            dataAtual.setHours(0, 0, 0, 0); // Zera as horas, minutos, segundos e milissegundos
+
+            // Verifica se a data é igual à data atual
+            if (data.getTime() === dataAtual.getTime()) {
+                return 'A data é igual à data atual.';
+            } else {
+                return 'A data não é igual à data atual.';
+            }
+        }
+
+        // Função para verificar se a data é fim de semana
+        function verificarFimDeSemana(data) {
+            var diaDaSemana = data.getDay();
+
+            // 0 é domingo e 6 é sábado
+            if (diaDaSemana === 0 || diaDaSemana === 6) {
+                return 'A data é fim de semana.';
+            } else {
+                return 'A data não é fim de semana.';
+            }
+        }
+
+        // Função para verificar se a data é feriado nacional brasileiro
+        function verificarFeriado(data) {
+            // Biblioteca externa: date-holidays (https://www.npmjs.com/package/date-holidays)
+            // Certifique-se de instalá-la usando "npm install date-holidays" antes de usar
+            var Holidays = require('date-holidays');
+            var hd = new Holidays('BR');
+
+            // Verifica se a data é feriado
+            if (hd.isHoliday(data)) {
+                return 'A data é um feriado nacional brasileiro.';
+            } else {
+                return 'A data não é um feriado nacional brasileiro.';
+            }
+        }
+
+        // Exemplo de uso da função
+        var dataEntrada = new Date(); // Use a data de entrada desejada
+
+        console.log(verificarDataAtual(dataEntrada));
+        console.log(verificarFimDeSemana(dataEntrada));
+        console.log(verificarFeriado(dataEntrada));
+
 
     </script>
     <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>

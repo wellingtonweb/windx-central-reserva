@@ -476,7 +476,7 @@ $('button.btn-payment-type').click(function (){
 $('#form_checkout').submit(function (e){
     e.preventDefault();
     let dataForm = $(this).serializeArray();
-    // console.log('Dataform', dataForm)
+    console.log('Dataform', dataForm)
     if(dataForm['1'].value == ''){
         // swal.fire('Erro: carrinho sem boletos!')
         displayMessageErrorPayment('Erro: 422 - Dados inválidos')

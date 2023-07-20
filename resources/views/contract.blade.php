@@ -200,7 +200,7 @@
                         </div>
                         <div class="col-md-9 order-md-1 py-4 ">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
-                            {{ dd(\App\Helpers\WorkingDays::getDataAll()) }}
+{{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
                             <div class="table-responsive">
                                 <table id="table-invoices" class="table table-striped">
@@ -229,7 +229,7 @@
                                                 <td data-label="Juros + Multa">{{ number_format($fees, 2, '.', '') }}</td>
                                                 <td data-label="Total">{{ number_format($fees + $billet->Valor, 2, '.', '') }}</td>
                                                 <td>
-                                                    <a href="{{ route('central.printInvoice', ['id'=> $billet->Id ]) }}"
+                                                    <a target="_blank" href="{{ env('API_URL_VIGO_PROD').$billet->Link }}"
                                                        id="print-billet-{{$key}}"
                                                        class="btn btn-info btn-print-billet"
                                                        data-id="{{ $billet->Id }}">

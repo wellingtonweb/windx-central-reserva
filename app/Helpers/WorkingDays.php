@@ -147,6 +147,23 @@ class WorkingDays
         return $dataCorrente;
     }
 
+    public static function checkDate($data,$DIAS_PGTO=0)
+    {
+        $holidays = self::holidays(date('Y',strtotime($data)));
+        $dutil = FALSE;
+        while (!$dutil) {
+            $data = self::pay($data,$DIAS_PGTO);
+            if (self::array_value_recursive($data, $holidays) <> NULL)
+            {
+                $data = date('Y-m-d', strtotime($data. '+ 1 days'));
+                $data = self::pay($data,$DIAS_PGTO);
+            }else{
+                $dutil = TRUE;
+            }
+        }
+        return $data;
+    }
+
     public static function getDataAll(){
 
         $holidays= self::holidays(2023);

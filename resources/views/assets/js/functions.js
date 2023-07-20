@@ -23,6 +23,21 @@ $("#news-slider").owlCarousel({
     autoPlay:false
 });
 
+async function copyBarcode3(btnThis){
+    let code = btnThis.getAttribute("data-code")
+    console.log(code);
+    await navigator.clipboard.writeText(code)
+        .then(() => {
+            notify5('Copiado para área de transferência!')
+        })
+        .catch((err) => {
+            notify('Falha ao copiar: '+ err);
+            setTimeout(() => {
+                location.reload()
+            }, 1000)
+        });
+}
+
 function displayMessageQuestionFinish(){
     clearInterval(callback)
     Swal.fire({

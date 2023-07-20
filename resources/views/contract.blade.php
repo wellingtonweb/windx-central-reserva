@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-                        <div class="bg-primary_ col-md-3 order-md-2 py-4 mb-4">
+                        <div class="col-md-3 order-md-2 py-4 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
@@ -42,7 +42,7 @@
                                     <div class="col-12">
                                         <div class="tab-content" id="v-pills-tabContent">
                                             <div class="w-100">
-                                                <h4 id="methodTitle" class="text-dark font-weight-bold p-1"></h4>
+                                                <h4 id="methodTitle" class="text-dark font-weight-bold p-1">Escolha a forma de pagamento</h4>
                                             </div>
                                             <div class="tab-pane fade justify-content-center" id="v-pills-qrcode"
                                                  role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -228,39 +228,36 @@
                                                     R$ {{ number_format($billet->Valor, 2, ',', '') }}</td>
                                                 <td data-label="Juros + Multa">{{ number_format($fees, 2, '.', '') }}</td>
                                                 <td data-label="Total">{{ number_format($fees + $billet->Valor, 2, '.', '') }}</td>
-                                                <td>
+                                                <td class="btnInvoiceAction">
+                                                    <a href="#" id="copy-barcode-{{$key}}" class="btn btn-primary btn-sm click" data-id="{{ $billet->Id }}"
+                                                       onclick="copyBarcode3(this)" data-code="{{$billet->LinhaDigitavel}}">
+                                                        <i class="fa fa-barcode" aria-hidden="true"></i> <span class="action-name">copiar</span>
+                                                    </a>
                                                     <a target="_blank" href="{{ env('API_URL_VIGO_PROD').$billet->Link }}"
                                                        id="print-billet-{{$key}}"
-                                                       class="btn btn-info btn-print-billet"
-                                                       data-id="{{ $billet->Id }}">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-arrow-down text-white" viewBox="0 0 16 16">
-                                                            <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
-                                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                                        </svg>
-{{--                                                        <i class="fa fa-print" aria-hidden="true"></i> --}}
-                                                        <span
-                                                            class="action-name">baixar</span>
+                                                       class="btn btn-info btn-sm">
+                                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                                        <span class="action-name">baixar</span>
                                                     </a>
                                                     <a href="#" id="select-billet-{{$key}}"
-                                                       class="add-to-cart btn btn-success"
+                                                       class="add-to-cart btn btn-success btn-sm"
                                                        data-reference="{{ $billet->NossoNumero }}" data-value="{{ $billet->Valor }}"
                                                        data-duedate="{!! $dueDate !!}"
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
                                                        data-price="{{ number_format($fees + $billet->Valor, 2, '.', '') }}"
-                                                       data-addition="{{ number_format($fees, 2, '.', '') }}">
+                                                       data-addition="{{ number_format($fees, 2, '.', '') }}"
+                                                        onclick="loadingAddInvoice(this)">
                                                         <i class="fa fa-check" aria-hidden="true"></i>
-                                                        <i class="fas fa-spinner fa-pulse d-none"></i>
+{{--                                                        <i class="fas fa-spinner fa-pulse d-none"></i>--}}
                                                         <span class="action-name">pagar</span>
                                                     </a>
                                                     <a href="#" id="remove-billet-{{$key}}"
-                                                       class="btn btn-danger delete-item d-none"
+                                                       class="btn btn-danger btn-sm delete-item d-none"
                                                        data-reference="{{ $billet->NossoNumero }}" data-id="{{ $billet->Id }}">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
                                                         <span class="action-name">remover</span>
                                                     </a>
-                                                    <button type="button" class="btn btn-primary"
-                                                            onclick="checkHoliday()">X
-                                                    </button>
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -310,6 +307,8 @@
         #table-invoices .btn {
             border-radius: .4rem;
             margin: 10px 5px;
+            padding: 8px 10px;
+            font-size: 12px;
         }
 
         #table-invoices tr {
@@ -324,7 +323,28 @@
         !important;
         }
 
-        @media (max-width: 575px) {
+        @media (max-width: 1250px) {
+            .btnInvoiceAction {
+                display: flex;
+                justify-content: end;
+            }
+
+            .btnInvoiceAction .btn {
+                display: block;
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 1100px) {
+        /*@media (max-width: 575px) {*/
+
+            .action-name {
+                display: none
+            }
+
+
+
 
             table thead {
                 display: none;
@@ -1236,70 +1256,30 @@
             $('#v-pills-tabContent').removeClass('d-none')
         });
 
-        $('.clear-cart').on('click', function () {
-            $('#v-pills-tab').removeClass('d-none')
-            $('#v-pills-tabContent').addClass('d-none')
-        });
 
-        var Minha_data = new Date();
-        console.log(Minha_data)
 
-        // alert(Minha_data.getDay() == 0 || Minha_data.getDay() == 6 ? 'É final de semana' : 'Não é final de semana');
-
-        function verificarDataAtual(data) {
-            var dataAtual = new Date();
-            dataAtual.setHours(0, 0, 0, 0); // Zera as horas, minutos, segundos e milissegundos
-
-            // Verifica se a data é igual à data atual
-            if (data.getTime() === dataAtual.getTime()) {
-                return 'A data é igual à data atual.';
-            } else {
-                return 'A data não é igual à data atual.';
-            }
-        }
-
-        // Função para verificar se a data é fim de semana
-        function verificarFimDeSemana(data) {
-            var diaDaSemana = data.getDay();
-
-            // 0 é domingo e 6 é sábado
-            if (diaDaSemana === 0 || diaDaSemana === 6) {
-                return 'A data é fim de semana.';
-            } else {
-                return 'A data não é fim de semana.';
-            }
-        }
-
-        // Função para verificar se a data é feriado nacional brasileiro
-        function verificarFeriado(data) {
-            // Biblioteca externa: date-holidays (https://www.npmjs.com/package/date-holidays)
-            // Certifique-se de instalá-la usando "npm install date-holidays" antes de usar
-            var Holidays = require('date-holidays');
-            var hd = new Holidays('BR');
-
-            // Verifica se a data é feriado
-            if (hd.isHoliday(data)) {
-                return 'A data é um feriado nacional brasileiro.';
-            } else {
-                return 'A data não é um feriado nacional brasileiro.';
-            }
-        }
-
-        // Exemplo de uso da função
-        var dataEntrada = new Date(); // Use a data de entrada desejada
-
-        console.log(verificarDataAtual(dataEntrada));
-        console.log(verificarFimDeSemana(dataEntrada));
-        console.log(verificarFeriado(dataEntrada));
-
+        // $('a.add-to-cart').on('click', function () {
+        //     // $(this).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
+        //     // Swal.fire('Verificando boleto')
+        //
+        //     setTimeout(() => {
+        //         alert('Verificando fatura!')
+        //         // $(this).children('i').removeClass('fa-spinner fa-spin').addClass('fa-check')
+        //     }, 5000)
+        // })
+        //
+        // function loadingAddInvoice(thisBtn){
+        //     $(thisBtn).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
+        //     console.log('Clicou!')
+        // }
 
     </script>
-    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
     {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
-    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>
-    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>
+{{--    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>--}}
+{{--    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>--}}
     {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
 @endsection
 

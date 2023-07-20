@@ -17,6 +17,8 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
+
+        console.log()
     }
 
     // Save cart

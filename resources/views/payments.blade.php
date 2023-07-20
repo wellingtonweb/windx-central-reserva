@@ -318,7 +318,7 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script type="text/javascript" defer>inactivitySession();</script>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    {{ dd(\App\Helpers\WorkingDays::isSaturdayOrSunday('2023-07-20T00:00:00'), session('customer')->billets, date('Y-m-d')) }}
     <main>
         <section>
             <div class="container-fluid">
@@ -200,7 +201,7 @@
                         </div>
                         <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-4 ">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
-{{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
+                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}
 
                             <div class="table-responsive">
                                 <table id="table-invoices" class="table table-striped">

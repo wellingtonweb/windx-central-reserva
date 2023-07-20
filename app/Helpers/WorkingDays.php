@@ -147,22 +147,81 @@ class WorkingDays
         return $dataCorrente;
     }
 
-    public static function checkDate($data,$DIAS_PGTO=0)
+    public static function checkDate($pay)
     {
-        $holidays = self::holidays(date('Y',strtotime($data)));
-        $dutil = FALSE;
-        while (!$dutil) {
-            $data = self::pay($data,$DIAS_PGTO);
-            if (self::array_value_recursive($data, $holidays) <> NULL)
-            {
-                $data = date('Y-m-d', strtotime($data. '+ 1 days'));
-                $data = self::pay($data,$DIAS_PGTO);
-            }else{
-                $dutil = TRUE;
-            }
+        $pay = date('Y-m-d', strtotime($pay));
+
+        $workDay = self::Workday($pay);
+
+//        dd($pay);
+
+        if($pay === $workDay){
+            return true;
         }
-        return $data;
+
+        return false;
     }
+
+    public static function pay2($data,$DIAS_PGTO=0)
+    {
+        $pay = date('Y-m-d', strtotime($data));
+
+        $data = date('Y-m-d', strtotime($data. '+ '.$DIAS_PGTO.' days'));
+        if(self::getDayOfWeek($data)==("Sábado"))
+        {
+            $data = date('Y-m-d', strtotime($data. ' + 3 days'));
+        }
+        else if(self::getDayOfWeek($data)==("Domingo"))
+        {
+            $data = date('Y-m-d', strtotime($data. '+ 2 days'));
+        }
+
+//        $data = [
+//            'pay' => $pay,
+//            'data' => $data,
+//            'days' => self::conta_dias_uteis($pay, $data)
+//        ];
+
+        return $data - $pay;
+    }
+
+    function isSaturdayOrSunday($dateString) {
+        date_default_timezone_set('America/Sao_Paulo');
+
+        $response = '';
+
+        // Cria um objeto DateTime a partir da string da data
+
+        $date = new DateTime($dateString);
+
+        $today = new DateTime();
+
+//        $diff = $today->diff($date);
+
+//        $diff = $today > $date;
+
+//        if($diff > 0)
+
+//        dd($today, $date);
+//
+//        // Obtém o valor do dia da semana (1 para segunda-feira, 2 para terça-feira, ..., 6 para sábado, 7 para domingo)
+//        $dayOfWeek = (int)$date->format('N');
+//
+//        if($dayOfWeek === 6){
+//            $response = 'Sábado ' . ($date < $today ? 'em dia' : 'vencido');
+//        }elseif($dayOfWeek === 7){
+//            $response = 'Domingo ' . ($date < $today ? 'em dia' : 'vencido');
+//        }else{
+//            $response = 'Dia útil ' . ($date < $today ? 'em dia' : 'vencido');
+//        }
+//
+//        // Retorna verdadeiro se for sábado (6) ou domingo (7)
+////        return $dayOfWeek === 6 || $dayOfWeek === 7;
+//        $dt = $date->diff($today);
+
+        return $today->modify('+3 hours') == $date;
+    }
+
 
     public static function getDataAll(){
 

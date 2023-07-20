@@ -83,12 +83,10 @@
             </div>
         </div>
     </nav>
-    <div class="header-page ">
+    <div class="header-page">
         <h3 class="font-weight-bold h3">Central do Assinante</h3>
-        @if(Route::currentRouteName() == 'terminal.contract')
+        @if(Route::currentRouteName() == 'central.contract')
             <h5 id="payment-title" class="h5 pt-1">Contrato nº: {{$customer[0]->id}} - Checkout</h5>
-        @elseif(Route::currentRouteName() == 'terminal.contracts')
-            <h5 id="payment-title" class="h5 pt-1">Contratos</h5>
         @else
             <h5 id="payment-title" class="h5 pt-1">Comprovantes (2ª via - Contrato nº: {{session('customerId')}})</h5>
         @endif

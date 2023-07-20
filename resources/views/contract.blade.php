@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-                        <div class="col-md-3 order-md-2 py-4 mb-4">
+                        <div class="col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-4 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
@@ -198,7 +198,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9 order-md-1 py-4 ">
+                        <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-4 ">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
@@ -336,15 +336,43 @@
 
         }
 
+
+        @media (max-width: 850px) {
+            .sideMenu{
+                max-width: 50%;
+            }
+
+            h4, .h4 {
+                font-size: 1.15rem;
+            }
+        }
+        @media (max-width: 575px) {
+            .sideMenu{
+                max-width: 80%;
+            }
+            h4, .h4 {
+                font-size: 1rem;
+            }
+        }
+
         @media (max-width: 1100px) {
         /*@media (max-width: 575px) {*/
+
+            h4, .h4 {
+                font-size: 1.15rem;
+            }
+
+            .sideMenu{
+                max-width: 40%;
+            }
 
             .action-name {
                 display: none
             }
 
-
-
+            .header-page {
+                display: none;
+            }
 
             table thead {
                 display: none;
@@ -353,8 +381,8 @@
             table tr {
                 display: flex;
                 flex-direction: column;
-                border: 3px solid white;
-                padding: 1px;
+                /*border: 3px solid white;*/
+                padding: 2px;
             }
 
 

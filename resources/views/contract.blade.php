@@ -2,7 +2,7 @@
 
 @section('content')
 {{--    {{ dd(\App\Helpers\WorkingDays::hasFees('2023-11-15T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
-    {{ dd(\App\Helpers\WorkingDays::checkHolidayToday('2023-11-15T00:00:00'), session('customer')->billets, date('Y-m-d')) }}
+{{--    {{ dd(\App\Helpers\WorkingDays::isHoliday('2023-11-14T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
     <main>
         <section>
             <div class="container-fluid">
@@ -251,8 +251,8 @@
                                                        data-duedate="{!! $dueDate !!}"
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
 
-{{--                                                       @if(\App\Helpers\WorkingDays::isWorkDay('2023-07-21T00:00:00') === true)--}}
-                                                       @if(\App\Helpers\WorkingDays::isWorkDay($billet->Vencimento))
+{{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-07-21T00:00:00') === true)--}}
+                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento))
                                                        data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
                                                        data-addition="{{ number_format(0, 2, '.', '') }}"
                                                        @else

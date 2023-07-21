@@ -267,7 +267,9 @@ class WorkingDays
         return false;
     }
 
-    public static function checkHolidayToday($dateInput)
+    //isHoliday e hasFees funcionando OK em modo teste.
+
+    public static function isHoliday($dateInput)
     {
         $holidays = self::holidays(date('Y',strtotime($dateInput)));
 
@@ -284,11 +286,6 @@ class WorkingDays
 
     public static function hasFees($dateInput)
     {
-        $isHoliday = self::checkHolidayToday($dateInput);
-
-
-//        $yesterday = Carbon::yesterday();
-//        $today = new Carbon('2023-07-14T00:00:00');//
         $today = Carbon::today();
         $tomorrow = Carbon::tomorrow();
         $pay = new Carbon($dateInput);

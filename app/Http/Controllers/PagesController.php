@@ -65,7 +65,7 @@ class PagesController extends Controller
 
             session()->put('customerId', $customerId);
 
-//            $test = WorkingDays::checkHolidayToday('2023-11-15T00:00:00');
+//            $test = WorkingDays::isHoliday('2023-11-15T00:00:00');
 //            dd($test);
 
             return view('contract', ['customer' => $customer]);

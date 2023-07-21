@@ -47,7 +47,7 @@
                                     <div class="col-12">
                                         <div class="tab-content" id="v-pills-tabContent">
                                             <div class="w-100">
-                                                <h4 id="methodTitle" class="text-dark font-weight-bold p-1">Escolha a forma de pagamento</h4>
+                                                <h5 id="methodTitle" class=" font-weight-bold p-1">Escolha a forma de pagamento</h5>
                                             </div>
                                             <div class="tab-pane fade justify-content-center" id="v-pills-qrcode"
                                                  role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -205,7 +205,6 @@
                         </div>
                         <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-4 ">
                             <h4 class="mb-3">Selecione a fatura a pagar </h4>
-                            <h4 class="mb-3 text-error">{{\App\Helpers\WorkingDays::isWorkDay('2023-07-22T00:00:00')}} </h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
                             <div class="table-responsive">
@@ -251,8 +250,8 @@
                                                        data-duedate="{!! $dueDate !!}"
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
 
-                                                       @if(\App\Helpers\WorkingDays::isWorkDay('2023-07-21T00:00:00') === true)
-                                                       {{--                                                       @if(\App\Helpers\WorkingDays::isWorkDay($billet->Vencimento))--}}
+{{--                                                       @if(\App\Helpers\WorkingDays::isWorkDay('2023-07-21T00:00:00') === true)--}}
+                                                       @if(\App\Helpers\WorkingDays::isWorkDay($billet->Vencimento))
                                                        data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
                                                        data-addition="{{ number_format(0, 2, '.', '') }}"
                                                        @else

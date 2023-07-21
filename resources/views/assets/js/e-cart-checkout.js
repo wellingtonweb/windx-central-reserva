@@ -117,7 +117,8 @@ function callbackTransaction(id){
             // msgStatusTransaction(JSON.stringify(data.status))
 
             if(data.status === 'approved'){
-                callbackPrintCoupon(id)
+                alert('Mostrar alert com link para download do comprovante PDF')
+                // callbackPrintCoupon(id)
             }
             msgStatusTransaction(data.status)
             console.log('Message: ', data)

@@ -384,10 +384,12 @@ function displayCart() {
     if (count != 0) {
         $('.checkout-controls button').each(function(){
             $(this).prop("disabled", false);
+            $('#methodTitle').removeClass('text-muted').addClass('text-dark')
         });
     } else {
         $('.checkout-controls button').each(function(){
             $(this).prop("disabled", true);
+            $('#methodTitle').removeClass('text-dark').addClass('text-muted')
         });
     }
 }

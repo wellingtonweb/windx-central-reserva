@@ -135,7 +135,7 @@ class WorkingDays
         }
         return $dias_uteis;
     }
-//Aqui aplicando Clean Code
+    //Aqui aplicando Clean Code
     public static function calcDataDiaUteis($dataInicial, $diasUteis) {
         $dataCorrente = $dataInicial;
         $i = 0;
@@ -184,6 +184,30 @@ class WorkingDays
 //        ];
 
         return $data - $pay;
+    }
+
+    public static function getDataAll(){
+
+        $holidays= self::holidays(2023);
+
+//        return $holidays;
+
+        echo "<pre> Tiradentes '2023-04-21' prox dia util->". self::Workday('2023-04-21')."  ".self::getDayOfWeek(self::Workday('2023-04-21'))."</pre>";
+
+        echo "<pre> Independência do Brasil '2023-09-07' prox dia util->". self::Workday('2023-09-07')."  ".self::getDayOfWeek(self::Workday('2023-09-07'))."</pre>";
+//
+//        echo "<pre> sabado de carnaval '2023-02-18' prox dia util->". self::Workday('2023-02-18')."  ".self::getDayOfWeek(self::Workday('2023-02-18'))."</pre>";
+//
+        echo "<pre> confraternização '2023-01-01' prox dia util->". self::Workday('2023-01-01')."  ".self::getDayOfWeek(self::Workday('2023-01-01'))."</pre>";
+//
+        echo "<pre> um sabado '2023-07-22' prox dia util->". self::Workday('2023-07-22')."  ".self::getDayOfWeek(self::Workday('2023-07-22'))."</pre>";
+//
+        echo "<pre> dia comum '2023-07-19' prox dia util->". self::Workday('2023-07-19')."  ".self::getDayOfWeek(self::Workday('2023-07-19'))."</pre>";
+//
+        echo "<pre> conta dias uteis '2024-02-12' a '2024-02-17' possuem ". self::conta_dias_uteis('2024-02-12','2024-02-17')." dias úteis</pre>";
+//
+        echo "<pre> calcula data baseado em data inicial + dias úteis. Data Inicial = 2023-03-07 dias úteis= 4  a data final é:". self::calcDataDiaUteis('2023-03-07',4)."<br> Já serve como teste de mesa para função anterior</pre>";
+
     }
 
     function isSaturdayOrSunday($dateString) {
@@ -256,31 +280,6 @@ class WorkingDays
 //        }
 
         return false;
-    }
-
-
-    public static function getDataAll(){
-
-        $holidays= self::holidays(2023);
-
-//        return $holidays;
-
-        echo "<pre> Tiradentes '2023-04-21' prox dia util->". self::Workday('2023-04-21')."  ".self::getDayOfWeek(self::Workday('2023-04-21'))."</pre>";
-
-        echo "<pre> Independência do Brasil '2023-09-07' prox dia util->". self::Workday('2023-09-07')."  ".self::getDayOfWeek(self::Workday('2023-09-07'))."</pre>";
-//
-//        echo "<pre> sabado de carnaval '2023-02-18' prox dia util->". self::Workday('2023-02-18')."  ".self::getDayOfWeek(self::Workday('2023-02-18'))."</pre>";
-//
-        echo "<pre> confraternização '2023-01-01' prox dia util->". self::Workday('2023-01-01')."  ".self::getDayOfWeek(self::Workday('2023-01-01'))."</pre>";
-//
-        echo "<pre> um sabado '2023-07-22' prox dia util->". self::Workday('2023-07-22')."  ".self::getDayOfWeek(self::Workday('2023-07-22'))."</pre>";
-//
-        echo "<pre> dia comum '2023-07-19' prox dia util->". self::Workday('2023-07-19')."  ".self::getDayOfWeek(self::Workday('2023-07-19'))."</pre>";
-//
-        echo "<pre> conta dias uteis '2024-02-12' a '2024-02-17' possuem ". self::conta_dias_uteis('2024-02-12','2024-02-17')." dias úteis</pre>";
-//
-        echo "<pre> calcula data baseado em data inicial + dias úteis. Data Inicial = 2023-03-07 dias úteis= 4  a data final é:". self::calcDataDiaUteis('2023-03-07',4)."<br> Já serve como teste de mesa para função anterior</pre>";
-
     }
 
 }

@@ -18,7 +18,7 @@ var billetsCart = (function() {
         this.price = price;
         this.count = count;
 
-        console.log()
+
     }
 
     // Save cart
@@ -31,7 +31,7 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        // console.log(cart)
+        console.log(cart)
     }
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
@@ -96,6 +96,31 @@ var billetsCart = (function() {
         }
         // console.log(totalCart.toFixed(2))
         return Number(totalCart.toFixed(2));
+    }
+
+    // Total fees
+    obj.totalFees = function() {
+        var totalFees = 0;
+        for(var item in cart) {
+            if(cart[item].addition != 0) {
+                totalFees += cart[item].addition;
+            }
+        }
+        // console.log(totalCart.toFixed(2))
+        return Number(totalFees.toFixed(2));
+    }
+
+    // Total sum
+    obj.totalSum = function() {
+        var totalSum = 0.00;
+
+        for(var item in cart) {
+            if(cart[item].value != 0){
+                totalSum += cart[item].value;
+            }
+        }
+        // console.log(totalCart.toFixed(2))
+        return Number(totalSum.toFixed(2));
     }
 
     return obj;
@@ -347,10 +372,14 @@ paintBilletSession()
 function displayCart() {
     var total = billetsCart.totalCart();
     var count = billetsCart.totalCount();
+    var fees = billetsCart.totalFees();
+    var totalSum = billetsCart.totalSum();
 
     $('.total-cart').html(total.toFixed(2).replace(".",","));
     $('.total-count').html(count);
     $('.display-text').html(count > 1 ? ' faturas via ':' fatura via ');
+    $('.total-fees').html(fees.toFixed(2).replace(".",","));
+    $('.total-sum').html(totalSum.toFixed(2).replace(".",","));
 
     if (count != 0) {
         $('.checkout-controls button').each(function(){

@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 use DateTime;
 use DateInterval;
+use Carbon\Carbon;
 
 class WorkingDays
 {
@@ -186,7 +187,7 @@ class WorkingDays
     }
 
     function isSaturdayOrSunday($dateString) {
-        date_default_timezone_set('America/Sao_Paulo');
+//        date_default_timezone_set('America/Sao_Paulo');
 
         $response = '';
 
@@ -219,7 +220,42 @@ class WorkingDays
 ////        return $dayOfWeek === 6 || $dayOfWeek === 7;
 //        $dt = $date->diff($today);
 
-        return $today->modify('+3 hours') == $date;
+        $d = [
+            'yesterday' => Carbon::yesterday(),
+            'today' => Carbon::today(),
+            'tomorrow' => Carbon::tomorrow(),
+            'pay' => new Carbon($dateString),
+        ];
+
+//      -------------------------------------------------------
+
+//        $t = $d['pay']->diff($d['hoje']);
+
+//        $dt = Carbon::now();
+
+        if($d['pay']->dayOfWeek > 5){
+            if($d['pay'] == $d['tomorrow']){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function isWorkDay($dateInput)
+    {
+        $yesterday = Carbon::yesterday();
+        $today = Carbon::today();
+        $tomorrow = Carbon::tomorrow();
+        $pay = new Carbon($dateInput);
+
+//        if($pay->dayOfWeek > 5){
+            if($pay == $tomorrow){
+                return true;
+            }
+//        }
+
+        return false;
     }
 
 

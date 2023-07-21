@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    {{ dd(\App\Helpers\WorkingDays::isSaturdayOrSunday('2023-07-20T00:00:00'), session('customer')->billets, date('Y-m-d')) }}
+{{--    {{ dd(\App\Helpers\WorkingDays::isWorkDay('2023-07-22T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
     <main>
         <section>
             <div class="container-fluid">
@@ -24,14 +24,18 @@
                                         <h6 class="my-0">Valor:</h6>
                                         {{--                                            <small class="text-muted">Brief description</small>--}}
                                     </div>
-                                    <span class="text-muted">R$ 8,00</span>
+                                    <span class="text-muted">R$
+                                        <span class="text-muted total-sum"></span>
+                                    </span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                     <div>
                                         <h6 class="my-0">Juros + Multa:</h6>
                                         {{--                                            <small class="text-muted">Brief description</small>--}}
                                     </div>
-                                    <span class="text-muted">R$ 5,00</span>
+                                    <span class="text-muted">R$
+                                        <span class="text-muted total-fees"></span>
+                                    </span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between" style="font-size: 1.1rem">
                                     <strong>Valor total: </strong>
@@ -200,8 +204,9 @@
                             </div>
                         </div>
                         <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-4 ">
-                            <h4 class="mb-3">Selecione a fatura a pagar</h4>
-                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}
+                            <h4 class="mb-3">Selecione a fatura a pagar </h4>
+                            <h4 class="mb-3 text-error">{{\App\Helpers\WorkingDays::isWorkDay('2023-07-22T00:00:00')}} </h4>
+{{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
                             <div class="table-responsive">
                                 <table id="table-invoices" class="table table-striped">
@@ -245,9 +250,18 @@
                                                        data-reference="{{ $billet->NossoNumero }}" data-value="{{ $billet->Valor }}"
                                                        data-duedate="{!! $dueDate !!}"
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
+
+                                                       @if(\App\Helpers\WorkingDays::isWorkDay('2023-07-21T00:00:00') === true)
+                                                       {{--                                                       @if(\App\Helpers\WorkingDays::isWorkDay($billet->Vencimento))--}}
+                                                       data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
+                                                       data-addition="{{ number_format(0, 2, '.', '') }}"
+                                                       @else
                                                        data-price="{{ number_format($fees + $billet->Valor, 2, '.', '') }}"
                                                        data-addition="{{ number_format($fees, 2, '.', '') }}"
-                                                        onclick="loadingAddInvoice(this)">
+                                                       @endif
+
+{{--                                                        onclick="loadingAddInvoice()"--}}
+                                                    >
                                                         <i class="fa fa-check" aria-hidden="true"></i>
 {{--                                                        <i class="fas fa-spinner fa-pulse d-none"></i>--}}
                                                         <span class="action-name">pagar</span>
@@ -1298,9 +1312,15 @@
         // })
         //
         // function loadingAddInvoice(thisBtn){
-        //     $(thisBtn).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
-        //     console.log('Clicou!')
+        //     cart = JSON.parse(sessionStorage.getItem('billetsCart'));
+        //     console.log(cart)
+        //     // $(thisBtn).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
+        //     // console.log('Clicou!')
         // }
+
+        cart2 = JSON.parse(sessionStorage.getItem('billetsCart'));
+        console.log(cart2)
+
 
     </script>
 {{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}

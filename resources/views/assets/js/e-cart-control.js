@@ -244,10 +244,14 @@ paintBilletSession()
 function displayCart() {
     var total = billetsCart.totalCart();
     var count = billetsCart.totalCount();
+    var fees = billetsCart.totalFees();
+    var totalSum = billetsCart.totalSum();
 
     $('.total-cart').html(total.toFixed(2).replace(".",","));
     $('.total-count').html(count);
     $('.display-text').html(count > 1 ? ' faturas via ':' fatura via ');
+    $('.total-fees').html(fees.toFixed(2).replace(".",","));
+    $('.total-sum').html(totalSum.toFixed(2).replace(".",","));
 
     if (count != 0) {
         $('.checkout-controls button').each(function(){

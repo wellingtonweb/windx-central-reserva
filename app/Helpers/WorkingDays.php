@@ -6,6 +6,7 @@ namespace App\Helpers;
 use DateTime;
 use DateInterval;
 use Carbon\Carbon;
+use function Symfony\Component\String\b;
 
 class WorkingDays
 {
@@ -266,18 +267,52 @@ class WorkingDays
         return false;
     }
 
-    public static function isWorkDay($dateInput)
+    public static function checkHolidayToday($dateInput)
     {
-        $yesterday = Carbon::yesterday();
+        $holidays = self::holidays(date('Y',strtotime($dateInput)));
+
+        $dateInput = date('Y-m-d', strtotime($dateInput));
+
+        $isHoliday = false;
+
+        foreach ($holidays as $key => $holiday){
+            $dateInput == $key ? $isHoliday = true : '';
+        }
+
+        return $isHoliday;
+    }
+
+    public static function hasFees($dateInput)
+    {
+        $isHoliday = self::checkHolidayToday($dateInput);
+
+
+//        $yesterday = Carbon::yesterday();
+//        $today = new Carbon('2023-07-14T00:00:00');//
         $today = Carbon::today();
         $tomorrow = Carbon::tomorrow();
         $pay = new Carbon($dateInput);
+//        $current = Carbon::now();
 
-//        if($pay->dayOfWeek > 5){
-            if($pay == $tomorrow){
-                return true;
+//        $response = [
+//            'anterior' => false,
+//            'fimDeSemana' => false,
+//            'dentroDoPeriodo' => false,
+//            'dias' => $pay->diffInDays($today),
+//        ];
+
+        //se for anterior e a diferença entre data do vencimento e data do pagamento for menor que 4
+        if($pay->lessThan($today) && $pay->diffInDays($today) < 4){
+//            $response['anterior'] = true;
+            //se for final de semana
+            if($pay->dayOfWeek > 5){
+//                $response['fimDeSemana'] = true;
+                if($pay->diffInDays($today) < 3){
+//                    $response['dentroDoPeriodo'] = true;
+                    return true;
+                }
             }
-//        }
+        }
 
         return false;
     }

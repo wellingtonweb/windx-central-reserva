@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    {{ dd(\App\Helpers\WorkingDays::isWorkDay('2023-07-22T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
+{{--    {{ dd(\App\Helpers\WorkingDays::hasFees('2023-11-15T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
+    {{ dd(\App\Helpers\WorkingDays::checkHolidayToday('2023-11-15T00:00:00'), session('customer')->billets, date('Y-m-d')) }}
     <main>
         <section>
             <div class="container-fluid">

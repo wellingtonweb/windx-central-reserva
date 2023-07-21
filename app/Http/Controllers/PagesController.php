@@ -7,6 +7,7 @@ use App\Helpers\UserInfo;
 use App\Http\Requests\CentralLogonRequest;
 use App\Services\ApiConnect;
 use App\Services\API;
+use App\Helpers\WorkingDays;
 use App\Services\Functions;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -63,6 +64,9 @@ class PagesController extends Controller
 //            dd(session('customerActive')[0]->email);
 
             session()->put('customerId', $customerId);
+
+//            $test = WorkingDays::checkHolidayToday('2023-11-15T00:00:00');
+//            dd($test);
 
             return view('contract', ['customer' => $customer]);
 //            dd($customer);

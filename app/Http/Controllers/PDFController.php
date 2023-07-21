@@ -186,4 +186,12 @@ class PDFController extends Controller
         }
     }
 
+    public function download($linkInvoice)
+    {
+        $apiURL = env('API_URL_VIGO_PROD');
+//        dd($apiURL);
+
+         return redirect($apiURL );
+    }
+
 }

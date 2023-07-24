@@ -288,56 +288,44 @@ class WorkingDays
     {
         $holiday = self::isHoliday($dateInput);
 
-        $day = [];
-
         //Data do vencimento
         $pay = Carbon::parse($dateInput);
 
         //Data do pagamento
 //        $today = new Carbon();
-        $today = Carbon::parse('2023-07-18T00:00:00');
+        $today = Carbon::parse('2023-11-05T00:00:00');
 
-//        dd('Data de pagamento: ',$today, 'Data com juros: ',$pay->addDay()->nextWeekday());
-
-//        $pay = new Carbon($dateInput);
-
-        //Se for feriado
         if($holiday){
-            //Se data pagamento for maior ou igual a data de vencimento
             if($today >= $pay){
-                //Se data pagamento for menor ou igual a data vencimento + 1 dia (próximo dia útil)
                 if($today <= $pay->addDay()->nextWeekday()){
-                    return [
-                        'isHoliday' => true,
-                        'nextDay' => $pay->nextWeekday(),
-                    ];
-//                return true;
+//                    return [
+//                        'isHoliday' => true,
+//                        'nextDay' => $pay->nextWeekday(),
+//                    ];
+                return true;
                 }
             }
-        }
-        //Se data pagamento é um sab ou domingo
-        //ou
-        //Se data pagamento é menor ou igual data de vencimento + 1 dia (próximo dia útil)
-        elseif($pay->isWeekend()) {
+        }elseif($pay->isWeekend()) {
              if($today <= $pay->nextWeekday()) {
-                 return [
-                     'isWeekend' => true,
-                     'nextDay' => $pay->nextWeekday(),
-                 ];
+//                 return [
+//                     'isWeekend' => true,
+//                     'nextDay' => $pay->nextWeekday(),
+//                 ];
+                 return true;
              }else{
-                 return [
-                     'isWeekend' => false,
-                     'nextDay' => $dateInput,
-                 ];
+//                 return [
+//                     'isWeekend' => false,
+//                     'nextDay' => $dateInput,
+//                 ];
+                 return false;
              }
         } else {
-    //        return false;
-            return [
-            'isHoliday' => false,
-            'nextDay' => $dateInput,
-            ];
+//            return [
+//                'isHoliday' => false,
+//                'nextDay' => $dateInput,
+//            ];
+            return false;
         }
-
     }
 
     public static function hasFees2($dateInput)

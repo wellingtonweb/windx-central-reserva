@@ -86,9 +86,18 @@
     <div class="header-page">
         <h3 class="font-weight-bold h3">Central do Assinante</h3>
         @if(Route::currentRouteName() == 'central.contract')
-            <h5 id="payment-title" class="h5 pt-1">Contrato nº: {{$customer[0]->id}} - Checkout</h5>
+            <h5 id="payment-title" class="h5 pt-1">Checkout</h5>
         @else
-            <h5 id="payment-title" class="h5 pt-1">Comprovantes (2ª via - Contrato nº: {{session('customerId')}})</h5>
+            <h5 id="payment-title" class="h5 pt-1">Comprovantes (2ª via)</h5>
         @endif
+        <div class="w-100 pt-1 d-flex justify-content-center text-center">
+            <small class="text-uppercase space-1" style="width: 70%; font-size: .7rem">
+                Contrato: {{$customer[0]->id}} |
+                {{session('customerActive')->full_name}} |
+                {{session('customerActive')->street}}, {{session('customerActive')->district}},
+                {{session('customerActive')->city}}
+            </small>
+        </div>
+
     </div>
 </header>

@@ -5,10 +5,10 @@
 {{--    {{ dd(\App\Helpers\WorkingDays::isHoliday('2023-11-14T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
     <main>
         <section>
-            <div class="container-fluid">
+            <div class="container-fluid mt-5">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-                        <div class="col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-4 mb-4">
+                        <div class="col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
@@ -204,8 +204,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-4 ">
-                            <h4 class="mb-3">Selecione a fatura a pagar </h4>
+                        <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-2 ">
+                            <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
                             <div class="table-responsive">
@@ -252,7 +252,7 @@
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
 
 {{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-07-21T00:00:00') === true)--}}
-                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento))
+                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento) || \App\Helpers\WorkingDays::isHoliday('2023-11-16T00:00:00'))
                                                        data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
                                                        data-addition="{{ number_format(0, 2, '.', '') }}"
                                                        @else

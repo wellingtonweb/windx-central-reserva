@@ -25,7 +25,7 @@
 </head>
 
 <body class="body">
-<div class="progress progress-system {{ Route::currentRouteName() === 'terminal.login' ? 'd-none' : '' }} animate__animated animate__fadeIn">
+<div class="progress progress-system {{ Route::currentRouteName() === 'central.login' ? 'd-none' : '' }} animate__animated animate__fadeIn">
     <div class="progress-bar progress-bar-system" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 <div class="full-screen-backdrop"></div>
@@ -50,7 +50,7 @@
 </div>
 
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
-    @if (Route::currentRouteName() == 'terminal.login' ||Route::currentRouteName() == 'terminal.login2' || Route::currentRouteName() == 'terminal.locked')
+    @if (Route::currentRouteName() == 'central.login' ||Route::currentRouteName() == 'central.login2')
         <div class="mt-3">
             <img class="logo-windx animate__animated animate__fadeInDown" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
         </div>

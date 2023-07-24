@@ -62,7 +62,7 @@ class PDFController extends Controller
 
             if(!session()->has('customerActive')){
                 return redirect()
-                    ->route('terminal.contracts')
+                    ->route('central.contracts')
                     ->with('error','Por gentileza, selecione um contrato!');
             }
 
@@ -70,7 +70,7 @@ class PDFController extends Controller
 
             if($payment->data->transaction == null && $payment->data->status != 'approved'){
                 return redirect()
-                    ->route('terminal.contract', ['customerId' => $payment->data->customer])
+                    ->route('central.contract', ['customerId' => $payment->data->customer])
                     ->with('error','O pagamento Nº '.$id.' não foi aprovado!');
             }
 

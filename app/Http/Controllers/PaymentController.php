@@ -180,7 +180,7 @@ class PaymentController extends Controller implements ShouldQueue
     {
         if(!session()->has('customer'))
         {
-            return redirect()->route('terminal.login')->with('info','Sessão expirada!');
+            return redirect()->route('central.login')->with('info','Sessão expirada!');
         }
 
         return (new API())->callback($id);

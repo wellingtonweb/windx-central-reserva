@@ -17,21 +17,21 @@ use Illuminate\Support\Collection;
 class PagesController extends Controller
 {
 
-    public function contracts()
-    {
-        if(session()->has('customer')){
-            session()->forget('customerId');
-            $customers = session('customer');
-
-            if(count($customers) == 1) {
-                return redirect()->route('terminal.contract', ['customerId' => $customers[0]->id]);
-            }else {
-                return view('contracts', ['customers' => $customers]);
-            }
-        } else {
-            throw new CheckUserException();
-        }
-    }
+//    public function contracts()
+//    {
+//        if(session()->has('customer')){
+//            session()->forget('customerId');
+//            $customers = session('customer');
+//
+//            if(count($customers) == 1) {
+//                return redirect()->route('terminal.contract', ['customerId' => $customers[0]->id]);
+//            }else {
+//                return view('contracts', ['customers' => $customers]);
+//            }
+//        } else {
+//            throw new CheckUserException();
+//        }
+//    }
 
     public function release(Request $request)
     {
@@ -65,8 +65,10 @@ class PagesController extends Controller
 
             session()->put('customerId', $customerId);
 
-//            $test = WorkingDays::isHoliday('2023-11-15T00:00:00');
-//            dd($test);
+            $test = WorkingDays::isHoliday('2023-11-02T00:00:00');
+//            $test = WorkingDays::nextBusinessDay('2023-11-15T00:00:00');
+//            $test = WorkingDays::hasFees('2023-11-15T00:00:00');
+            dd($test);
 
             return view('contract', ['customer' => $customer]);
 //            dd($customer);

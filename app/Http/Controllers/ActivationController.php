@@ -44,7 +44,7 @@ class ActivationController extends Controller
             Cookie::queue(Cookie::make('terminal_id', $cookie_terminal_id, 2147483647));
             Cookie::queue(Cookie::make('terminal_key', $cookie_terminal_key, 2147483647));
 
-            return redirect()->route('terminal.login');
+            return redirect()->route('central.login');
         }
     }
 }

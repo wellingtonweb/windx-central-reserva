@@ -5,7 +5,7 @@
 {{--    {{ dd(\App\Helpers\WorkingDays::isHoliday('2023-11-14T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
     <main>
         <section>
-            <div class="container-fluid mt-5">
+            <div class="container-fluid mt-lg-5 mt-md-0">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
                         <div class="col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 mb-4">
@@ -252,7 +252,7 @@
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
 
 {{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-07-21T00:00:00') === true)--}}
-                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento) || \App\Helpers\WorkingDays::isHoliday('2023-11-16T00:00:00'))
+                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento) || \App\Helpers\WorkingDays::isHoliday('2023-11-15T00:00:00'))
                                                        data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
                                                        data-addition="{{ number_format(0, 2, '.', '') }}"
                                                        @else
@@ -351,7 +351,6 @@
 
         }
 
-
         @media (max-width: 850px) {
             .sideMenu{
                 max-width: 50%;
@@ -360,6 +359,7 @@
             h4, .h4 {
                 font-size: 1.15rem;
             }
+
         }
         @media (max-width: 575px) {
             .sideMenu{
@@ -371,10 +371,16 @@
         }
 
         @media (max-width: 1100px) {
-        /*@media (max-width: 575px) {*/
+            .container-fluid {
+                margin-top: 0 !important;
+            }
 
             h4, .h4 {
                 font-size: 1.15rem;
+            }
+
+            .header-page {
+                display: none;
             }
 
             .sideMenu{
@@ -383,10 +389,6 @@
 
             .action-name {
                 display: none
-            }
-
-            .header-page {
-                display: none;
             }
 
             table thead {

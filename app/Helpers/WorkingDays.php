@@ -3,6 +3,7 @@
 
 namespace App\Helpers;
 
+use Carbon\Traits\Creator;
 use DateTime;
 use DateInterval;
 use Carbon\Carbon;
@@ -271,17 +272,40 @@ class WorkingDays
 
     public static function isHoliday($dateInput)
     {
-        $holidays = self::holidays(date('Y',strtotime($dateInput)));
+//        $holidays = self::holidays(date('Y',strtotime($dateInput)));
+        $holidays = ['2023-01-01', '2023-04-21', '2023-05-01', '2023-09-07',
+            '2023-10-12', '2023-11-02', '2023-11-15', '2023-12-25'];
 
         $dateInput = date('Y-m-d', strtotime($dateInput));
 
-        $isHoliday = false;
+//        foreach ($holidays as $key => $holiday){
+//            if($dateInput == $key ){
+            if(in_array($dateInput, $holidays)){
+                return true;
+            }
+//            }
+//        }
 
-        foreach ($holidays as $key => $holiday){
-            $dateInput == $key ? $isHoliday = true : '';
+        return false;
+    }
+
+    public static function nextBusinessDay($dateInput)
+    {
+        $holiday = self::isHoliday($dateInput);
+
+        $today = new Carbon('2023-11-17T00:00:00');
+
+        dd(date('Y-m-d', strtotime("$dateInput next monday")));
+
+        $pay = new Carbon($dateInput);
+
+        if($holiday){
+            if($pay->addDay() === $today){
+                return true;
+            }
         }
 
-        return $isHoliday;
+        return false;
     }
 
     public static function hasFees($dateInput)
@@ -289,6 +313,7 @@ class WorkingDays
         $today = Carbon::today();
         $tomorrow = Carbon::tomorrow();
         $pay = new Carbon($dateInput);
+//        $pay2 = new Carbon($dateInput, '+1 day');
 //        $current = Carbon::now();
 
 //        $response = [

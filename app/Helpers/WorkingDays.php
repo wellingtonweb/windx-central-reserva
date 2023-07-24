@@ -288,42 +288,24 @@ class WorkingDays
     {
         $holiday = self::isHoliday($dateInput);
 
-        //Data do vencimento
         $pay = Carbon::parse($dateInput);
 
-        //Data do pagamento
 //        $today = new Carbon();
         $today = Carbon::parse('2023-11-05T00:00:00');
 
         if($holiday){
             if($today >= $pay){
                 if($today <= $pay->addDay()->nextWeekday()){
-//                    return [
-//                        'isHoliday' => true,
-//                        'nextDay' => $pay->nextWeekday(),
-//                    ];
-                return true;
+                    return true;
                 }
             }
         }elseif($pay->isWeekend()) {
              if($today <= $pay->nextWeekday()) {
-//                 return [
-//                     'isWeekend' => true,
-//                     'nextDay' => $pay->nextWeekday(),
-//                 ];
                  return true;
              }else{
-//                 return [
-//                     'isWeekend' => false,
-//                     'nextDay' => $dateInput,
-//                 ];
                  return false;
              }
         } else {
-//            return [
-//                'isHoliday' => false,
-//                'nextDay' => $dateInput,
-//            ];
             return false;
         }
     }

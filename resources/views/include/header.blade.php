@@ -92,7 +92,7 @@
         @endif
         <div class="w-100 pt-1 d-flex justify-content-center text-center">
             <small class="text-uppercase space-1" style="width: 70%; font-size: .7rem">
-                Contrato: {{$customer[0]->id}} |
+                Contrato: {{session('customerActive')->id}} |
                 {{session('customerActive')->full_name}} |
                 {{session('customerActive')->street}}, {{session('customerActive')->district}},
                 {{session('customerActive')->city}}

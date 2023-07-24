@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <section>
-            <div class="container-fluid">
+            <div class="container-fluid mt-lg-5 mt-md-0">
                 <main role="main" class="p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
                     <section>
                         @if(count($data->items()) != 0)

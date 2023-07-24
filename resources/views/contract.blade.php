@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-{{--    {{ dd(\App\Helpers\WorkingDays::hasFees('2023-11-15T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
-{{--    {{ dd(\App\Helpers\WorkingDays::isHoliday('2023-11-14T00:00:00'), session('customer')->billets, date('Y-m-d')) }}--}}
     <main>
         <section>
             <div class="container-fluid mt-lg-5 mt-md-0">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-                        <div class="col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 mb-4">
+{{--                        checkout--}}
+{{--                        {{count(session('customer')->billets)}}--}}
+                        <div class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 px-lg-0 px-md-1 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
-                            <ul class="list-group mb-3 " style="border-radius: .5rem">
+                            <ul class="list-group mb-3" style="border-radius: .5rem">
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                     <div>
                                         <h4 class="my-0 font-weight-bold">Faturas selecionadas</h4>
@@ -204,7 +204,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9 order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-2 ">
+{{--                        faturas--}}
+                        <div class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-9'}} order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-2 pl-lg-0 pl-md-1">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
@@ -222,7 +223,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count(session('customer')->billets) > 0)
+                                    @if(count(session('customer')->billets) != 0)
                                         @foreach(session('customer')->billets as $key => $billet)
                                             <tr id="invoice-{{$key}}" data-id="{{ $billet->Id }}" class="{{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}">
                                                 <td hidden>{{ $billet->Id }}</td>
@@ -279,9 +280,14 @@
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="6">
-                                                <h4 style="color: #002046; padding: 1rem">Não existem faturas pendentes!<br><br>Obrigado
-                                                    pela pontualidade ;)</h4>
+                                            <td colspan="7">
+                                                <h4 style="color: #002046; padding: 1rem">Não existem faturas pendentes!<br><br>
+                                                    Obrigado pela pontualidade
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-emoji-wink" viewBox="0 0 16 16">
+                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm1.757-.437a.5.5 0 0 1 .68.194.934.934 0 0 0 .813.493c.339 0 .645-.19.813-.493a.5.5 0 1 1 .874.486A1.934 1.934 0 0 1 10.25 7.75c-.73 0-1.356-.412-1.687-1.007a.5.5 0 0 1 .194-.68z"/>
+                                                    </svg>
+                                                </h4>
                                             </td>
                                         </tr>
                                     @endif
@@ -331,7 +337,7 @@
             color: #5a6268;
         }
         #table-invoices tr td {
-            background-color: whitesmoke;
+            background-color: white;
         }
 
         .table thead th {

@@ -272,19 +272,14 @@ class WorkingDays
 
     public static function isHoliday($dateInput)
     {
-//        $holidays = self::holidays(date('Y',strtotime($dateInput)));
         $holidays = ['2023-01-01', '2023-04-21', '2023-05-01', '2023-09-07',
             '2023-10-12', '2023-11-02', '2023-11-15', '2023-12-25'];
 
         $dateInput = date('Y-m-d', strtotime($dateInput));
 
-//        foreach ($holidays as $key => $holiday){
-//            if($dateInput == $key ){
-            if(in_array($dateInput, $holidays)){
-                return true;
-            }
-//            }
-//        }
+        if(in_array($dateInput, $holidays)){
+            return true;
+        }
 
         return false;
     }
@@ -293,19 +288,39 @@ class WorkingDays
     {
         $holiday = self::isHoliday($dateInput);
 
-        $today = new Carbon('2023-11-17T00:00:00');
+        $day = [];
 
-        dd(date('Y-m-d', strtotime("$dateInput next monday")));
+        //Data do vencimento
+        $pay = Carbon::parse($dateInput);
 
-        $pay = new Carbon($dateInput);
+        //Data do pagamento
+//        $today = new Carbon();
+        $today = Carbon::parse('2023-09-12T00:00:00');
 
+//        dd('Data de pagamento: ',$today, 'Data com juros: ',$pay->addDay()->nextWeekday());
+
+//        $pay = new Carbon($dateInput);
+
+        //Se for feriado
         if($holiday){
-            if($pay->addDay() === $today){
-                return true;
+            //Se data pagamento for maior ou igual a data de vencimento
+            if($today >= $pay){
+                //Se data pagamento for menor ou igual a data vencimento + 1 dia (próximo dia útil)
+                if($today <= $pay->addDay()->nextWeekday()){
+                    return [
+                        'isHoliday' => true,
+                        'nextDay' => $pay->nextWeekday(),
+                    ];
+//                return true;
+                }
             }
         }
 
-        return false;
+//        return false;
+        return [
+            'isHoliday' => false,
+            'nextDay' => $dateInput,
+        ];
     }
 
     public static function hasFees($dateInput)

@@ -284,7 +284,7 @@ class WorkingDays
         return false;
     }
 
-    public static function nextBusinessDay($dateInput)
+    public static function hasFees($dateInput)
     {
         $holiday = self::isHoliday($dateInput);
 
@@ -295,7 +295,7 @@ class WorkingDays
 
         //Data do pagamento
 //        $today = new Carbon();
-        $today = Carbon::parse('2023-09-12T00:00:00');
+        $today = Carbon::parse('2023-07-18T00:00:00');
 
 //        dd('Data de pagamento: ',$today, 'Data com juros: ',$pay->addDay()->nextWeekday());
 
@@ -315,15 +315,32 @@ class WorkingDays
                 }
             }
         }
-
-//        return false;
-        return [
+        //Se data pagamento é um sab ou domingo
+        //ou
+        //Se data pagamento é menor ou igual data de vencimento + 1 dia (próximo dia útil)
+        elseif($pay->isWeekend()) {
+             if($today <= $pay->nextWeekday()) {
+                 return [
+                     'isWeekend' => true,
+                     'nextDay' => $pay->nextWeekday(),
+                 ];
+             }else{
+                 return [
+                     'isWeekend' => false,
+                     'nextDay' => $dateInput,
+                 ];
+             }
+        } else {
+    //        return false;
+            return [
             'isHoliday' => false,
             'nextDay' => $dateInput,
-        ];
+            ];
+        }
+
     }
 
-    public static function hasFees($dateInput)
+    public static function hasFees2($dateInput)
     {
         $today = Carbon::today();
         $tomorrow = Carbon::tomorrow();
@@ -339,6 +356,18 @@ class WorkingDays
 //        ];
 
         //se for anterior e a diferença entre data do vencimento e data do pagamento for menor que 4
+//        if($pay->lessThan($today) && $pay->diffInDays($today) < 4){
+////            $response['anterior'] = true;
+//            //se for final de semana
+//            if($pay->dayOfWeek > 5){
+////                $response['fimDeSemana'] = true;
+//                if($pay->diffInDays($today) < 3){
+////                    $response['dentroDoPeriodo'] = true;
+//                    return true;
+//                }
+//            }
+//        }
+
         if($pay->lessThan($today) && $pay->diffInDays($today) < 4){
 //            $response['anterior'] = true;
             //se for final de semana

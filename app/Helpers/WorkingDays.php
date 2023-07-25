@@ -38,9 +38,13 @@ class WorkingDays
 //        $today = new Carbon();
         $today = Carbon::parse('2023-11-04T00:00:00');
 
+//        dd($pay->addDay());
+
         if($holiday){
             if($today >= $pay){
-                if($today <= $pay->addDay()->nextWeekday()){
+                //Considerando final de semana para não cobrar juros
+                //if($today <= $pay->addDay()->nextWeekday()){
+                if($today <= $pay->addDay()){
                     return true;
                 }
             }

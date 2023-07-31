@@ -80,9 +80,6 @@ class AuthController extends Controller
 
                     session()->put('customer', $response->object());
 
-//                    dd(session('customer')->id);
-
-//                    Logger::log($validated['login'],'info','Fez o logon.');
                     CustomerLog::create(UserInfo::get_customer_metadata());
 
                     return redirect('/assinante/contrato/' . $response->object()->id);

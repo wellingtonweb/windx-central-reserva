@@ -60,6 +60,11 @@
 <script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
+<script>
+    $('#form_login').submit(function (e){
+        $('.loading').removeClass('d-none')
+    })
+</script>
 {{--<script type="text/javascript" src="{{ asset('assets/js/libs.js') }}"></script>--}}
 {{--<script defer type="text/javascript" src="{{ asset('assets/js/pdf.js') }}"></script>--}}
 {{--<script type="text/javascript" src="{{ asset('assets/js/js.jsbarcode2.js') }}"></script>--}}
@@ -76,7 +81,6 @@
 {{--    }--}}
 {{--</script>--}}
 @if(session('message') || session('error') || session('error_checkout') )
-
 <script>
     Swal.fire({
         title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',

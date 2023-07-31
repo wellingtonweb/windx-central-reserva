@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">
-                            <button type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Entrar</button>
+                            <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Entrar</button>
                         </div>
                     </form>
                 </div>
@@ -67,7 +67,7 @@
                                     <p class="card-text">Aqui você encontra <br>os serviços: <br>Consulta de débitos, pagamento de faturas e informações de seu cadastro.</p>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="button" class="btn btn-flip btn-block btn-radius-50" id="btn-flip">Iniciar</button>
+                                    <button type="button" class="btn btn-flip btn-block btn-radius-50" >Iniciar</button>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                         <i class="fas fa-times" aria-hidden="true"></i>
                                     </button>
                                     <button type="button" class="button btn num-pad">0</button>
-                                    <button type="submit" id="check-login" class="button btn btn-success">
+                                    <button type="submit" id="check-login_" class="button btn btn-success">
                                         <i class="fas fa-check" aria-hidden="true"></i>
                                     </button>
                                 </div>

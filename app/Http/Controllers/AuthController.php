@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\UserInfo;
 use App\Http\Requests\LogonRequest;
 use App\Http\Requests\StoreTerminalRequest;
 use App\Http\Requests\CheckoutRequest;
+use App\Models\CustomerLog;
 use App\Services\API;
 use App\Services\Functions;
 use App\Services\Logger;
@@ -81,6 +83,7 @@ class AuthController extends Controller
 //                    dd(session('customer')->id);
 
 //                    Logger::log($validated['login'],'info','Fez o logon.');
+                    CustomerLog::create(UserInfo::get_customer_metadata());
 
                     return redirect('/assinante/contrato/' . $response->object()->id);
 

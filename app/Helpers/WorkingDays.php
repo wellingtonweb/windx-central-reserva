@@ -16,9 +16,9 @@ class WorkingDays
         $currentYear = date('Y');
 
         $holidays = [
-            $currentYear.'-01-01', $currentYear.'-04-07', $currentYear.'-04-21', $currentYear.'-05-01',
-            $currentYear.'-09-07', $currentYear.'-10-12', $currentYear.'-11-02', $currentYear.'-11-15',
-            $currentYear.'-12-25'];
+            $currentYear.'-01-01', $currentYear.'-04-07', $currentYear.'-04-21',
+            $currentYear.'-05-01', $currentYear.'-09-07', $currentYear.'-10-12',
+            $currentYear.'-11-02', $currentYear.'-11-15', $currentYear.'-12-25'];
 
         $dateInput = date('Y-m-d', strtotime($dateInput));
 
@@ -36,13 +36,11 @@ class WorkingDays
         $pay = Carbon::parse($dateInput);
 
 //        $today = new Carbon();
-        $today = Carbon::parse('2023-11-04T00:00:00');
-
-//        dd($pay->addDay());
+        $today = Carbon::parse('2023-01-03T00:00:00');
 
         if($holiday){
             if($today >= $pay){
-                //Considerando final de semana para não cobrar juros
+                //Considera final de semana para não cobrar juros
                 //if($today <= $pay->addDay()->nextWeekday()){
                 if($today <= $pay->addDay()){
                     return true;

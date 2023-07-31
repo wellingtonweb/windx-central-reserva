@@ -4,6 +4,8 @@
 namespace App\Helpers;
 
 
+use App\Models\CustomerLog;
+
 class UserInfo
 {
     private static function get_user_agent() {
@@ -87,7 +89,7 @@ class UserInfo
         return $os_platform;
     }
 
-    public static function  get_browser() {
+    public static function get_browser() {
 
         $user_agent= self::get_user_agent();
 
@@ -120,7 +122,7 @@ class UserInfo
 
     }
 
-    public static function  get_device(){
+    public static function get_device(){
 
         $tablet_browser = 0;
         $mobile_browser = 0;
@@ -173,6 +175,28 @@ class UserInfo
         else {
             // do something for everything else
             return 'Computer';
+        }
+    }
+
+    public static function get_customer_metadata()
+    {
+        if (session()->has('customer')){
+
+//            $customerLog = new CustomerLog();
+//            $customerLog->customer_id = session('customer')->id;
+//            $customerLog->ip = self::get_ip();
+//            $customerLog->os = self::get_os();
+//            $customerLog->browser = self::get_browser();
+//            $customerLog->device = self::get_device();
+//            $customerLog->save();
+
+            return [
+                'customer_id' => session('customer')->id,
+                'ip' => self::get_ip(),
+                'os' => self::get_os(),
+                'browser' => self::get_browser(),
+                'device' => self::get_device()
+            ];
         }
     }
 }

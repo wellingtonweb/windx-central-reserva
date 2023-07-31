@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\CheckUserException;
 use App\Helpers\UserInfo;
 use App\Http\Requests\CentralLogonRequest;
+use App\Models\CustomerLog;
 use App\Services\ApiConnect;
 use App\Services\API;
 use App\Helpers\WorkingDays;
@@ -55,20 +56,13 @@ class PagesController extends Controller
 
             $customer = (new API())->getCustomer($customerId);
 
-//            dd(get_debug_type($customer));
-
             session()->put('customerActive', $customer[0]);
-
-//            dd(session('customerActive')[0]->full_name);
-
-//            dd(session('customerActive')[0]->email);
 
             session()->put('customerId', $customerId);
 
 //            $test = WorkingDays::isHoliday('2023-11-02T00:00:00');
-            $test = WorkingDays::hasFees('2023-11-02T00:00:00');
+//            $test = WorkingDays::hasFees('2023-11-02T00:00:00');
 //            $test = WorkingDays::hasFees('2023-11-15T00:00:00');
-//            dd($test);
 
             return view('contract', ['customer' => $customer]);
 //            dd($customer);
@@ -83,7 +77,6 @@ class PagesController extends Controller
 //            }
 
 //            $customer_update = (new API())->getCustomer($customer['id']);
-
 
         } else {
             throw new CheckUserException();

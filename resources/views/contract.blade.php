@@ -252,9 +252,9 @@
                                                        data-duedate="{!! $dueDate !!}"
                                                        data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
 
-                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-11-02T00:00:00'))
+{{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-09-07T00:00:00'))--}}
 {{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-07-15T00:00:00'))--}}
-{{--                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento))--}}
+                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento))
                                                        data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
                                                        data-addition="{{ number_format(0, 2, '.', '') }}"
                                                        @else

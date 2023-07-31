@@ -61,7 +61,8 @@ class Checkout
             "payment_type" => $valid["payment_type"],
 //            'customer_origin' => Functions::getCustomerOrigin(),
 //            "terminal_id" => 2,
-            "terminal_id" => Cookie::get('terminal_id'),
+//            "terminal_id" => Cookie::get('terminal_id'),
+            "terminal_id" => Cookie::has('terminal_id') ? Cookie::get('terminal_id') : null,
         ];
 
         return $body;
@@ -82,7 +83,7 @@ class Checkout
                 "phone" => $valid["phone"]
             ],
 //            'customer_origin' => Functions::getCustomerOrigin(),
-            'method' => $valid["payment_type"]
+            'method' => $valid["payment_type"],
         ];
 
         return $body;

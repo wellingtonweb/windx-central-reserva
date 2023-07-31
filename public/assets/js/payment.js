@@ -17,8 +17,6 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
-
-
     }
 
     // Save cart
@@ -495,12 +493,12 @@ $('button.btn-payment-type').click(function (){
         default:
             // $('.payment_type_label').text((this.id == 'btn-credit'?'Crédito':'Débito'));
             $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
-            $('#method').val('tef');
+            $('#method').val('ecommerce');
             //$('#terminal_id').val('2');
             // $('#reference').val();
             // $('#modal-payment-form').modal('show');
             // Swal.fire('Aguardando aprovação do pagamento!')
-            $('#form_checkout').submit();
+            // $('#form_checkout').submit();
             break
     }
 });
@@ -559,7 +557,8 @@ function callbackTransaction(id){
             // msgStatusTransaction(JSON.stringify(data.status))
 
             if(data.status === 'approved'){
-                callbackPrintCoupon(id)
+                alert('Mostrar alert com link para download do comprovante PDF')
+                // callbackPrintCoupon(id)
             }
             msgStatusTransaction(data.status)
             console.log('Message: ', data)

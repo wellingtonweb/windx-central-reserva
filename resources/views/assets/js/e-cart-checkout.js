@@ -137,35 +137,36 @@ function sendPayment(payment){
         url: payment.actionForm,
         data: payment.dataForm,
         beforeSend: function (){
-            Swal.fire({
-                title: 'Pagamento via '+getPaymentText(payment.paymentType),
-                html: payment.method == 'picpay' || payment.method == 'pix' ? 'Gerando qrcode...':'Validando dados...',
-                timer: 60000,
-                // timerProgressBar: true,
-                showConfirmButton: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                },
-                allowOutsideClick: () => {
-                    const popup = Swal.getPopup()
-                    popup.classList.remove('swal2-show')
-                    setTimeout(() => {
-                        popup.classList.add('animate__animated', 'animate__headShake')
-                    })
-                    setTimeout(() => {
-                        popup.classList.remove('animate__animated', 'animate__headShake')
-                    }, 500)
-                    return false
-                },
-                willClose: () => {
-                    // clearInterval(timerInterval)
-                },
-            }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    displayMessageErrorPayment('Servidor indisponível')
-                }
-            })
+            console.log('BeforeSend')
+            // Swal.fire({
+            //     title: 'Pagamento via '+getPaymentText(payment.paymentType),
+            //     html: payment.method == 'picpay' || payment.method == 'pix' ? 'Gerando qrcode...':'Validando dados...',
+            //     timer: 60000,
+            //     // timerProgressBar: true,
+            //     showConfirmButton: false,
+            //     didOpen: () => {
+            //         Swal.showLoading()
+            //     },
+            //     allowOutsideClick: () => {
+            //         const popup = Swal.getPopup()
+            //         popup.classList.remove('swal2-show')
+            //         setTimeout(() => {
+            //             popup.classList.add('animate__animated', 'animate__headShake')
+            //         })
+            //         setTimeout(() => {
+            //             popup.classList.remove('animate__animated', 'animate__headShake')
+            //         }, 500)
+            //         return false
+            //     },
+            //     willClose: () => {
+            //         // clearInterval(timerInterval)
+            //     },
+            // }).then((result) => {
+            //     /* Read more about isConfirmed, isDenied below */
+            //     if (result.dismiss === Swal.DismissReason.timer) {
+            //         displayMessageErrorPayment('Servidor indisponível')
+            //     }
+            // })
         },
         success: function(response) {
             console.log(response)
@@ -178,7 +179,8 @@ function sendPayment(payment){
                 }else{
                     if(response.status != 422){
                         $('#modal-payment-form').modal('hide')
-                        displayMessageWaitingPayment()
+                        // displayMessageWaitingPayment()
+                        console.log('Aguardando status do pagamento')
                     }else{
                         console.log('Verifique os campos em vermelho!')
                     }
@@ -238,68 +240,74 @@ function setQrcode(qrcode, payment_type, qrString){
 
     if(payment_type == 'pix'){
         $('#qrcode-img').attr('src', pref64 + qrcode)
+        $('.qrcodestring').text(qrString);
+        $('#copyPix').removeClass('d-none');
+        $('#boxQrString').removeClass('d-none');
+
+    }else{
+        $('#qrcode-img').attr('src', qrcode)
     }
 
     //callbackTransaction()
-    Swal.fire({
-        // title: 'Windx Telecomunicações',
-        // html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong>'+count+'</strong> '+ (count>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
-        //     '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+$('.total-cart').html()+'</span>' +
-        //     '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
-        //     '<p>Leia o QRCode com seu app</p>' +
-        //     // '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
-        //     // '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
-        //     // '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
-        //     // 'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
-        //     '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
-        //     '<p id="timer" class="text-danger"></p></div>',
-        // timer: 10000,
-        // timer: 60000,
-        // timer: 90000,//1.5min
-        // timer: 120000,//2min
-        timer: 120000,//3min
-        timerProgressBar: false,
-        showConfirmButton: false,
-        showDenyButton: true,
-        denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
-        denyButtonColor: '#d33',
-        didOpen: () => {
-            if(payment_type == 'pix'){
-                $('#btnPixCopyPaste').removeClass('d-none');
-            }
-            Swal.hideLoading()
-            //$('.swal2-loader').addClass('d-none');
-            countdown();
-            setTimeout(() => {
-                $('#labelWaitingPayment').removeClass('d-none');
-            }, 60000)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
-        },
-        allowOutsideClick: () => {
-            const popup = Swal.getPopup()
-            popup.classList.remove('swal2-show')
-            setTimeout(() => {
-                popup.classList.add('animate__animated', 'animate__headShake')
-            })
-            setTimeout(() => {
-                popup.classList.remove('animate__animated', 'animate__headShake')
-            }, 500)
-            return false
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer || result.isDismissed) {
-            // displayMessageWaitingPayment()
-            msgStatusTransaction('expired')
-        }
-        else if (result.isDenied) {
-            tries = 5;
-            clearAllSections()
-            msgStatusTransaction('canceled')
-            window.location.reload()
-        }
-    })
+    // Swal.fire({
+    //     title: 'Windx Telecomunicações',
+    //     html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong>'+count+'</strong> '+ (count>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
+    //         '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+$('.total-cart').html()+'</span>' +
+    //         '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
+    //         '<p>Leia o QRCode com seu app</p>' +
+    //         // '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
+    //         // '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
+    //         // '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
+    //         // 'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
+    //         '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
+    //         '<p id="timer" class="text-danger"></p></div>',
+    //     // timer: 10000,
+    //     // timer: 60000,
+    //     // timer: 90000,//1.5min
+    //     timer: 120000,//2min
+    //     // timer: 120000,//3min
+    //     timerProgressBar: false,
+    //     showConfirmButton: false,
+    //     showDenyButton: true,
+    //     denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
+    //     denyButtonColor: '#d33',
+    //     didOpen: () => {
+    //         if(payment_type == 'pix'){
+    //             $('#btnPixCopyPaste').removeClass('d-none');
+    //         }
+    //         Swal.hideLoading()
+    //         //$('.swal2-loader').addClass('d-none');
+    //         countdown();
+    //         setTimeout(() => {
+    //             $('#labelWaitingPayment').removeClass('d-none');
+    //         }, 60000)
+    //     },
+    //     willClose: () => {
+    //         clearInterval(timerInterval)
+    //     },
+    //     allowOutsideClick: () => {
+    //         const popup = Swal.getPopup()
+    //         popup.classList.remove('swal2-show')
+    //         setTimeout(() => {
+    //             popup.classList.add('animate__animated', 'animate__headShake')
+    //         })
+    //         setTimeout(() => {
+    //             popup.classList.remove('animate__animated', 'animate__headShake')
+    //         }, 500)
+    //         return false
+    //     }
+    // }).then((result) => {
+    //     if (result.dismiss === Swal.DismissReason.timer || result.isDismissed) {
+    //         // displayMessageWaitingPayment()
+    //         msgStatusTransaction('expired')
+    //     }
+    //     else if (result.isDenied) {
+    //         tries = 5;
+    //         clearAllSections()
+    //         msgStatusTransaction('canceled')
+    //         window.location.reload()
+    //     }
+    // })
 
 }
 

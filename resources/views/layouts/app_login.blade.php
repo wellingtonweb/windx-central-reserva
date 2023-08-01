@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
 </head>
 
-<body class="body" style="background-color: #002046 !important;">
+<body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
 <div class="bg-body-backdrop"></div>
 <div class="full-screen-backdrop"></div>
 <div class="loading">

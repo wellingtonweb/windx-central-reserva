@@ -25,7 +25,8 @@ a:hover {
  */
 
 body {
-    background: var(--bg-windx) url(/assets/img/bg001.jpg) no-repeat center center fixed;
+    background: var(--bg-windx);
+    /*background: var(--bg-windx) url(/assets/img/bg001.jpg) no-repeat center center fixed;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

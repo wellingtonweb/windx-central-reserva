@@ -46,7 +46,7 @@ class Checkout
                 "cpf_cnpj" => $identity,
             ],
             'payment_type' => $valid["payment_type"],
-            'terminal_id' => Cookie::get('terminal_id'),
+//            'terminal_id' => Cookie::get('terminal_id'),
         ];
 
         return $body;

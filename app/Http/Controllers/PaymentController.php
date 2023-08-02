@@ -164,7 +164,7 @@ class PaymentController extends Controller implements ShouldQueue
         {
             $body = Checkout::getBodyPaymentEcommerce($validated);
 
-//            dd($body);
+            dd($body);
 
             $response = (new API())->postPayment($body);
 

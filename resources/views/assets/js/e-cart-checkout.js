@@ -237,6 +237,7 @@ function setQrcode(qrcode, payment_type, qrString){
     let timerInterval
     let pref64 = 'data:image\\/png;base64,';
     displayCart()
+    countdown()
 
     if(payment_type == 'pix'){
         $('#qrcode-img').attr('src', pref64 + qrcode)
@@ -470,4 +471,33 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
     //     // callbackTransaction()
     //     // displayMessageQuestionFinish()
     // })
+}
+
+
+// var tempo = 120;
+var tempo = 30;
+
+function countdown() {
+    if ((tempo - 1) >= -1) {
+        var min = parseInt(tempo / 60);
+        var seg = tempo % 60;
+
+        if (min < 10) {
+            min = "0" + min;
+            min = min.substr(0, 2);
+        }
+        if (seg <= 9) {
+            seg = "0" + seg;
+        }
+
+        $("#timerPayment").html(min + ':' + seg);
+            setTimeout('countdown()', 1000);
+        tempo--;
+    }
+    else {
+        $("#timerPayment").fadeOut(1000)
+        $("#v-pills-qrcode").fadeOut(1000)
+        $('#methodTitle').text('').fadeOut(1000)
+        displayMessageStatusTransaction('Tempo expirado!', 'error', 10000)
+    }
 }

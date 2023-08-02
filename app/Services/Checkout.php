@@ -27,27 +27,51 @@ class Checkout
     public function getBodyPaymentEcommerce($valid)
     {
 
-        $name = explode(" ", $valid["full_name"]);
-        $chars = array(".", "-", "/");
+        $chars = array(".", "-", "/", "(", ")", " ");
         $identity = str_replace($chars, "", $valid["cpf_cnpj"]);
-        $body = [
-            'billets' => $valid["billets"],
-            'method' => $valid["method"],
-            'customer' => $valid["customer"],
-//            'customer_origin' => [
-//                'ip' => $this->customerIp,
-//                'os' => $this->customerOs,
-//                'browser' => $this->customerBrowser,
-//                'device' => $this->customerDevice,
+        $name = explode(" ", $valid["full_name"]);
+//        str_replace($chars, "", $valid["full_name"])
+        if($valid["payment_type"] == 'pix'){
+            $body = [
+                'customer' => $valid["customer"],
+                'billets' => $valid["billets"],
+                'method' => $valid["method"],
+                'buyer' => [
+                    "first_name" => str_replace($chars, "", $name[0]),
+                    "last_name" => str_replace($chars, "", $name[1]),
+                    "cpf_cnpj" => $identity,
+                ],
+                'payment_type' => 'Pix',
+//                'payment_type' => $valid["payment_type"],
+            ];
+        }else{
+            $body = [
+                'billets' => $valid["billets"],
+                'customer' => $valid["customer"],
+                'card' => [
+                    "holder_name" => $valid["holder_name"],
+                    "card_number" => $valid["card_number"],
+                    "cvv" => $valid["cvv"],
+                    "bandeira" => $valid["bandeira"],
+                    "expiration_date" => $valid["expiration_month"]."/".$valid["expiration_year"],
+                ],
+                'payment_type' => $valid["payment_type"],
+                'method' => $valid["method"],
+            ];
+        }
+//        $body = [
+//            'billets' => $valid["billets"],
+//            'method' => $valid["method"],
+//            'customer' => $valid["customer"],
+//            'buyer' => [
+//                "first_name" => $name[0],
+//                "last_name" => end($name),
+//                "cpf_cnpj" => $identity,
 //            ],
-            'buyer' => [
-                "first_name" => $name[0],
-                "last_name" => end($name),
-                "cpf_cnpj" => $identity,
-            ],
-            'payment_type' => $valid["payment_type"],
-//            'terminal_id' => Cookie::get('terminal_id'),
-        ];
+//            'payment_type' => $valid["payment_type"],
+//            'method' => $valid["method"],
+////            'terminal_id' => Cookie::get('terminal_id'),
+//        ];
 
         return $body;
     }

@@ -25,10 +25,10 @@ $("#news-slider").owlCarousel({
 
 async function copyBarcode3(btnThis){
     let code = btnThis.getAttribute("data-code")
-    console.log(code);
+    // console.log(code);
     await navigator.clipboard.writeText(code)
         .then(() => {
-            notify5('Copiado para área de transferência!')
+            notify('Copiado para área de transferência!')
         })
         .catch((err) => {
             notify('Falha ao copiar: '+ err);
@@ -306,30 +306,7 @@ function clearAllSections(){
     sessionStorage.clear()
 }
 
-var tempo = 120;
 
-function countdown() {
-    if ((tempo - 1) >= -1) {
-        var min = parseInt(tempo / 60);
-        var seg = tempo % 60;
-
-        if (min < 10) {
-            min = "0" + min;
-            min = min.substr(0, 2);
-        }
-        if (seg <= 9) {
-            seg = "0" + seg;
-        }
-
-        $("#timer").html('00:' + min + ':' + seg);
-        setTimeout('countdown()', 1000);
-        tempo--;
-    }
-    else {
-        $("#timer").fadeOut(1000)
-        //Swal.close();
-    }
-}
 
 
 function logout(){

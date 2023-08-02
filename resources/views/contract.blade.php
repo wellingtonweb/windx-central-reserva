@@ -3,12 +3,30 @@
 @section('content')
     <main>
         <section>
-            <div class="container-fluid mt-lg-5 mt-md-0">
+            <div class="container-fluid ">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
+                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx rounded-5">
+                            <a href="javascript:void(0)" class="d-lg-none pr-1" onclick="toggleLineClamp()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                                     class="bi bi-info-square-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93
+                                     4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105
+                                     1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275
+                                      0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                                </svg>
+                            </a>
+                            <p id="infoText" class="text-uppercase space-1 clamped px-lg-3 text-justify">
+                                Contrato Nº: {{session('customerActive')->id}} |
+                                {{session('customerActive')->full_name}} |
+                                {{session('customerActive')->street}}, {{session('customerActive')->district}},
+                                {{session('customerActive')->city}}
+                            </p>
+                        </div>
 {{--                        checkout--}}
 {{--                        {{count(session('customer')->billets)}}--}}
-                        <div class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-3 order-lg-2 col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 px-lg-0 px-md-1 mb-4">
+                        <div class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-3 order-lg-2
+                        col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 px-0 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
@@ -18,7 +36,8 @@
                                         <h4 class="my-0 font-weight-bold">Faturas selecionadas</h4>
                                     </div>
                                     <span
-                                        class="total-count badge badge-secondary badge-pill px-3 py-0 d-flex justify-content-center align-items-center "></span>
+                                        class="total-count badge badge-secondary badge-pill px-3 py-0 d-flex
+                                        justify-content-center align-items-center"></span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                                     <div>
@@ -52,7 +71,10 @@
                                             </div>
                                             <div class="tab-pane fade justify-content-center" id="v-pills-qrcode"
                                                  role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                                <div class="py-2"><h5>Leia o qrcode com seu app</h5></div>
+                                                <div class="py-2">
+                                                    <h5>Leia o qrcode com seu app</h5>
+                                                    <p id="timerPayment" class="text-danger mb-0" style="letter-spacing: 1px; font-size: 1.2em"></p>
+                                                </div>
 
                                                 <div id="container-qrcode">
                                                     <div class="body-popup-qrcode">
@@ -210,7 +232,8 @@
                             </div>
                         </div>
 {{--                        faturas--}}
-                        <div class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-9'}} order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-2 pl-lg-0 pl-md-1">
+                        <div class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-9'}}
+                            order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-2 pr-lg-3 px-0">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
@@ -350,6 +373,24 @@
         !important;
         }
 
+        #infoCustomerActive {
+            background: white;
+        }
+
+        #infoCustomerActive p {
+            font-size: 80%;
+            margin: 0 auto
+        }
+
+        .clamped  {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            cursor: pointer;
+        }
+
         @media (max-width: 1250px) {
             .btnInvoiceAction {
                 display: flex;
@@ -460,6 +501,8 @@
             .flex-item {
                 width: 100%
             }
+
+
         }
 
         @media screen and (min-width: 640px) {
@@ -475,6 +518,7 @@
         }
 
 
+
         .payment-container {
             /*display: block;*/
             margin: 0 auto;
@@ -483,7 +527,7 @@
         }
 
         .payment-container header {
-            margin-bottom: 40px;
+            /*margin-bottom: 40px;*/
             text-align: center;
         }
 
@@ -626,6 +670,7 @@
             padding: 1rem;
         }
 
+
     </style>
     <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
 @endsection
@@ -707,6 +752,20 @@
                     }, 1000)
                 });
         }
+
+        function toggleLineClamp() {
+            var paragraph = document.getElementById('infoText');
+            paragraph.classList.toggle('clamped');
+
+            var link = event.target;
+            if (paragraph.classList.contains('clamped')) {
+                link.innerText = 'Mostrar mais';
+            } else {
+                link.innerText = 'Mostrar menos';
+            }
+        }
+
+
     </script>
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>--}}
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>--}}

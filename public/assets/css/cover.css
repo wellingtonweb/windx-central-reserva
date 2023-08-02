@@ -1609,9 +1609,9 @@ svg rect{
         width: 100vw;
         padding: 0 !important;
     }
-    .contents{
-        padding: 0 !important;
-    }
+    /*.contents{*/
+    /*    padding: .5rem !important;*/
+    /*}*/
 }
 
 /* Medium devices (tablets, 768px and up)*/
@@ -1622,9 +1622,9 @@ svg rect{
         width: 100vw;
         padding: 0 !important;
     }
-    .contents{
-        padding: 0 !important;
-    }
+    /*.contents{*/
+    /*    padding: .5rem !important;*/
+    /*}*/
 }
 
 /* Large devices (desktops, 992px and up)*/

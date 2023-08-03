@@ -1210,7 +1210,7 @@ svg rect{
     overflow: hidden;
     background: rgba(255, 255, 255, 0.8) !important;
     /*padding: 0.6rem !important;*/
-    padding: 1rem !important;
+    padding: 1rem;
 }
 .contents table {
     max-width: 100%;

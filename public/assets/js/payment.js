@@ -939,7 +939,5 @@ function countdown() {
         $("#v-pills-qrcode").fadeOut(1000)
         $('#methodTitle').text('').fadeOut(1000)
         displayMessageStatusTransaction('Tempo expirado!', 'error', 10000)
-
-        //Swal.close();
     }
 }

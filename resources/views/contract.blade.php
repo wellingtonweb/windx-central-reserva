@@ -5,8 +5,8 @@
         <section>
             <div class="container-fluid ">
                 <main role="main" class="inner fadeIn">
-                    <div class="row contents animate__animated animate__fadeIn">
-                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx rounded-5">
+                    <div class="row contents animate__animated animate__fadeIn p-sm-0 p-md-0">
+                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx">
                             <a href="javascript:void(0)" class="d-lg-none pr-1" onclick="toggleLineClamp()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
                                      class="bi bi-info-square-fill" viewBox="0 0 16 16">
@@ -25,8 +25,10 @@
                         </div>
 {{--                        checkout--}}
 {{--                        {{count(session('customer')->billets)}}--}}
-                        <div class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-3 order-lg-2
-                        col-md-6 order-md-2 col-sm-6 order-sm-2 py-2 px-0 mb-4">
+                        <div id="colCheckout" class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-3 order-lg-2
+                        col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0
+{{--                        py-2 px-lg-0 pl-md-3 pr-md-3 px-sm-0 --}}
+                        mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
@@ -232,8 +234,10 @@
                             </div>
                         </div>
 {{--                        faturas--}}
-                        <div class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-9'}}
-                            order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1 py-2 pr-lg-3 px-0">
+                        <div id="colInvoices" class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-9'}}
+                            order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1
+{{--                            py-2 pr-lg-3 px-0--}}
+">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
@@ -375,6 +379,8 @@
 
         #infoCustomerActive {
             background: white;
+            border-top-right-radius: .5rem;
+            border-top-left-radius: .5rem;
         }
 
         #infoCustomerActive p {
@@ -412,6 +418,9 @@
             h4, .h4 {
                 font-size: 1.15rem;
             }
+            .contents {
+                padding: 0;
+            }
 
         }
         @media (max-width: 575px) {
@@ -420,6 +429,13 @@
             }
             h4, .h4 {
                 font-size: 1rem;
+            }
+            #colCheckout .list-group-item{
+                padding: 0.5rem 1.25rem;
+            }
+
+            .checkout-controls .btn {
+                padding: .5rem;
             }
         }
 

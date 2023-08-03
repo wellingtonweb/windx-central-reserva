@@ -44,7 +44,7 @@ class CheckoutRequest extends FormRequest
             'cvv' =>                ['required_if:payment_type,credit,debit',
                 $this->get('cvv') != null ? new CardCvc($this->get('card_number')) : ''],
             'customer' =>           ['required'],
-//            'holder_name' =>        ['required_if:payment_type,credit,debit'],
+            'holder_name' =>        ['required_if:payment_type,credit,debit'],
             'ip_address' =>         ['required_if:payment_type,credit,debit'],
             'method' =>             ['required'],
             'payment_type' =>       ['required_if:method,ecommerce,tef'],

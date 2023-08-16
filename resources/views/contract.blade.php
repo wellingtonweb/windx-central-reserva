@@ -144,14 +144,31 @@
                                                                 class="text-danger error-text holder_name_error"></small>
                                                         </div>
                                                         <div class="col-12 mb-3 text-left">
-                                                            <label for="cc-numero">Nº do cartão</label>
+                                                            <label for="cc-numero">Número do cartão</label>
                                                             <input type="text" class="form-control"
                                                                    value="5226069490151810" id="cc-numero"
                                                                    name="card_number" placeholder="0000 0000 0000 0000">
                                                             <small
                                                                 class="text-danger error-text card_number_error"></small>
                                                         </div>
-                                                        <div class="col-12 mb-3 text-left">
+
+                                                        <div class="col-6 mb-3 text-left">
+                                                            <label for="cc-expiracao">Validade (Mês)</label>
+                                                            <input type="text" class="form-control" value="07"
+                                                                   id="expiration_month" name="expiration_month"
+                                                                   placeholder="Ex: 12">
+                                                            <small
+                                                                class="text-danger error-text expiration_month_error"></small>
+                                                        </div>
+                                                        <div class="col-6 mb-3 text-left">
+                                                            <label for="cc-expiracao">Validade (Ano)</label>
+                                                            <input type="text" class="form-control" value="2023"
+                                                                   id="expiration_year" name="expiration_year"
+                                                                   placeholder="Ex: 2028">
+                                                            <small
+                                                                class="text-danger error-text expiration_year_error"></small>
+                                                        </div>
+                                                        <div class="col-6 mb-3 text-left">
                                                             <label for="cc-bandeira">Bandeira do cartão</label>
                                                             <select id="cc-bandeira" name="bandeira"
                                                                     class="form-control">
@@ -170,24 +187,8 @@
                                                             <small
                                                                 class="text-danger error-text bandeira_error"></small>
                                                         </div>
-                                                        <div class="col-4 mb-3 text-left">
-                                                            <label for="cc-expiracao">Val. Mês</label>
-                                                            <input type="text" class="form-control" value="07"
-                                                                   id="expiration_month" name="expiration_month"
-                                                                   placeholder="Ex: 12">
-                                                            <small
-                                                                class="text-danger error-text expiration_month_error"></small>
-                                                        </div>
-                                                        <div class="col-4 mb-3 text-left">
-                                                            <label for="cc-expiracao">Val. Ano</label>
-                                                            <input type="text" class="form-control" value="2023"
-                                                                   id="expiration_year" name="expiration_year"
-                                                                   placeholder="Ex: 2028">
-                                                            <small
-                                                                class="text-danger error-text expiration_year_error"></small>
-                                                        </div>
-                                                        <div class="col-4 mb-3 text-left">
-                                                            <label for="cc-cvv">Cód. seg</label>
+                                                        <div class="col-6 mb-3 text-left">
+                                                            <label for="cc-cvv">Cód. de segurança</label>
                                                             <input type="text" class="form-control" value="271"
                                                                    id="cc-cvv" name="cvv" placeholder="Ex: 123">
                                                             <small class="text-danger error-text cvv_error"></small>

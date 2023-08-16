@@ -58,15 +58,16 @@ class CheckoutRequest extends FormRequest
         ];
     }
 //
-//    public function messages()
-//    {
-//        return [
-//            'holder_name.required' => 'O nome do titular do cartão é obrigatório',
-//            'card_number.required' => 'O número do cartão é obrigatório',
-//            'expiration_year.required' => 'O ano do vencimento é obrigatório',
-//            'expiration_month.required' => 'O mês do vencimento é obrigatório',
-//            'cvv.required' => 'O dígito verificador é obrigatório',
-//            'bandeira.required' => 'A bandeira do cartão é obrigatória',
-//        ];
-//    }
+    public function messages()
+    {
+        return [
+            'holder_name.required' => 'O nome do titular do cartão é obrigatório',
+            'card_number.required' => 'O número do cartão é obrigatório',
+            'expiration_year.required' => 'O ano do vencimento é obrigatório',
+            'expiration_month.required' => 'O mês do vencimento é obrigatório',
+            'cvv.required' => 'O dígito verificador é obrigatório',
+            'bandeira.required' => 'A bandeira do cartão é obrigatória',
+            'validation.credit_card.card_expiration_month_invalid' => 'Mês expirado'
+        ];
+    }
 }

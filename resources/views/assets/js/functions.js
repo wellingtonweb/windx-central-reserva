@@ -383,58 +383,7 @@ function setPaymentMethod(method){
     }
 }
 
-function printStatus(status)
-{
-    var status_out;
 
-    switch (status)
-    {
-        case 'created':
-            status_out = '<span class="text-secondary">Criado</span>';
-            break;
-        case 'approved':
-            status_out = '<span class="text-success">Aprovado</span>';
-            break;
-        case 'refused':
-            status_out = '<span class="text-danger">Recusado</span>';
-            break;
-        case 'canceled':
-            status_out = '<span class="text-danger">Cancelado</span>';
-            break;
-    }
-    return status_out;
-}
-
-$('.btn-payment-get-details').click(function (){
-    $('.loading-get-info').removeClass('d-none')
-    $('#spinner-status-details').removeClass('d-none')
-
-    var paymentID = $(this).data('payment')
-    var url = base_url+"callback/"+ paymentID
-    var jsonData
-
-    var row = $(this).closest('tr');
-    var status = row.find('td:nth-child(8)').text().trim();
-    $('#details_payment_id').text(row.find('td:nth-child(1)').text().trim());
-    $('#details_payment_reference').text(row.find('td:nth-child(9)').text().trim());
-    $('#details_payment_created_at').text(row.find('td:nth-child(4)').text().trim());
-    $('#details_payment_billets').text(row.find('td:nth-child(2)').text().trim());
-    $('#details_payment_type').text(row.find('td:nth-child(6)').text().trim());
-    $('#details_payment_modality').text(row.find('td:nth-child(7)').text().trim());
-    $('#details_payment_value').text('R$ '+row.find('td:nth-child(10)').text().trim());
-    $('#details_payment_fees').text('R$ '+row.find('td:nth-child(11)').text().trim());
-    $('#details_payment_amount').text(row.find('td:nth-child(5)').text().trim());
-    $('#details_payment_status').text('');
-
-    async function logJSONData() {
-        const response = await fetch(url);
-        jsonData = await response.json();
-        $('.loading-get-info').addClass('d-none')
-        $('#spinner-status-details').addClass('d-none')
-        $('#details_payment_status').html(printStatus(jsonData.status));
-    };
-    logJSONData()
-});
 
 // $("#table-coupons-list tbody tr").on('click', function(){
 //     $(this).find("a.btn-payment-details")[0].click();

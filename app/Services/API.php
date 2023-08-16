@@ -188,6 +188,8 @@ class API
     {
         $payment = (array)($payment);
 
+//        dd($payment);
+
         $paper = array(0,0,215,460);
 //        $paper = array(0,0,280,600);
 

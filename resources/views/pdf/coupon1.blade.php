@@ -137,80 +137,80 @@
             </tr>
             <tr class="ttu b-top">
                 <td class="right">Pagamento ID: </td>
-                <td id="coupon_id" class="left">{{$payment->data->id}}</td>
+                <td id="coupon_id" class="left">{{$id}}</td>
             </tr>
             <tr class="ttu b-top" style="padding-top: 1rem">
                 <td class="right">Referência: </td>
                 <td id="coupon_reference-" class="left">
-                    <p style="line-height: 12px !important;">{{$payment->data->reference}}</p>
+                    <p style="line-height: 12px !important;">{{$reference}}</p>
                 </td>
             </tr>
             <tr class="ttu b-top">
                 <td class="right">Data - Hora: </td>
-                <td id="coupon_created_at" class="left">{{\App\Services\Functions::dateTimeToPt($payment->data->created_at)}}</td>
+                <td id="coupon_created_at" class="left">{{\App\Services\Functions::dateTimeToPt($created_at)}}</td>
             </tr>
             <tr class="ttu b-top">
-                <td class="right">{{sizeof($payment->data->billets) > 1 ? 'Faturas (Nosso nº):' : 'Fatura (Nosso nº):'}}</td>
+                <td class="right">{{sizeof($billets) > 1 ? 'Faturas (Nosso nº):' : 'Fatura (Nosso nº):'}}</td>
                 <td id="coupon_billets" class="left">
-                    @foreach($payment->data->billets as $key => $info)
-                        @if($payment->data->billets > 1)
-                            {{ $info->reference }} ({{!empty($info->duedate) ? $info->duedate : '' }}){{!$loop->last ? ',':''}}
-                        @endif
-                    @endforeach
+{{--                    @foreach($billets as $key => $info)--}}
+{{--                        @if($billets > 1)--}}
+{{--                            {{ $info->reference }} ({{!empty($info->duedate) ? $info->duedate : '' }}){{!$loop->last ? ',':''}}--}}
+{{--                        @endif--}}
+{{--                    @endforeach--}}
                 </td>
             </tr>
-            @if($payment->data->method === 'tef' && $payment->data->payment_type != 'pix')
+{{--            @if($method === 'tef' && $payment_type != 'pix')--}}
                 <tr class="ttu b-top">
                     <td class="right">Autorização: </td>
                     <td id="coupon_id" class="left">
-{{--                        {{preg_replace('/[^0-9]/', '', \App\Services\Functions::arrayCoupon($payment->data)[10])}}--}}
-                        {{\App\Services\Functions::arrayCoupon($payment->data)[10] != null ? preg_replace('/[^0-9]/', '', \App\Services\Functions::arrayCoupon($payment->data)[10]) : ''}}
+                        {{--                        {{preg_replace('/[^0-9]/', '', \App\Services\Functions::arrayCoupon($payment->data)[10])}}--}}
+{{--                        {{\App\Services\Functions::arrayCoupon($payment->data)[10] != null ? preg_replace('/[^0-9]/', '', \App\Services\Functions::arrayCoupon($payment->data)[10]) : ''}}--}}
                     </td>
                 </tr>
-                @if(count(\App\Services\Functions::arrayCoupon($payment->data)) == 23)
-                    <tr class="ttu b-top">
-                        <td class="right">Pagador: </td>
-                        <td id="coupon_reference-" class="left" style="max-width: 74mm">
-                            {{\App\Services\Functions::arrayCoupon($payment->data)[17]}}
-                        </td>
-                    </tr>
+{{--                @if(count(\App\Services\Functions::arrayCoupon($payment->data)) == 23)--}}
+{{--                    <tr class="ttu b-top">--}}
+{{--                        <td class="right">Pagador: </td>--}}
+{{--                        <td id="coupon_reference-" class="left" style="max-width: 74mm">--}}
+{{--                            {{\App\Services\Functions::arrayCoupon($payment->data)[17]}}--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
 
-                    <tr class="ttu b-top">
-                        <td class="right">Cartão: </td>
-                        <td id="coupon_reference-" class="left" style="max-width: 74mm">
-                            {{\App\Services\Functions::arrayCoupon($payment->data)[9]}}
-                        </td>
-                    </tr>
-                @endif
-                <tr class="ttu b-top">
-                    <td class="right">Bandeira: </td>
-                    <td id="coupon_reference-" class="left" style="max-width: 74mm">
-                        {{\App\Services\Functions::arrayCoupon($payment->data)[7]}}
-                        ({{trim(\App\Services\Functions::arrayCoupon($payment->data)[6])}})
+{{--                    <tr class="ttu b-top">--}}
+{{--                        <td class="right">Cartão: </td>--}}
+{{--                        <td id="coupon_reference-" class="left" style="max-width: 74mm">--}}
+{{--                            {{\App\Services\Functions::arrayCoupon($payment->data)[9]}}--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                @endif--}}
+{{--                <tr class="ttu b-top">--}}
+{{--                    <td class="right">Bandeira: </td>--}}
+{{--                    <td id="coupon_reference-" class="left" style="max-width: 74mm">--}}
+{{--                        {{\App\Services\Functions::arrayCoupon($payment->data)[7]}}--}}
+{{--                        ({{trim(\App\Services\Functions::arrayCoupon($payment->data)[6])}})--}}
 
-                    </td>
-                </tr>
-            @endif
+{{--                    </td>--}}
+{{--                </tr>--}}
+{{--            @endif--}}
 
             <tr class="ttu b-top">
                 <td class="right">Pago via: </td>
                 <td id="coupon_method" class="left">
-                    @if($payment->data->method == "ecommerce" && $payment->data->terminal_id == null)
+                    @if($method == "ecommerce" && $terminal_id == null)
                         Central do Assinante
-                    @elseif($payment->data->method == 'picpay')
+                    @elseif($method == 'picpay')
                         Picpay
                     @else
                         Autoatendimento
                     @endif
                 </td>
             </tr>
-            @if($payment->data->method != 'picpay')
+            @if($method != 'picpay')
                 <tr class="ttu b-top">
                     <td class="right">Modalidade: </td>
                     <td id="coupon_payment_type" class="left">
-                        @if($payment->data->payment_type == 'credit')
+                        @if($payment_type == 'credit')
                             Crédito
-                        @elseif($payment->data->payment_type == 'debit')
+                        @elseif($payment_type == 'debit')
                             Débito
                         @else
                             Pix
@@ -222,14 +222,14 @@
                 <td class="right">Valor: </td>
                 <td class="left">R$
                     <span id="coupon_value">
-                    @php
-                        $total = 0;
-                        foreach ($payment->data->billets as $billet)
-                        {
-                            $total += $billet->value;
-                        }
-                    @endphp
-                        {{number_format($total, 2, ',', '.') }}
+{{--                    @php--}}
+{{--                        $total = 0;--}}
+{{--                        foreach ($billets as $billet)--}}
+{{--                        {--}}
+{{--                            $total += $billet->value;--}}
+{{--                        }--}}
+{{--                    @endphp--}}
+{{--                        {{number_format($total, 2, ',', '.') }}--}}
                 </span>
                 </td>
             </tr>
@@ -237,14 +237,14 @@
                 <td class="right">Juros + Multa: </td>
                 <td class="left">R$
                     <span id="coupon_value">
-                    @php
-                        $totalAddition = 0;
-                        foreach ($payment->data->billets as $billet)
-                        {
-                            $totalAddition += $billet->addition;
-                        }
-                    @endphp
-                        {{number_format($totalAddition, 2, ',', '.') }}
+{{--                    @php--}}
+{{--                        $totalAddition = 0;--}}
+{{--                        foreach ($billets as $billet)--}}
+{{--                        {--}}
+{{--                            $totalAddition += $billet->addition;--}}
+{{--                        }--}}
+{{--                    @endphp--}}
+{{--                        {{number_format($totalAddition, 2, ',', '.') }}--}}
                 </span>
                 </td>
             </tr>
@@ -252,36 +252,36 @@
                 <td class="right">Valor pago: </td>
                 <td class="left">
                     <b>R$ <span id="coupon_amount">
-                       {{number_format($payment->data->amount, 2, ',', '.') }}
+                       {{number_format($amount, 2, ',', '.') }}
                     </span></b>
                 </td>
             </tr>
-            @if($payment->data->payment_type == 'credit' || $payment->data->payment_type == 'debit')
-                @if($payment->data->method == 'tef')
-                    <tr class="sup b-top">
-                        <td colspan="4" class="justify-content-center" style="padding-top: 1rem; text-align: center">
-                            @if(trim(\App\Services\Functions::arrayCoupon($payment->data)[16]) != "TRANSACAO AUTORIZADA COM SENHA")
-                                <p>TRANSAÇÃO AUTORIZADA<br> POR APROXIMAÇÃO<br><br>
-                                    {{\App\Services\Functions::arrayCoupon($payment->data)[17]}}<br><br>
-                                    {{\App\Services\Functions::arrayCoupon($payment->data)[18]}}<br>
-                                    {{\App\Services\Functions::arrayCoupon($payment->data)[19]}}
-                                </p>
-                            @else
-                                <p>{{\App\Services\Functions::arrayCoupon($payment->data)[16]}}<br><br>
-                                    {{\App\Services\Functions::arrayCoupon($payment->data)[18]}}<br><br>
-                                </p>
-                            @endif
-                        </td>
-                    </tr>
-                @endif
-            @else
+{{--            @if($payment_type == 'credit' || $payment_type == 'debit')--}}
+{{--                @if($method == 'tef')--}}
+{{--                    <tr class="sup b-top">--}}
+{{--                        <td colspan="4" class="justify-content-center" style="padding-top: 1rem; text-align: center">--}}
+{{--                            @if(trim(\App\Services\Functions::arrayCoupon($payment->data)[16]) != "TRANSACAO AUTORIZADA COM SENHA")--}}
+{{--                                <p>TRANSAÇÃO AUTORIZADA<br> POR APROXIMAÇÃO<br><br>--}}
+{{--                                    {{\App\Services\Functions::arrayCoupon($payment->data)[17]}}<br><br>--}}
+{{--                                    {{\App\Services\Functions::arrayCoupon($payment->data)[18]}}<br>--}}
+{{--                                    {{\App\Services\Functions::arrayCoupon($payment->data)[19]}}--}}
+{{--                                </p>--}}
+{{--                            @else--}}
+{{--                                <p>{{\App\Services\Functions::arrayCoupon($payment->data)[16]}}<br><br>--}}
+{{--                                    {{\App\Services\Functions::arrayCoupon($payment->data)[18]}}<br><br>--}}
+{{--                                </p>--}}
+{{--                            @endif--}}
+{{--                        </td>--}}
+{{--                    </tr>--}}
+{{--                @endif--}}
+{{--            @else--}}
                 <tr class="sup b-top">
                     <td colspan="4" class="justify-content-center" style="padding-top: 1rem; text-align: center">
                         <p>FAVOR CONFERIR O PAGAMENTO<br>
                             EM SEU APLICATIVO</p>
                     </td>
                 </tr>
-            @endif
+{{--            @endif--}}
             <tr class="sup b-top">
                 <td colspan="4" class="justify-content-center" style="padding-top: 1rem; text-align: center">
                     <p>Ouvidoria: 0800 028 2309</p>
@@ -298,94 +298,5 @@
 <script type="text/javascript" src="{{ asset('assets/js/libs.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/payment2.js') }}"></script>
 
-<script type="text/javascript">
-    const route_login = '{{route('central.login')}}';
-    const route_logout = '{{route('central.logout')}}';
-    const app_url = '{{env('APP_URL')}}';
-    const base_url = '{{env('APP_BASE_URL')}}';
-    const contracts = '{{route('central.contracts')}}';
-
-    window.print();
-
-    (function () {
-
-        var beforePrint = function () {
-
-            $("#loader").delay(5000).fadeOut("slow");
-            console.log('Before Print')
-
-        };
-
-        var afterPrint = function () {
-            // setTimeout(function(){
-            // history.back();
-            clearInterval(callback)
-            Swal.fire({
-                title: document.referrer != contracts ? 'Deseja continuar?':'Deseja realizar outro pagamento?',
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: 'Sim',
-                denyButtonText: 'Não',
-                timer: 10000,
-                customClass: {
-                    actions: 'my-actions',
-                    cancelButton: 'order-1 right-gap',
-                    confirmButton: 'order-2',
-                    denyButton: 'order-3',
-                },
-                didOpen: () => {
-                    Swal.hideLoading()
-                },
-                allowOutsideClick: () => {
-                    const popup = Swal.getPopup()
-                    popup.classList.remove('swal2-show')
-                    setTimeout(() => {
-                        popup.classList.add('animate__animated', 'animate__headShake')
-                    })
-                    setTimeout(() => {
-                        popup.classList.remove('animate__animated', 'animate__headShake')
-                    }, 500)
-                    return false
-                },
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    clearAllSections()
-                    // location.reload();
-                    window.location.href = base_url+"contrato/"+{{session('customerActive')->id}}
-                        //setTimeout(() => { callbackTransaction() }, 15000);
-                } else if (result.dismiss || result.isDenied) {
-                    logout()
-                }
-            })
-            // }, 5000);
-        };
-
-        if (window.matchMedia) {
-
-            var mediaQueryList = window.matchMedia('print');
-
-            mediaQueryList.addListener(function (mql) {
-
-                if (mql.matches) {
-
-                    beforePrint();
-
-                } else {
-
-                    afterPrint();
-
-                }
-
-            });
-
-        }
-
-        window.onbeforeprint = beforePrint;
-
-        window.onafterprint = afterPrint;
-
-    }());
-
-</script>
 </body>
 </html>

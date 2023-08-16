@@ -11,15 +11,9 @@
                             @php $billets = 0; @endphp
                             <div class="row checkout ">
                                 <div class="col-12 d-flex align-middle checkout-status- bg-white rounded mb-2 justify-content-between">
-                                    <a href="javascript:history.back()" class="btn btn-primary ml-0">
-                                        <i class="fas fa fa-arrow-left pr-1"
-                                           aria-hidden="true"></i>Voltar
+                                    <a class="btn btn-primary ml-0" href="{{route('central.contract', ['customerId' => session('customerId')])}}">
+                                        <i class="fas fa fa-arrow-left pr-1" aria-hidden="true"></i>Voltar
                                     </a>
-{{--                                    <a href="{{route('central.contracts')}}" id="back-to-contracts-"--}}
-{{--                                       class="btn btn-primary ml-2 {{count(session('customer')) == 1 ? 'd-none' : ''}}">--}}
-{{--                                        <i class="fas fa fa-th-list pr-1"--}}
-{{--                                           aria-hidden="true"></i>Contratos--}}
-{{--                                    </a>--}}
                                 </div>
                             </div>
 
@@ -119,7 +113,7 @@
                                                         <i class="fa fa-times fa-2x pl-1 pr-1" aria-hidden="true"></i>
                                                     </a>
                                                 @else
-                                                    <a href="{{ route('central.coupon', ['id' => $payment['id'] ]) }}" type="button" id="{{  $payment['id'] }}" class="btn btn-primary btn-sm coupon-pdf btn-radius-50 ">
+                                                    <a href="{{ route('central.coupon.pdf', ['id' => $payment['id'] ]) }}" type="button" id="{{  $payment['id'] }}" class="btn btn-primary btn-sm coupon-pdf btn-radius-50 ">
                                                         <i class="fa fa-print fa-2x" aria-hidden="true"></i>
                                                     </a>
                                                 @endif
@@ -260,10 +254,10 @@
                 </div>
                 <div class="modal-body">
 
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item d-flex justify-content-between">
                             <h6>Cliente</h6>
-                            <span id="details_payment_customer">
+                            <span id="details_payment_customer" class="text-right">
                                 {{session('customer')->full_name}}
                                 ({{session('customer')->id}})
                             </span>
@@ -322,4 +316,58 @@
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script type="text/javascript" defer>inactivitySession();</script>
+    <script>
+        function printStatus(status)
+        {
+            var status_out;
+
+            switch (status)
+            {
+                case 'created':
+                    status_out = '<span class="text-secondary">Criado</span>';
+                    break;
+                case 'approved':
+                    status_out = '<span class="text-success">Aprovado</span>';
+                    break;
+                case 'refused':
+                    status_out = '<span class="text-danger">Recusado</span>';
+                    break;
+                case 'canceled':
+                    status_out = '<span class="text-danger">Cancelado</span>';
+                    break;
+            }
+            return status_out;
+        }
+
+        $('.btn-payment-get-details').click(function (){
+            $('.loading-get-info').removeClass('d-none')
+            $('#spinner-status-details').removeClass('d-none')
+
+            var paymentID = $(this).data('payment')
+            var url = base_url+"callback/"+ paymentID
+            var jsonData
+
+            var row = $(this).closest('tr');
+            var status = row.find('td:nth-child(8)').text().trim();
+            $('#details_payment_id').text(row.find('td:nth-child(1)').text().trim());
+            $('#details_payment_reference').text(row.find('td:nth-child(9)').text().trim());
+            $('#details_payment_created_at').text(row.find('td:nth-child(4)').text().trim());
+            $('#details_payment_billets').text(row.find('td:nth-child(2)').text().trim());
+            $('#details_payment_type').text(row.find('td:nth-child(6)').text().trim());
+            $('#details_payment_modality').text(row.find('td:nth-child(7)').text().trim());
+            $('#details_payment_value').text('R$ '+row.find('td:nth-child(10)').text().trim());
+            $('#details_payment_fees').text('R$ '+row.find('td:nth-child(11)').text().trim());
+            $('#details_payment_amount').text(row.find('td:nth-child(5)').text().trim());
+            $('#details_payment_status').text('');
+
+            async function logJSONData() {
+                const response = await fetch(url);
+                jsonData = await response.json();
+                $('.loading-get-info').addClass('d-none')
+                $('#spinner-status-details').addClass('d-none')
+                $('#details_payment_status').html(printStatus(jsonData.status));
+            };
+            logJSONData()
+        });
+    </script>
 @endsection

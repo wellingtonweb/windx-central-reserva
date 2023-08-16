@@ -299,11 +299,11 @@
 <script type="text/javascript" src="{{ asset('assets/js/payment2.js') }}"></script>
 
 <script type="text/javascript">
-    const route_login = '{{route('central.login')}}';
-    const route_logout = '{{route('central.logout')}}';
+    const route_login = '{{route('terminal.login')}}';
+    const route_logout = '{{route('terminal.logout')}}';
     const app_url = '{{env('APP_URL')}}';
     const base_url = '{{env('APP_BASE_URL')}}';
-    const contracts = '{{route('central.contracts')}}';
+    const contracts = '{{route('terminal.contracts')}}';
 
     window.print();
 

@@ -557,7 +557,8 @@ function callbackTransaction(id){
             // msgStatusTransaction(JSON.stringify(data.status))
 
             if(data.status === 'approved'){
-                alert('Mostrar alert com link para download do comprovante PDF')
+                resetCardFields();
+                // alert('Mostrar alert com link para download do comprovante PDF')
                 // callbackPrintCoupon(id)
             }
             msgStatusTransaction(data.status)
@@ -914,8 +915,8 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
 }
 
 
-// var tempo = 120;
-var tempo = 30;
+var tempo = 120;
+// var tempo = 60;
 
 function countdown() {
     if ((tempo - 1) >= -1) {

@@ -25,7 +25,7 @@
                         </div>
 {{--                        checkout--}}
 {{--                        {{count(session('customer')->billets)}}--}}
-                        <div id="colCheckout" class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-3 order-lg-2
+                        <div id="colCheckout" class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-4 order-lg-2
                         col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0
 {{--                        py-2 px-lg-0 pl-md-3 pr-md-3 px-sm-0 --}}
                         mb-4">
@@ -203,7 +203,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                        <div class="nav flex-lg-column flex-md-row nav-pills" id="v-pills-tab" role="tablist"
                                              aria-orientation="vertical">
                                             <button class="btn btn-windx mb-1 btn-payment-type" id="btn-pix"
                                                     data-toggle="pill" data-target="#v-pills-qrcode" type="button"
@@ -234,7 +234,7 @@
                             </div>
                         </div>
 {{--                        faturas--}}
-                        <div id="colInvoices" class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-9'}}
+                        <div id="colInvoices" class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-8'}}
                             order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1
 {{--                            py-2 pr-lg-3 px-0--}}
 ">
@@ -434,9 +434,9 @@
                 padding: 0.5rem 1.25rem;
             }
 
-            .checkout-controls .btn {
-                padding: .5rem;
-            }
+            /*.checkout-controls .btn {*/
+            /*    padding: .5rem;*/
+            /*}*/
         }
 
         @media (max-width: 1100px) {

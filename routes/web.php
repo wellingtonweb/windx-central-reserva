@@ -44,6 +44,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
             Route::get('/contratos', [PagesController::class, 'contracts'])->name('contracts');
             Route::get('/contrato/{customerId}', [PagesController::class, 'contract'])->name('contract');
             Route::get('/comprovantes/{customerId}', [PagesController::class, 'payments'])->name('payments');
+            Route::get('/coupons', [PagesController::class, 'coupons'])->name('coupons');
             Route::post('/contrato/liberar', [PagesController::class, 'release'])->name('release');
 
             Route::get('/check/{billetId}', [PagesController::class, 'check'])->name('check');

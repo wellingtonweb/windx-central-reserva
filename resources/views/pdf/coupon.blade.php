@@ -172,44 +172,46 @@
                         <tr class="ttu b-top">
                             <td class="right">Pago via: </td>
                             <td id="coupon_method" class="left">
-{{--                                @if($method == 'ecommerce')--}}
+                                @if($method == 'ecommerce' && $terminal_id == null)
                                     Central do Assinante
-{{--                                @else--}}
-{{--                                    Auto-atendimento--}}
-{{--                                @endif--}}
+                                @else
+                                    Auto-atendimento
+                                @endif
                             </td>
                         </tr>
                         <tr class="ttu b-top">
-                            <td class="right">Venda à: </td>
+                            <td class="right">Modalidade: </td>
                             <td id="coupon_payment_type" class="left">
-{{--                                @if($payment_type == 'credit')--}}
+                                @if($payment_type == 'credit')
                                     Crédito
-{{--                                @else--}}
-{{--                                    Débito--}}
-{{--                                @endif--}}
+                                @elseif($payment_type == 'debit')
+                                    Débito
+                                @elseif($payment_type == 'pix')
+                                    Pix
+                                @else
+                                    Picpay
+                                @endif
                             </td>
                         </tr>
                         <tr class="ttu b-top">
                             <td class="right">Valor: </td>
                             <td class="left">R$
                                 <span id="coupon_value">
-{{--                                    @php--}}
-{{--                                        $total = 0;--}}
-{{--                                        foreach ($billets as $billet)--}}
-{{--                                        {--}}
-{{--                                            $total += $billet->value;--}}
-{{--                                        }--}}
-{{--                                    @endphp--}}
-{{--                                    {{number_format($total, 2, ',', '.') }}--}}
-                                    R$ 1,00
+                                    @php
+                                        $total = 0;
+                                        foreach ($billets as $billet)
+                                        {
+                                            $total += $billet->value;
+                                        }
+                                    @endphp
+                                    {{number_format($total, 2, ',', '.') }}
                                 </span>
                             </td>
                         </tr>
                         <tr class="ttu b-top pb-4">
                             <td class="right">Valor pago: </td>
                             <td class="left"><b>R$ <span id="coupon_amount">
-{{--                                        {{number_format($amount, 2, ',', '.') }}--}}
-                                        1,00
+                                        {{number_format($amount, 2, ',', '.') }}
                                     </span></b></td>
                         </tr>
                         @if($method == 'tef')

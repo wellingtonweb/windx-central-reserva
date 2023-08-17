@@ -4,241 +4,36 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-5 mt-md-0">
+
+
                 <main role="main" class="p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
                     <section>
-                        @if(count($data->items()) != 0)
-                        <div class="contents">
-                            @php $billets = 0; @endphp
-                            <div class="row checkout ">
-                                <div class="col-12 d-flex align-middle checkout-status- bg-white rounded mb-2 justify-content-between">
-                                    <a class="btn btn-primary ml-0" href="{{route('central.contract', ['customerId' => session('customerId')])}}">
-                                        <i class="fas fa fa-arrow-left pr-1" aria-hidden="true"></i>Voltar
-                                    </a>
-                                </div>
-                            </div>
 
-                            <table id="table-coupons-list" class=" table table-coupons mt-0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nosso nº</th>
-                                        <th>Vencimento</th>
-                                        <th>Data - Hora</th>
-                                        <th>Valor pago</th>
-                                        <th>Pago via</th>
-                                        <th>Modalidade</th>
-                                        <th>Status</th>
-                                        <th>2ª Via</th>
-                                        <th>Detalhes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($data->items() as $key => $payment)
-{{--                                    <tr class="t-scheduled t-status">--}}
-                                    <tr class="{{ $payment['status'] == 'approved' ? 't-scheduled t-status': 't-inactive'}}">
-                                                <td id="col_id" width="14,28%">
-                                                    <span class="fields-values">{{$payment['id'] }}</span>
-                                                </td>
-                                                <td id="col_billets" width="44,28%" >
-                                                    <p class="fields-values">
-                                                    @foreach($payment['billets'] as $billet)
-                                                        @if(count($payment['billets']) > 1)
-                                                        {{$billet['reference'] }}<br>
-                                                        @else
-                                                        {{$billet['reference'] }}
-                                                        @endif
-                                                    @endforeach
-                                                    </p>
-                                                </td>
-                                                <td id="col_duedate" width="44,28%">
-                                                    <p class="fields-values">
-                                                    @foreach($payment['billets'] as $billet)
-                                                        @if(isset($billet['duedate']))
-                                                            @if(count($payment['billets']) > 1)
-                                                            {{$billet['duedate'] ? $billet['duedate'] : null }}<br>
-                                                            @else
-                                                            {{$billet['duedate']}}
-                                                            @endif
-                                                        @else
-{{--                                                        {{null}}--}}
-                                                            ----
-                                                        @endif
-                                                    @endforeach
-                                                    </p>
-                                                </td>
-{{--                                                <td id="col_dt_payment" width="14,28%"><h4 class="title-actions">Data de pagamento: </h4><span class="fields-values">{!! gmdate("Y-m-d\TH:i:s\Z") !!}</span></td>--}}
-                                                <td id="col_dt_payment" width="14,28%">
-                                                    <span class="fields-values">01/07/2023</span>
-{{--                                                    <span class="fields-values">{!! $dueDate = \App\Services\Functions::dateTimeToPt($payment['created_at'])!!}</span>--}}
-                                                </td>
-                                                <td id="col_amount" width="14,28%"><span class="fields-values">R$ {{ number_format($payment['amount'], 2, ',', '') }}</span></td>
-                                                <td id="col_payment_type" width="14,28%">
-                                                    <span class="fields-values">
-                                                        @if($payment['method'] == 'ecommerce' && !$payment['method'] == 'tef')
-                                                            Central do Assinante
-                                                        @elseif($payment['method'] == 'picpay')
-                                                            Picpay
-                                                        @else
-                                                            Autoatendimento
-                                                        @endif
-                                                    </span>
-                                                </td>
-                                                <td id="col_payment_type" width="14,28%"><span class="fields-values">{{ $payment['payment_type'] }}</span></td>
-                                                <td id="col_status" width="14,28%"><span class="fields-values">{{ $payment['status'] }}</span></td>
-                                                <td id="col_reference" class="d-none" width="14,28%">{{$payment['reference']}}</td>
-                                                <td id="col_value" class="d-none" >
-                                                    @php
-                                                        $total = 0;
-                                                        foreach ($payment['billets'] as $billet)
-                                                        {
-                                                            $total += $billet['value'];
-                                                        }
-                                                    @endphp
-                                                    {{number_format($total, 2, ',', '.') }}
-                                                </td>
-                                                <td id="col_fees" class="d-none" >
-                                                    @php
-                                                        $totalAddition = 0;
-                                                        foreach ($payment['billets'] as $billet)
-                                                        {
-                                                            $totalAddition += $billet['addition'];
-                                                        }
-                                                    @endphp
-                                                    {{number_format($totalAddition, 2, ',', '.') }}
-                                                </td>
-                                                <td id="col_btn_print" width="7%">
-                                                @if($payment['status'] != 'approved')
-{{--                                                    @if($payment['status'] != 'approved' && $payment['method'] != 'tef')--}}
-                                                    <a href="#" class="btn btn-secondary btn-sm btn-radius-50 disabled">
-                                                        <i class="fa fa-times fa-2x pl-1 pr-1" aria-hidden="true"></i>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('central.coupon.pdf', ['id' => $payment['id'] ]) }}" type="button" id="{{  $payment['id'] }}" class="btn btn-primary btn-sm coupon-pdf btn-radius-50 ">
-                                                        <i class="fa fa-print fa-2x" aria-hidden="true"></i>
-                                                    </a>
-                                                @endif
-                                                </td>
-                                                <td id="col_btn_details" width="7%">
-                                                    <a href="#" class="btn btn-info btn-sm btn-radius-50 btn-payment-get-details " data-toggle="modal"
-                                                       data-target="#payments-details" data-payment="{{$payment['id']}}">
-                                                        <i class="fa fa-info fa-2x pl-2 pr-2"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+{{--                        {{dd($data)}}--}}
 
-                            <div class="d-flex justify-content-center">
-                                {{ $data->links() }}
-                            </div>
-
-                            <div id="container-coupon" class="xpto d-none">
-{{--                                <div id="container-coupon" class="xpto">--}}
-                                    <table id="example" class="printer-ticket">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center" colspan="4">
-                                                <img style="width: 100px" src="{{ asset('assets/img/logo2.svg') }}" class="logo pt-2">
-                                            </th>
-                                        </tr>
-                                        <tr class="b-top">
-                                            <th class="ttu text-center" colspan="2">
-                                                <strong>Comprovante de pagamento<br />Cupom não fiscal</strong>
-                                            </th>
-                                        </tr>
-                                        <tr class="b-top">
-                                            <th class="ttu text-center" colspan="2">
-                                                <p><strong class="p-2">Cliente: </strong></p>
-                                                <span id="coupon_customer">{{session('customer')->full_name}}</span><br />
-{{--                                                    <span>WELLINGTON DIAS FERREIRA</span><br />--}}
-                                                <span>Contrato ID: </span><span id="coupon_customer_id">{{session('customer')->id}}</span>
-{{--                                                    <span>Contrato ID: </span><span>1234</span>--}}
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr class="ttu ">
-                                            <th colspan="4" class="ttu text-center justify-content-center" >
-                                                <strong class="mt-3 p-1">Dados do pagamento: </strong>
-                                            </th>
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">Referência: </td>
-                                            <td id="coupon_reference" class="left" style="max-width: 220px"></td>
-{{--                                                <td id="coupon_card_number" class="left">4a32bcb8-cbe2-46bf-8527-d31f61840889</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">ID: </td>
-                                            <td id="coupon_id" class="left"></td>
-{{--                                                <td class="left">76</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">Data/Hora: </td>
-                                            <td id="coupon_created_at" class="left"></td>
-{{--                                                <td class="left">09/06/2021 / 17:36:00 ONL-C</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">Boleto(s): </td>
-                                            <td id="coupon_billets" class="left"></td>
-{{--                                                <td class="left">0559959-5</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">Pago via: </td>
-                                            <td id="coupon_method" class="left">CENTRAL DO ASSINANTE</td>
-{{--                                                <td class="left">CENTRAL DO ASSINANTE</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">Venda à: </td>
-                                            <td id="coupon_payment_type" class="left"></td>
-{{--                                                <td class="left">DÉBITO</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top">
-                                            <td class="right">Valor: </td>
-                                            <td class="left">R$ <span id="coupon_value"></span></td>
-{{--                                                <td class="left">R$ 69,90</td>--}}
-                                        </tr>
-                                        <tr class="ttu b-top pb-4">
-                                            <td class="right">Valor pago: </td>
-                                            <td class="left">R$ <span id="coupon_amount"></span></td>
-{{--                                                <td class="left">R$ 69,90</td>--}}
-                                        </tr>
-                                        <tr class="sup b-top pt-2 font-weight-bold">
-                                            <td colspan="4" class="text-center justify-content-center">
-                                                Ouvidoria: 0800 028 2309</br>
-                                                Financeiro: (28) 3532-2309
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                        </div>
-                        @else
-                            <script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>
-                            <script>
-                                Swal.fire({
-                                    icon: 'info',
-                                    title: 'Este cadastro ainda não possuí comprovantes!',
-                                    showConfirmButton: false,
-                                    timer: 5000,
-                                    allowOutsideClick: () => {
-                                        const popup = Swal.getPopup()
-                                        popup.classList.remove('swal2-show')
-                                        setTimeout(() => {
-                                            popup.classList.add('animate__animated', 'animate__headShake')
-                                        })
-                                        setTimeout(() => {
-                                            popup.classList.remove('animate__animated', 'animate__headShake')
-                                        }, 500)
-                                        return false
-                                    }
-                                }).then((result) => {
-                                    if (result.dismiss === Swal.DismissReason.timer) {
-                                        history.back();
-                                    }
-                                })
-                            </script>
-                        @endif
+                        {{$test = 'Arrays teste'}}
+                        <table id="example" class="display" style="width:100%; color: #ffffff">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Extn.</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Extn.</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                            </tfoot>
+                        </table>
                     </section>
                 </main>
             </div>
@@ -311,11 +106,17 @@
     </div>
 @endsection
 
+@section('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+@endsection
+
 @section('js')
 {{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
     <script>
         function printStatus(status)
         {
@@ -363,11 +164,491 @@
             async function logJSONData() {
                 const response = await fetch(url);
                 jsonData = await response.json();
-                $('.loading-get-info').addClass('d-none')
-                $('#spinner-status-details').addClass('d-none')
-                $('#details_payment_status').html(printStatus(jsonData.status));
+                if(jsonData.status == 'created'){
+                    $('.loading-get-info').addClass('d-none')
+                    $('#spinner-status-details').addClass('d-none')
+                    $('#details_payment_status').html(printStatus(jsonData.status));
+                }
             };
             logJSONData()
         });
+
+        fetch('')
+            .then((response) => response.json())
+            .then((data) => {
+                // if (data.d != null && data.d != undefined && data.d.results.length > 0) {
+                    var table = $('#example').DataTable();
+                    table.rows.add(data).draw();
+                // }
+            });
+
+        {{--console.log('Teste: ',{{$data}});--}}
+
+            // let data =  {
+            //     "data": [
+            //         [
+            //             "Tiger Nixon",
+            //             "System Architect",
+            //             "Edinburgh",
+            //             "5421",
+            //             "2011/04/25",
+            //             "$320,800"
+            //         ],
+            //         [
+            //             "Garrett Winters",
+            //             "Accountant",
+            //             "Tokyo",
+            //             "8422",
+            //             "2011/07/25",
+            //             "$170,750"
+            //         ],
+            //         [
+            //             "Ashton Cox",
+            //             "Junior Technical Author",
+            //             "San Francisco",
+            //             "1562",
+            //             "2009/01/12",
+            //             "$86,000"
+            //         ],
+            //         [
+            //             "Cedric Kelly",
+            //             "Senior Javascript Developer",
+            //             "Edinburgh",
+            //             "6224",
+            //             "2012/03/29",
+            //             "$433,060"
+            //         ],
+            //         [
+            //             "Airi Satou",
+            //             "Accountant",
+            //             "Tokyo",
+            //             "5407",
+            //             "2008/11/28",
+            //             "$162,700"
+            //         ],
+            //         [
+            //             "Brielle Williamson",
+            //             "Integration Specialist",
+            //             "New York",
+            //             "4804",
+            //             "2012/12/02",
+            //             "$372,000"
+            //         ],
+            //         [
+            //             "Herrod Chandler",
+            //             "Sales Assistant",
+            //             "San Francisco",
+            //             "9608",
+            //             "2012/08/06",
+            //             "$137,500"
+            //         ],
+            //         [
+            //             "Rhona Davidson",
+            //             "Integration Specialist",
+            //             "Tokyo",
+            //             "6200",
+            //             "2010/10/14",
+            //             "$327,900"
+            //         ],
+            //         [
+            //             "Colleen Hurst",
+            //             "Javascript Developer",
+            //             "San Francisco",
+            //             "2360",
+            //             "2009/09/15",
+            //             "$205,500"
+            //         ],
+            //         [
+            //             "Sonya Frost",
+            //             "Software Engineer",
+            //             "Edinburgh",
+            //             "1667",
+            //             "2008/12/13",
+            //             "$103,600"
+            //         ],
+            //         [
+            //             "Jena Gaines",
+            //             "Office Manager",
+            //             "London",
+            //             "3814",
+            //             "2008/12/19",
+            //             "$90,560"
+            //         ],
+            //         [
+            //             "Quinn Flynn",
+            //             "Support Lead",
+            //             "Edinburgh",
+            //             "9497",
+            //             "2013/03/03",
+            //             "$342,000"
+            //         ],
+            //         [
+            //             "Charde Marshall",
+            //             "Regional Director",
+            //             "San Francisco",
+            //             "6741",
+            //             "2008/10/16",
+            //             "$470,600"
+            //         ],
+            //         [
+            //             "Haley Kennedy",
+            //             "Senior Marketing Designer",
+            //             "London",
+            //             "3597",
+            //             "2012/12/18",
+            //             "$313,500"
+            //         ],
+            //         [
+            //             "Tatyana Fitzpatrick",
+            //             "Regional Director",
+            //             "London",
+            //             "1965",
+            //             "2010/03/17",
+            //             "$385,750"
+            //         ],
+            //         [
+            //             "Michael Silva",
+            //             "Marketing Designer",
+            //             "London",
+            //             "1581",
+            //             "2012/11/27",
+            //             "$198,500"
+            //         ],
+            //         [
+            //             "Paul Byrd",
+            //             "Chief Financial Officer (CFO)",
+            //             "New York",
+            //             "3059",
+            //             "2010/06/09",
+            //             "$725,000"
+            //         ],
+            //         [
+            //             "Gloria Little",
+            //             "Systems Administrator",
+            //             "New York",
+            //             "1721",
+            //             "2009/04/10",
+            //             "$237,500"
+            //         ],
+            //         [
+            //             "Bradley Greer",
+            //             "Software Engineer",
+            //             "London",
+            //             "2558",
+            //             "2012/10/13",
+            //             "$132,000"
+            //         ],
+            //         [
+            //             "Dai Rios",
+            //             "Personnel Lead",
+            //             "Edinburgh",
+            //             "2290",
+            //             "2012/09/26",
+            //             "$217,500"
+            //         ],
+            //         [
+            //             "Jenette Caldwell",
+            //             "Development Lead",
+            //             "New York",
+            //             "1937",
+            //             "2011/09/03",
+            //             "$345,000"
+            //         ],
+            //         [
+            //             "Yuri Berry",
+            //             "Chief Marketing Officer (CMO)",
+            //             "New York",
+            //             "6154",
+            //             "2009/06/25",
+            //             "$675,000"
+            //         ],
+            //         [
+            //             "Caesar Vance",
+            //             "Pre-Sales Support",
+            //             "New York",
+            //             "8330",
+            //             "2011/12/12",
+            //             "$106,450"
+            //         ],
+            //         [
+            //             "Doris Wilder",
+            //             "Sales Assistant",
+            //             "Sydney",
+            //             "3023",
+            //             "2010/09/20",
+            //             "$85,600"
+            //         ],
+            //         [
+            //             "Angelica Ramos",
+            //             "Chief Executive Officer (CEO)",
+            //             "London",
+            //             "5797",
+            //             "2009/10/09",
+            //             "$1,200,000"
+            //         ],
+            //         [
+            //             "Gavin Joyce",
+            //             "Developer",
+            //             "Edinburgh",
+            //             "8822",
+            //             "2010/12/22",
+            //             "$92,575"
+            //         ],
+            //         [
+            //             "Jennifer Chang",
+            //             "Regional Director",
+            //             "Singapore",
+            //             "9239",
+            //             "2010/11/14",
+            //             "$357,650"
+            //         ],
+            //         [
+            //             "Brenden Wagner",
+            //             "Software Engineer",
+            //             "San Francisco",
+            //             "1314",
+            //             "2011/06/07",
+            //             "$206,850"
+            //         ],
+            //         [
+            //             "Fiona Green",
+            //             "Chief Operating Officer (COO)",
+            //             "San Francisco",
+            //             "2947",
+            //             "2010/03/11",
+            //             "$850,000"
+            //         ],
+            //         [
+            //             "Shou Itou",
+            //             "Regional Marketing",
+            //             "Tokyo",
+            //             "8899",
+            //             "2011/08/14",
+            //             "$163,000"
+            //         ],
+            //         [
+            //             "Michelle House",
+            //             "Integration Specialist",
+            //             "Sydney",
+            //             "2769",
+            //             "2011/06/02",
+            //             "$95,400"
+            //         ],
+            //         [
+            //             "Suki Burks",
+            //             "Developer",
+            //             "London",
+            //             "6832",
+            //             "2009/10/22",
+            //             "$114,500"
+            //         ],
+            //         [
+            //             "Prescott Bartlett",
+            //             "Technical Author",
+            //             "London",
+            //             "3606",
+            //             "2011/05/07",
+            //             "$145,000"
+            //         ],
+            //         [
+            //             "Gavin Cortez",
+            //             "Team Leader",
+            //             "San Francisco",
+            //             "2860",
+            //             "2008/10/26",
+            //             "$235,500"
+            //         ],
+            //         [
+            //             "Martena Mccray",
+            //             "Post-Sales support",
+            //             "Edinburgh",
+            //             "8240",
+            //             "2011/03/09",
+            //             "$324,050"
+            //         ],
+            //         [
+            //             "Unity Butler",
+            //             "Marketing Designer",
+            //             "San Francisco",
+            //             "5384",
+            //             "2009/12/09",
+            //             "$85,675"
+            //         ],
+            //         [
+            //             "Howard Hatfield",
+            //             "Office Manager",
+            //             "San Francisco",
+            //             "7031",
+            //             "2008/12/16",
+            //             "$164,500"
+            //         ],
+            //         [
+            //             "Hope Fuentes",
+            //             "Secretary",
+            //             "San Francisco",
+            //             "6318",
+            //             "2010/02/12",
+            //             "$109,850"
+            //         ],
+            //         [
+            //             "Vivian Harrell",
+            //             "Financial Controller",
+            //             "San Francisco",
+            //             "9422",
+            //             "2009/02/14",
+            //             "$452,500"
+            //         ],
+            //         [
+            //             "Timothy Mooney",
+            //             "Office Manager",
+            //             "London",
+            //             "7580",
+            //             "2008/12/11",
+            //             "$136,200"
+            //         ],
+            //         [
+            //             "Jackson Bradshaw",
+            //             "Director",
+            //             "New York",
+            //             "1042",
+            //             "2008/09/26",
+            //             "$645,750"
+            //         ],
+            //         [
+            //             "Olivia Liang",
+            //             "Support Engineer",
+            //             "Singapore",
+            //             "2120",
+            //             "2011/02/03",
+            //             "$234,500"
+            //         ],
+            //         [
+            //             "Bruno Nash",
+            //             "Software Engineer",
+            //             "London",
+            //             "6222",
+            //             "2011/05/03",
+            //             "$163,500"
+            //         ],
+            //         [
+            //             "Sakura Yamamoto",
+            //             "Support Engineer",
+            //             "Tokyo",
+            //             "9383",
+            //             "2009/08/19",
+            //             "$139,575"
+            //         ],
+            //         [
+            //             "Thor Walton",
+            //             "Developer",
+            //             "New York",
+            //             "8327",
+            //             "2013/08/11",
+            //             "$98,540"
+            //         ],
+            //         [
+            //             "Finn Camacho",
+            //             "Support Engineer",
+            //             "San Francisco",
+            //             "2927",
+            //             "2009/07/07",
+            //             "$87,500"
+            //         ],
+            //         [
+            //             "Serge Baldwin",
+            //             "Data Coordinator",
+            //             "Singapore",
+            //             "8352",
+            //             "2012/04/09",
+            //             "$138,575"
+            //         ],
+            //         [
+            //             "Zenaida Frank",
+            //             "Software Engineer",
+            //             "New York",
+            //             "7439",
+            //             "2010/01/04",
+            //             "$125,250"
+            //         ],
+            //         [
+            //             "Zorita Serrano",
+            //             "Software Engineer",
+            //             "San Francisco",
+            //             "4389",
+            //             "2012/06/01",
+            //             "$115,000"
+            //         ],
+            //         [
+            //             "Jennifer Acosta",
+            //             "Junior Javascript Developer",
+            //             "Edinburgh",
+            //             "3431",
+            //             "2013/02/01",
+            //             "$75,650"
+            //         ],
+            //         [
+            //             "Cara Stevens",
+            //             "Sales Assistant",
+            //             "New York",
+            //             "3990",
+            //             "2011/12/06",
+            //             "$145,600"
+            //         ],
+            //         [
+            //             "Hermione Butler",
+            //             "Regional Director",
+            //             "London",
+            //             "1016",
+            //             "2011/03/21",
+            //             "$356,250"
+            //         ],
+            //         [
+            //             "Lael Greer",
+            //             "Systems Administrator",
+            //             "London",
+            //             "6733",
+            //             "2009/02/27",
+            //             "$103,500"
+            //         ],
+            //         [
+            //             "Jonas Alexander",
+            //             "Developer",
+            //             "San Francisco",
+            //             "8196",
+            //             "2010/07/14",
+            //             "$86,500"
+            //         ],
+            //         [
+            //             "Shad Decker",
+            //             "Regional Director",
+            //             "Edinburgh",
+            //             "6373",
+            //             "2008/11/13",
+            //             "$183,000"
+            //         ],
+            //         [
+            //             "Michael Bruce",
+            //             "Javascript Developer",
+            //             "Singapore",
+            //             "5384",
+            //             "2011/06/27",
+            //             "$183,000"
+            //         ],
+            //         [
+            //             "Donna Snider",
+            //             "Customer Support",
+            //             "New York",
+            //             "4226",
+            //             "2011/01/25",
+            //             "$112,000"
+            //         ]
+            //     ]
+            // }
+
+
+
+        // new DataTable('#example', {
+        //     ajax: data
+        // });
     </script>
 @endsection

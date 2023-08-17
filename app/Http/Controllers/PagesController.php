@@ -86,20 +86,34 @@ class PagesController extends Controller
     public function payments($customerId)
     {
         if(session()->has('customer')){
-            session()->put('customerId', $customerId);
+            return view('payments');
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function coupons()
+    {
+        if(session()->has('customer')){
+            $customerId = session('customer')->id;
 
             $payments = json_decode(json_encode((new API())->getPayments()),true);
             $paymentCustomer = [];
 
             foreach($payments as $key => $payment){
+
                 $paymentCustomer = array_filter($payment, function($v, $k) {
-                    return $v['customer'] == session('customerId');
+                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce';
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
-            $data = $this->paginate($paymentCustomer);
+//            dd($paymentCustomer);
 
-            return view('payments', compact('data'));
+//            $data = $this->paginate($paymentCustomer);
+//            $data = $paymentCustomer;
+            return response()->json($paymentCustomer);
+
+//            return view('payments', ['data' =>  $paymentCustomer]);
 
         } else {
             throw new CheckUserException();

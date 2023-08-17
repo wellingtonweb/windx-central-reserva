@@ -204,7 +204,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="nav flex-lg-column flex-md-row nav-pills" id="v-pills-tab" role="tablist"
+                                        <div class="nav flex-lg-column_ flex-row nav-pills" id="v-pills-tab" role="tablist"
                                              aria-orientation="vertical">
                                             <button class="btn btn-windx mb-1 btn-payment-type" id="btn-pix"
                                                     data-toggle="pill" data-target="#v-pills-qrcode" type="button"
@@ -229,6 +229,10 @@
                                         <button type="button" id="clear-cart" style="width: calc(100% - 3%);"
                                                 class="btn btn-danger clear-cart mt-2 btn-radius-50"
                                                 disabled>Cancelar
+                                        </button>
+                                        <button id="authenticate" type="button" style="width: calc(100% - 3%);"
+                                                class="btn btn-warning mt-2 btn-radius-50"
+                                                >Autenticar
                                         </button>
                                     </div>
                                 </div>
@@ -754,6 +758,7 @@
     {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         async function pixCopyPaste(){
             let code = $('p.qrcodestring').text()
@@ -781,6 +786,30 @@
                 link.innerText = 'Mostrar menos';
             }
         }
+
+        function getTokenCielo(){
+            let url = "https://mpi.braspag.com.br/v2/auth/token";
+            let _data = {
+                EstablishmentCode: "1106093345",
+                MerchantName: "PENHA DE SOUZA JAMARI",
+                MCC:"5733"
+            }
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+                },
+                body: JSON.stringify(_data)
+            })
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => console.log(err));
+        }
+
+        //getTokenCielo()
 
 
     </script>

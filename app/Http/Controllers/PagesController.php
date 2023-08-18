@@ -18,6 +18,15 @@ use Illuminate\Support\Collection;
 class PagesController extends Controller
 {
 
+    public function home()
+    {
+        if(session()->has('customer')){
+            return view('home');
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
 //    public function contracts()
 //    {
 //        if(session()->has('customer')){

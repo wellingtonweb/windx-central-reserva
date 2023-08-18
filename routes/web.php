@@ -29,7 +29,8 @@ Route::prefix('assinante')->name('central.')->group(function(){
 //    Route::middleware(['check.terminal'])->group(function () {
 
         Route::get('/', function () {
-            return redirect()->route('central.login');
+            return redirect()->route('central.home');
+//            return redirect()->route('central.login');
         });
 
         Route::get('login', [AuthController::class, 'login'])->name('login');
@@ -41,6 +42,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
         Route::middleware(['check.user'])->group(function () {
 
             /* Simple Routes */
+            Route::get('/home', [PagesController::class, 'home'])->name('home');
             Route::get('/contratos', [PagesController::class, 'contracts'])->name('contracts');
             Route::get('/contrato/{customerId}', [PagesController::class, 'contract'])->name('contract');
             Route::get('/comprovantes/{customerId}', [PagesController::class, 'payments'])->name('payments');

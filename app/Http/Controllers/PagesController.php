@@ -122,7 +122,7 @@ class PagesController extends Controller
             return Datatables::of($paymentCustomer)
                 ->addColumn('action', function($data){
                     if($data['status'] === 'approved'){
-                        $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data['id'].'" data-original-title="Download" class="download btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .'" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
                     }else{
                         $button = '---';
 //                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';

@@ -136,25 +136,12 @@
                                 {{$reference}}
                             </td>
                         </tr>
+
                         <tr class="ttu b-top">
-                            <td class="right">Cartão: </td>
-                            <td id="coupon_reference" class="left" style="max-width: 74mm">
-                                80000000
+                            <td class="right">Data Hora: </td>
+                            <td id="coupon_created_at" class="left">
+                                {{date("d/m/Y H:i:s", strtotime($created_at))}}
                             </td>
-                        </tr>
-                        <tr class="ttu b-top">
-                            <td class="right">ID: </td>
-                            <td id="coupon_id" class="left">88521</td>
-                        </tr>
-                        <tr class="ttu b-top">
-                            <td class="right">Autorização: </td>
-                            <td id="coupon_reference" class="left" style="max-width: 74mm">
-                                94644551
-                            </td>
-                        </tr>
-                        <tr class="ttu b-top">
-                            <td class="right">Data/Hora: </td>
-                            <td id="coupon_created_at" class="left">16/08/2023 18:00</td>
                         </tr>
                         <tr class="ttu b-top">
                             <td class="right">
@@ -193,6 +180,24 @@
                                 @endif
                             </td>
                         </tr>
+                        @if($payment_type == 'credit' || $payment_type == 'debit')
+                        <tr class="ttu b-top">
+                            <td class="right">Cartão: </td>
+                            <td id="coupon_reference" class="left" style="max-width: 74mm">
+                                80000000
+                            </td>
+                        </tr>
+                        <tr class="ttu b-top">
+                            <td class="right">ID: </td>
+                            <td id="coupon_id" class="left">88521</td>
+                        </tr>
+                        <tr class="ttu b-top">
+                            <td class="right">Autorização: </td>
+                            <td id="coupon_reference" class="left" style="max-width: 74mm">
+                                94644551
+                            </td>
+                        </tr>
+                        @endif
                         <tr class="ttu b-top">
                             <td class="right">Valor: </td>
                             <td class="left">R$
@@ -205,6 +210,21 @@
                                         }
                                     @endphp
                                     {{number_format($total, 2, ',', '.') }}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr class="ttu b-top">
+                            <td class="right">Juros + Multas: </td>
+                            <td class="left">R$
+                                <span id="coupon_value">
+                                    @php
+                                        $totalAdition = 0;
+                                        foreach ($billets as $billet)
+                                        {
+                                            $totalAdition += $billet->addition;
+                                        }
+                                    @endphp
+                                    {{number_format($totalAdition, 2, ',', '.') }}
                                 </span>
                             </td>
                         </tr>

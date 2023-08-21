@@ -270,5 +270,10 @@
                 });
             });
         });
+
+        $('.download-pdf').on('click', function (e){
+            e.preventDefault();
+            alert('olá mundo!')
+        })
     </script>
 @endsection

@@ -113,7 +113,7 @@ class PagesController extends Controller
             foreach($payments as $key => $payment){
 
                 $paymentCustomer = array_filter($payment, function($v, $k) {
-                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce';
+                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
@@ -121,9 +121,15 @@ class PagesController extends Controller
 
             return Datatables::of($paymentCustomer)
                 ->addColumn('action', function($data){
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data['id'].'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<button type="button" name="delete" id="'.$data['id'].'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';
+                    if($data['status'] === 'approved'){
+                        $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data['id'].'" data-original-title="Download" class="download btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                    }else{
+                        $button = '---';
+//                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
+                    }
+//                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data['id'].'" data-original-title="Download" class="download btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+//                    $button .= '&nbsp;&nbsp;';
+//                    $button .= '<button type="button" name="delete" id="'.$data['id'].'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['action'])

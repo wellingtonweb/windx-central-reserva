@@ -1,22 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <main>
+    <div>
         <section>
             <div class="container-fluid mt-lg-5 mt-md-0">
-
-
-                <main role="main" class="p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
-                    <section>
-
-{{--                        {{dd($data)}}--}}
-
-                        {{$test = 'Arrays teste'}}
-                        <table class="display list-payments" style="width:100%; color: #ffffff">
-
+                <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
+                    <div class="col-12">
+                        <table class="table table-bordered table-striped display list-payments text-uppercase">
                         </table>
-                    </section>
-                </main>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -89,6 +82,14 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        .bottom, .top {
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
 @endsection
 
 @section('js')
@@ -169,19 +170,105 @@
 
         $(document).ready(function() {
             $(function () {
+                var billet = '';
                 var table = $('.list-payments').DataTable({
+                    dom: '<"top"i>rt<"bottom"p><"clear">',
+                    pagingType: 'full_numbers',
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('central.coupons') }}",
+                    columnDefs: [
+                        {
+                            // targets: [0],
+                            visible: false,
+                            searchable: false,
+                            pageLength : 5,
+                            lengthMenu: [[5, 10], [5, 10]],
+                        }
+                    ],
                     columns: [
-                        {data: 'id', name: 'id'},
-                        {data: 'customer', name: 'customer'},
-                        {data: 'reference', name: 'reference'},
-                        {data: 'action', name: 'action', orderable: false, searchable: false},
-                    ]
+                        {data: 'id', name: 'id', title: 'ID'},
+                        {data: 'billets', name: 'billets', title: 'Faturas | vencimento | Valor | Multa + Juros', render: function(data, type, full, meta) {
+                                var billetsHTML = '';
+                                if (Array.isArray(data)) {
+                                    billetsHTML = '<ul style="list-style: none">';
+                                    data.forEach(function(billet) {
+                                        console.log(billet)
+                                        billetsHTML += '<li>' + billet.reference
+                                            +' | '+ billet.duedate
+                                            +' | R$ '+ billet.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
+                                            +' | R$ '+billet.addition.toLocaleString('pt-br', {minimumFractionDigits: 2})
+                                             +'</li>';
+                                    });
+                                    billetsHTML += '</ul>';
+                                }
+                                return billetsHTML;
+                            }},
+                        {data: 'amount', name: 'amount', title: 'Valor pago', render: function(data, type, full, meta) {
+                                return 'R$ ' + data.replace(".", ",");
+                            }
+                        },
+                        {data: 'payment_type', name: 'payment_type', title: 'Modalidade', render: function(data, type, full, meta) {
+                                var paymentType = '';
+                                switch (data) {
+                                    case 'pix':
+                                        paymentType = "pix";
+                                        break;
+                                    case 'picpay':
+                                        paymentType = "picpay";
+                                        break;
+                                    case 'debit':
+                                        paymentType = "Débito";
+                                        break;
+                                    case 'credit':
+                                        paymentType = "Crédito";
+                                        break;
+                                }
+                                return paymentType;
+                            }},
+                        {data: 'created_at', name: 'created_at', title: 'Data, Hora', render: function(data, type, full, meta) {
+                                var pay = new Date(data);
+                                return pay.toLocaleString();
+                            }},
+                        {data: 'status', name: 'status', title: 'Status', render: function(data, type, full, meta) {
+                                var state = '';
+                                switch (data) {
+                                    case 'created':
+                                        state = "Criado";
+                                        break;
+                                    case 'approved':
+                                        state = "Aprovado";
+                                        break;
+                                    case 'canceled':
+                                        state = "Cancelado";
+                                        break;
+                                    case 'refused':
+                                        state = "Recusado";
+                                        break;
+                                }
+                                return state;
+                            }},
+                        {data: 'action', name: 'action', title: '2ª via (download)', orderable: false, searchable: false},
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+                    },
+                    orderable: false,
+                    searchable: false,
+                    sortable: false,
+                    rowCallback: function(row, data, index) {
+                        var statusCell = table.cell(index, 'status:name');
+                        var statusText = statusCell.data();
+                        console.log(statusText);
+
+                        if (statusText === 'approved') {
+                            $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
+                        } else {
+                            $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
+                        }
+                    }
                 });
             });
         });
-
     </script>
 @endsection

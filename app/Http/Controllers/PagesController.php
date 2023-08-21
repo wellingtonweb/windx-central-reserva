@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Yajra\DataTables\DataTables;
 
 class PagesController extends Controller
 {
@@ -116,11 +117,25 @@ class PagesController extends Controller
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
+//            dd(json_decode(json_encode($paymentCustomer)));
+
+            return Datatables::of($paymentCustomer)
+                ->addColumn('action', function($data){
+                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data['id'].'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
+                    $button .= '&nbsp;&nbsp;';
+                    $button .= '<button type="button" name="delete" id="'.$data['id'].'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+
 //            dd($paymentCustomer);
 
 //            $data = $this->paginate($paymentCustomer);
 //            $data = $paymentCustomer;
-            return response()->json($paymentCustomer);
+
+//            return response()->json($paymentCustomer);
 
 //            return view('payments', ['data' =>  $paymentCustomer]);
 

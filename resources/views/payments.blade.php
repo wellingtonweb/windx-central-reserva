@@ -12,7 +12,7 @@
 {{--                        {{dd($data)}}--}}
 
                         {{$test = 'Arrays teste'}}
-                        <table id="example" class="display" style="width:100%; color: #ffffff">
+                        <table class="display list-payments" style="width:100%; color: #ffffff">
 
                         </table>
                     </section>
@@ -154,25 +154,34 @@
             logJSONData()
         });
 
-        const urlCoupons = '{{route('central.coupons')}}'
-        fetch(urlCoupons)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Data: ', data)
-                console.log('Details: ', data.id)
-                // $(document).ready(function() {
-                    $('#example').DataTable({
-                        data: data,
-                        columns: [
-                            { title: 'ID', data: 'id' },
-                            { title: 'Customer', data: 'customer' },
-                            { title: 'Referência', data: 'reference' }
-                        ]
-                    });
-                // });
+        {{--const urlCoupons = '{{route('central.coupons')}}'--}}
+        {{--fetch(urlCoupons)--}}
+        {{--    .then((response) => {--}}
+        {{--        var obj1 = JSON.parse(JSON.stringify(response));--}}
+        {{--        obj1 = '{ "data": ' + obj1 + '}'; //reformat obj1 to pass to  datatable--}}
+        {{--        // console.log('Data: ', data, typeof obj)--}}
+        {{--        // console.log('Details: ', data.id)--}}
+        {{--        --}}
+        {{--    })--}}
+        {{--    // .then((data) => {--}}
+        {{--    //--}}
+        {{--    // });--}}
 
+        $(document).ready(function() {
+            $(function () {
+                var table = $('.list-payments').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('central.coupons') }}",
+                    columns: [
+                        {data: 'id', name: 'id'},
+                        {data: 'customer', name: 'customer'},
+                        {data: 'reference', name: 'reference'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false},
+                    ]
+                });
             });
-
+        });
 
     </script>
 @endsection

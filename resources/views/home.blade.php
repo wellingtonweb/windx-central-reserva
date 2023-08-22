@@ -7,7 +7,7 @@
 
                 <div class="row mt-3">
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                        <a href="javascript:void(0)" class="text-custom">
+                        <a href="{{route('central.info')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="icon text-center text-custom h1 shadow rounded" >
                                     <span class="uim-svg">
@@ -47,7 +47,7 @@
                         </a>
                     </div><!--end col-->
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                        <a href="javascript:void(0)" class="text-custom">
+                        <a href="{{route('central.contract', ['customerId' => session('customer')->id])}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="icon text-center text-custom h1 shadow rounded" >
                                     <span class="uim-svg">
@@ -84,7 +84,7 @@
                         </a>
                     </div><!--end col-->
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                        <a href="javascript:void(0)" class="text-custom">
+                        <a href="{{route('central.payments', ['customerId' => session('customer')->id])}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="icon text-center text-custom h1 shadow rounded">
                                     <span class="uim-svg">

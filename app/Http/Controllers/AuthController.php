@@ -82,7 +82,8 @@ class AuthController extends Controller
 
                     CustomerLog::create(UserInfo::get_customer_metadata());
 
-                    return redirect('/assinante/contrato/' . $response->object()->id);
+                    return redirect()->route('central.home');
+//                    return redirect('/assinante/contrato/' . $response->object()->id);
 
                 }
                 else

@@ -16,14 +16,14 @@
                         <div class="text-left m-3 p-3" style="border-bottom: 1px solid #f8f9fa">
                             <div class="item-text">
                                 <h5 class="text-light font-weight-bold text-left">Contrato ID:</h5>
-                                <span class=" text-uppercase text-right">{{session('customerActive')->id}}</span>
+                                <span class=" text-uppercase text-right">{{session('customer')->id}}</span>
                             </div>
                             {{--                            <h5 class="text-light mt-1 font-weight-bold text-left">Contrato ID: {{session('customerActive')->id}}</h5>--}}
                             {{--                            <span class="pl-4 pr-4 text-uppercase">{{session('customerActive')->id}}</span>--}}
                             {{--                            <p class="pl-4 pr-4 text-uppercase">{{session('customerActive')->id}}</p>--}}
                             <div class="item-text">
                                 <h5 class="text-light font-weight-bold text-left">Status:</h5>
-                                @switch(session('customerActive')->status)
+                                @switch(session('customer')->status)
                                     @case('L')
                                     <span class="text-status text-right text-primary">LIBERADO</span>
                                     @break;
@@ -37,12 +37,12 @@
                             </div>
                             <div class="item-text">
                                 <h5 class="text-light font-weight-bold text-left">Cliente:</h5>
-                                <span class=" text-right text-uppercase">{{session('customerActive')->full_name}}</span>
+                                <span class=" text-right text-uppercase">{{session('customer')->full_name}}</span>
                             </div>
                             <div class="item-text">
                                 <h5 class="text-light font-weight-bold">Endereço:</h5>
-                                <span class=" text-right text-uppercase text-address-menu">{{session('customerActive')->street}}, {{session('customerActive')->district}},
-                                    {{session('customerActive')->city}}</span>
+                                <span class=" text-right text-uppercase text-address-menu">{{session('customer')->street}}, {{session('customer')->district}},
+                                    {{session('customer')->city}}</span>
                             </div>
                         </div>
 {{--                    @else--}}
@@ -55,17 +55,17 @@
 {{--                                <i class="fas fa-file-signature" aria-hidden="true"></i>Contratos--}}
 {{--                            </a>--}}
 {{--                        </div>--}}
-                        @if(session()->has('customerId'))
+                        @if(session()->has('customer'))
                             <div class="item">
-                                <a href="{{route('central.payments', ['customerId' => session('customerId')])}}"
+                                <a href="{{route('central.payments', ['customerId' => session('customer')->id])}}"
                                    class="click-loader close-menu {{ Route::currentRouteName() === 'central.payments' ? 'active' : '' }}">
                                     <i class="fas fa-file-alt" aria-hidden="true"></i>Comprovantes
                                 </a>
                             </div>
                         @endif
-                        @if(session()->has('customerActive') && session('customerActive')->status === 'B')
+                        @if(session()->has('customer') && session('customer')->status === 'B')
                             <div class="item">
-                                <a href="#" id="{{session('customerId')}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">
+                                <a href="#" id="{{session('customer')->id}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">
                                     <i class="fas fa-lock-open" aria-hidden="true"></i>Liberar por confiança
                                 </a>
                             </div>

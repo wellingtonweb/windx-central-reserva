@@ -1,10 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <div>
+    <main>
         <section>
-            <div class="container-fluid mt-lg-5 mt-md-0">
+            <div class="container-fluid mt-lg-3 mt-md-0">
                 <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
+                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">
+                        <a href="{{route('central.contract', ['customerId' => session('customerId')])}}" class="btn btn-secondary btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                            </svg>
+                            Voltar
+                        </a>
+                    </div>
                     <div class="col-12">
                         <table class="table table-bordered table-striped display list-payments text-uppercase">
                         </table>
@@ -13,86 +21,28 @@
             </div>
         </section>
     </main>
-    <div class="modal fade" tabindex="-1" role="dialog" id="payments-details" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-md" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header"><h5 class="modal-title">Pagamento nº <span id="details_payment_id"></span> - Detalhes</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">×</span></button>
-                </div>
-                <div class="modal-body">
-
-                    <ul class="list-group list-group-flush ">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <h6>Cliente</h6>
-                            <span id="details_payment_customer" class="text-right">
-                                {{session('customer')->full_name}}
-                                ({{session('customer')->id}})
-                            </span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Referência</h6>
-                            <span id="details_payment_reference"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Data / Hora</h6>
-                            <span id="details_payment_created_at"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Faturas (Nosso Nº) </h6>
-                            <span id="details_payment_billets"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Método de pagamento</h6>
-                            <span id="details_payment_type" class="text-uppercase"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Modalidade:</h6>
-                            <span id="details_payment_modality" class="text-uppercase"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Valor</h6>
-                            <span id="details_payment_value"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Juros + Multa</h6>
-                            <span id="details_payment_fees"></span>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Valor total</h6>
-                            <b><span id="details_payment_amount" class="text-detach"></span></b>
-                        </li>
-                        <li class="list-group-item">
-                            <h6>Status</h6>
-                            <b>
-                                <i id="spinner-status-details" class="fas fa-spinner mt-2 fa-pulse d-none"></i>
-                                <span id="details_payment_status" class="text-detach text-uppercase"></span>
-                            </b>
-                        </li>
-                    </ul>
-                </div>
-                <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
     <style>
+        #infoCustomerActive {
+            /*background: white;*/
+            border-top-right-radius: .5rem;
+            border-top-left-radius: .5rem;
+        }
+
+        #infoCustomerActive p {
+            font-size: 80%;
+            margin: 0 auto
+        }
+
         .bottom, .top {
             font-weight: bold;
             display: flex;
             justify-content: center;
         }
-
-        /*table.dataTable > tbody > tr {*/
-        /*    min-height: 200px !important;*/
-        /*}*/
 
         table.dataTable.dtr-inline.collapsed > tbody > tr > td {
             padding: 1rem 0 !important;
@@ -117,86 +67,27 @@
             min-height: 200px !important;
         }
 
+        @media (max-width: 575.98px) {
+            .header-page {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .sideMenu {
+                max-width: 80% !important;
+            }
+        }
     </style>
 @endsection
 
 @section('js')
-{{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-
     <script>
-        function printStatus(status)
-        {
-            var status_out;
-
-            switch (status)
-            {
-                case 'created':
-                    status_out = '<span class="text-secondary">Criado</span>';
-                    break;
-                case 'approved':
-                    status_out = '<span class="text-success">Aprovado</span>';
-                    break;
-                case 'refused':
-                    status_out = '<span class="text-danger">Recusado</span>';
-                    break;
-                case 'canceled':
-                    status_out = '<span class="text-danger">Cancelado</span>';
-                    break;
-            }
-            return status_out;
-        }
-
-        $('.btn-payment-get-details').click(function (){
-            $('.loading-get-info').removeClass('d-none')
-            $('#spinner-status-details').removeClass('d-none')
-
-            var paymentID = $(this).data('payment')
-            var url = base_url+"callback/"+ paymentID
-            var jsonData
-
-            var row = $(this).closest('tr');
-            var status = row.find('td:nth-child(8)').text().trim();
-            $('#details_payment_id').text(row.find('td:nth-child(1)').text().trim());
-            $('#details_payment_reference').text(row.find('td:nth-child(9)').text().trim());
-            $('#details_payment_created_at').text(row.find('td:nth-child(4)').text().trim());
-            $('#details_payment_billets').text(row.find('td:nth-child(2)').text().trim());
-            $('#details_payment_type').text(row.find('td:nth-child(6)').text().trim());
-            $('#details_payment_modality').text(row.find('td:nth-child(7)').text().trim());
-            $('#details_payment_value').text('R$ '+row.find('td:nth-child(10)').text().trim());
-            $('#details_payment_fees').text('R$ '+row.find('td:nth-child(11)').text().trim());
-            $('#details_payment_amount').text(row.find('td:nth-child(5)').text().trim());
-            $('#details_payment_status').text('');
-
-            async function logJSONData() {
-                const response = await fetch(url);
-                jsonData = await response.json();
-                if(jsonData.status == 'created'){
-                    $('.loading-get-info').addClass('d-none')
-                    $('#spinner-status-details').addClass('d-none')
-                    $('#details_payment_status').html(printStatus(jsonData.status));
-                }
-            };
-            logJSONData()
-        });
-
-        {{--const urlCoupons = '{{route('central.coupons')}}'--}}
-        {{--fetch(urlCoupons)--}}
-        {{--    .then((response) => {--}}
-        {{--        var obj1 = JSON.parse(JSON.stringify(response));--}}
-        {{--        obj1 = '{ "data": ' + obj1 + '}'; //reformat obj1 to pass to  datatable--}}
-        {{--        // console.log('Data: ', data, typeof obj)--}}
-        {{--        // console.log('Details: ', data.id)--}}
-        {{--        --}}
-        {{--    })--}}
-        {{--    // .then((data) => {--}}
-        {{--    //--}}
-        {{--    // });--}}
-
         $(document).ready(function() {
             $(function () {
                 var billet = '';
@@ -213,7 +104,6 @@
                             searchable: false,
                             pageLength : 5,
                             lengthMenu: [[5, 10], [5, 10]],
-
                             className: 'dtr-control arrow-right',
                             orderable: false,
                             // target: -1
@@ -226,7 +116,6 @@
                                 if (Array.isArray(data)) {
                                     billetsHTML = '<ul style="list-style: none">';
                                     data.forEach(function(billet) {
-                                        console.log(billet)
                                         billetsHTML += '<li>' + billet.reference
                                             +' | '+ billet.duedate
                                             +' | R$ '+ billet.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
@@ -293,8 +182,6 @@
                     rowCallback: function(row, data, index) {
                         var statusCell = table.cell(index, 'status:name');
                         var statusText = statusCell.data();
-                        console.log(statusText);
-
                         if (statusText === 'approved') {
                             $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
                         } else {
@@ -304,10 +191,5 @@
                 });
             });
         });
-
-        $('.download-pdf').on('click', function (e){
-            e.preventDefault();
-            alert('olá mundo!')
-        })
     </script>
 @endsection

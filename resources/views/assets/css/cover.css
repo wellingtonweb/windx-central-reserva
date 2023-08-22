@@ -1965,6 +1965,10 @@ svg rect{
     /*    margin: .2rem;*/
     /*}*/
 
+    .sideMenu {
+        max-width: 80% !important;
+    }
+
 }
 
 /* Large devices (desktops, less than 1200px) */

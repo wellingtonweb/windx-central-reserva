@@ -90,9 +90,5 @@
         @else
             <h5 id="payment-title" class="h5 pt-1">Comprovantes (2ª via)</h5>
         @endif
-{{--        <div class="w-100 pt-1 d-flex justify-content-center text-center">--}}
-
-{{--        </div>--}}
-
     </div>
 </header>

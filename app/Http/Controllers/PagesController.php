@@ -105,7 +105,7 @@ class PagesController extends Controller
     public function coupons()
     {
         if(session()->has('customer')){
-            $customerId = session('customer')->id;
+//            $customerId = session('customer')->id;
 
             $payments = json_decode(json_encode((new API())->getPayments()),true);
             $paymentCustomer = [];
@@ -117,34 +117,20 @@ class PagesController extends Controller
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
-//            dd(json_decode(json_encode($paymentCustomer)));
-
             return Datatables::of($paymentCustomer)
                 ->addColumn('action', function($data){
                     if($data['status'] === 'approved'){
-                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .'" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
+                            '" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
                     }else{
                         $button = '---';
 //                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
                     }
-//                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data['id'].'" data-original-title="Download" class="download btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
-//                    $button .= '&nbsp;&nbsp;';
-//                    $button .= '<button type="button" name="delete" id="'.$data['id'].'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';
                     return $button;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
-
-//            dd($paymentCustomer);
-
-//            $data = $this->paginate($paymentCustomer);
-//            $data = $paymentCustomer;
-
-//            return response()->json($paymentCustomer);
-
-//            return view('payments', ['data' =>  $paymentCustomer]);
-
         } else {
             throw new CheckUserException();
         }

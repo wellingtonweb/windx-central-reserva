@@ -43,6 +43,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
 
             /* Simple Routes */
             Route::get('/home', [PagesController::class, 'home'])->name('home');
+            Route::get('/info', [PagesController::class, 'info'])->name('info');
             Route::get('/contratos', [PagesController::class, 'contracts'])->name('contracts');
             Route::get('/contrato/{customerId}', [PagesController::class, 'contract'])->name('contract');
             Route::get('/comprovantes/{customerId}', [PagesController::class, 'payments'])->name('payments');

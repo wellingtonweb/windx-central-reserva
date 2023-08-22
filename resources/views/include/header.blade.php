@@ -85,10 +85,8 @@
     </nav>
     <div class="header-page">
         <h3 class="font-weight-bold h3">Central do Assinante</h3>
-        @if(Route::currentRouteName() == 'central.contract')
-            <h5 id="payment-title" class="h5 pt-1">Checkout</h5>
-        @else
-            <h5 id="payment-title" class="h5 pt-1">Comprovantes (2ª via)</h5>
+        @if($header)
+            <h5 id="payment-title" class="h5 pt-1">{{$header}}</h5>
         @endif
     </div>
 </header>

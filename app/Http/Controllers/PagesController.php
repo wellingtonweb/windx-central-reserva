@@ -22,7 +22,19 @@ class PagesController extends Controller
     public function home()
     {
         if(session()->has('customer')){
-            return view('home');
+            return view('home', ['header' => 'Home']);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function info()
+    {
+        if(session()->has('customer')){
+            return view('info', [
+                'header' => 'Informações',
+                'customer' => session('customer')
+            ]);
         } else {
             throw new CheckUserException();
         }
@@ -74,7 +86,10 @@ class PagesController extends Controller
 //            $test = WorkingDays::hasFees('2023-11-02T00:00:00');
 //            $test = WorkingDays::hasFees('2023-11-15T00:00:00');
 
-            return view('contract', ['customer' => $customer]);
+            return view('contract', [
+                'header' => 'Checkout',
+                'customer' => $customer
+            ]);
 //            dd($customer);
 
 //            foreach ($customers as $customer){
@@ -96,7 +111,7 @@ class PagesController extends Controller
     public function payments($customerId)
     {
         if(session()->has('customer')){
-            return view('payments');
+            return view('payments', ['header' => 'Comprovantes (2ª via)']);
         } else {
             throw new CheckUserException();
         }
@@ -105,8 +120,6 @@ class PagesController extends Controller
     public function coupons()
     {
         if(session()->has('customer')){
-//            $customerId = session('customer')->id;
-
             $payments = json_decode(json_encode((new API())->getPayments()),true);
             $paymentCustomer = [];
 

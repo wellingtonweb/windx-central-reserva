@@ -82,11 +82,39 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
     <style>
         .bottom, .top {
             font-weight: bold;
             display: flex;
             justify-content: center;
+        }
+
+        /*table.dataTable > tbody > tr {*/
+        /*    min-height: 200px !important;*/
+        /*}*/
+
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td {
+            padding: 1rem 0 !important;
+        }
+
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.child,
+        table.dataTable.dtr-inline.collapsed > tbody > tr > th.child,
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty {
+            text-align: left !important;
+            padding: 1rem !important;
+        }
+
+        div.dataTables_processing {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 2rem !important;
+            border-radius: .4rem;
+            font-weight: bold;
+            top: 35% !important;
+        }
+
+        .dataTables_wrapper {
+            min-height: 200px !important;
         }
 
     </style>
@@ -98,6 +126,7 @@
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
     <script>
         function printStatus(status)
@@ -184,6 +213,10 @@
                             searchable: false,
                             pageLength : 5,
                             lengthMenu: [[5, 10], [5, 10]],
+
+                            className: 'dtr-control arrow-right',
+                            orderable: false,
+                            // target: -1
                         }
                     ],
                     columns: [
@@ -256,6 +289,7 @@
                     orderable: false,
                     searchable: false,
                     sortable: false,
+                    responsive: true,
                     rowCallback: function(row, data, index) {
                         var statusCell = table.cell(index, 'status:name');
                         var statusText = statusCell.data();

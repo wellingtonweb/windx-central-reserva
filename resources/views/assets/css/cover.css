@@ -1169,6 +1169,10 @@ svg rect{
     .container {
         padding-left: 0 !important;
     }
+
+    .header-page {
+        display: none !important;
+    }
 }
 
 @media (max-width: 767.98px) {

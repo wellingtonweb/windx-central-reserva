@@ -21,20 +21,12 @@ class AuthController extends Controller
 
     public function login()
     {
-//        $terminal_validate = Validations::validateTerminal();
-//
-//        if($terminal_validate == false){
-//            return redirect()->route('terminal.locked')->with('error', 'Terminal bloqueado!');
-//        }
-//
-//        if(session()->has('customer')){
-//
-//            return redirect()->route('terminal.contracts');
-//        }
-//        else {
+        if(session()->has('customer')){
+            return redirect()->route('central.home');
+        }
+        else {
             return view('login');
-//        }
-
+        }
     }
 
     public function login2()

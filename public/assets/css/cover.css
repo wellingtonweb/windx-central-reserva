@@ -1166,22 +1166,8 @@ svg rect{
 
 
 @media (max-width: 575.98px) {
-    .cta-home {
-        color: #ffffff;
-        text-align: center;
-        margin-top: 2rem;
-    }
-    .cta-home h1 {
-        font-size: 22px;
-        padding: 1rem 0;
-        line-height: 25px !important;
-    }
-    .cta-home .btn {
-        width: 80%;
-        margin: 0 2rem;
-        font-size: 17px;
-        border-radius: 27px;
-        /*letter-spacing: 2px;*/
+    .container {
+        padding-left: 0 !important;
     }
 }
 
@@ -2421,7 +2407,7 @@ svg rect{
 }
 
 .header-page {
-    width: 100vw;
+    width: 97.5vw;
     padding: 1.2rem;
     text-align: center;
     justify-content: center;
@@ -2646,6 +2632,15 @@ svg rect{
 
 .side-bar .menu .item i {
     margin-right: 15px;
+}
+
+
+.side-bar .menu .item svg {
+    margin-right: 15px;
+}
+
+.side-bar .menu .item svg path {
+    fill: white !important;
 }
 
 .side-bar .menu .item .sub-menu {

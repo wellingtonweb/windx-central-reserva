@@ -28,11 +28,11 @@ class PagesController extends Controller
         }
     }
 
-    public function info()
+    public function contract()
     {
         if(session()->has('customer')){
-            return view('info', [
-                'header' => 'Informações',
+            return view('contract', [
+                'header' => 'Contrato',
                 'customer' => session('customer')
             ]);
         } else {
@@ -71,44 +71,23 @@ class PagesController extends Controller
         }
     }
 
-    public function contract($customerId)
+    public function payment()
     {
         if(session()->has('customer')){
-//            $customers = session('customer');
 
-            $customer = (new API())->getCustomer($customerId);
+            $customer = (new API())->getCustomer(session('customer')->id);
 
-            session()->put('customerActive', $customer[0]);
-
-            session()->put('customerId', $customerId);
-
-//            $test = WorkingDays::isHoliday('2023-11-02T00:00:00');
-//            $test = WorkingDays::hasFees('2023-11-02T00:00:00');
-//            $test = WorkingDays::hasFees('2023-11-15T00:00:00');
-
-            return view('contract', [
-                'header' => 'Checkout',
+            return view('payment', [
+                'header' => 'Pagamento',
                 'customer' => $customer
             ]);
-//            dd($customer);
-
-//            foreach ($customers as $customer){
-//                if($customer->id == $customerId){
-////                    dd($customer);
-//                    return view('payment', ['customer' => $customer]);
-//                }else {
-//                    dd(null);
-//                }
-//            }
-
-//            $customer_update = (new API())->getCustomer($customer['id']);
 
         } else {
             throw new CheckUserException();
         }
     }
 
-    public function payments($customerId)
+    public function payments()
     {
         if(session()->has('customer')){
             return view('payments', ['header' => 'Comprovantes (2ª via)']);

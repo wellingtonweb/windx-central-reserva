@@ -69,7 +69,7 @@
     const route_logout = '{{route('central.logout')}}';
     const app_url = '{{env('APP_URL')}}';
     const base_url = '{{env('APP_BASE_URL')}}';
-    const contracts = '{{route('central.contracts')}}';
+    {{--const contracts = '{{route('central.contracts')}}';--}}
     const release_url = `{{route('central.release')}}`;
 
 </script>

@@ -48,31 +48,34 @@
 {{--                    @else--}}
 {{--                        <h5 class="text-light mt-5 mb-5 p-2">Escolha o cadastro desejado!</h5>--}}
 {{--                    @endif--}}
-                    <div class="menu">
+                    <div class="menu ">
                         <div class="item">
-                            <a href="{{ route('central.info') }}" class="click-loader close-menu
-                            {{ Route::currentRouteName() === 'central.info' ? 'active' : '' }}">
-                                <i class="fas fa-file-signature" aria-hidden="true"></i>Informações
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="{{ route('central.contract', ['customerId' => session('customer')->id]) }}" class="click-loader close-menu
+                            <a href="{{ route('central.contract') }}" class="click-loader close-menu
                             {{ Route::currentRouteName() === 'central.contract' ? 'active' : '' }}">
-                                <i class="fas fa-file-signature" aria-hidden="true"></i>Pagamento
+                                <i class="fas fa-file-signature" aria-hidden="true"></i>Contrato
                             </a>
                         </div>
-                        @if(session()->has('customer'))
-                            <div class="item">
-                                <a href="{{route('central.payments', ['customerId' => session('customer')->id])}}"
-                                   class="click-loader close-menu {{ Route::currentRouteName() === 'central.payments' ? 'active' : '' }}">
-                                    <i class="fas fa-file-alt" aria-hidden="true"></i>Comprovantes
-                                </a>
-                            </div>
-                        @endif
+                        <div class="item">
+                            <a href="{{ route('central.payment') }}" class="click-loader close-menu
+                            {{ Route::currentRouteName() === 'central.contract' ? 'active' : '' }}">
+                                <i class="fas fa-money-bill" aria-hidden="true"></i>Pagamento
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="{{route('central.payments')}}"
+                               class="click-loader close-menu {{ Route::currentRouteName() === 'central.payments' ? 'active' : '' }}">
+                                <i class="fas fa-file-alt" aria-hidden="true"></i>Comprovantes
+                            </a>
+                        </div>
                         @if(session()->has('customer') && session('customer')->status === 'B')
                             <div class="item">
-                                <a href="javascript:void(0)" id="{{session('customer')->id}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">
-                                    <i class="fas fa-lock-open" aria-hidden="true"></i>Liberar por confiança
+                                <a href="javascript:void(0)" id="{{session('customer')->id}}" class="btnRelease click-loader close-menu text-white " onclick="releaseCustomer(this.id)">
+{{--                                    <i class="fas fa-lock-open" aria-hidden="true"></i>--}}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-unlock" viewBox="0 0 18 18" width="1.2em" style="fill: white !important;">
+                                        <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+                                    </svg>
+
+                                    Desbloqueio
                                 </a>
                             </div>
                         @endif

@@ -6,7 +6,7 @@
             <div class="container-fluid mt-lg-3 mt-md-0">
                 <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
                     <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">
-                        <a href="{{route('central.contract', ['customerId' => session('customerId')])}}" class="btn btn-secondary btn-sm">
+                        <a href="{{route('central.contract')}}" class="btn btn-secondary btn-sm">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
                                 <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                             </svg>

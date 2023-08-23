@@ -7,7 +7,7 @@
 
                 <div class="row mt-3">
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                        <a href="{{route('central.info')}}" class="text-custom">
+                        <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="icon text-center text-custom h1 shadow rounded" >
                                     <span class="uim-svg">
@@ -30,7 +30,7 @@
                                     </span>
                                 </div>
                                 <div class="content mt-4">
-                                    <h4 class="title">Informações</h4>
+                                    <h4 class="title">Contrato</h4>
                                     <p class="text-muted mt-3 mb-0">Visualise suas informações de cadastro, como endereço, plano e dados pessoais.</p>
 
                                 </div>
@@ -47,11 +47,8 @@
                         </a>
                     </div><!--end col-->
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                        <a href="{{route('central.contract', ['customerId' => session('customer')->id])}}" class="text-custom">
+                        <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
-                                <div class="d-flex">
-
-
                                 <div class="icon text-center text-custom h1 shadow rounded" >
                                     <span class="uim-svg">
 {{--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em"><rect width="20" height="15" x="2" y="3" class="uim-tertiary" rx="3"></rect><path class="uim-primary" d="M16,21H8a.99992.99992,0,0,1-.832-1.55469l4-6a1.03785,1.03785,0,0,1,1.66406,0l4,6A.99992.99992,0,0,1,16,21Z"></path></svg>--}}
@@ -69,9 +66,8 @@
                                 </div>
                                 <div class="content mt-4">
                                     <h4 class="title">Pagamento</h4>
-                                    <p class="text-muted mt-3 mb-0">Pague suas faturas usando PIX, PICPAY, CRÉDITO, DÉBITO ou baixe sua segunda via</p>
+                                    <p class="text-muted mt-3 mb-0">Pague suas faturas usando PIX, PICPAY, CRÉDITO, DÉBITO ou baixe a segunda via.</p>
 
-                                </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
                                     <span class="uim-svg">
@@ -88,7 +84,7 @@
                         </a>
                     </div><!--end col-->
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
-                        <a href="{{route('central.payments', ['customerId' => session('customer')->id])}}" class="text-custom">
+                        <a href="{{route('central.payments')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="icon text-center text-custom h1 shadow rounded">
                                     <span class="uim-svg">
@@ -105,7 +101,7 @@
                                 </div>
                                 <div class="content mt-4">
                                     <h4 class="title">Comprovantes</h4>
-                                    <p class="text-muted mt-3 mb-0">Acompanhe suas faturas pagas ou baixe a segunda via de seus comprovantes</p>
+                                    <p class="text-muted mt-3 mb-0">Acompanhe suas faturas pagas ou baixe a segunda via de seus comprovantes.</p>
 
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -126,6 +122,34 @@
                             <i class="mdi mdi-chevron-right"></i>
                         </a>
                     </div><!--end col-->
+                    @if(session('customer')->status === 'B')
+                        <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
+                            <a href="{{route('central.contract')}}" class="text-custom">
+                                <div class="card service-wrapper rounded border-0 shadow p-4">
+                                    <div class="icon text-center text-custom h1 shadow rounded" >
+                                        <span class="uim-svg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-unlock" viewBox="0 0 18 18" width="1.2em">
+                                              <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="content mt-4">
+                                        <h4 class="title">Desbloqueio</h4>
+                                        <p class="text-muted mt-3 mb-0">Desbloqueie seu cadastro por 48h afim de regularizar seus débitos.</p>
+
+                                    </div>
+                                    <div class="big-icon h1 text-custom">
+                                        <span class="uim-svg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-unlock" viewBox="0 0 18 18" width="1.2em">
+                                              <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div><!--end col-->
+                    @endif
+
 
 {{--                    <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">--}}
 {{--                        <div class="card service-wrapper rounded border-0 shadow p-4">--}}

@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <section>
-            <div class="container">
+{{--            <div class="container pl-md-0 pl-lg-0">--}}
 
                 <div class="row mt-3">
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
@@ -49,6 +49,9 @@
                     <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2">
                         <a href="{{route('central.contract', ['customerId' => session('customer')->id])}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
+                                <div class="d-flex">
+
+
                                 <div class="icon text-center text-custom h1 shadow rounded" >
                                     <span class="uim-svg">
 {{--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em"><rect width="20" height="15" x="2" y="3" class="uim-tertiary" rx="3"></rect><path class="uim-primary" d="M16,21H8a.99992.99992,0,0,1-.832-1.55469l4-6a1.03785,1.03785,0,0,1,1.66406,0l4,6A.99992.99992,0,0,1,16,21Z"></path></svg>--}}
@@ -65,9 +68,10 @@
                                     </span>
                                 </div>
                                 <div class="content mt-4">
-                                    <h4 class="title">Pagamentos</h4>
+                                    <h4 class="title">Pagamento</h4>
                                     <p class="text-muted mt-3 mb-0">Pague suas faturas usando PIX, PICPAY, CRÉDITO, DÉBITO ou baixe sua segunda via</p>
 
+                                </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
                                     <span class="uim-svg">
@@ -195,7 +199,7 @@
 {{--                        </div>--}}
 {{--                    </div><!--end col-->--}}
                 </div><!--end row-->
-            </div>
+{{--            </div>--}}
 
         </section>
     </main>

@@ -13,7 +13,7 @@
                 <div class="side-bar">
 {{--                    <h4 class="text-light m-4 font-weight-bold text-center">Terminal: {{Cookie::has('terminal_id') ? Cookie::get('terminal_id'): '0'}}</h4>--}}
 {{--                    @if(session()->has('customerActive') && Route::currentRouteName() != 'central.contracts')--}}
-                        <div class="text-left m-3 p-3" style="border-bottom: 1px solid #f8f9fa">
+                        <div class="text-left m-3 p-3" style="border-bottom: 1px solid rgba(248,249,250,0.6)">
                             <div class="item-text">
                                 <h5 class="text-light font-weight-bold text-left">Contrato ID:</h5>
                                 <span class=" text-uppercase text-right">{{session('customer')->id}}</span>
@@ -28,7 +28,7 @@
                                     <span class="text-status text-right text-primary">LIBERADO</span>
                                     @break;
                                     @case('B')
-                                    <span class="text-status text-right text-danger">BLOQUEADO</span>
+                                    <span class="text-status text-right text-orange">BLOQUEADO</span>
                                     @break;
                                     @case('X')
                                     <span class="text-status text-right text-secondary">DESATIVADO</span>
@@ -49,12 +49,18 @@
 {{--                        <h5 class="text-light mt-5 mb-5 p-2">Escolha o cadastro desejado!</h5>--}}
 {{--                    @endif--}}
                     <div class="menu">
-{{--                        <div class="item {{ Route::currentRouteName() === 'terminal.contracts' ? 'd-none' : '' }}">--}}
-{{--                            <a href="{{ route('terminal.contracts') }}" class="click-loader close-menu {{count(session('customer')) == 1 ? 'd-none' : ''}}--}}
-{{--                            {{ Route::currentRouteName() === 'terminal.contracts' ? 'active' : '' }}">--}}
-{{--                                <i class="fas fa-file-signature" aria-hidden="true"></i>Contratos--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
+                        <div class="item">
+                            <a href="{{ route('central.info') }}" class="click-loader close-menu
+                            {{ Route::currentRouteName() === 'central.info' ? 'active' : '' }}">
+                                <i class="fas fa-file-signature" aria-hidden="true"></i>Informações
+                            </a>
+                        </div>
+                        <div class="item">
+                            <a href="{{ route('central.contract', ['customerId' => session('customer')->id]) }}" class="click-loader close-menu
+                            {{ Route::currentRouteName() === 'central.contract' ? 'active' : '' }}">
+                                <i class="fas fa-file-signature" aria-hidden="true"></i>Pagamento
+                            </a>
+                        </div>
                         @if(session()->has('customer'))
                             <div class="item">
                                 <a href="{{route('central.payments', ['customerId' => session('customer')->id])}}"
@@ -65,13 +71,13 @@
                         @endif
                         @if(session()->has('customer') && session('customer')->status === 'B')
                             <div class="item">
-                                <a href="#" id="{{session('customer')->id}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">
+                                <a href="javascript:void(0)" id="{{session('customer')->id}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">
                                     <i class="fas fa-lock-open" aria-hidden="true"></i>Liberar por confiança
                                 </a>
                             </div>
                         @endif
                         <div class="item text-danger">
-                            <a href="#" id="btn-logout" class="click-loader text-orange close-menu" onclick="logout()">
+                            <a href="javascript:void(0)" id="btn-logout" class="click-loader text-orange close-menu" onclick="logout()">
                                 <i class="fas fa-door-open" aria-hidden="true"></i>Sair
                             </a>
                         </div>

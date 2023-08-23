@@ -97,6 +97,12 @@
                                         <h4 class="card-title font-weight-bold">Dados da Conta</h4>
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                Plano contratado:
+                                                @foreach($customer->plans as $plan)
+                                                <span class="text-black-50 text-right">{{ $plan->descricao }}</span>
+                                                @endforeach
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Dia de Vencimento:
                                                 <span class="text-black-50 text-right">15</span>
                                             </li>

@@ -120,8 +120,8 @@
                         <tr class="ttu b-top">
                             <td class="right">Cliente: </td>
                             <td id="coupon_reference-" class="left">
-                                <p class="coupon_customer_fullname">{{session('customerActive')->full_name}}
-                                    <span id="coupon_customer_id">(ID: {{session('customerActive')->id}})</span></p>
+                                <p class="coupon_customer_fullname">{{session('customer')->full_name}}
+                                    <span id="coupon_customer_id">(ID: {{session('customer')->id}})</span></p>
                             </td>
                         </tr>
                         <tr class="ttu b-top">

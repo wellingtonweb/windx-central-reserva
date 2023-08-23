@@ -6,22 +6,30 @@
             <div class="container-fluid ">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn p-sm-0 p-md-0">
-                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx">
-                            <a href="javascript:void(0)" class="d-lg-none pr-1" onclick="toggleLineClamp()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-                                     class="bi bi-info-square-fill" viewBox="0 0 16 16">
-                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93
-                                     4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105
-                                     1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275
-                                      0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+{{--                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx">--}}
+{{--                            <a href="javascript:void(0)" class="d-lg-none pr-1" onclick="toggleLineClamp()">--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"--}}
+{{--                                     class="bi bi-info-square-fill" viewBox="0 0 16 16">--}}
+{{--                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93--}}
+{{--                                     4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105--}}
+{{--                                     1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275--}}
+{{--                                      0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>--}}
+{{--                                </svg>--}}
+{{--                            </a>--}}
+{{--                            <p id="infoText" class="text-uppercase space-1 clamped px-lg-3 text-justify">--}}
+{{--                                Contrato Nº: {{session('customer')->id}} |--}}
+{{--                                {{session('customer')->full_name}} |--}}
+{{--                                {{session('customer')->street}}, {{session('customer')->district}},--}}
+{{--                                {{session('customer')->city}}--}}
+{{--                            </p>--}}
+{{--                        </div>--}}
+                        <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">
+                            <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                    <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
                                 </svg>
+                                Voltar
                             </a>
-                            <p id="infoText" class="text-uppercase space-1 clamped px-lg-3 text-justify">
-                                Contrato Nº: {{session('customer')->id}} |
-                                {{session('customer')->full_name}} |
-                                {{session('customer')->street}}, {{session('customer')->district}},
-                                {{session('customer')->city}}
-                            </p>
                         </div>
 {{--                        checkout--}}
 {{--                        {{count(session('customer')->billets)}}--}}
@@ -383,7 +391,6 @@
         }
 
         #infoCustomerActive {
-            background: white;
             border-top-right-radius: .5rem;
             border-top-left-radius: .5rem;
         }

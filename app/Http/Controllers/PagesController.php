@@ -15,6 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Yajra\DataTables\DataTables;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class PagesController extends Controller
 {
@@ -39,22 +40,6 @@ class PagesController extends Controller
             throw new CheckUserException();
         }
     }
-
-//    public function contracts()
-//    {
-//        if(session()->has('customer')){
-//            session()->forget('customerId');
-//            $customers = session('customer');
-//
-//            if(count($customers) == 1) {
-//                return redirect()->route('terminal.contract', ['customerId' => $customers[0]->id]);
-//            }else {
-//                return view('contracts', ['customers' => $customers]);
-//            }
-//        } else {
-//            throw new CheckUserException();
-//        }
-//    }
 
     public function release(Request $request)
     {
@@ -96,6 +81,8 @@ class PagesController extends Controller
         }
     }
 
+
+
     public function coupons()
     {
         if(session()->has('customer')){
@@ -118,6 +105,52 @@ class PagesController extends Controller
                         $button = '---';
 //                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
                     }
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function invoices()
+    {
+        if(session()->has('customer')){
+            return view('invoices', [
+                'header' => 'Notas fiscais',
+//                'invoices' => session('customer')->invoices
+            ]);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function invoicesList()
+    {
+        if(session()->has('customer')){
+            $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
+
+//            dd($invoices);
+            $paymentCustomer = [];
+
+//            foreach($payments as $key => $payment){
+//
+//                $paymentCustomer = array_filter($payment, function($v, $k) {
+//                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
+//                }, ARRAY_FILTER_USE_BOTH);
+//            }
+
+            return Datatables::of($invoices)
+                ->addColumn('action', function($data){
+//                    if($data['status'] === 'approved'){
+                        $button = '<a href="'. $data->link .
+                            '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+//                    }else{
+//                        $button = '---';
+//                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
+//                    }
                     return $button;
                 })
                 ->rawColumns(['action'])

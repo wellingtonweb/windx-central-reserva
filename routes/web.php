@@ -19,7 +19,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
         $clearOptimize = Artisan::call('optimize:clear');
         $clearRoute = Artisan::call('route:clear');
         $clearCache = Artisan::call('cache:clear');
-        return redirect()->route('terminal.login');
+        return redirect()->route('central.login');
     });
 
     /* Terminals Routes */
@@ -44,6 +44,8 @@ Route::prefix('assinante')->name('central.')->group(function(){
             /* Simple Routes */
             Route::get('/home', [PagesController::class, 'home'])->name('home');
             Route::get('/contrato', [PagesController::class, 'contract'])->name('contract');
+            Route::get('/notasfiscais', [PagesController::class, 'invoices'])->name('invoices');
+            Route::get('/invoices', [PagesController::class, 'invoicesList'])->name('invoices.list');
 //            Route::get('/info', [PagesController::class, 'info'])->name('info');
 //            Route::get('/contratos', [PagesController::class, 'contracts'])->name('contracts');
             Route::get('/pagamento', [PagesController::class, 'payment'])->name('payment');

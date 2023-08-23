@@ -95,7 +95,7 @@
                     pagingType: 'full_numbers',
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('central.coupons') }}",
+                    ajax: "{{ route('central.invoices.list') }}",
                     columnDefs: [
                         {
                             // targets: [0],
@@ -110,66 +110,26 @@
                     ],
                     columns: [
                         {data: 'id', name: 'id', title: 'ID'},
-                        {data: 'billets', name: 'billets', title: 'Faturas | vencimento | Valor | Multa + Juros', render: function(data, type, full, meta) {
-                                var billetsHTML = '';
-                                if (Array.isArray(data)) {
-                                    billetsHTML = '<ul style="list-style: none">';
-                                    data.forEach(function(billet) {
-                                        billetsHTML += '<li>' + billet.reference
-                                            +' | '+ billet.duedate
-                                            +' | R$ '+ billet.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
-                                            +' | R$ '+billet.addition.toLocaleString('pt-br', {minimumFractionDigits: 2})
-                                             +'</li>';
-                                    });
-                                    billetsHTML += '</ul>';
-                                }
-                                return billetsHTML;
+                        {data: 'rsocial', name: 'rsocial', title: 'Nome / Razão Social'},
+                        {data: 'emissao', name: 'emissao', title: 'Data de emissão', render: function(data, type, full, meta) {
+                                var year = data.substr(0, 4);
+                                var month = data.substr(4, 2);
+                                var day = data.substr(6, 2);
+
+                                var formattedDate = day + "/" + month + "/" + year;
+                                return formattedDate;
                             }},
-                        {data: 'amount', name: 'amount', title: 'Valor pago', render: function(data, type, full, meta) {
-                                return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'payment_type', name: 'payment_type', title: 'Modalidade', render: function(data, type, full, meta) {
-                                var paymentType = '';
-                                switch (data) {
-                                    case 'pix':
-                                        paymentType = "pix";
-                                        break;
-                                    case 'picpay':
-                                        paymentType = "picpay";
-                                        break;
-                                    case 'debit':
-                                        paymentType = "Débito";
-                                        break;
-                                    case 'credit':
-                                        paymentType = "Crédito";
-                                        break;
-                                }
-                                return paymentType;
+                        {data: 'numero', name: 'numero', title: 'Número', render: function(data, type, full, meta) {
+                                return parseInt(data, 10);
                             }},
-                        {data: 'created_at', name: 'created_at', title: 'Data, Hora', render: function(data, type, full, meta) {
-                                var pay = new Date(data);
-                                return pay.toLocaleString();
+                        {data: 'referencia', name: 'referencia', title: 'Referência', render: function(data, type, full, meta) {
+                                return parseInt(data, 10);
                             }},
-                        {data: 'status', name: 'status', title: 'Status', render: function(data, type, full, meta) {
-                                var state = '';
-                                switch (data) {
-                                    case 'created':
-                                        state = "Criado";
-                                        break;
-                                    case 'approved':
-                                        state = "Aprovado";
-                                        break;
-                                    case 'canceled':
-                                        state = "Cancelado";
-                                        break;
-                                    case 'refused':
-                                        state = "Recusado";
-                                        break;
-                                }
-                                return state;
+                        {data: 'valor_total', name: 'valor_total', title: 'Valor', render: function(data, type, full, meta) {
+                                let valor = parseFloat(data) / 100;
+                                return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
                             }},
-                        {data: 'action', name: 'action', title: '2ª via (download)', orderable: false, searchable: false},
+                        {data: 'action', name: 'action', title: 'Download', orderable: false, searchable: false},
                     ],
                     language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
@@ -178,15 +138,15 @@
                     searchable: false,
                     sortable: false,
                     responsive: true,
-                    rowCallback: function(row, data, index) {
-                        var statusCell = table.cell(index, 'status:name');
-                        var statusText = statusCell.data();
-                        if (statusText === 'approved') {
-                            $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
-                        } else {
-                            $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
-                        }
-                    }
+                    order: [2, 'desc']                    // rowCallback: function(row, data, index) {,
+                    //     var statusCell = table.cell(index, 'status:name');
+                    //     var statusText = statusCell.data();
+                    //     if (statusText === 'approved') {
+                    //         $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
+                    //     } else {
+                    //         $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
+                    //     }
+                    // }
                 });
             });
         });

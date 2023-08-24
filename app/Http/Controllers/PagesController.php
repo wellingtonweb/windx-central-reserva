@@ -120,7 +120,6 @@ class PagesController extends Controller
         if(session()->has('customer')){
             return view('invoices', [
                 'header' => 'Notas fiscais',
-//                'invoices' => session('customer')->invoices
             ]);
         } else {
             throw new CheckUserException();
@@ -132,25 +131,10 @@ class PagesController extends Controller
         if(session()->has('customer')){
             $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
 
-//            dd($invoices);
-            $paymentCustomer = [];
-
-//            foreach($payments as $key => $payment){
-//
-//                $paymentCustomer = array_filter($payment, function($v, $k) {
-//                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
-//                }, ARRAY_FILTER_USE_BOTH);
-//            }
-
             return Datatables::of($invoices)
                 ->addColumn('action', function($data){
-//                    if($data['status'] === 'approved'){
-                        $button = '<a href="'. $data->link .
-                            '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
-//                    }else{
-//                        $button = '---';
-//                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
-//                    }
+                    $button = '<a href="'. $data->link .
+                        '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -163,7 +147,7 @@ class PagesController extends Controller
 
     public function check($billetId)
     {
-        if(session()->has('customerId')){
+        if(session()->has('customer')){
 
             if(!$billetId){
                 return response()->json(false);
@@ -172,31 +156,64 @@ class PagesController extends Controller
             session()->put('billetId', $billetId);
 
             $payments = json_decode(json_encode((new API())->getPayments()),true);
+
+//            dd($payments);
             $paymentCustomer = [];
             $billetPay = [];
-            $billets = [];
+//            $billets = [];
+//
+//            foreach($payments as $key => $payment){
+//                $paymentCustomer = array_filter($payment, function($v, $k) {
+//                    return $v['customer'] == session('customerId') && $v['status'] != 'approved';
+//                }, ARRAY_FILTER_USE_BOTH);
+//
+//                foreach($paymentCustomer as $key => $billet){
+//                    $billetPay = array_filter($billet['billets'], function($v2, $k2) {
+//                        return $v2['billet_id'];
+//                    }, ARRAY_FILTER_USE_BOTH);
+//
+//                    foreach($billetPay as $key => $billet){
+//                        $billets = array_filter($billet, function($v3, $k3) {
+//                            return $v3 == session('billetId');
+//                        }, ARRAY_FILTER_USE_BOTH);
+//                    }
+//                }
+//            }
 
-            foreach($payments as $key => $payment){
-                $paymentCustomer = array_filter($payment, function($v, $k) {
-//                    return $v['customer'] == session('customerId');
-                    return $v['customer'] == session('customerId') && $v['status'] != 'approved';
-                }, ARRAY_FILTER_USE_BOTH);
+            $isBilletPay = [];
 
-                foreach($paymentCustomer as $key => $billet){
-                    $billetPay = array_filter($billet['billets'], function($v2, $k2) {
-                        return $v2['billet_id'];
-                    }, ARRAY_FILTER_USE_BOTH);
+            foreach ($payments as $payment) {
 
-                    foreach($billetPay as $key => $billet){
-                        $billets = array_filter($billet, function($v3, $k3) {
-                            //1454866
-                            return $v3 == session('billetId');
-                        }, ARRAY_FILTER_USE_BOTH);
+//                dd($payment);
+
+                foreach ($payment as $billets) {
+
+//                    dd($billets['billets'], $billetId);
+                    foreach ($billets['billets'] as $billet) {
+//                        dd($billet, $billetId);
+//                        dd($billet['billet_id'], $billetId);
+                        $pay = Date("Y-m-d",strtotime($billets['created_at']));
+                        $today = Date("Y-m-d");
+//                        dd($pay == $today ? true : false, $pay, $today);
+
+                        if (
+                            $billet['billet_id'] == $billetId &&
+                            $billets['status'] == 'created' &&
+                            $pay == $today
+                        ) {
+                            $isBilletPay[] = $billet;
+
+//                            dd($billets['created_at'], $isBilletPay, $billetId);
+                        }
                     }
+
+
                 }
             }
 
-            return response()->json($billets ? true : false);
+//            dd($isBilletPay ? true : false);
+
+            return response()->json($isBilletPay ? true : false);
 
         } else {
             throw new CheckUserException();
@@ -209,19 +226,4 @@ class PagesController extends Controller
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
-
-//    public function pdf()
-//    {
-//        if(session()->has('customer')){
-//            $customer = session('customer');
-////        $pdf = Pdf::loadView('pdf.invoice', $customer);
-////        return $pdf->download('boleto.pdf');
-//            return view('pdf.invoice');
-////            return view('pdf.invoice',['customer' => $customer]);
-//        } else {
-//            throw new CheckUserException();
-//        }
-//    }
-
-
 }

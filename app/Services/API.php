@@ -138,6 +138,22 @@ class API
         }
     }
 
+    public function getCalls($id)
+    {
+        $response = Http::accept('application/json')
+            ->withToken($this->apiToken)
+            ->retry(3, 100)
+            ->get($this->apiUrl . '/api/customer/calls/' . $id);
+
+//        dd($response->object());
+
+        if($response->successful()){
+            return $response->object();
+        }else{
+            return $response->throw();
+        }
+    }
+
     public function postPayment($body)
     {
         try {

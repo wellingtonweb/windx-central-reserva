@@ -100,7 +100,7 @@ class PagesController extends Controller
                 ->addColumn('action', function($data){
                     if($data['status'] === 'approved'){
                         $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
-                            '" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                            '" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i></a>';
                     }else{
                         $button = '---';
 //                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
@@ -134,7 +134,39 @@ class PagesController extends Controller
             return Datatables::of($invoices)
                 ->addColumn('action', function($data){
                     $button = '<a href="'. $data->link .
-                        '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf btn btn-info btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                        '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function support()
+    {
+        if(session()->has('customer')){
+            return view('support', [
+                'header' => 'Suporte',
+            ]);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function supportList()
+    {
+        if(session()->has('customer')){
+            $calls = json_decode(json_encode((new API())->getCalls(session('customer')->id)),true);
+
+//            dd($calls);
+//            $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
+
+            return Datatables::of($calls)
+                ->addColumn('action', function($data){
+                    $button = '<a href="javascript:void(0)" onclick="callViewer('.json_encode($data).')" data-toggle="tooltip" data-original-title="Download" class="call-viewer btn btn-info btn-sm"><i class="fa fa-info pr-1"></i></a>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -157,44 +189,13 @@ class PagesController extends Controller
 
             $payments = json_decode(json_encode((new API())->getPayments()),true);
 
-//            dd($payments);
-            $paymentCustomer = [];
-            $billetPay = [];
-//            $billets = [];
-//
-//            foreach($payments as $key => $payment){
-//                $paymentCustomer = array_filter($payment, function($v, $k) {
-//                    return $v['customer'] == session('customerId') && $v['status'] != 'approved';
-//                }, ARRAY_FILTER_USE_BOTH);
-//
-//                foreach($paymentCustomer as $key => $billet){
-//                    $billetPay = array_filter($billet['billets'], function($v2, $k2) {
-//                        return $v2['billet_id'];
-//                    }, ARRAY_FILTER_USE_BOTH);
-//
-//                    foreach($billetPay as $key => $billet){
-//                        $billets = array_filter($billet, function($v3, $k3) {
-//                            return $v3 == session('billetId');
-//                        }, ARRAY_FILTER_USE_BOTH);
-//                    }
-//                }
-//            }
-
             $isBilletPay = [];
 
             foreach ($payments as $payment) {
-
-//                dd($payment);
-
                 foreach ($payment as $billets) {
-
-//                    dd($billets['billets'], $billetId);
                     foreach ($billets['billets'] as $billet) {
-//                        dd($billet, $billetId);
-//                        dd($billet['billet_id'], $billetId);
                         $pay = Date("Y-m-d",strtotime($billets['created_at']));
                         $today = Date("Y-m-d");
-//                        dd($pay == $today ? true : false, $pay, $today);
 
                         if (
                             $billet['billet_id'] == $billetId &&
@@ -202,16 +203,10 @@ class PagesController extends Controller
                             $pay == $today
                         ) {
                             $isBilletPay[] = $billet;
-
-//                            dd($billets['created_at'], $isBilletPay, $billetId);
                         }
                     }
-
-
                 }
             }
-
-//            dd($isBilletPay ? true : false);
 
             return response()->json($isBilletPay ? true : false);
 

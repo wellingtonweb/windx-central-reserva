@@ -46,6 +46,9 @@ Route::prefix('assinante')->name('central.')->group(function(){
             Route::get('/contrato', [PagesController::class, 'contract'])->name('contract');
             Route::get('/notasfiscais', [PagesController::class, 'invoices'])->name('invoices');
             Route::get('/invoices', [PagesController::class, 'invoicesList'])->name('invoices.list');
+
+            Route::get('/suporte', [PagesController::class, 'support'])->name('support');
+            Route::get('/support-list', [PagesController::class, 'supportList'])->name('support.list');
 //            Route::get('/info', [PagesController::class, 'info'])->name('info');
 //            Route::get('/contratos', [PagesController::class, 'contracts'])->name('contracts');
             Route::get('/pagamento', [PagesController::class, 'payment'])->name('payment');

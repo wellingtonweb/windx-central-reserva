@@ -166,7 +166,7 @@ class PagesController extends Controller
 
             return Datatables::of($calls)
                 ->addColumn('action', function($data){
-                    $button = '<a href="javascript:void(0)" onclick="callViewer('.json_encode($data).')" data-toggle="tooltip" data-original-title="Download" class="call-viewer btn btn-info btn-sm"><i class="fa fa-info pr-1"></i></a>';
+                    $button = '<a href="javascript:void(0)" data-call="'.json_encode($data).'" data-toggle="tooltip" data-original-title="Download" class="call-viewer btn btn-info btn-sm"><i class="fa fa-info pr-1"></i></a>';
                     return $button;
                 })
                 ->rawColumns(['action'])

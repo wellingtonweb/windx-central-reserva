@@ -14,7 +14,7 @@
                         </a>
                     </div>
                     <div class="col-12">
-                        <table class="table table-bordered table-striped display list-payments text-uppercase">
+                        <table class="table table-bordered table-striped display list-calls text-uppercase">
                         </table>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
         $(document).ready(function() {
             $(function () {
                 var billet = '';
-                var table = $('.list-payments').DataTable({
+                var table = $('.list-calls').DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
                     pagingType: 'full_numbers',
                     processing: true,
@@ -154,11 +154,28 @@
                     //     }
                     // }
                 });
+
+                $('.list-calls').on('click', '.call-viewer', function() {
+                    var rowData = table.row($(this).closest('tr')).data(); // Captura os dados da linha
+                    var data = $(this).closest('tr').data('call'); // Recupera os dados do atributo data-call
+                    // var parsedData = JSON.parse(data); // Converte a string JSON em um objeto JavaScript
+
+                    // Agora você pode usar os dados para exibir as informações ou fazer o que for necessário
+                    console.log(rowData.desc_funcionario);
+
+                });
             });
         });
 
-        function callViewer(data){
-            console.log(JSON.parse(data));
-        }
+        // function callViewer(btn){
+        //     var call = $('#'+btn).data('call')
+        //     console.log(btn, call);
+        // }
+        //
+        // $("a[data-call]").click(function() {
+        //     console.log('foi')
+        // });
+
+
     </script>
 @endsection

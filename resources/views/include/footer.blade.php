@@ -1,4 +1,4 @@
-<footer id="footer" class="mastfoot mt-auto animate__animated animate__fadeInUp">
+<footer id="footer" class="mastfoot mt-auto pt-3 animate__animated animate__fadeInUp">
     <small class=" d-block">&copy; {{date('Y')}} {{ getenv('APP_NAME') }}<br>
 {{--        <span class="p-2">-</span>--}}
 {{--        <i class="fa fa-phone mr-1" style="-moz-transform: scaleX(-1)" aria-hidden="true"></i> --}}

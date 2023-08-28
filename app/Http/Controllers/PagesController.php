@@ -179,6 +179,8 @@ class PagesController extends Controller
 
     public function supportNew(Request $request){
         dd($request->all());
+
+        //URL API - customer/call/new
     }
 
     public function check($billetId)

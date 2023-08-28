@@ -30,7 +30,7 @@
                                     aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body text-left pb-0">
-                            <form name="form-new-call" method="POST" action="">
+                            <form id="form-new-call" name="form-new-call" method="POST" action="">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="form-group">
                                     <label for="call-subject">Assunto</label>
@@ -286,7 +286,26 @@
         // const dataId = el.getAttribute("data-call");
         // console.log(dataId);
 
+        //support.new
 
+        $('#form-new-call').on("submit", function (e){
+            e.preventDefault();
+            const formData = $(this).serializeArray();
+            // const formData = $(this).serializeArray()
+            // console.log(formData, formData[0].value)
+            {{--let token =  formData.--}}
+
+            fetch('{{ route('central.support.new') }}', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': formData[0].value
+                },
+                body: JSON.stringify(formData)
+            }).then(res => res.json())
+                .then(res => console.log(res));
+        })
 
     </script>
 @endsection

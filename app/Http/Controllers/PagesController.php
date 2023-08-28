@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\CheckUserException;
 use App\Helpers\UserInfo;
+use App\Http\Requests\CallRequest;
 use App\Http\Requests\CentralLogonRequest;
 use App\Models\CustomerLog;
 use App\Services\ApiConnect;
@@ -177,8 +178,28 @@ class PagesController extends Controller
         }
     }
 
-    public function supportNew(Request $request){
-        dd($request->all());
+    public function supportNew(CallRequest $request){
+
+//        $request->validate([
+//            'assunto' => 'required|string',
+//            'texto' => 'required|string',
+//        ]);
+
+        $validated = $request->validated();
+
+        if($validated->fails())
+        {
+            return response()->json([
+                'success'=>false,
+                'errors'=>($validated->getMessageBag()->toArray()),
+            ],400);
+        }
+
+        return response()->json([
+            'success'=>true,
+        ],200);
+
+//        return response()->json([true, $request->all()]);
 
         //URL API - customer/call/new
     }

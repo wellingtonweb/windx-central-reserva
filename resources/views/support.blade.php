@@ -30,19 +30,26 @@
                                     aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body text-left pb-0">
-                            <form id="form-new-call" name="form-new-call" method="POST" action="">
+                            <form id="form-new-call" name="form-new-call">
+                                <div class="form-group">
+                                    <ul id="form-errors"></ul>
+                                </div>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="form-group">
                                     <label for="call-subject">Assunto</label>
-                                    <input type="text" class="form-control" id="call-subject" name="call-subject" placeholder="DIGITE O ASSUNTO">
+                                    <input type="text" class="form-control"
+                                           id="assunto" name="assunto" placeholder="DIGITE O ASSUNTO">
+
+                                    <input type="hidden" class="form-control"
+                                           id="call-type" name="tipo" value="RETORNAR">
                                 </div>
-                                <div class="form-group">
-                                    <label for="call-type">Tipo de atendimento:</label>
-                                    <input type="text" class="form-control" id="call-type" name="call-type" value="RETORNAR" readonly>
-                                </div>
+
                                 <div class="form-group">
                                     <label for="call-description">Descrição:</label>
-                                    <textarea class="form-control" id="call-description" rows="5" name="call-description" placeholder="DIGITE SUA DÚVIDA OU SOLICITAÇÃO"></textarea>
+                                    <textarea class="form-control "
+                                              id="text" rows="5" name="texto"
+                                              placeholder="DESCREVA SUA DÚVIDA OU SOLICITAÇÃO"></textarea>
+{{--                                    <small id="error_descricao" class="text-danger">Erro na descrição</small>--}}
                                 </div>
                                 <div class="form-group d-flex justify-content-end">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -181,6 +188,7 @@
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(document).ready(function() {
             $(function () {
@@ -190,7 +198,8 @@
                     pagingType: 'full_numbers',
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('central.support.list') }}",
+                    ajax: "",
+                    {{--ajax: "{{ route('central.support.list') }}",--}}
                     columnDefs: [
                         {
                             // targets: [0],
@@ -288,23 +297,149 @@
 
         //support.new
 
-        $('#form-new-call').on("submit", function (e){
-            e.preventDefault();
-            const formData = $(this).serializeArray();
-            // const formData = $(this).serializeArray()
-            // console.log(formData, formData[0].value)
-            {{--let token =  formData.--}}
+        document.getElementById('form-new-call').onsubmit = function (event) {
+            const form = event.target;
+            event.preventDefault();
+            const formData = new FormData(form);
+            const url = '{{ route('central.support.new') }}';
+            event.preventDefault();
+            axios.request({
+                method: "post",
+                url: url,
+                data: formData
+            }).then(function (response) {
+                //....
+                swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Beleza',
+                    type: 'success',
+                    confirmButtonText: 'Fechar'
+                });
+            }).catch(function (error) {
+                let inputs, errors, li, ul = form.querySelector('ul#form-errors');
+                if (error.response.status === 422) {
+                    errors = error.response.data.errors;
+                    ul.innerHTML = '';
+                    inputs = form.getElementsByTagName("input");
+                    for (let error in errors) {
+                        errors[error].forEach(message => {
+                            li = document.createElement("li");
+                            li.className = 'error';
+                            li.innerText = message;
+                            ul.appendChild(li)
+                        });
+                        inputs[error].className = 'error';
+                    }
+                }
+            });
+        }
 
-            fetch('{{ route('central.support.new') }}', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': formData[0].value
-                },
-                body: JSON.stringify(formData)
-            }).then(res => res.json())
-                .then(res => console.log(res));
+
+        $('#form-new-call_').on("submit", function (e){
+            e.preventDefault();
+            var formData = new FormData(this);
+            var url = '{{ route('central.support.new') }}';
+
+            axios.post(url, formData)
+                .then(function () {
+                    // se tudo der certo, o prato vai ser criado!
+                    console.log('Ok! Atualizar data table');
+                    swal.fire({
+                        title: 'Sucesso!',
+                        text: 'Beleza',
+                        type: 'success',
+                        confirmButtonText: 'Fechar'
+                    });
+
+                })
+                // .catch(function (error) {
+                //     const errors                =   error.response.data.errors;
+                //     const firstItem             =   Object.keys(errors)[0];
+                //
+                //     console.log(firstItem)
+                //
+                //     const firstItemDOM          =   $("#"+firstItem);
+                //     console.log(firstItemDOM)
+                //     const firstErrorMessage     =   errors[firstItem][0];
+                //
+                //     swal.fire({
+                //         title: 'Erro!',
+                //         text: 'Deu ruim',
+                //         type: 'error',
+                //         confirmButtonText: 'Fechar'
+                //     });
+                //
+                //     // scroll to the error messsage
+                //     // firstItemDOM.scrollIntoView({ behavior: 'smooth' });
+                //
+                //     // remove all error messages
+                //     const errorMessages         =   document.querySelectorAll('.text-danger');
+                //     errorMessages.forEach((element) => element.textContent = '');
+                //
+                //     // show error message
+                //     firstItemDOM.insertAdjacentHTML('afterend', `<small class="text-danger">${firstErrorMessage}</small>`);
+                //
+                //     // remove all from controls with highlited errors text bos
+                //     const formControls          =   document.querySelectorAll('.form-control');
+                //     formControls.forEach((element) => element.classList.remove('border', 'border-danger'));
+                //
+                //     // highlight the form control with the error
+                //     firstItemDOM.classList.add('border', 'border-danger');
+                //     // console.log(error)
+                // });
+
+        .catch(error=>{
+                let errorObject=JSON.parse(JSON.stringify(error));
+                console.log(errorObject);
+                dispatch(authError(errorObject.response.data.error));
+            })
+
+
+
+
+
+            // const formData = $(this).serializeArray();
+            // const formData = $(this).serializeArray()
+            // console.log(formData.get('_token'))
+
+            // $.ajax({
+            //     type: 'POST',
+            //     url: url,
+            //     data: formData ,
+            //     processData: false,
+            //     contentType: false
+            //
+            // }).done(function (data) {
+            //     console.log(data);
+            // }).fail(function (xhr, status, error) {
+            //
+            //     const responseText = xhr.responseText;
+            //     try {
+            //         const errorData = JSON.parse(responseText);
+            //
+            //         if (Array.isArray(errorData.errors)) {
+            //             console.log("Houve mais de um erro:");
+            //             errorData.errors.forEach(function (errorMessage) {
+            //                 console.log(errorMessage);
+            //             });
+            //         } else {
+            //             console.log("Erro único:", errorData.error, errorData);
+            //         }
+            //     } catch (e) {
+            //         console.log("Resposta não está em formato JSON:", responseText);
+            //     }
+            // });
+
+            {{--fetch('{{ route('central.support.new') }}', {--}}
+            {{--    method: 'POST',--}}
+            {{--    headers: {--}}
+            {{--        'Accept': 'application/json, text/plain, */*',--}}
+            {{--        'Content-Type': 'application/json',--}}
+            {{--        'X-CSRF-TOKEN': formData.get('_token')--}}
+            {{--    },--}}
+            {{--    body: formData--}}
+            {{--}).then(res => res.json())--}}
+            {{--    .then(res => console.log(res));--}}
         })
 
     </script>

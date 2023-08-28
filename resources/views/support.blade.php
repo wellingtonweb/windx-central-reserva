@@ -12,10 +12,44 @@
                             </svg>
                             Voltar
                         </a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-call">
+                            Novo atendimento
+                        </button>
                     </div>
                     <div class="col-12">
                         <table class="table table-bordered table-striped display list-calls text-uppercase">
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" id="new-call" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-md modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header"><h5 class="modal-title">Novo atendimento</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body text-left pb-0">
+                            <form name="form-new-call" method="POST" action="">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                <div class="form-group">
+                                    <label for="call-subject">Assunto</label>
+                                    <input type="text" class="form-control" id="call-subject" name="call-subject" placeholder="DIGITE O ASSUNTO">
+                                </div>
+                                <div class="form-group">
+                                    <label for="call-type">Tipo de atendimento:</label>
+                                    <input type="text" class="form-control" id="call-type" name="call-type" value="RETORNAR" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="call-description">Descrição:</label>
+                                    <textarea class="form-control" id="call-description" rows="5" name="call-description" placeholder="DIGITE SUA DÚVIDA OU SOLICITAÇÃO"></textarea>
+                                </div>
+                                <div class="form-group d-flex justify-content-end">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,13 +62,6 @@
                         </div>
                         <div class="modal-body">
                             <ul class="list-group list-group-flush ">
-{{--                                <li class="list-group-item d-flex justify-content-between">--}}
-{{--                                    <h6>Cliente</h6>--}}
-{{--                                    <span id="details_payment_customer" class="text-right">--}}
-{{--                                {{session('customer')->full_name}}--}}
-{{--                                ({{session('customer')->id}})--}}
-{{--                            </span>--}}
-{{--                                </li>--}}
                                 <li class="list-group-item">
                                     <h6>Status: </h6>
                                     <span id="call_status" class="text-uppercase"></span>

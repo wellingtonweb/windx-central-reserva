@@ -49,6 +49,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
 
             Route::get('/suporte', [PagesController::class, 'support'])->name('support');
             Route::get('/support-list', [PagesController::class, 'supportList'])->name('support.list');
+            Route::post('/suporte/novo', [PagesController::class, 'supportNew'])->name('support.new');
 //            Route::get('/info', [PagesController::class, 'info'])->name('info');
 //            Route::get('/contratos', [PagesController::class, 'contracts'])->name('contracts');
             Route::get('/pagamento', [PagesController::class, 'payment'])->name('payment');
@@ -69,7 +70,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
             Route::get('/print-invoice/{id}', [PDFController::class, 'printInvoice'])->name('printInvoice');
             Route::get('/invoice-pdf/{id}', [PDFController::class, 'invoicePDF'])->name('invoice');
             Route::get('/coupon/{id}', [PDFController::class, 'coupon'])->name('coupon');
-            Route::get('/coupon-pdf/{id}', [PDFController::class, 'couponPDF'])->name('coupon.pdf');
+            Route::get('/comprovante/{id}/download', [PDFController::class, 'couponPDF'])->name('coupon.pdf');
             Route::get('/invoice-mail-pdf/{id}', [PDFController::class, 'invoiceMailPDF'])->name('invoice.pdf');
             Route::get('/failure/{data}', [NotificationController::class, 'failure'])->name('failure');
 

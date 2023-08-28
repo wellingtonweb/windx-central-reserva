@@ -177,6 +177,10 @@ class PagesController extends Controller
         }
     }
 
+    public function supportNew(Request $request){
+        dd($request->all());
+    }
+
     public function check($billetId)
     {
         if(session()->has('customer')){

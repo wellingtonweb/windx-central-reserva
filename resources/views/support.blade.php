@@ -302,6 +302,7 @@
             const form = event.target;
             event.preventDefault();
             const formData = new FormData(form);
+            console.log(formData)
             const url = '{{ route('central.support.new') }}';
             event.preventDefault();
             axios.request({
@@ -310,6 +311,7 @@
                 data: formData
             }).then(function (response) {
                 //....
+                // $('#new-call').modal('hidden')
                 swal.fire({
                     title: 'Sucesso!',
                     text: 'Beleza',
@@ -317,44 +319,18 @@
                     confirmButtonText: 'Fechar'
                 });
             }).catch(function (error) {
-                let inputs, errors, li, ul, el, small = form.querySelector('.form-group');
-                // let form = form.querySelector('#form-new-call')
-
-                var form2 = document.getElementById('#form-new-call');
-                var smallElements = form.querySelectorAll('small');
+                let errors = form.querySelector('.form-group');
 
                 if (error.response.status === 422) {
                     errors = error.response.data.errors;
-                    // ul.innerHTML = '';
-                    // small.innerHTML = '';
-                    // inputs = form.getElementsByTagName("input");
                     for (let error in errors) {
-                        console.log(error)
                         errors[error].forEach(message => {
-                            // el = document.createElement("small");
-                            // el.className = 'error';
-                            // el.innerText = message;
-                            // ul.appendChild(li)
-
                             form.querySelector('#'+error).classList.add("is-invalid")
                             form.querySelector('#error_'+error).innerText = message
-
-                            // smallElements.forEach((smallElement) => {
-                            //
-                            //     var idError = smallElement.id;
-                            //
-                            //     if(smallElement.id == error) {
-                            //
-                            //     }
-                            //
-                            //     // console.log(smallElement.id)
-                            //     // if(error == )
-                            //     // smallElement.innerText = message
-                            //     // Faça algo com cada elemento small encontrado
-                            // });
                         });
-                        // inputs[error].className = 'error';
                     }
+                }else if(error.response == undefined){
+                     console.log('Erro indefinido!')
                 }
             });
         }
@@ -465,6 +441,12 @@
             {{--    body: formData--}}
             {{--}).then(res => res.json())--}}
             {{--    .then(res => console.log(res));--}}
+        })
+
+        $('input, textarea').on('focus', function (){
+            let id = $(this).attr('id');
+            $('small#error_'+id).text('')
+            $(this).removeClass('is-invalid');
         })
 
     </script>

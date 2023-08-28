@@ -187,7 +187,7 @@ class PagesController extends Controller
 
         $validated = $request->validated();
 
-        if($validated->fails())
+        if(!$validated)
         {
             return response()->json([
                 'success'=>false,

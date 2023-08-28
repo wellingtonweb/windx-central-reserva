@@ -31,7 +31,7 @@
                         </div>
                         <div class="modal-body text-left pb-0">
                             <form id="form-new-call" name="form-new-call">
-                                <div class="form-group">
+                                <div class="form-group text-danger">
                                     <ul id="form-errors"></ul>
                                 </div>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
@@ -39,7 +39,7 @@
                                     <label for="call-subject">Assunto</label>
                                     <input type="text" class="form-control"
                                            id="assunto" name="assunto" placeholder="DIGITE O ASSUNTO">
-
+                                    <small id="error_assunto" class="text-danger"></small>
                                     <input type="hidden" class="form-control"
                                            id="call-type" name="tipo" value="RETORNAR">
                                 </div>
@@ -47,8 +47,9 @@
                                 <div class="form-group">
                                     <label for="call-description">Descrição:</label>
                                     <textarea class="form-control "
-                                              id="text" rows="5" name="texto"
+                                              id="texto" rows="5" name="texto"
                                               placeholder="DESCREVA SUA DÚVIDA OU SOLICITAÇÃO"></textarea>
+                                    <small id="error_texto" class="text-danger"></small>
 {{--                                    <small id="error_descricao" class="text-danger">Erro na descrição</small>--}}
                                 </div>
                                 <div class="form-group d-flex justify-content-end">
@@ -316,19 +317,43 @@
                     confirmButtonText: 'Fechar'
                 });
             }).catch(function (error) {
-                let inputs, errors, li, ul = form.querySelector('ul#form-errors');
+                let inputs, errors, li, ul, el, small = form.querySelector('.form-group');
+                // let form = form.querySelector('#form-new-call')
+
+                var form2 = document.getElementById('#form-new-call');
+                var smallElements = form.querySelectorAll('small');
+
                 if (error.response.status === 422) {
                     errors = error.response.data.errors;
-                    ul.innerHTML = '';
-                    inputs = form.getElementsByTagName("input");
+                    // ul.innerHTML = '';
+                    // small.innerHTML = '';
+                    // inputs = form.getElementsByTagName("input");
                     for (let error in errors) {
+                        console.log(error)
                         errors[error].forEach(message => {
-                            li = document.createElement("li");
-                            li.className = 'error';
-                            li.innerText = message;
-                            ul.appendChild(li)
+                            // el = document.createElement("small");
+                            // el.className = 'error';
+                            // el.innerText = message;
+                            // ul.appendChild(li)
+
+                            form.querySelector('#'+error).classList.add("is-invalid")
+                            form.querySelector('#error_'+error).innerText = message
+
+                            // smallElements.forEach((smallElement) => {
+                            //
+                            //     var idError = smallElement.id;
+                            //
+                            //     if(smallElement.id == error) {
+                            //
+                            //     }
+                            //
+                            //     // console.log(smallElement.id)
+                            //     // if(error == )
+                            //     // smallElement.innerText = message
+                            //     // Faça algo com cada elemento small encontrado
+                            // });
                         });
-                        inputs[error].className = 'error';
+                        // inputs[error].className = 'error';
                     }
                 }
             });

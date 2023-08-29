@@ -178,13 +178,8 @@ class PagesController extends Controller
         }
     }
 
-    public function supportNew(CallRequest $request){
-
-//        $request->validate([
-//            'assunto' => 'required|string',
-//            'texto' => 'required|string',
-//        ]);
-
+    public function supportNew(CallRequest $request)
+    {
         $validated = $request->validated();
 
         if(!$validated)

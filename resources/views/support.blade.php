@@ -12,7 +12,7 @@
                             </svg>
                             Voltar
                         </a>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-call">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-call-modal">
                             Novo atendimento
                         </button>
                     </div>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" id="new-call" style="display: none;" aria-hidden="true">
+            <div class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" id="new-call-modal" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-md modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header"><h5 class="modal-title">Novo atendimento</h5>
@@ -310,21 +310,32 @@
                 url: url,
                 data: formData
             }).then(function (response) {
-                //....
+                console.log(response.data.success)
+                if(response.data.success){
+                    swal.fire({
+                        title: 'Enviado com sucesso!',
+                        text: 'Em breve responderemos seu atendimento.',
+                        icon: 'success',
+                        confirmButtonText: 'Fechar',
+                        timer: 3000,
+                        timerProgressBar: false,
+                        didOpen: () => {
+                            $('.list-calls').DataTable().ajax.reload()
+                            $('#form-new-call')[0].reset();
+                            $('#new-call-modal').modal('hide')
+                        },
+                    });
+                }else{
+                    swal.fire({
+                        title: 'Erro ao enviar!',
+                        text: 'Favor revisar seus dados e tente novamente.',
+                        icon: 'error',
+                        confirmButtonText: 'Fechar',
+                        timer: 3000,
+                        timerProgressBar: false,
+                    });
+                }
 
-                swal.fire({
-                    title: 'Enviado com sucesso!',
-                    text: 'Em breve responderemos seu atendimento.',
-                    type: 'success',
-                    confirmButtonText: 'Fechar',
-                    timer: 3000,
-                    timerProgressBar: false,
-                    didOpen: () => {
-                        $('.list-calls').DataTable().ajax.reload()
-                        $('#form-new-call')[0].reset();
-                        $('#new-call').modal('hide')
-                    },
-                });
             }).catch(function (error) {
                 let errors = form.querySelector('.form-group');
 
@@ -342,118 +353,19 @@
             });
         }
 
-
-        $('#form-new-call_').on("submit", function (e){
-            e.preventDefault();
-            var formData = new FormData(this);
-            var url = '{{ route('central.support.new') }}';
-
-            axios.post(url, formData)
-                .then(function () {
-                    // se tudo der certo, o prato vai ser criado!
-                    console.log('Ok! Atualizar data table');
-                    swal.fire({
-                        title: 'Sucesso!',
-                        text: 'Beleza',
-                        type: 'success',
-                        confirmButtonText: 'Fechar'
-                    });
-
-                })
-                // .catch(function (error) {
-                //     const errors                =   error.response.data.errors;
-                //     const firstItem             =   Object.keys(errors)[0];
-                //
-                //     console.log(firstItem)
-                //
-                //     const firstItemDOM          =   $("#"+firstItem);
-                //     console.log(firstItemDOM)
-                //     const firstErrorMessage     =   errors[firstItem][0];
-                //
-                //     swal.fire({
-                //         title: 'Erro!',
-                //         text: 'Deu ruim',
-                //         type: 'error',
-                //         confirmButtonText: 'Fechar'
-                //     });
-                //
-                //     // scroll to the error messsage
-                //     // firstItemDOM.scrollIntoView({ behavior: 'smooth' });
-                //
-                //     // remove all error messages
-                //     const errorMessages         =   document.querySelectorAll('.text-danger');
-                //     errorMessages.forEach((element) => element.textContent = '');
-                //
-                //     // show error message
-                //     firstItemDOM.insertAdjacentHTML('afterend', `<small class="text-danger">${firstErrorMessage}</small>`);
-                //
-                //     // remove all from controls with highlited errors text bos
-                //     const formControls          =   document.querySelectorAll('.form-control');
-                //     formControls.forEach((element) => element.classList.remove('border', 'border-danger'));
-                //
-                //     // highlight the form control with the error
-                //     firstItemDOM.classList.add('border', 'border-danger');
-                //     // console.log(error)
-                // });
-
-        .catch(error=>{
-                let errorObject=JSON.parse(JSON.stringify(error));
-                console.log(errorObject);
-                dispatch(authError(errorObject.response.data.error));
-            })
-
-
-
-
-
-            // const formData = $(this).serializeArray();
-            // const formData = $(this).serializeArray()
-            // console.log(formData.get('_token'))
-
-            // $.ajax({
-            //     type: 'POST',
-            //     url: url,
-            //     data: formData ,
-            //     processData: false,
-            //     contentType: false
-            //
-            // }).done(function (data) {
-            //     console.log(data);
-            // }).fail(function (xhr, status, error) {
-            //
-            //     const responseText = xhr.responseText;
-            //     try {
-            //         const errorData = JSON.parse(responseText);
-            //
-            //         if (Array.isArray(errorData.errors)) {
-            //             console.log("Houve mais de um erro:");
-            //             errorData.errors.forEach(function (errorMessage) {
-            //                 console.log(errorMessage);
-            //             });
-            //         } else {
-            //             console.log("Erro único:", errorData.error, errorData);
-            //         }
-            //     } catch (e) {
-            //         console.log("Resposta não está em formato JSON:", responseText);
-            //     }
-            // });
-
-            {{--fetch('{{ route('central.support.new') }}', {--}}
-            {{--    method: 'POST',--}}
-            {{--    headers: {--}}
-            {{--        'Accept': 'application/json, text/plain, */*',--}}
-            {{--        'Content-Type': 'application/json',--}}
-            {{--        'X-CSRF-TOKEN': formData.get('_token')--}}
-            {{--    },--}}
-            {{--    body: formData--}}
-            {{--}).then(res => res.json())--}}
-            {{--    .then(res => console.log(res));--}}
-        })
-
         $('input, textarea').on('focus', function (){
             let id = $(this).attr('id');
             $('small#error_'+id).text('')
             $(this).removeClass('is-invalid');
+        })
+
+        $('#new-call-modal').on('hide.bs.modal', function (event) {
+            $('.form-group').each(function() {
+                $('input, textarea').removeClass('is-invalid').text('');
+                if($('small').hasClass('text-danger')){
+                    $('small').text('')
+                };
+            });
         })
 
     </script>

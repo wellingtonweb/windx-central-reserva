@@ -190,22 +190,16 @@ class PagesController extends Controller
             ],400);
         }
 
-//        dd();
         $call = (new API())
             ->postCall([
                 'customer_id' => session('customer')->id,
                 'texto' => $validated['texto']
             ]);
 
-//        dd($call);
-
         return response()->json([
             'success'=>true,
         ],200);
 
-//        return response()->json([true, $request->all()]);
-
-        //URL API - customer/call/new
     }
 
     public function check($billetId)

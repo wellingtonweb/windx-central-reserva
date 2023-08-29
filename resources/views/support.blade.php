@@ -284,27 +284,10 @@
             });
         });
 
-        // function callViewer(btn){
-        //     var call = $('#'+btn).data('call')
-        //     console.log(btn, call);
-        // }
-        //
-        // $("#getclick").on('click', function() {
-        //     console.log($(this).attr('data-call'))
-        // });
-
-        //
-        // const el = document.querySelector(".call-viewer");
-        // const dataId = el.getAttribute("data-call");
-        // console.log(dataId);
-
-        //support.new
-
         document.getElementById('form-new-call').onsubmit = function (event) {
             const form = event.target;
             event.preventDefault();
             const formData = new FormData(form);
-            console.log(formData)
             const url = '{{ route('central.support.new') }}';
             event.preventDefault();
             $('#new-call-btn-submit').prop('disable', true).html('<i class="fas fa-spinner fa-spin gap-right"></i> Salvando ...');
@@ -326,7 +309,6 @@
                         didOpen: () => {
                             $('.list-calls').DataTable().ajax.reload()
                             $('#new-call-btn-submit').prop('disable', false).html('<i class="fa fa-check gap-right"></i> Salvar');
-
                             $('#form-new-call')[0].reset();
                             $('#new-call-modal').modal('hide')
                         },
@@ -360,8 +342,6 @@
                 }
             });
         }
-
-
 
         $('input, textarea').on('focus', function (){
             let id = $(this).attr('id');

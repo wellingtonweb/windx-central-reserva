@@ -46,6 +46,8 @@ Route::prefix('assinante')->name('central.')->group(function(){
         Route::get('/pagamento', [PagesController::class, 'payment'])->name('payment');
         Route::get('/comprovantes', [PagesController::class, 'payments'])->name('payments');
         Route::get('/coupons', [PagesController::class, 'coupons'])->name('coupons');
+        Route::get('/tkcielo', [PagesController::class, 'tkcielo'])->name('tkcielo');
+
 
         /* Payment Routes */
         Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');

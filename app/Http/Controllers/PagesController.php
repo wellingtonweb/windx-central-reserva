@@ -81,6 +81,14 @@ class PagesController extends Controller
             throw new CheckUserException();
         }
     }
+    public function tkcielo()
+    {
+        if(session()->has('customer')){
+            return view('tkcielo', ['header' => 'tkcielo']);
+        } else {
+            throw new CheckUserException();
+        }
+    }
 
 
 

@@ -199,8 +199,8 @@
                     pagingType: 'full_numbers',
                     processing: true,
                     serverSide: true,
-                    ajax: "",
-                    {{--ajax: "{{ route('central.support.list') }}",--}}
+                    // ajax: "",
+                    ajax: "{{ route('central.support.list') }}",
                     columnDefs: [
                         {
                             // targets: [0],
@@ -311,12 +311,19 @@
                 data: formData
             }).then(function (response) {
                 //....
-                // $('#new-call').modal('hidden')
+
                 swal.fire({
-                    title: 'Sucesso!',
-                    text: 'Beleza',
+                    title: 'Enviado com sucesso!',
+                    text: 'Em breve responderemos seu atendimento.',
                     type: 'success',
-                    confirmButtonText: 'Fechar'
+                    confirmButtonText: 'Fechar',
+                    timer: 3000,
+                    timerProgressBar: false,
+                    didOpen: () => {
+                        $('.list-calls').DataTable().ajax.reload()
+                        $('#form-new-call')[0].reset();
+                        $('#new-call').modal('hide')
+                    },
                 });
             }).catch(function (error) {
                 let errors = form.querySelector('.form-group');

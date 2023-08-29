@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="modal fade" tabindex="-1" role="dialog" id="call-details" style="display: none;" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                <div class="modal-dialog modal-md modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header"><h5 class="modal-title">Número O.S.: <span id="call_numero_os"></span> - Detalhes</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -97,7 +97,9 @@
                             </ul>
                         </div>
                         <div class="modal-footer justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                <i class="fa fa-times pr-2"></i>FECHAR
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -305,7 +307,7 @@
             console.log(formData)
             const url = '{{ route('central.support.new') }}';
             event.preventDefault();
-            $('#new-call-btn-submit').html('<i class="fas fa-spinner fa-spin gap-right"></i> Salvando ...');
+            $('#new-call-btn-submit').prop('disable', true).html('<i class="fas fa-spinner fa-spin gap-right"></i> Salvando ...');
 
             axios.request({
                 method: "post",
@@ -323,7 +325,7 @@
                         timerProgressBar: false,
                         didOpen: () => {
                             $('.list-calls').DataTable().ajax.reload()
-                            $('#new-call-btn-submit').html('<i class="fa fa-check gap-right"></i> Salvar');
+                            $('#new-call-btn-submit').prop('disable', false).html('<i class="fa fa-check gap-right"></i> Salvar');
 
                             $('#form-new-call')[0].reset();
                             $('#new-call-modal').modal('hide')
@@ -341,9 +343,11 @@
                 }
 
             }).catch(function (error) {
+                $('#new-call-btn-submit').prop('disable', true).html('<i class="fa fa-check gap-right"></i> Salvar');
                 let errors = form.querySelector('.form-group');
 
                 if (error.response.status === 422) {
+
                     errors = error.response.data.errors;
                     for (let error in errors) {
                         errors[error].forEach(message => {
@@ -366,7 +370,7 @@
         })
 
         $('#new-call-modal').on('hide.bs.modal', function (event) {
-            $('#new-call-btn-submit').html('<i class="fa fa-check gap-right"></i> Salvar');
+            $('#new-call-btn-submit').prop('disable', true).html('<i class="fa fa-check gap-right"></i> Salvar');
             $('.form-group').each(function() {
                 $('input, textarea').removeClass('is-invalid').text('');
                 if($('small').hasClass('text-danger')){

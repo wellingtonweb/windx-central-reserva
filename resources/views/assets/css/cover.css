@@ -2613,7 +2613,8 @@ svg rect{
 }
 
 .side-bar .menu .item a {
-    background-color: #00527c;
+    background-color: #62B6CB;
+    /*background-color: #00527c;*/
     backdrop-filter: blur(15px);
     border-radius: 7px;
     color: #ffffff;
@@ -2624,31 +2625,59 @@ svg rect{
     line-height: 50px;
     letter-spacing: 2px;
     margin-bottom: 1rem;
+    font-weight: bold;
 }
 
-.side-bar .menu .item a:active, .side-bar .menu .item a:hover {
-    background-color: #006db2;
-    color: #ffffff;
+.side-bar .menu .item a:active,
+.side-bar .menu .item a:hover {
+    background-color: #CAE9FF;
+    /*background-color: #006db2 !important;*/
+    color: #002046;
     /*border-radius: 7px;*/
     transition: .3s ease;
-    transform: scale(.98);
+    transform: scale(.98) !important;
+}
+
+.btn-side-active {
+    background-color: #CAE9FF !important;
+    color: #002046 !important;
+}
+.btn-side-active svg path {
+    fill: #002046 !important;
 }
 
 .side-bar .menu .item i {
     margin-right: 15px;
 }
 
+.side-bar .menu .item a:hover svg path {
+    fill: #002046;
+}
 
 .side-bar .menu .item svg {
     margin-right: 15px;
 }
 
 .side-bar .menu .item svg path {
-    fill: white !important;
+    fill: white;
 }
 
 .side-bar .menu .item .sub-menu {
     background-color: rgba(255,255,255,.1);
+}
+
+#btn-logout {
+    background-color: #ED454C;
+    color: white;
+}
+
+#btn-logout:hover {
+    background-color: #ff616a !important;
+    color: white;
+}
+
+#btn-logout:hover svg path {
+    fill: white !important;
 }
 
 .text-orange {

@@ -190,6 +190,7 @@ class PagesController extends Controller
             ],400);
         }
 
+//        dd();
         $call = (new API())
             ->postCall([
                 'customer_id' => session('customer')->id,

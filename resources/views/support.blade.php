@@ -13,7 +13,7 @@
                             Voltar
                         </a>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-call-modal">
-                            Novo atendimento
+                            <i class="fa fa-plus pr-2"></i>Novo atendimento
                         </button>
                     </div>
                     <div class="col-12">
@@ -53,8 +53,8 @@
 {{--                                    <small id="error_descricao" class="text-danger">Erro na descrição</small>--}}
                                 </div>
                                 <div class="form-group d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times pr-2"></i>Fechar</button>
+                                    <button id="new-call-btn-submit" type="submit" class="btn btn-success"><i class="fa fa-check"></i> Salvar</button>
                                 </div>
                             </form>
                         </div>
@@ -305,6 +305,8 @@
             console.log(formData)
             const url = '{{ route('central.support.new') }}';
             event.preventDefault();
+            $('#new-call-btn-submit').html('<i class="fas fa-spinner fa-spin gap-right"></i> Salvando ...');
+
             axios.request({
                 method: "post",
                 url: url,
@@ -321,6 +323,8 @@
                         timerProgressBar: false,
                         didOpen: () => {
                             $('.list-calls').DataTable().ajax.reload()
+                            $('#new-call-btn-submit').html('<i class="fa fa-check gap-right"></i> Salvar');
+
                             $('#form-new-call')[0].reset();
                             $('#new-call-modal').modal('hide')
                         },
@@ -353,6 +357,8 @@
             });
         }
 
+
+
         $('input, textarea').on('focus', function (){
             let id = $(this).attr('id');
             $('small#error_'+id).text('')
@@ -360,6 +366,7 @@
         })
 
         $('#new-call-modal').on('hide.bs.modal', function (event) {
+            $('#new-call-btn-submit').html('<i class="fa fa-check gap-right"></i> Salvar');
             $('.form-group').each(function() {
                 $('input, textarea').removeClass('is-invalid').text('');
                 if($('small').hasClass('text-danger')){

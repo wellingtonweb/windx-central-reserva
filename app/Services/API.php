@@ -154,6 +154,22 @@ class API
         }
     }
 
+    public function postCall($call)
+    {
+        $response = Http::accept('application/json')
+            ->withToken($this->apiToken)
+            ->retry(3, 100)
+            ->post($this->apiUrl . '/api/customer/call/new', $call);
+
+//        dd($response->object());
+
+        if($response->successful()){
+            return $response->object();
+        }else{
+            return $response->throw();
+        }
+    }
+
     public function postPayment($body)
     {
         try {

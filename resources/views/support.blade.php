@@ -37,7 +37,7 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="form-group">
                                     <label for="call-subject">Assunto</label>
-                                    <input type="text" class="form-control"
+                                    <input type="text" class="form-control text-uppercase"
                                            id="assunto" name="assunto" placeholder="DIGITE O ASSUNTO">
                                     <small id="error_assunto" class="text-danger"></small>
                                     <input type="hidden" class="form-control"
@@ -46,7 +46,7 @@
 
                                 <div class="form-group">
                                     <label for="call-description">Descrição:</label>
-                                    <textarea class="form-control "
+                                    <textarea class="form-control text-uppercase"
                                               id="texto" rows="5" name="texto"
                                               placeholder="DESCREVA SUA DÚVIDA OU SOLICITAÇÃO"></textarea>
                                     <small id="error_texto" class="text-danger"></small>

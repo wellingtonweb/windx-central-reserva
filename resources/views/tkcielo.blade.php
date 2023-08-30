@@ -49,7 +49,7 @@
             size="50"
             name="amount"
             class="bpmpi_totalamount"
-            value="1000"
+            value="1.00"
         />
     </div>
     <div>

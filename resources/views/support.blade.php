@@ -323,7 +323,6 @@
                         timerProgressBar: false,
                     });
                 }
-
             }).catch(function (error) {
                 $('#new-call-btn-submit').prop('disable', true).html('<i class="fa fa-check gap-right"></i> Salvar');
                 let errors = form.querySelector('.form-group');

@@ -81,14 +81,46 @@ class PagesController extends Controller
 //            dd($customer[0]['billets']);
 
             return Datatables::of($customer[0]['billets'])
+                ->addColumn('fees', function($data){
+                    return (new WorkingDays)->hasFees($data['Vencimento']);
+                })
+                ->addColumn('total', function($data){
+                    return (new WorkingDays)->hasFees($data['Vencimento']) + $data['Valor'];
+                })
                 ->addColumn('action', function($data){
-//                    if($data['status'] === 'approved'){
-//                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
-//                            '" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i></a>';
-//                    }else{
-//                        $button = '---';
-                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
-//                    }
+                        $fees = (new WorkingDays)->hasFees($data['Vencimento']);
+                        $price = 0;
+                        $addition = 0;
+
+                        if($fees){
+                            $price = number_format($data['Valor'], 2, '.', '');
+                            $addition = number_format(0, 2, '.', '');
+                        }else{
+                            $price = number_format($fees + $data['Valor'], 2, '.', '');
+                            $addition = number_format($fees, 2, '.', '');
+                        }
+
+                        $button = '
+                                    <a href="#" id="copy-barcode-'. $data['Id'] .'" class="btn btn-primary btn-sm click" data-id="'. $data['Id'] .'"
+                                                       onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">
+                                                        <i class="fa fa-barcode" aria-hidden="true"></i>
+                                                    </a>
+
+                                    <a target="_blank" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .'" class="btn btn-info btn-sm">
+                                        <i class="fa fa-download" aria-hidden="true"></i></a>
+
+                                    <a href="#" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm"
+                                        data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
+                                        data-duedate="'. date("d/m/Y", strtotime($data['Vencimento'])) .'" data-id="'. $data['Id'] .
+                                    '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </a>
+
+                                    <a href="#" id="remove-billet-'. $data['Id'] .'" class="btn btn-danger btn-sm delete-item d-none"
+                                                       data-reference="'. $data['NossoNumero'] .'" data-id="'. $data['Id'] .'">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                    </a>
+                                   ';
                     return $button;
                 })
                 ->rawColumns(['action'])

@@ -253,10 +253,10 @@
 ">
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
-
-                            <table class="table table-bordered table-striped display list-billets text-uppercase">
-                            </table>
-
+                            <div class="content-box">
+                                <table class="table table-bordered table-striped display list-billets text-uppercase">
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </main>
@@ -268,33 +268,41 @@
 @section('css')
     <style>
 
-        body {
-            scrollbar-width: thin;          /* "auto" or "thin" */
-            scrollbar-color: rgba(0, 32, 70, 0.5) rgba(255, 255, 255, 0);   /* scroll thumb and track */
+        .content-box {
+            /*width: 100%;*/
+            /*display: block;*/
+            border-radius: .5rem;
+            background-color: #fff !important;
+            padding: 1rem;
         }
 
-        html ::-webkit-scrollbar {
-            width: 10px;
-        }
-        html ::-webkit-scrollbar-thumb {
-            border-radius: 50px;
-            background: rgba(0, 32, 70, 0.5);
-            /*background: #6e6ea9;*/
+        /*body {*/
+        /*    scrollbar-width: thin;          !* "auto" or "thin" *!*/
+        /*    scrollbar-color: rgba(0, 32, 70, 0.5) rgba(255, 255, 255, 0);   !* scroll thumb and track *!*/
+        /*}*/
 
-        }
-        html ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0);
-            /*background: #ededed;*/
-        }
+        /*html ::-webkit-scrollbar {*/
+        /*    width: 10px;*/
+        /*}*/
+        /*html ::-webkit-scrollbar-thumb {*/
+        /*    border-radius: 50px;*/
+        /*    background: rgba(0, 32, 70, 0.5);*/
+        /*    !*background: #6e6ea9;*!*/
 
-        #colInvoices {
-            height: 70vh;
-            overflow-y: scroll;
-        }
+        /*}*/
+        /*html ::-webkit-scrollbar-track {*/
+        /*    background: rgba(255, 255, 255, 0);*/
+        /*    !*background: #ededed;*!*/
+        /*}*/
 
-        #colInvoices::-webkit-scrollbar {
-            display: none;
-        }
+        /*#colInvoices {*/
+        /*    height: 70vh;*/
+        /*    overflow-y: scroll;*/
+        /*}*/
+
+        /*#colInvoices::-webkit-scrollbar {*/
+        /*    display: none;*/
+        /*}*/
 
         .owl-item {
             margin-top: -15px;
@@ -716,6 +724,8 @@
         $(document).ready(function() {
             $(function () {
                 var billet = '';
+                var dueDate = '';
+                var apiUrl = "{{ env('API_URL_VIGO_PROD') }}";
                 var table = $('.list-billets').DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
                     pagingType: 'full_numbers',
@@ -739,27 +749,19 @@
                         {data: 'NossoNumero', name: 'NossoNumero', title: 'Nosso Nº', render: function(data, type, full, meta) {
                                 return data;
                             }},
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
                         {data: 'Data_Emissao', name: 'Data_Emissao', title: 'Vencimento', render: function(data, type, full, meta) {
                                 let date = new Date(data);
                                 let dataFormatada = ((date.getDate() )) + "/" + ((date.getMonth() + 1).toString()) + "/" + date.getFullYear();
                                 return dataFormatada;
                                 // return data;
                             }},
+                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
+                                return data;
+                                // return 'R$ ' + data.replace(".", ",");
+                            }
+                        },
+                        {data: 'fees', name: 'fees', title: 'Juros + Multa', orderable: false, searchable: false},
+                        {data: 'total', name: 'total', title: 'Total', orderable: false, searchable: false},
                         {data: 'action', name: 'action', title: 'Ações', orderable: false, searchable: false},
                     ],
                     language: {

@@ -61,13 +61,39 @@ class PagesController extends Controller
     {
         if(session()->has('customer')){
 
-            $customer = (new API())->getCustomer(session('customer')->id);
+//            $customer = (new API())->getCustomer(session('customer')->id);
 
             return view('payment', [
                 'header' => 'Pagamento',
-                'customer' => $customer
+//                'customer' => $customer
             ]);
 
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function getbillets()
+    {
+        if(session()->has('customer')){
+            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
+
+//            dd($customer[0]['billets']);
+
+            return Datatables::of($customer[0]['billets'])
+                ->addColumn('action', function($data){
+//                    if($data['status'] === 'approved'){
+//                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
+//                            '" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i></a>';
+//                    }else{
+//                        $button = '---';
+                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
+//                    }
+                    return $button;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
         } else {
             throw new CheckUserException();
         }

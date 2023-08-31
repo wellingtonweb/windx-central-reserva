@@ -20,11 +20,11 @@
         if(enviroment === 'production'){
             //Production
             url = "https://mpi.braspag.com.br"
-            authorization = "ba78abeb-e530-4cd1-94da-151df1144fb4:LLtQYODFNJ4zLVyvc/VO/xGTGCYeP9WapU0YEn3YiCs="
+            authorization = "Basic ba78abeb-e530-4cd1-94da-151df1144fb4:LLtQYODFNJ4zLVyvc/VO/xGTGCYeP9WapU0YEn3YiCs="
         }else{
             //Sandbox
             url = "https://mpisandbox.braspag.com.br"
-            authorization = "dba3a8db-fa54-40e0-8bab-7bfb9b6f2e2e:D/ilRsfoqHlSUChwAMnlyKdDNd7FMsM7cU/vo02REag="
+            authorization = "Basic dba3a8db-fa54-40e0-8bab-7bfb9b6f2e2e:D/ilRsfoqHlSUChwAMnlyKdDNd7FMsM7cU/vo02REag="
         }
 
         const data = {

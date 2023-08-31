@@ -254,8 +254,91 @@
                             <h4 class="mb-3">Selecione a fatura a pagar</h4>
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
 
-                            <table class="table table-bordered table-striped display list-billets text-uppercase">
-                            </table>
+                            <div class="table-responsive">
+                                <table id="table-invoices" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th style="padding: .3rem !important;">Nosso Nº</th>
+                                        <th style="padding: .3rem !important;">Referência</th>
+                                        <th style="padding: .3rem !important;">Vencimento</th>
+                                        <th style="padding: .3rem !important;">Valor</th>
+                                        <th style="padding: .3rem !important;">Juros + Multa</th>
+                                        <th style="padding: .3rem !important;">Total</th>
+                                        <th style="padding: .3rem !important;">Ações</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(count(session('customer')->billets) != 0)
+                                        @foreach(session('customer')->billets as $key => $billet)
+                                            <tr id="invoice-{{$key}}" data-id="{{ $billet->Id }}" class="{{ ($billet->Vencimento < date('Y-m-d\TH:i:s')) ? 'text-red-50' : '' }}">
+                                                <td hidden>{{ $billet->Id }}</td>
+                                                <td hidden>{{ $fees = \App\Services\Functions::calcFees($billet->Vencimento, $billet->Valor) }}</td>
+                                                <td data-label="Nosso Nº">{{ $billet->NossoNumero }}</td>
+                                                <td data-label="Referência">{{ $billet->Referencia != '' ? $billet->Referencia : 'SEM REFERÊNCIA' }}</td>
+                                                <td data-label="Vencimento">{!! $dueDate = \App\Services\Functions::dateToPt($billet->Vencimento) !!}</td>
+                                                <td data-label="Valor">
+                                                    R$ {{ number_format($billet->Valor, 2, ',', '') }}</td>
+                                                <td data-label="Juros + Multa">{{ number_format($fees, 2, '.', '') }}</td>
+                                                <td data-label="Total">{{ number_format($fees + $billet->Valor, 2, '.', '') }}</td>
+                                                <td class="btnInvoiceAction">
+                                                    <a href="#" id="copy-barcode-{{$key}}" class="btn btn-primary btn-sm click" data-id="{{ $billet->Id }}"
+                                                       onclick="copyBarcode3(this)" data-code="{{$billet->LinhaDigitavel}}">
+                                                        <i class="fa fa-barcode" aria-hidden="true"></i> <span class="action-name">copiar</span>
+                                                    </a>
+                                                    <a target="_blank" href="{{ env('API_URL_VIGO_PROD').$billet->Link }}"
+                                                       id="print-billet-{{$key}}"
+                                                       class="btn btn-info btn-sm">
+                                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                                        <span class="action-name">baixar</span>
+                                                    </a>
+                                                    <a href="#" id="select-billet-{{$key}}"
+                                                       class="add-to-cart btn btn-success btn-sm"
+                                                       data-reference="{{ $billet->NossoNumero }}" data-value="{{ $billet->Valor }}"
+                                                       data-duedate="{!! $dueDate !!}"
+                                                       data-id="{{ strval($billet->Id) }}" data-discount="{{ 0 }}"
+
+{{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-09-07T00:00:00'))--}}
+{{--                                                       @if(\App\Helpers\WorkingDays::hasFees('2023-07-15T00:00:00'))--}}
+                                                       @if(\App\Helpers\WorkingDays::hasFees($billet->Vencimento))
+                                                       data-price="{{ number_format($billet->Valor, 2, '.', '') }}"
+                                                       data-addition="{{ number_format(0, 2, '.', '') }}"
+                                                       @else
+                                                       data-price="{{ number_format($fees + $billet->Valor, 2, '.', '') }}"
+                                                       data-addition="{{ number_format($fees, 2, '.', '') }}"
+                                                       @endif
+
+{{--                                                        onclick="loadingAddInvoice()"--}}
+                                                    >
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+{{--                                                        <i class="fas fa-spinner fa-pulse d-none"></i>--}}
+                                                        <span class="action-name">pagar</span>
+                                                    </a>
+                                                    <a href="#" id="remove-billet-{{$key}}"
+                                                       class="btn btn-danger btn-sm delete-item d-none"
+                                                       data-reference="{{ $billet->NossoNumero }}" data-id="{{ $billet->Id }}">
+                                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                                        <span class="action-name">remover</span>
+                                                    </a>
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="7">
+                                                <h4 style="color: #002046; padding: 1rem">Não existem faturas pendentes!<br><br>
+                                                    Obrigado pela pontualidade
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-emoji-wink" viewBox="0 0 16 16">
+                                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm1.757-.437a.5.5 0 0 1 .68.194.934.934 0 0 0 .813.493c.339 0 .645-.19.813-.493a.5.5 0 1 1 .874.486A1.934 1.934 0 0 1 10.25 7.75c-.73 0-1.356-.412-1.687-1.007a.5.5 0 0 1 .194-.68z"/>
+                                                    </svg>
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
                     </div>
@@ -683,7 +766,6 @@
 
 
 
-
         // $('a.add-to-cart').on('click', function () {
         //     // $(this).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
         //     // Swal.fire('Verificando boleto')
@@ -704,84 +786,16 @@
         cart2 = JSON.parse(sessionStorage.getItem('billetsCart'));
         console.log(cart2)
 
+
+
+
     </script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 {{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
     {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $(function () {
-                var billet = '';
-                var table = $('.list-billets').DataTable({
-                    dom: '<"top"i>rt<"bottom"p><"clear">',
-                    pagingType: 'full_numbers',
-                    processing: true,
-                    serverSide: true,
-                    ajax: "{{ route('central.get.billets') }}",
-                    columnDefs: [
-                        {
-                            // targets: [0],
-                            visible: false,
-                            searchable: false,
-                            pageLength : 5,
-                            lengthMenu: [[5, 10], [5, 10]],
-                            className: 'dtr-control arrow-right',
-                            orderable: false,
-                            // target: -1
-                        }
-                    ],
-                    columns: [
-                        {data: 'Id', name: 'Id', title: 'ID'},
-                        {data: 'NossoNumero', name: 'NossoNumero', title: 'Nosso Nº', render: function(data, type, full, meta) {
-                                return data;
-                            }},
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'Data_Emissao', name: 'Data_Emissao', title: 'Vencimento', render: function(data, type, full, meta) {
-                                let date = new Date(data);
-                                let dataFormatada = ((date.getDate() )) + "/" + ((date.getMonth() + 1).toString()) + "/" + date.getFullYear();
-                                return dataFormatada;
-                                // return data;
-                            }},
-                        {data: 'action', name: 'action', title: 'Ações', orderable: false, searchable: false},
-                    ],
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
-                    },
-                    orderable: false,
-                    searchable: false,
-                    sortable: false,
-                    responsive: true,
-                    // rowCallback: function(row, data, index) {
-                    //     var statusCell = table.cell(index, 'status:name');
-                    //     var statusText = statusCell.data();
-                    //     if (statusText === 'approved') {
-                    //         $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
-                    //     } else {
-                    //         $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
-                    //     }
-                    // }
-                });
-            });
-        });
-
         async function pixCopyPaste(){
             let code = $('p.qrcodestring').text()
             console.log(code);

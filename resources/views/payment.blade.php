@@ -276,6 +276,10 @@
             padding: 1rem;
         }
 
+        .clss {
+            color: midnightblue;
+        }
+
         /*body {*/
         /*    scrollbar-width: thin;          !* "auto" or "thin" *!*/
         /*    scrollbar-color: rgba(0, 32, 70, 0.5) rgba(255, 255, 255, 0);   !* scroll thumb and track *!*/
@@ -746,20 +750,9 @@
                     ],
                     columns: [
                         {data: 'Id', name: 'Id', title: 'ID'},
-                        {data: 'NossoNumero', name: 'NossoNumero', title: 'Nosso Nº', render: function(data, type, full, meta) {
-                                return data;
-                            }},
-                        {data: 'Data_Emissao', name: 'Data_Emissao', title: 'Vencimento', render: function(data, type, full, meta) {
-                                let date = new Date(data);
-                                let dataFormatada = ((date.getDate() )) + "/" + ((date.getMonth() + 1).toString()) + "/" + date.getFullYear();
-                                return dataFormatada;
-                                // return data;
-                            }},
-                        {data: 'Valor', name: 'Valor', title: 'Valor', render: function(data, type, full, meta) {
-                                return data;
-                                // return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
+                        {data: 'NossoNumero', name: 'NossoNumero', title: 'Nosso Nº'},
+                        {data: 'dtEmissao', name: 'dtEmissao', title: 'Vencimento', orderable: false, searchable: false},
+                        {data: 'valor', name: 'valor', title: 'Valor', orderable: false, searchable: false},
                         {data: 'fees', name: 'fees', title: 'Juros + Multa', orderable: false, searchable: false},
                         {data: 'total', name: 'total', title: 'Total', orderable: false, searchable: false},
                         {data: 'action', name: 'action', title: 'Ações', orderable: false, searchable: false},
@@ -771,15 +764,32 @@
                     searchable: false,
                     sortable: false,
                     responsive: true,
-                    // rowCallback: function(row, data, index) {
-                    //     var statusCell = table.cell(index, 'status:name');
-                    //     var statusText = statusCell.data();
-                    //     if (statusText === 'approved') {
-                    //         $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
-                    //     } else {
-                    //         $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
-                    //     }
-                    // }
+                    rowCallback: function(row, data, index) {
+                        // var statusText = ((table.cell(index, 'dtEmissao:name')).data()).split("/");
+                        // var statusCell = table.cell(index, 'dtEmissao:name');
+
+                        // var statusText = statusCell.data();
+                        var dateParts = ((table.cell(index, 'dtEmissao:name')).data()).split("/");
+                        // var dateParts = statusText.split("/");
+
+                        // month is 0-based, that's why we need dataParts[1] - 1
+                        var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+
+                        if(dateObject < Date.now()){
+                            console.log('Data é menor: '+dateObject)
+                            $(row).find('td').css('color', 'red'); // Altere a cor desejada
+                        }else{
+                            console.log('Data é maior ou igual: '+dateObject)
+                            $(row).find('td').css('color', 'midnightblue'); // Alt
+                        }
+                        // console.log(statusText, Date.now(), dateObject)
+
+                        // if (statusText === 'approved') {
+                        //     $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
+                        // } else {
+                        //     $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
+                        // }
+                    }
                 });
             });
         });

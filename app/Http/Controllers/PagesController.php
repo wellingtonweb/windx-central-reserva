@@ -81,18 +81,25 @@ class PagesController extends Controller
 //            dd($customer[0]['billets']);
 
             return Datatables::of($customer[0]['billets'])
+                ->addColumn('dtEmissao', function($data){
+                    return date("d/m/Y", strtotime($data['Vencimento']));
+                })
+                ->addColumn('valor', function($data){
+                    return 'R$ ' . number_format($data['Valor'], 2, ',', '');
+                })
                 ->addColumn('fees', function($data){
-                    return (new WorkingDays)->hasFees($data['Vencimento']);
+                    return 'R$ ' . number_format((new Functions)->calcFees($data['Vencimento'], $data['Valor']), 2, ',', '');
                 })
                 ->addColumn('total', function($data){
-                    return (new WorkingDays)->hasFees($data['Vencimento']) + $data['Valor'];
+                    return 'R$ ' .number_format((new Functions)->calcFees($data['Vencimento'], $data['Valor']) + $data['Valor'], 2, ',', '');
                 })
                 ->addColumn('action', function($data){
-                        $fees = (new WorkingDays)->hasFees($data['Vencimento']);
+                        $isfees = (new WorkingDays)->hasFees($data['Vencimento']);
+                        $fees = (new Functions)->calcFees($data['Vencimento'], $data['Valor']);
                         $price = 0;
                         $addition = 0;
 
-                        if($fees){
+                        if($isfees){
                             $price = number_format($data['Valor'], 2, '.', '');
                             $addition = number_format(0, 2, '.', '');
                         }else{

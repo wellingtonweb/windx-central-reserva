@@ -76,9 +76,8 @@ class PagesController extends Controller
     public function getbillets()
     {
         if(session()->has('customer')){
-            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
-
-//            dd($customer[0]['billets']);
+            $customer = json_decode(json_encode((new API())->getCustomer(9)),true);
+//            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
 
             return Datatables::of($customer[0]['billets'])
                 ->addColumn('dtEmissao', function($data){

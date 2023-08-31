@@ -727,9 +727,6 @@
     <script>
         $(document).ready(function() {
             $(function () {
-                var billet = '';
-                var dueDate = '';
-                var apiUrl = "{{ env('API_URL_VIGO_PROD') }}";
                 var table = $('.list-billets').DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
                     pagingType: 'full_numbers',
@@ -759,38 +756,32 @@
                     ],
                     language: {
                         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+                        emptyTable: "<br>Não existem faturas à pagar! <br><br> Agradecemos pela pontualidade.<br>",
+                        infoEmpty: ""
                     },
                     orderable: false,
                     searchable: false,
                     sortable: false,
                     responsive: true,
                     rowCallback: function(row, data, index) {
-                        // var statusText = ((table.cell(index, 'dtEmissao:name')).data()).split("/");
-                        // var statusCell = table.cell(index, 'dtEmissao:name');
 
-                        // var statusText = statusCell.data();
-                        var dateParts = ((table.cell(index, 'dtEmissao:name')).data()).split("/");
-                        // var dateParts = statusText.split("/");
-
-                        // month is 0-based, that's why we need dataParts[1] - 1
-                        var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
-
-                        if(dateObject < Date.now()){
-                            console.log('Data é menor: '+dateObject)
-                            $(row).find('td').css('color', 'red'); // Altere a cor desejada
-                        }else{
-                            console.log('Data é maior ou igual: '+dateObject)
-                            $(row).find('td').css('color', 'midnightblue'); // Alt
+                        if(table.rows().data().length === 0){
+                            swal.fire('Não foram encontrados registros!')
                         }
-                        // console.log(statusText, Date.now(), dateObject)
 
-                        // if (statusText === 'approved') {
-                        //     $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
-                        // } else {
-                        //     $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
-                        // }
+                        var dateParts = ((table.cell(index, 'dtEmissao:name')).data()).split("/");
+
+                        if(new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]) < Date.now()){
+                            $(row).find('td').css('color', 'red');
+                        }else{
+                            $(row).find('td').css('color', 'midnightblue');
+                        }
                     }
                 });
+
+                console.log("Total ",$('.list-billets').DataTable().rows().data().length)
+                console.log("Pages ",$('.list-billets').DataTable().page.info().recordsTotal)
+
             });
         });
 

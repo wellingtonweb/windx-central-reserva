@@ -45,6 +45,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
         Route::post('/suporte/novo', [PagesController::class, 'supportNew'])->name('support.new');
         Route::get('/pagamento', [PagesController::class, 'payment'])->name('payment');
         Route::get('/getbillets', [PagesController::class, 'getbillets'])->name('get.billets');
+        Route::get('/getbillets2', [PagesController::class, 'getbillets2'])->name('get.billets2');
         Route::get('/comprovantes', [PagesController::class, 'payments'])->name('payments');
         Route::get('/coupons', [PagesController::class, 'coupons'])->name('coupons');
         Route::get('/tokencielo', [PagesController::class, 'tokencielo'])->name('tkcielo');

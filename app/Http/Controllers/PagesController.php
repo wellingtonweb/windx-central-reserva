@@ -76,8 +76,8 @@ class PagesController extends Controller
     public function getbillets()
     {
         if(session()->has('customer')){
-            $customer = json_decode(json_encode((new API())->getCustomer(9)),true);
-//            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
+//            $customer = json_decode(json_encode((new API())->getCustomer(9)),true);
+            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
 
             return Datatables::of($customer[0]['billets'])
                 ->addColumn('dtEmissao', function($data){
@@ -132,6 +132,15 @@ class PagesController extends Controller
                 ->rawColumns(['action'])
                 ->addIndexColumn()
                 ->make(true);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function getbillets2(){
+        if(session()->has('customer')){
+            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
+            return $customer[0]['billets'];
         } else {
             throw new CheckUserException();
         }

@@ -10234,7 +10234,8 @@ h3 {
 }
 
 .card {
-  width: 100% !important;
+  width: auto;
+  /*width: 100% !important;*/
   border: none;
 }
 

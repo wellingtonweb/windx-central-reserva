@@ -3,9 +3,9 @@
 @section('content')
     <main>
         <section>
-            <div class="container-fluid container-payment">
+            <div class="container-fluid ">
                 <main role="main" class="inner fadeIn">
-                    <div class="row contents animate__animated animate__fadeIn">
+                    <div class="row contents animate__animated animate__fadeIn p-sm-0 p-md-0 pb-2">
 {{--                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx">--}}
 {{--                            <a href="javascript:void(0)" class="d-lg-none pr-1" onclick="toggleLineClamp()">--}}
 {{--                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"--}}
@@ -33,7 +33,7 @@
                         </div>
 {{--                        checkout--}}
 {{--                        {{count(session('customer')->billets)}}--}}
-                        <div id="colCheckout" class="d-none {{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-4 order-lg-2
+                        <div id="colCheckout" class="{{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-4 order-lg-2
                         col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0
 {{--                        py-2 px-lg-0 pl-md-3 pr-md-3 px-sm-0 --}}
                         mb-4">
@@ -247,7 +247,7 @@
                             </div>
                         </div>
 {{--                        faturas--}}
-                        <div id="colInvoices" class="d-none {{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-8'}}
+                        <div id="colInvoices" class="{{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-8'}}
                             order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1
 {{--                            py-2 pr-lg-3 px-0--}}
 ">
@@ -255,114 +255,15 @@
 {{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
                             <div class="content-box">
                                 <div class="my-slider">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">text</p>
-                                            <p class="card-text">text</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="d-flex">
-                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>
-                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>
-                                            </div>
-                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 2</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 3</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 4</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 5</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 6</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
+                                    <div class="p-5">teste 1</div>
+                                    <div class="p-5">teste 2</div>
+                                    <div class="p-5">teste 3</div>
+                                    <div class="p-5">teste 4</div>
+                                    <div class="p-5">teste 5</div>
+                                    <div class="p-5">teste 6</div>
                                 </div>
                                 <table class="d-none table table-bordered table-striped display list-billets text-uppercase">
                                 </table>
-                            </div>
-                        </div>
-
-                        <div class="col-12 pl-0 pr-0 mb-2">
-                            <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div id="checkout-box" class="d-lg-flex d-md-block d-sm-block align-items-stretch">
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Selecionadas: </b>
-                                    </div>
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Valor: R$ </b>
-                                    </div>
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Juros + Multa: R$ </b>
-                                    </div>
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Total à pagar: R$ </b>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 pl-0 pr-0 mb-2">
-                            <div class="content-box">text</div>
-                        </div>
-                        <div class="col-12 pl-0 pr-0">
-                            <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div class="checkout-controls d-flex flex-wrap">
-{{--                                <div class="checkout-controls d-lg-flex d-md-flex d-sm-block align-items-stretch">--}}
-                                    <button class="btn btn-primary btn-sm btn-block">PIX</button>
-                                    <button class="btn btn-primary btn-sm btn-block">PICPAY</button>
-                                    <button class="btn btn-primary btn-sm btn-block">CRÉDITO</button>
-                                    <button class="btn btn-primary btn-sm btn-block">DÉBITO</button>
-                                    <button class="btn btn-outline-danger btn-sm btn-block">CANCELAR</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -374,118 +275,6 @@
 
 @section('css')
     <style>
-        @media (max-width: 991.98px) {}
-        @media (max-width: 767.98px) {}
-        @media (max-width: 575.98px) {
-            /*.my-slider .card {*/
-            /*    height: 17.5rem;*/
-            /*    max-height: 17.5rem;*/
-            /*}*/
-
-            #checkout-box {
-                font-size: 80%;
-                font-weight: 400;
-            }
-            .my-slider .card .card-body
-            {
-                font-size: 80%;
-                font-weight: 400;
-            }
-            /*.content-box {*/
-            /*    padding: .5rem !important;*/
-            /*}*/
-
-            .checkout-controls .btn{
-                padding: 0.25rem 0.5rem;
-            }
-
-            .container-payment .col-xl, .col-xl-auto, .col-xl-12,
-            .col-xl-11, .col-xl-10, .col-xl-9, .col-xl-8, .col-xl-7,
-            .col-xl-6, .col-xl-5, .col-xl-4, .col-xl-3, .col-xl-2, .col-xl-1,
-            .col-lg, .col-lg-auto, .col-lg-12, .col-lg-11, .col-lg-10, .col-lg-9,
-            .col-lg-8, .col-lg-7, .col-lg-6, .col-lg-5, .col-lg-4, .col-lg-3,
-            .col-lg-2, .col-lg-1, .col-md, .col-md-auto, .col-md-12, .col-md-11,
-            .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5,
-            .col-md-4, .col-md-3, .col-md-2, .col-md-1, .col-sm, .col-sm-auto,
-            .col-sm-12, .col-sm-11, .col-sm-10, .col-sm-9, .col-sm-8, .col-sm-7,
-            .col-sm-6, .col-sm-5, .col-sm-4, .col-sm-3, .col-sm-2, .col-sm-1, .col,
-            .col-auto, .col-12, .col-11, .col-10, .col-9, .col-8, .col-7, .col-6,
-            .col-5, .col-4, .col-3, .col-2, .col-1 {
-                padding-right: 0;
-                padding-left: 0;
-                gap: 5px;
-            }
-
-        }
-
-        .my-slider .card {
-            height: 20rem !important;
-            max-height: 22.55rem !important;
-            border-radius: .5rem;
-            /*responsivo*/
-            /*height: 17.5rem;*/
-            /*max-height: 17.5rem;*/
-        }
-
-        .my-slider .card .card-header
-        {
-            background-color: rgba(0, 32, 70, 0.5);
-            padding: 0.25rem 1.25rem;
-            /*display: flex;*/
-            /*justify-content: center;*/
-
-
-        }
-
-        .my-slider .card .card-body
-        {
-            background-color: #e6f6f6;
-            /*responsivo*/
-            /*font-size: 80%;*/
-            /*font-weight: 400;*/
-        }
-
-        .my-slider .card .card-body p
-        {
-            line-height: 20px;
-            margin-bottom: .1rem;
-        }
-
-        .my-slider .card-header:first-child {
-            border-radius: calc(0.45rem - 1px) calc(0.45rem - 1px) 0 0;
-        }
-
-        .my-slider .card .card-header h5.card-title
-        {
-            color: white;
-            font-weight: bold;
-            position: relative;
-            padding: .2rem;
-            margin-bottom: 0;
-        }
-
-        .my-slider .card .card-footer
-        {
-            background-color: #e6f6f6;
-            border-top: none;
-        }
-
-        .my-slider .card .card-footer .btn
-        {
-            padding: 5px 20px;
-            margin: 3px;
-            font-size: 11px;
-        }
-
-        .my-slider .card-footer:first-child {
-            border-radius: calc(0.45rem - 1px) calc(0.45rem - 1px) 0 0;
-        }
-
-        .my-slider .card .card-text {
-            text-align: left;
-        }
-
-
         #DataTables_Table_0_paginate a{
             color: #002046 !important;
         }
@@ -935,6 +724,8 @@
         console.log(cart2)
 
     </script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
     <!-- NOTE: prior to v2.2.1 tiny-slider.js need to be in <body> -->
 {{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
@@ -943,7 +734,68 @@
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $(function () {
+                var table = $('.list-billets').DataTable({
+                    // dom: 'lrtip',
+                    dom: '<"top"i>rt<"bottom"p><"clear">',
+                    pagingType: 'full_numbers',
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('central.get.billets') }}",
+                    columnDefs: [
+                        {
+                            // targets: [0],
+                            visible: false,
+                            searchable: false,
+                            pageLength : 5,
+                            lengthMenu: [[5, 10], [5, 10]],
+                            className: 'dtr-control arrow-right',
+                            orderable: false,
+                            // target: -1
+                        }
+                    ],
+                    columns: [
+                        {data: 'Id', name: 'Id', title: 'ID'},
+                        {data: 'NossoNumero', name: 'NossoNumero', title: 'Nosso Nº'},
+                        {data: 'dtEmissao', name: 'dtEmissao', title: 'Vencimento', orderable: false, searchable: false},
+                        {data: 'valor', name: 'valor', title: 'Valor', orderable: false, searchable: false},
+                        {data: 'fees', name: 'fees', title: 'Juros + Multa', orderable: false, searchable: false},
+                        {data: 'total', name: 'total', title: 'Total', orderable: false, searchable: false},
+                        {data: 'action', name: 'action', title: 'Ações', orderable: false, searchable: false},
+                    ],
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+                        emptyTable: "<br>Não existem faturas à pagar! <br><br> Agradecemos pela pontualidade.<br>",
+                        infoEmpty: ""
+                    },
+                    orderable: false,
+                    searchable: false,
+                    sortable: false,
+                    responsive: true,
+                    rowCallback: function(row, data, index) {
 
+                        if(table.rows().data().length === 0){
+                            swal.fire('Não foram encontrados registros!')
+                        }
+
+                        var dateParts = ((table.cell(index, 'dtEmissao:name')).data()).split("/");
+
+                        if(new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]) < Date.now()){
+                            $(row).find('td').css('color', 'red');
+                        }else{
+                            $(row).find('td').css('color', 'midnightblue');
+                        }
+                    }
+                });
+
+                console.log("Total ",$('.list-billets').DataTable().rows().data().length)
+                console.log("Pages ",$('.list-billets').DataTable().page.info().recordsTotal)
+
+            });
+
+
+        });
 
         async function pixCopyPaste(){
             let code = $('p.qrcodestring').text()
@@ -978,31 +830,41 @@
             }
         });
 
-        async function getBillets(){
-            let url = "{{ route('central.get.billets2') }}";
-                const response = await fetch(url);
-                const billets = await response.json();
-                console.log(billets);
+        function toggleLineClamp() {
+            var paragraph = document.getElementById('infoText');
+            paragraph.classList.toggle('clamped');
 
-            for (var i = 0; i < billets.length; i++) {
-                console.log(billets[i].Id);
+            var link = event.target;
+            if (paragraph.classList.contains('clamped')) {
+                link.innerText = 'Mostrar mais';
+            } else {
+                link.innerText = 'Mostrar menos';
             }
-
-            // fetch(url, {
-            //     method: "get",
-            //     headers: {
-            //         'Content-type': 'application/json',
-            //         'Access-Control-Allow-Origin': '*',
-            //         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-            //     },
-            //     body: JSON.stringify(_data)
-            // })
-            //     .then(response => response.json())
-            //     .then(json => console.log(json))
-            //     .catch(err => console.log(err));
         }
 
-        getBillets()
+        function getTokenCielo(){
+            let url = "https://mpi.braspag.com.br/v2/auth/token";
+            let _data = {
+                EstablishmentCode: "1106093345",
+                MerchantName: "PENHA DE SOUZA JAMARI",
+                MCC:"5733"
+            }
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+                },
+                body: JSON.stringify(_data)
+            })
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .catch(err => console.log(err));
+        }
+
+        //getTokenCielo()
 
 
     </script>

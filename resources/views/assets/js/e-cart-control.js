@@ -23,6 +23,36 @@ $('.add-to-cart').click(function(event) {
     var discount = $(this).data('discount');
     var price = Number($(this).data('price'));
 
+    var installments = $(this).data('installments');
+
+    if(installments.match(/acordo/)){
+        var nInstallments = parseInt(installments.match(/\d+/)[0])
+
+        Swal.fire({
+            icon: "warning",
+            title: 'Pagamento parcelado!',
+            html: 'Deseja confirmar o parcelamento do acordo em '+ nInstallments +' vezes?',
+            // timer: 5000,
+            confirmButtonColor: '#38c172',
+            denyButtonColor: '#007bff',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Pagar',
+            denyButtonText: `Conferir`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, nInstallments);
+                addPaintItem(btnId)
+                displayCart();
+                Swal.close();
+            } else if (result.isDenied) {
+                billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+            }
+        })
+    }else{
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+    }
+
     checkBillet = getCheckBillet(billet_id)
 
     if(checkBillet === true){

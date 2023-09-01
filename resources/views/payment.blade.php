@@ -23,7 +23,7 @@
 {{--                                {{session('customer')->city}}--}}
 {{--                            </p>--}}
 {{--                        </div>--}}
-                        <div id="infoCustomerActive" class="d-flex_ d-none col-12 order-0 px-lg-0 px-md-1 mb-2">
+                        <div id="infoCustomerActive" class="d-flex d-none col-12 order-0 px-lg-0 px-md-1 mb-2">
                             <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
                                     <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
@@ -334,34 +334,124 @@
 
                         <div class="col-12 pl-0 pr-0 mb-2">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div id="checkout-box" class="d-lg-flex d-md-block d-sm-block align-items-stretch">
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Selecionadas: </b>
+                                <div id="checkout-box" class="d-flex flex-wrap">
+{{--                                <div id="checkout-box" class="d-lg-flex d-md-block d-sm-block align-items-stretch">--}}
+                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                        <b>Selecionadas: </b><span>2</span>
                                     </div>
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Valor: R$ </b>
+                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                        <b>Valor: </b><span>R$ 200,00</span>
                                     </div>
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Juros + Multa: R$ </b>
+                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                        <b>Juros + Multa: </b><span>R$ 5,20</span>
                                     </div>
-                                    <div class="p-1 flex-fill align-items-stretch text-left">
-                                        <b>Total à pagar: R$ </b>
+                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                        <b>Total à pagar: R$ 205,20</b>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-12 pl-0 pr-0 mb-2">
-                            <div class="content-box">text</div>
+                            <div class="content-box">
+                                <div class="billets-slider">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Card title</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">text</p>
+                                            <p class="card-text">text</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="d-flex">
+                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>
+                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>
+                                            </div>
+                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Card title 2</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Card title 3</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Card title 4</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Card title 5</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Card title 6</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted">Last updated 3 mins ago</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 pl-0 pr-0">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div class="checkout-controls d-flex flex-wrap">
+                                <div id="v-pills-tab" class="checkout-controls d-flex flex-wrap ">
 {{--                                <div class="checkout-controls d-lg-flex d-md-flex d-sm-block align-items-stretch">--}}
-                                    <button class="btn btn-primary btn-sm btn-block">PIX</button>
-                                    <button class="btn btn-primary btn-sm btn-block">PICPAY</button>
-                                    <button class="btn btn-primary btn-sm btn-block">CRÉDITO</button>
-                                    <button class="btn btn-primary btn-sm btn-block">DÉBITO</button>
-                                    <button class="btn btn-outline-danger btn-sm btn-block">CANCELAR</button>
+                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-pix"
+                                            data-toggle="pill" data-target="#v-pills-qrcode" type="button"
+                                            role="tab" aria-controls="v-pills-qrcode" aria-selected="false">PIX
+                                    </button>
+                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-picpay"
+                                            data-toggle="pill" data-target="#v-pills-qrcode" type="button"
+                                            role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
+                                        PICPAY
+                                    </button>
+                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-credit"
+                                            data-toggle="pill" data-target="#v-pills-card" type="button"
+                                            role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                        CRÉDITO
+                                    </button>
+                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-debit"
+                                            data-toggle="pill" data-target="#v-pills-card" type="button"
+                                            role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                        DÉBITO
+                                    </button>
+                                    <button type="button" id="clear-cart" class="clear-cart btn btn-outline-danger btn-sm btn-block">CANCELAR</button>
                                 </div>
                             </div>
                         </div>
@@ -375,7 +465,11 @@
 @section('css')
     <style>
         @media (max-width: 991.98px) {}
-        @media (max-width: 767.98px) {}
+        @media (max-width: 767.98px) {
+            #infoCustomerActive {
+                display: none !important;
+            }
+        }
         @media (max-width: 575.98px) {
             /*.my-slider .card {*/
             /*    height: 17.5rem;*/
@@ -414,6 +508,10 @@
                 padding-right: 0;
                 padding-left: 0;
                 gap: 5px;
+            }
+
+            #infoCustomerActive {
+                display: none !important;
             }
 
         }
@@ -961,7 +1059,7 @@
         }
 
         var slider = tns({
-            container: '.my-slider',
+            container: '.billets-slider',
             items: 1,
             responsive: {
                 640: {

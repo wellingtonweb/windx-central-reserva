@@ -159,50 +159,56 @@ function addToCartBtn(data){
 
     console.log('btnId ',btnId ,'billet_id', billet_id)
 
-    if(installments > 1){
-        Swal.fire({
-            icon: "info",
-            title: 'Pagamento de acordo!',
-            html: 'Confirmar parcelamento de acordo em '+ installments +' vezes no cartão de crédito?',
-            // timer: 5000,
-            confirmButtonColor: '#38c172',
-            denyButtonColor: '#007bff',
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: 'OK',
-            denyButtonText: `Cancelar`,
-            allowOutsideClick: () => {
-                const popup = Swal.getPopup()
-                popup.classList.remove('swal2-show')
-                setTimeout(() => {
-                    popup.classList.add('animate__animated', 'animate__headShake')
-                })
-                setTimeout(() => {
-                    popup.classList.remove('animate__animated', 'animate__headShake')
-                }, 500)
-                return false
-            },
-        }).then((result) => {
-            if (result.isConfirmed) {
-                clearAllSections();
-                console.log('Cart: ', billetsCart.totalCart())
-                billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
-                addPaintItem(btnId)
-                displayCart();
-                Swal.close();
-                swal.fire('Pop-up Card')
-                // $('#btn-credit').trigger();
-            }else{
-                deleteItemCart(btnId, reference)
-                Swal.close();
-            }
-        })
+    if(installments < maxInstallment){
+        if(installments > 1){
+            Swal.fire({
+                icon: "info",
+                title: 'Pagamento de acordo!',
+                html: 'Deseja pagar o acordo em '+ installments +' vezes no cartão de crédito?',
+                // timer: 5000,
+                confirmButtonColor: '#38c172',
+                denyButtonColor: '#6c757d',
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: `Cancelar`,
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    clearAllSections();
+                    console.log('Cart: ', billetsCart.totalCart())
+                    billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
+                    addPaintItem(btnId)
+                    displayCart();
+                    Swal.close();
+                    swal.fire('Pop-up Card')
+                    // $('#btn-credit').trigger();
+                }else{
+                    deleteItemCart(btnId, reference)
+                    Swal.close();
+                }
+            })
+        }else{
+            // $('#select-billet-'+billet.id).html('Pagar')
+            billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
+            addPaintItem(btnId)
+            displayCart();
+        }
     }else{
-        // $('#select-billet-'+billet.id).html('Pagar')
-        billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
-        addPaintItem(btnId)
-        displayCart();
+        $('#select-billet-'+btnId).html('Pagar')
+        swal.fire('Erro! Parcelamento não autorizado.')
     }
+
 
     checkBillet = getCheckBillet(billet_id)
 

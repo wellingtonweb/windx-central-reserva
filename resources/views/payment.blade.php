@@ -341,7 +341,7 @@
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
                                         <b>Selecionadas: </b>
                                         <span
-                                            class="total-count badge badge-secondary badge-pill px-3 py-0"></span>
+                                            class="total-count badge badge-warning px-1 py-1" style="font-size: 100%"></span>
                                     </div>
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
                                         <b>Valor: </b>
@@ -357,7 +357,9 @@
                                     </div>
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
                                         <b>Total à pagar:
-                                            R$<span class="total-cart pl-1"></span>
+                                            R$
+                                            <span
+                                                class="total-cart badge badge-warning px-1 py-1" style="font-size: 100%"></span>
                                         </b>
                                     </div>
                                 </div>
@@ -373,77 +375,6 @@
                                 </div>
                                 <div class="billets-slider">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h5 class="card-title">Card title</h5>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <p class="card-text">text</p>--}}
-{{--                                            <p class="card-text">text</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-footer">--}}
-{{--                                            <div class="d-flex">--}}
-{{--                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>--}}
-{{--                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>--}}
-{{--                                            </div>--}}
-{{--                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h5 class="card-title">Card title 2</h5>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-footer">--}}
-{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h5 class="card-title">Card title 3</h5>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-footer">--}}
-{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h5 class="card-title">Card title 4</h5>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-footer">--}}
-{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h5 class="card-title">Card title 5</h5>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-footer">--}}
-{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="card">--}}
-{{--                                        <div class="card-header">--}}
-{{--                                            <h5 class="card-title">Card title 6</h5>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="card-footer">--}}
-{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -1095,6 +1026,7 @@
     <script>
         var idCustomer = {{session('customer')->id}};
         var customerActive = @json(session('customer'));
+        var maxInstallment = {{ env('MAX_INSTALLMENT') }};
 
         $('.checkoutBtn').on('click', function () {
             const paymentType = $(this).attr('id')

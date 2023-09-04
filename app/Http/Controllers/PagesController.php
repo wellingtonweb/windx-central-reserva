@@ -122,7 +122,8 @@ class PagesController extends Controller
                         $button = '<a href="#" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
                                         data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
                                         data-duedate="'. date("d/m/Y", strtotime($data['Vencimento'])) .'" data-id="'. $data['Id'] .
-                                    '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'">
+                                    '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'"
+                                    data-installments="'. $data['Referencia'] .'">
                                         PAGAR
                                     </a>';
                     return $button;

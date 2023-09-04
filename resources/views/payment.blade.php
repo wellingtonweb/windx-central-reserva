@@ -1093,125 +1093,92 @@
                 });
         }
 
-        var slider = tns({
-            container: '.billets-slider',
-            items: 1,
-            responsive: {
-                640: {
-                    edgePadding: 20,
-                    gutter: 20,
-                    items: 2
-                },
-                700: {
-                    gutter: 30
-                },
-                900: {
-                    items: 3
-                }
-            },
-            // controlsText: ["Fatura anterior","Próxima fatura"],
-            animateIn: "tns-fadeIn",
-            mouseDrag: true,
-            nav: false,
-            prevButton: false,
-            nextButton: false,
-            controls: false
-        });
 
-        $('#refesh-slider').on('click', function (){
-            slider.destroy();
-            slider = slider.rebuild();
-            console.log('Atualizou!')
-        })
-
-        $('#tyne-next-btn').on('click', function (){
-            slider.goTo('next');
-            console.log('Prox')
-        })
-
-        $('#tyne-prev-btn').on('click', function (){
-            slider.goTo('prev');
-            console.log('Ant')
-        })
 
 
 
         async function getBillets(){
             let url = "{{ route('central.get.billets') }}";
-                const response = await fetch(url);
-                const billets = await response.json();
-                console.log(billets, billets.data[0].Id);
-
+            const response = await fetch(url);
+            const billets = await response.json();
             let sliderBillets = document.querySelector('.billets-slider');
 
-                window.addEventListener('load', inicializeSlider());
-                function inicializeSlider(){
-                    let slides = '';
-                    for(let billet in billets.data){
-                        console.log('Billet: ',billet,billets.data[billet].Referencia)
-                        slides += `
-                                    <div id="billet_${billets.data[billet].Id}" class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">${billets.data[billet].Referencia}</h5>
-                                        </div>
-                                        <div class="card-body text-left_">
-                                            <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
-                                            <p class="card-text">Valor: ${billets.data[billet].valor}</p>
-                                            <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
-                                            <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="d-flex">
-<!--                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>-->
-<!--                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>-->
-                                                ${billets.data[billet].copy}
-                                                ${billets.data[billet].download}
-                                            </div>
-<!--                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>-->
-                                            ${billets.data[billet].add}
-                                            ${billets.data[billet].remove}
-                                        </div>
+            window.addEventListener('load', inicializeSlider());
+            function inicializeSlider(){
+                let slides = '';
+                for(let billet in billets.data){
+                    slides += `
+                                <div id="billet_${billets.data[billet].Id}" class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title font-weight-bold">${billets.data[billet].Referencia}</h5>
                                     </div>
-                        `
-                    }
-                    sliderBillets.innerHTML = slides
+                                    <div class="card-body text-left_">
+                                        <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
+                                        <p class="card-text">Valor: ${billets.data[billet].valor}</p>
+                                        <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
+                                        <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-flex">
+                                            ${billets.data[billet].copy}
+                                            ${billets.data[billet].download}
+                                        </div>
+                                        ${billets.data[billet].add}
+                                        ${billets.data[billet].remove}
+                                    </div>
+                                </div>
+                    `
                 }
+                sliderBillets.innerHTML = slides;
+            }
 
-            // for (var i = 0; i < billets.length; i++) {
-            //     console.log(billets[i].Id);
-            //     $('.billets-slider').append("<div class='card'>"+
-            //     "<div class='card-header'>"+
-            //         "<h5 class='card-title'>Card title</h5>"+
-            // "</div>"+
-            // "<div class='card-body'>"+
-            // "<p class='card-text'>text</p>"+
-            // "<p class='card-text'>text</p>"+
-            // "</div>"+
-            //     "<div class='card-footer'>"+
-            // "<div class='d-flex'>"+
-            //     "<a href='#' class='btn btn-outline-primary btn-sm btn-block'>COPIAR</a>"+
-            //     "<a href='#' class='btn btn-outline-info btn-sm btn-block'>BAIXAR</a>"+
-            //     "</div>"+
-            // "<a href='#' class='btn btn-success btn-sm btn-block'>PAGAR</a>"+
-            // "</div>"+
-            // "</div>");
-            // }
+            var slider = tns({
+                container: '.billets-slider',
+                items: 1,
+                responsive: {
+                    640: {
+                        edgePadding: 20,
+                        gutter: 20,
+                        items: 2
+                    },
+                    700: {
+                        gutter: 30
+                    },
+                    900: {
+                        items: 3
+                    }
+                },
+                // controlsText: ["Fatura anterior","Próxima fatura"],
+                animateIn: "tns-fadeIn",
+                mouseDrag: true,
+                nav: false,
+                prevButton: false,
+                nextButton: false,
+                controls: false
+            });
 
-            // fetch(url, {
-            //     method: "get",
-            //     headers: {
-            //         'Content-type': 'application/json',
-            //         'Access-Control-Allow-Origin': '*',
-            //         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
-            //     },
-            //     body: JSON.stringify(_data)
-            // })
-            //     .then(response => response.json())
-            //     .then(json => console.log(json))
-            //     .catch(err => console.log(err));
+            $('#refesh-slider').on('click', function (){
+                slider.destroy();
+                slider = slider.rebuild();
+                console.log('Atualizou!')
+            })
+
+            $('#tyne-next-btn').on('click', function (){
+                slider.goTo('next');
+                console.log('Prox')
+            })
+
+            $('#tyne-prev-btn').on('click', function (){
+                slider.goTo('prev');
+                console.log('Ant')
+            })
         }
 
         getBillets()
+
+
+
+
 
 
     </script>

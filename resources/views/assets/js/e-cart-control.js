@@ -23,7 +23,7 @@ $('.add-to-cart').click(function(event) {
     var discount = $(this).data('discount');
     var price = Number($(this).data('price'));
 
-    var installments = $(this).data('installments');
+    var installments = $(this).data('installments');//Adicionar este atributo no botão no add
 
     if(installments.match(/acordo/)){
         var nInstallments = parseInt(installments.match(/\d+/)[0])

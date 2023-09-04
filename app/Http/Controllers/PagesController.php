@@ -92,7 +92,20 @@ class PagesController extends Controller
                 ->addColumn('total', function($data){
                     return 'R$ ' .number_format((new Functions)->calcFees($data['Vencimento'], $data['Valor']) + $data['Valor'], 2, ',', '');
                 })
-                ->addColumn('action', function($data){
+                ->addColumn('copy', function($data){
+                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="btn btn-outline-primary btn-sm btn-block click" data-id="'.
+                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">COPIAR</a>';
+                })
+                ->addColumn('download', function($data){
+                    return '<a target="_blank" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
+                        '" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>';
+                })
+                ->addColumn('remove', function($data){
+                    return '<a href="#" id="remove-billet-'. $data['Id'] .
+                        '" class="btn btn-danger btn-sm delete-item d-none" data-reference="'.
+                        $data['NossoNumero'] .'" data-id="'. $data['Id'] .'">REMOVER</a>';
+                })
+                ->addColumn('add', function($data){
                         $isfees = (new WorkingDays)->hasFees($data['Vencimento']);
                         $fees = (new Functions)->calcFees($data['Vencimento'], $data['Valor']);
                         $price = 0;
@@ -106,30 +119,15 @@ class PagesController extends Controller
                             $addition = number_format($fees, 2, '.', '');
                         }
 
-                        $button = '
-                                    <a href="#" id="copy-barcode-'. $data['Id'] .'" class="btn btn-primary btn-sm click" data-id="'. $data['Id'] .'"
-                                                       onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">
-                                                        <i class="fa fa-barcode" aria-hidden="true"></i>
-                                                    </a>
-
-                                    <a target="_blank" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .'" class="btn btn-info btn-sm">
-                                        <i class="fa fa-download" aria-hidden="true"></i></a>
-
-                                    <a href="#" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm"
+                        $button = '<a href="#" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
                                         data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
                                         data-duedate="'. date("d/m/Y", strtotime($data['Vencimento'])) .'" data-id="'. $data['Id'] .
                                     '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'">
-                                        <i class="fa fa-check" aria-hidden="true"></i>
-                                    </a>
-
-                                    <a href="#" id="remove-billet-'. $data['Id'] .'" class="btn btn-danger btn-sm delete-item d-none"
-                                                       data-reference="'. $data['NossoNumero'] .'" data-id="'. $data['Id'] .'">
-                                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                                    </a>
-                                   ';
+                                        PAGAR
+                                    </a>';
                     return $button;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['add', 'copy', 'download', 'remove'])
                 ->addIndexColumn()
                 ->make(true);
         } else {

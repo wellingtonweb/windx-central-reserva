@@ -30,6 +30,8 @@
                                 </svg>
                                 Voltar
                             </a>
+                            <button id="refesh-slider" class="btn btn-primary">Refresh</button>
+
                         </div>
 {{--                        checkout--}}
 {{--                        {{count(session('customer')->billets)}}--}}
@@ -353,78 +355,84 @@
                         </div>
                         <div class="col-12 pl-0 pr-0 mb-2">
                             <div class="content-box">
+                                <div class="btn-group tns-controls" role="group" aria-label="Basic example">
+                                    <button id="tyne-prev-btn" type="button" data-controls="prev"
+                                            class="btn btn-primary btn-sm mr-1" aria-controls="tns1">Fatura anterior</button>
+                                    <button id="tyne-next-btn" type="button" data-controls="next"
+                                            class="btn btn-primary btn-sm" aria-controls="tns1">Próxima fatura</button>
+                                </div>
                                 <div class="billets-slider">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">text</p>
-                                            <p class="card-text">text</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="d-flex">
-                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>
-                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>
-                                            </div>
-                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 2</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 3</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 4</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 5</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 6</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
+{{--                                    <div class="card">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h5 class="card-title">Card title</h5>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <p class="card-text">text</p>--}}
+{{--                                            <p class="card-text">text</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-footer">--}}
+{{--                                            <div class="d-flex">--}}
+{{--                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>--}}
+{{--                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>--}}
+{{--                                            </div>--}}
+{{--                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h5 class="card-title">Card title 2</h5>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-footer">--}}
+{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h5 class="card-title">Card title 3</h5>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-footer">--}}
+{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h5 class="card-title">Card title 4</h5>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-footer">--}}
+{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h5 class="card-title">Card title 5</h5>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-footer">--}}
+{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="card">--}}
+{{--                                        <div class="card-header">--}}
+{{--                                            <h5 class="card-title">Card title 6</h5>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-body">--}}
+{{--                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="card-footer">--}}
+{{--                                            <small class="text-muted">Last updated 3 mins ago</small>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -464,6 +472,27 @@
 
 @section('css')
     <style>
+
+        .tns-controls {
+            z-index: 999 !important;
+            position: relative;
+            display: inline-flex;
+            vertical-align: middle;
+        }
+
+        .tns-controls .btn {
+            padding: 0.25rem 0.5rem !important;
+            font-size: .875rem;
+            line-height: 1.5;
+        }
+
+        .tns-controls > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+
+
         @media (max-width: 991.98px) {}
         @media (max-width: 767.98px) {
             #infoCustomerActive {
@@ -512,6 +541,12 @@
 
             #infoCustomerActive {
                 display: none !important;
+            }
+
+            .tns-controls .btn {
+                padding: 0.25rem 0.5rem !important;
+                font-size: .6rem;
+                line-height: 1.5;
             }
 
         }
@@ -1073,18 +1108,94 @@
                 900: {
                     items: 3
                 }
-            }
+            },
+            // controlsText: ["Fatura anterior","Próxima fatura"],
+            animateIn: "tns-fadeIn",
+            mouseDrag: true,
+            nav: false,
+            prevButton: false,
+            nextButton: false,
+            controls: false
         });
 
+        $('#refesh-slider').on('click', function (){
+            slider.destroy();
+            slider = slider.rebuild();
+            console.log('Atualizou!')
+        })
+
+        $('#tyne-next-btn').on('click', function (){
+            slider.goTo('next');
+            console.log('Prox')
+        })
+
+        $('#tyne-prev-btn').on('click', function (){
+            slider.goTo('prev');
+            console.log('Ant')
+        })
+
+
+
         async function getBillets(){
-            let url = "{{ route('central.get.billets2') }}";
+            let url = "{{ route('central.get.billets') }}";
                 const response = await fetch(url);
                 const billets = await response.json();
-                console.log(billets);
+                console.log(billets, billets.data[0].Id);
 
-            for (var i = 0; i < billets.length; i++) {
-                console.log(billets[i].Id);
-            }
+            let sliderBillets = document.querySelector('.billets-slider');
+
+                window.addEventListener('load', inicializeSlider());
+                function inicializeSlider(){
+                    let slides = '';
+                    for(let billet in billets.data){
+                        console.log('Billet: ',billet,billets.data[billet].Referencia)
+                        slides += `
+                                    <div id="billet_${billets.data[billet].Id}" class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title">${billets.data[billet].Referencia}</h5>
+                                        </div>
+                                        <div class="card-body text-left_">
+                                            <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
+                                            <p class="card-text">Valor: ${billets.data[billet].valor}</p>
+                                            <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
+                                            <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="d-flex">
+<!--                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>-->
+<!--                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>-->
+                                                ${billets.data[billet].copy}
+                                                ${billets.data[billet].download}
+                                            </div>
+<!--                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>-->
+                                            ${billets.data[billet].add}
+                                            ${billets.data[billet].remove}
+                                        </div>
+                                    </div>
+                        `
+                    }
+                    sliderBillets.innerHTML = slides
+                }
+
+            // for (var i = 0; i < billets.length; i++) {
+            //     console.log(billets[i].Id);
+            //     $('.billets-slider').append("<div class='card'>"+
+            //     "<div class='card-header'>"+
+            //         "<h5 class='card-title'>Card title</h5>"+
+            // "</div>"+
+            // "<div class='card-body'>"+
+            // "<p class='card-text'>text</p>"+
+            // "<p class='card-text'>text</p>"+
+            // "</div>"+
+            //     "<div class='card-footer'>"+
+            // "<div class='d-flex'>"+
+            //     "<a href='#' class='btn btn-outline-primary btn-sm btn-block'>COPIAR</a>"+
+            //     "<a href='#' class='btn btn-outline-info btn-sm btn-block'>BAIXAR</a>"+
+            //     "</div>"+
+            // "<a href='#' class='btn btn-success btn-sm btn-block'>PAGAR</a>"+
+            // "</div>"+
+            // "</div>");
+            // }
 
             // fetch(url, {
             //     method: "get",

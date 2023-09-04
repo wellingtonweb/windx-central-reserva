@@ -119,13 +119,30 @@ class PagesController extends Controller
                             $addition = number_format($fees, 2, '.', '');
                         }
 
-                        $button = '<a href="#" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
-                                        data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
-                                        data-duedate="'. date("d/m/Y", strtotime($data['Vencimento'])) .'" data-id="'. $data['Id'] .
-                                    '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'"
-                                    data-installments="'. $data['Referencia'] .'">
+                        $billet = [
+                            'id' => $data['Id'],
+                            'reference' => $data['NossoNumero'],
+                            'value' => $data['Valor'],
+                            'duedate' => date("d/m/Y", strtotime($data['Vencimento'])),
+                            'price' => $price,
+                            'discount' => 0,
+                            'addition' => $addition,
+                            'installments' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
+                        ];
+
+//                        $button = '<button type="button" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
+//                                        data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
+//                                        data-duedate="'. date("d/m/Y", strtotime($data['Vencimento'])) .'" data-id="'. $data['Id'] .
+//                                    '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'"
+//                                    data-installments="'. $data['Referencia'] .'">
+//                                        PAGAR
+//                                    </button>';
+
+                        $button = '<button type="button" id="select-billet-'. $data['Id'] .
+                            '" class="add-to-cart btn btn-success btn-sm btn-block" data-billet="'. json_encode($billet) .'">
                                         PAGAR
-                                    </a>';
+                                    </button>';
+
                     return $button;
                 })
                 ->rawColumns(['add', 'copy', 'download', 'remove'])

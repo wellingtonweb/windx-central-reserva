@@ -334,7 +334,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 pl-0 pr-0 mb-2">
+                        <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="checkout-box" class="d-flex flex-wrap">
 {{--                                <div id="checkout-box" class="d-lg-flex d-md-block d-sm-block align-items-stretch">--}}
@@ -355,13 +355,14 @@
                         </div>
                         <div class="col-12 pl-0 pr-0 mb-2">
                             <div class="content-box">
-                                <div class="btn-group tns-controls" role="group" aria-label="Basic example">
+                                <div class="btn-group tns-controls d-none" role="group" aria-label="Basic example">
                                     <button id="tyne-prev-btn" type="button" data-controls="prev"
                                             class="btn btn-primary btn-sm mr-1" aria-controls="tns1">Fatura anterior</button>
                                     <button id="tyne-next-btn" type="button" data-controls="next"
                                             class="btn btn-primary btn-sm" aria-controls="tns1">Próxima fatura</button>
                                 </div>
                                 <div class="billets-slider">
+                                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
 {{--                                    <div class="card">--}}
 {{--                                        <div class="card-header">--}}
 {{--                                            <h5 class="card-title">Card title</h5>--}}
@@ -436,7 +437,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 pl-0 pr-0">
+                        <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="v-pills-tab" class="checkout-controls d-flex flex-wrap ">
 {{--                                <div class="checkout-controls d-lg-flex d-md-flex d-sm-block align-items-stretch">--}}
@@ -472,6 +473,69 @@
 
 @section('css')
     <style>
+
+        .lds-ellipsis {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-ellipsis div {
+            position: absolute;
+            top: 33px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: rgba(0, 32, 70, 0.8);
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        .lds-ellipsis div:nth-child(1) {
+            left: 8px;
+            animation: lds-ellipsis1 0.6s infinite;
+        }
+        .lds-ellipsis div:nth-child(2) {
+            left: 8px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+        .lds-ellipsis div:nth-child(3) {
+            left: 32px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+        .lds-ellipsis div:nth-child(4) {
+            left: 56px;
+            animation: lds-ellipsis3 0.6s infinite;
+        }
+        @keyframes lds-ellipsis1 {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        @keyframes lds-ellipsis3 {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0);
+            }
+        }
+        @keyframes lds-ellipsis2 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(24px, 0);
+            }
+        }
+
+
+        @keyframes round {
+            0% { transform: rotate(0deg) }
+            100% { transform: rotate(360deg) }
+        }
+
 
         .tns-controls {
             z-index: 999 !important;
@@ -1076,8 +1140,6 @@
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-
-
         async function pixCopyPaste(){
             let code = $('p.qrcodestring').text()
             console.log(code);
@@ -1093,9 +1155,7 @@
                 });
         }
 
-
-
-
+        var slider = '';
 
         async function getBillets(){
             let url = "{{ route('central.get.billets') }}";
@@ -1103,16 +1163,22 @@
             const billets = await response.json();
             let sliderBillets = document.querySelector('.billets-slider');
 
-            window.addEventListener('load', inicializeSlider());
-            function inicializeSlider(){
-                let slides = '';
-                for(let billet in billets.data){
-                    slides += `
+            if(billets.data.length === 0){
+                sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
+            }else{
+                $('.tns-controls').removeClass('d-none');
+                $('#infoCheckout').removeClass('d-none');
+                $('#buttonsCheckout').removeClass('d-none');
+                window.addEventListener('load', inicializeSlider());
+                function inicializeSlider(){
+                    let slides = '';
+                    for(let billet in billets.data){
+                        slides += `
                                 <div id="billet_${billets.data[billet].Id}" class="card">
                                     <div class="card-header">
                                         <h5 class="card-title font-weight-bold">${billets.data[billet].Referencia}</h5>
                                     </div>
-                                    <div class="card-body text-left_">
+                                    <div class="card-body">
                                         <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
                                         <p class="card-text">Valor: ${billets.data[billet].valor}</p>
                                         <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
@@ -1128,57 +1194,54 @@
                                     </div>
                                 </div>
                     `
-                }
-                sliderBillets.innerHTML = slides;
-            }
-
-            var slider = tns({
-                container: '.billets-slider',
-                items: 1,
-                responsive: {
-                    640: {
-                        edgePadding: 20,
-                        gutter: 20,
-                        items: 2
-                    },
-                    700: {
-                        gutter: 30
-                    },
-                    900: {
-                        items: 3
                     }
-                },
-                // controlsText: ["Fatura anterior","Próxima fatura"],
-                animateIn: "tns-fadeIn",
-                mouseDrag: true,
-                nav: false,
-                prevButton: false,
-                nextButton: false,
-                controls: false
-            });
+                    sliderBillets.innerHTML = slides;
+                }
 
-            $('#refesh-slider').on('click', function (){
-                slider.destroy();
-                slider = slider.rebuild();
-                console.log('Atualizou!')
-            })
-
-            $('#tyne-next-btn').on('click', function (){
-                slider.goTo('next');
-                console.log('Prox')
-            })
-
-            $('#tyne-prev-btn').on('click', function (){
-                slider.goTo('prev');
-                console.log('Ant')
-            })
+                slider = tns({
+                    container: '.billets-slider',
+                    items: 1,
+                    responsive: {
+                        640: {
+                            edgePadding: 20,
+                            gutter: 20,
+                            items: 2
+                        },
+                        700: {
+                            gutter: 30
+                        },
+                        900: {
+                            items: 3
+                        }
+                    },
+                    animateIn: "tns-fadeIn",
+                    mouseDrag: true,
+                    nav: false,
+                    prevButton: false,
+                    nextButton: false,
+                    controls: false
+                });
+            }
         }
 
         getBillets()
 
+        $('#refesh-slider').on('click', function (){
+            slider.destroy();
+            slider = slider.rebuild();
+        })
 
+        $('#tyne-next-btn').on('click', function (){
+            slider.goTo('next');
+        })
 
+        $('#tyne-prev-btn').on('click', function (){
+            slider.goTo('prev');
+        })
 
+        $('.add-to-cart').on('click', function (){
+            console.log('Inst: ',$(this).attr('data-billet'));
+        })
 
 
     </script>

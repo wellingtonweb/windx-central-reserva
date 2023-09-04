@@ -339,16 +339,26 @@
                                 <div id="checkout-box" class="d-flex flex-wrap">
 {{--                                <div id="checkout-box" class="d-lg-flex d-md-block d-sm-block align-items-stretch">--}}
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
-                                        <b>Selecionadas: </b><span>2</span>
+                                        <b>Selecionadas: </b>
+                                        <span
+                                            class="total-count badge badge-secondary badge-pill px-3 py-0"></span>
                                     </div>
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
-                                        <b>Valor: </b><span>R$ 200,00</span>
+                                        <b>Valor: </b>
+                                        <span class="text-muted">R$
+                                            <span class="text-muted total-sum"></span>
+                                        </span>
                                     </div>
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
-                                        <b>Juros + Multa: </b><span>R$ 5,20</span>
+                                        <b>Juros + Multa: </b>
+                                        <span class="text-muted">R$
+                                            <span class="text-muted total-fees"></span>
+                                        </span>
                                     </div>
                                     <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
-                                        <b>Total à pagar: R$ 205,20</b>
+                                        <b>Total à pagar:
+                                            R$<span class="total-cart pl-1"></span>
+                                        </b>
                                     </div>
                                 </div>
                             </div>
@@ -555,8 +565,6 @@
             border-bottom-left-radius: 0;
         }
 
-
-
         @media (max-width: 991.98px) {}
         @media (max-width: 767.98px) {
             #infoCustomerActive {
@@ -638,14 +646,16 @@
         {
             background-color: #e6f6f6;
             /*responsivo*/
-            /*font-size: 80%;*/
+            font-size: 90%;
             /*font-weight: 400;*/
         }
 
         .my-slider .card .card-body p
         {
-            line-height: 20px;
+            /*line-height: 20px;*/
             margin-bottom: .1rem;
+            font-size: 13px;
+            line-height: 14px;
         }
 
         .my-slider .card-header:first-child {
@@ -1183,6 +1193,7 @@
                                         <p class="card-text">Valor: ${billets.data[billet].valor}</p>
                                         <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
                                         <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
+                                        <p class="card-text">${billets.data[billet].LinhaDigitavel}</p>
                                     </div>
                                     <div class="card-footer">
                                         <div class="d-flex">
@@ -1238,10 +1249,11 @@
         $('#tyne-prev-btn').on('click', function (){
             slider.goTo('prev');
         })
-
-        $('.add-to-cart').on('click', function (){
-            console.log('Inst: ',$(this).attr('data-billet'));
-        })
+        //
+        // function addToCartBtn(data){
+        //     var billet = JSON.parse(data);
+        //     console.log('Data: ',billet.id);
+        // }
 
 
     </script>

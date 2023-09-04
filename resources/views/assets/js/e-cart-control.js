@@ -4,8 +4,13 @@ var count = 0;
 var checkBillet = false;
 
 // Add item to cart
-$('.add-to-cart').click(function(event) {
-    event.preventDefault();
+
+function addToCartBtn(data){
+    var billet = JSON.parse(data);
+    console.log('Data: ',billet);
+
+// $('.add-to-cart').click(function(event) {
+//     event.preventDefault();
     checkBillet = false;
 
     // var icon = $(this).find('i');
@@ -13,91 +18,112 @@ $('.add-to-cart').click(function(event) {
     //     .addClass('d-none')
     //     .addClass('fas fa-spinner fa-pulse')
     //     .removeClass('d-none')
+    $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
 
-    var btnId = $(this).attr('id');
-    var billet_id = $(this).data('id');
-    var reference = $(this).data('reference');
-    var duedate = $(this).data('duedate');
-    var value = $(this).data('value');
-    var addition = $(this).data('addition');
-    var discount = $(this).data('discount');
-    var price = Number($(this).data('price'));
+    var btnId = billet.id;
+    var billet_id = billet.id;
+    var reference = billet.reference;
+    var duedate = billet.duedate;
+    var value = billet.value;
+    var addition = billet.addition;
+    var discount = billet.discount;
+    var price = billet.price;
+    var installments = billet.installments;
 
-    var installments = $(this).data('installments');//Adicionar este atributo no botão no add
+    console.log('btnId ',btnId ,'billet_id', billet_id)
 
-    if(installments.match(/acordo/)){
-        var nInstallments = parseInt(installments.match(/\d+/)[0])
-
+    if(installments > 1){
         Swal.fire({
-            icon: "warning",
-            title: 'Pagamento parcelado!',
-            html: 'Deseja confirmar o parcelamento do acordo em '+ nInstallments +' vezes?',
+            icon: "info",
+            title: 'Pagamento de acordo!',
+            html: 'Confirmar parcelamento de acordo em '+ installments +' vezes no cartão de crédito?',
             // timer: 5000,
             confirmButtonColor: '#38c172',
             denyButtonColor: '#007bff',
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Pagar',
-            denyButtonText: `Conferir`,
+            confirmButtonText: 'OK',
+            denyButtonText: `Cancelar`,
+            allowOutsideClick: () => {
+                const popup = Swal.getPopup()
+                popup.classList.remove('swal2-show')
+                setTimeout(() => {
+                    popup.classList.add('animate__animated', 'animate__headShake')
+                })
+                setTimeout(() => {
+                    popup.classList.remove('animate__animated', 'animate__headShake')
+                }, 500)
+                return false
+            },
         }).then((result) => {
             if (result.isConfirmed) {
-                billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, nInstallments);
+                clearAllSections();
+                console.log('Cart: ', billetsCart.totalCart())
+                billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
                 addPaintItem(btnId)
                 displayCart();
                 Swal.close();
-            } else if (result.isDenied) {
-                billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                swal.fire('Pop-up Card')
+                // $('#btn-credit').trigger();
+            }else{
+                deleteItemCart(btnId, reference)
+                Swal.close();
             }
         })
     }else{
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+        // $('#select-billet-'+billet.id).html('Pagar')
+        billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
+        addPaintItem(btnId)
+        displayCart();
     }
 
     checkBillet = getCheckBillet(billet_id)
 
-    if(checkBillet === true){
-        // icon.removeClass('fas fa-spinner fa-pulse')
-        //     .addClass('d-none')
-        //     .addClass('fa fa-check')
-        //     .removeClass('d-none')
+    // if(checkBillet === true){
+    //     // icon.removeClass('fas fa-spinner fa-pulse')
+    //     //     .addClass('d-none')
+    //     //     .addClass('fa fa-check')
+    //     //     .removeClass('d-none')
+    //
+    //     // Swal.fire({
+    //     //     icon: "error",
+    //     //     title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
+    //     //     html: 'Confira na lista pagamentos',
+    //     //     timer: 5000,
+    //     //     willClose() {
+    //     //         location.href = base_url + 'comprovantes/' + idCustomer
+    //     //     }
+    //     // })
+    //
+    //     Swal.fire({
+    //         icon: "warning",
+    //         title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
+    //         html: 'Deseja conferir ou realizar uma nova tentativa?',
+    //         // timer: 5000,
+    //         confirmButtonColor: '#38c172',
+    //         denyButtonColor: '#007bff',
+    //         showDenyButton: true,
+    //         showCancelButton: false,
+    //         confirmButtonText: 'Pagar',
+    //         denyButtonText: `Conferir`,
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
+    //             addPaintItem(btnId)
+    //             displayCart();
+    //             Swal.close();
+    //         } else if (result.isDenied) {
+    //             location.href = base_url + 'comprovantes/' + idCustomer
+    //         }
+    //     })
+    // }else {
+    //     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
+    //     addPaintItem(btnId)
+    //     displayCart();
+    // }
+}
+// });
 
-        // Swal.fire({
-        //     icon: "error",
-        //     title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-        //     html: 'Confira na lista pagamentos',
-        //     timer: 5000,
-        //     willClose() {
-        //         location.href = base_url + 'comprovantes/' + idCustomer
-        //     }
-        // })
-
-        Swal.fire({
-            icon: "warning",
-            title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-            html: 'Deseja conferir ou realizar uma nova tentativa?',
-            // timer: 5000,
-            confirmButtonColor: '#38c172',
-            denyButtonColor: '#007bff',
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: 'Pagar',
-            denyButtonText: `Conferir`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
-                addPaintItem(btnId)
-                displayCart();
-                Swal.close();
-            } else if (result.isDenied) {
-                location.href = base_url + 'comprovantes/' + idCustomer
-            }
-        })
-    }else {
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
-        addPaintItem(btnId)
-        displayCart();
-    }
-});
 // function addInvoiceToCart(data){
 //     let btnId = data.id, billet_id = data.dataset.id, reference = data.dataset.reference,
 //         value = data.dataset.value, addition = data.dataset.addition,
@@ -154,7 +180,7 @@ $('.clear-cart').click(function() {
     // removePaintAll()
     // displayCart();
     notify('Todas as faturas foram removidas!')
-    location.reload();
+    //location.reload();
 });
 
 // Clear all sections
@@ -199,9 +225,7 @@ async function copyBarcode(id) {
 }
 
 // Add paint and disable buttons
-function addPaintItem(btn_id) {
-    const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
-    // console.log(id)
+function addPaintItem(id) {
     $('#invoice-'+id).addClass('border-success text-windx-50');
     $('#title-'+id).addClass('text-windx-50');
     $('#select-billet-'+id).addClass('d-none').addClass('not-active');
@@ -212,8 +236,8 @@ function addPaintItem(btn_id) {
 }
 
 // Remove paint item and enable buttons
-function removePaintItem(btn_id) {
-    const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
+function removePaintItem(id) {
+    // const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
     $('#invoice-'+id).removeClass('border-success text-windx-50');
     $('#title-'+id).removeClass('text-windx-50');
     $('#select-billet-'+id).removeClass('d-none').removeClass('not-active');

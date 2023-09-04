@@ -8,7 +8,7 @@ var billetsCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(billet_id, reference, duedate, value, addition, discount, price, count) {
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
         this.duedate = duedate;
@@ -17,6 +17,7 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
+        this.installments = installments;
     }
 
     // Save cart
@@ -39,8 +40,8 @@ var billetsCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count);
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installments);
 
         // var itemCheck = cart.some(function(testItem) {
         //     return testItem.billet_id === item.billet_id;
@@ -101,10 +102,10 @@ var billetsCart = (function() {
         var totalFees = 0;
         for(var item in cart) {
             if(cart[item].addition != 0) {
-                totalFees += cart[item].addition;
+                totalFees += parseFloat(cart[item].addition);
             }
         }
-        // console.log(totalCart.toFixed(2))
+        console.log(totalFees)
         return Number(totalFees.toFixed(2));
     }
 

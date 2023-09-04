@@ -102,7 +102,7 @@ class PagesController extends Controller
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .
-                        '" class="btn btn-danger btn-sm delete-item d-none" data-reference="'.
+                        '" class="btn btn-danger btn-sm btn-block delete-item d-none" data-reference="'.
                         $data['NossoNumero'] .'" data-id="'. $data['Id'] .'">REMOVER</a>';
                 })
                 ->addColumn('add', function($data){
@@ -112,14 +112,18 @@ class PagesController extends Controller
                         $addition = 0;
 
                         if($isfees){
-                            $price = number_format($data['Valor'], 2, '.', '');
-                            $addition = number_format(0, 2, '.', '');
+                            $price = number_format((float)($data['Valor']), 2, '.', ',');;
+//                            $price = number_format($data['Valor'], 2, '.', '');
+                            $addition = number_format((float)(0), 2, '.', '');
+//                            $addition = number_format(0, 2, '.', '');
                         }else{
-                            $price = number_format($fees + $data['Valor'], 2, '.', '');
-                            $addition = number_format($fees, 2, '.', '');
+                            $price = number_format((float)($fees + $data['Valor']), 2, '.', ',');
+//                            $price = number_format($fees + $data['Valor'], 2, '.', '');
+                            $addition = number_format((float)($fees), 2, '.', '');
+//                            $addition = number_format($fees, 2, '.', '');
                         }
 
-                        $billet = [
+                        $billet = json_encode([
                             'id' => $data['Id'],
                             'reference' => $data['NossoNumero'],
                             'value' => $data['Valor'],
@@ -128,7 +132,7 @@ class PagesController extends Controller
                             'discount' => 0,
                             'addition' => $addition,
                             'installments' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
-                        ];
+                        ]);
 
 //                        $button = '<button type="button" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
 //                                        data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
@@ -138,10 +142,8 @@ class PagesController extends Controller
 //                                        PAGAR
 //                                    </button>';
 
-                        $button = '<button type="button" id="select-billet-'. $data['Id'] .
-                            '" class="add-to-cart btn btn-success btn-sm btn-block" data-billet="'. json_encode($billet) .'">
-                                        PAGAR
-                                    </button>';
+                        $button = '<a href="#" id="select-billet-'. $data['Id'] .
+                            '" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn('. htmlspecialchars(json_encode($billet)) .')">PAGAR</button>';
 
                     return $button;
                 })

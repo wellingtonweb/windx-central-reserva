@@ -2499,7 +2499,7 @@ svg rect{
 
 .card-body p {
     /*margin-bottom: 0 !important;*/
-    line-height: 22px !important;
+    line-height: 15px;
 }
 
 .swal2-popup{

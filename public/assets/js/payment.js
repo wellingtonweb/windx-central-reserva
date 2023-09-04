@@ -8,7 +8,7 @@ var billetsCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(billet_id, reference, duedate, value, addition, discount, price, count) {
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
         this.duedate = duedate;
@@ -17,6 +17,7 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
+        this.installments = installments;
     }
 
     // Save cart
@@ -39,8 +40,8 @@ var billetsCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count);
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installments);
 
         // var itemCheck = cart.some(function(testItem) {
         //     return testItem.billet_id === item.billet_id;
@@ -101,10 +102,10 @@ var billetsCart = (function() {
         var totalFees = 0;
         for(var item in cart) {
             if(cart[item].addition != 0) {
-                totalFees += cart[item].addition;
+                totalFees += parseFloat(cart[item].addition);
             }
         }
-        // console.log(totalCart.toFixed(2))
+        console.log(totalFees)
         return Number(totalFees.toFixed(2));
     }
 
@@ -130,8 +131,13 @@ var count = 0;
 var checkBillet = false;
 
 // Add item to cart
-$('.add-to-cart').click(function(event) {
-    event.preventDefault();
+
+function addToCartBtn(data){
+    var billet = JSON.parse(data);
+    console.log('Data: ',billet);
+
+// $('.add-to-cart').click(function(event) {
+//     event.preventDefault();
     checkBillet = false;
 
     // var icon = $(this).find('i');
@@ -139,61 +145,112 @@ $('.add-to-cart').click(function(event) {
     //     .addClass('d-none')
     //     .addClass('fas fa-spinner fa-pulse')
     //     .removeClass('d-none')
+    $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
 
-    var btnId = $(this).attr('id');
-    var billet_id = $(this).data('id');
-    var reference = $(this).data('reference');
-    var duedate = $(this).data('duedate');
-    var value = $(this).data('value');
-    var addition = $(this).data('addition');
-    var discount = $(this).data('discount');
-    var price = Number($(this).data('price'));
+    var btnId = billet.id;
+    var billet_id = billet.id;
+    var reference = billet.reference;
+    var duedate = billet.duedate;
+    var value = billet.value;
+    var addition = billet.addition;
+    var discount = billet.discount;
+    var price = billet.price;
+    var installments = billet.installments;
 
-    checkBillet = getCheckBillet(billet_id)
+    console.log('btnId ',btnId ,'billet_id', billet_id)
 
-    if(checkBillet === true){
-        // icon.removeClass('fas fa-spinner fa-pulse')
-        //     .addClass('d-none')
-        //     .addClass('fa fa-check')
-        //     .removeClass('d-none')
-
-        // Swal.fire({
-        //     icon: "error",
-        //     title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-        //     html: 'Confira na lista pagamentos',
-        //     timer: 5000,
-        //     willClose() {
-        //         location.href = base_url + 'comprovantes/' + idCustomer
-        //     }
-        // })
-
+    if(installments > 1){
         Swal.fire({
-            icon: "warning",
-            title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-            html: 'Deseja conferir ou realizar uma nova tentativa?',
+            icon: "info",
+            title: 'Pagamento de acordo!',
+            html: 'Confirmar parcelamento de acordo em '+ installments +' vezes no cartão de crédito?',
             // timer: 5000,
             confirmButtonColor: '#38c172',
             denyButtonColor: '#007bff',
             showDenyButton: true,
             showCancelButton: false,
-            confirmButtonText: 'Pagar',
-            denyButtonText: `Conferir`,
+            confirmButtonText: 'OK',
+            denyButtonText: `Cancelar`,
+            allowOutsideClick: () => {
+                const popup = Swal.getPopup()
+                popup.classList.remove('swal2-show')
+                setTimeout(() => {
+                    popup.classList.add('animate__animated', 'animate__headShake')
+                })
+                setTimeout(() => {
+                    popup.classList.remove('animate__animated', 'animate__headShake')
+                }, 500)
+                return false
+            },
         }).then((result) => {
             if (result.isConfirmed) {
-                billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
+                clearAllSections();
+                console.log('Cart: ', billetsCart.totalCart())
+                billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
                 addPaintItem(btnId)
                 displayCart();
                 Swal.close();
-            } else if (result.isDenied) {
-                location.href = base_url + 'comprovantes/' + idCustomer
+                swal.fire('Pop-up Card')
+                // $('#btn-credit').trigger();
+            }else{
+                deleteItemCart(btnId, reference)
+                Swal.close();
             }
         })
-    }else {
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
+    }else{
+        // $('#select-billet-'+billet.id).html('Pagar')
+        billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
         addPaintItem(btnId)
         displayCart();
     }
-});
+
+    checkBillet = getCheckBillet(billet_id)
+
+    // if(checkBillet === true){
+    //     // icon.removeClass('fas fa-spinner fa-pulse')
+    //     //     .addClass('d-none')
+    //     //     .addClass('fa fa-check')
+    //     //     .removeClass('d-none')
+    //
+    //     // Swal.fire({
+    //     //     icon: "error",
+    //     //     title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
+    //     //     html: 'Confira na lista pagamentos',
+    //     //     timer: 5000,
+    //     //     willClose() {
+    //     //         location.href = base_url + 'comprovantes/' + idCustomer
+    //     //     }
+    //     // })
+    //
+    //     Swal.fire({
+    //         icon: "warning",
+    //         title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
+    //         html: 'Deseja conferir ou realizar uma nova tentativa?',
+    //         // timer: 5000,
+    //         confirmButtonColor: '#38c172',
+    //         denyButtonColor: '#007bff',
+    //         showDenyButton: true,
+    //         showCancelButton: false,
+    //         confirmButtonText: 'Pagar',
+    //         denyButtonText: `Conferir`,
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
+    //             addPaintItem(btnId)
+    //             displayCart();
+    //             Swal.close();
+    //         } else if (result.isDenied) {
+    //             location.href = base_url + 'comprovantes/' + idCustomer
+    //         }
+    //     })
+    // }else {
+    //     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
+    //     addPaintItem(btnId)
+    //     displayCart();
+    // }
+}
+// });
+
 // function addInvoiceToCart(data){
 //     let btnId = data.id, billet_id = data.dataset.id, reference = data.dataset.reference,
 //         value = data.dataset.value, addition = data.dataset.addition,
@@ -250,7 +307,7 @@ $('.clear-cart').click(function() {
     // removePaintAll()
     // displayCart();
     notify('Todas as faturas foram removidas!')
-    location.reload();
+    //location.reload();
 });
 
 // Clear all sections
@@ -295,9 +352,7 @@ async function copyBarcode(id) {
 }
 
 // Add paint and disable buttons
-function addPaintItem(btn_id) {
-    const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
-    // console.log(id)
+function addPaintItem(id) {
     $('#invoice-'+id).addClass('border-success text-windx-50');
     $('#title-'+id).addClass('text-windx-50');
     $('#select-billet-'+id).addClass('d-none').addClass('not-active');
@@ -308,8 +363,8 @@ function addPaintItem(btn_id) {
 }
 
 // Remove paint item and enable buttons
-function removePaintItem(btn_id) {
-    const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
+function removePaintItem(id) {
+    // const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
     $('#invoice-'+id).removeClass('border-success text-windx-50');
     $('#title-'+id).removeClass('text-windx-50');
     $('#select-billet-'+id).removeClass('d-none').removeClass('not-active');

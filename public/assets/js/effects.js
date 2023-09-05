@@ -22,21 +22,27 @@
             $(".sideMenu").addClass($(".sidebarNavigation").attr("data-sidebarClass"));
             $(".sideMenu, .overlay").toggleClass("open");
             $(".overlay").on("click", function () {
+                $("div#collapseSidebar").removeClass('show')
                 $(this).removeClass("open");
                 $(".sideMenu").removeClass("open")
             })
             setTimeout(() => {
+                // $("#linkCollapseSidebar").addClass('collapsed').attr('aria-expanded', false)
                 $(".overlay").trigger('click')
-            }, 4000);
+                // alert('Funciona!')
+            }, 6000);
         });
         $("body").on("click", ".sideMenu.open .nav-item", function () {
             if (!$(this).hasClass("dropdown")) {
                 $(".sideMenu, .overlay").toggleClass("open")
+            }else{
+                $("div#collapseSidebar").removeClass('show')
             }
         });
         $(window).resize(function () {
             if ($(".navbar-toggler").is(":hidden")) {
-                $(".sideMenu, .overlay").hide()
+                $("#collapseSidebar").removeClass('show')
+                $("div#collapseSidebar").removeClass('show')
             } else {
                 $(".sideMenu, .overlay").show()
             }

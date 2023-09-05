@@ -61,7 +61,11 @@ var billetsCart = (function() {
     // Remove item from cart
     obj.removeItemFromCart = function(billetId) {
         for(var item in cart) {
-            if(cart[item].id === billetId) {
+            console.log('Cart: ', cart)
+            console.log('Cart ID: ', cart[item].billet_id)
+            console.log('Billet ID: ', billetId)
+
+            if(cart[item].billet_id == billetId) {
                 cart[item].count --;
                 if(cart[item].count === 0) {
                     cart.splice(item, 1);

@@ -570,7 +570,6 @@
             /*display: flex;*/
             /*justify-content: center;*/
 
-
         }
 
         .my-slider .card .card-body
@@ -1027,6 +1026,7 @@
         var idCustomer = {{session('customer')->id}};
         var customerActive = @json(session('customer'));
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
+        let urlGetBillets = "{{ route('central.get.billets') }}";
 
         $('.checkoutBtn').on('click', function () {
             const paymentType = $(this).attr('id')
@@ -1075,112 +1075,12 @@
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-    <!-- NOTE: prior to v2.2.1 tiny-slider.js need to be in <body> -->
-{{--    <script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>--}}
-    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--}}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
-        async function pixCopyPaste(){
-            let code = $('p.qrcodestring').text()
-            console.log(code);
-            await navigator.clipboard.writeText(code)
-                .then(() => {
-                    notify('Copiado para área de transferência!')
-                })
-                .catch((err) => {
-                    notify('Falha ao copiar: '+ err);
-                    setTimeout(() => {
-                        location.reload()
-                    }, 1000)
-                });
-        }
 
-        var slider = '';
-
-        async function getBillets(){
-            let url = "{{ route('central.get.billets') }}";
-            const response = await fetch(url);
-            const billets = await response.json();
-            let sliderBillets = document.querySelector('.billets-slider');
-
-            if(billets.data.length === 0){
-                sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
-            }else{
-                $('.tns-controls').removeClass('d-none');
-                $('#infoCheckout').removeClass('d-none');
-                $('#buttonsCheckout').removeClass('d-none');
-                window.addEventListener('load', inicializeSlider());
-                function inicializeSlider(){
-                    let slides = '';
-                    for(let billet in billets.data){
-                        slides += `
-                                <div id="billet_${billets.data[billet].Id}" class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title font-weight-bold">${billets.data[billet].Referencia}</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
-                                        <p class="card-text">Valor: ${billets.data[billet].valor}</p>
-                                        <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
-                                        <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
-                                        <p class="card-text">${billets.data[billet].LinhaDigitavel}</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="d-flex">
-                                            ${billets.data[billet].copy}
-                                            ${billets.data[billet].download}
-                                        </div>
-                                        ${billets.data[billet].add}
-                                        ${billets.data[billet].remove}
-                                    </div>
-                                </div>
-                    `
-                    }
-                    sliderBillets.innerHTML = slides;
-                }
-
-                slider = tns({
-                    container: '.billets-slider',
-                    items: 1,
-                    responsive: {
-                        640: {
-                            edgePadding: 20,
-                            gutter: 20,
-                            items: 2
-                        },
-                        700: {
-                            gutter: 30
-                        },
-                        900: {
-                            items: 3
-                        }
-                    },
-                    animateIn: "tns-fadeIn",
-                    mouseDrag: true,
-                    nav: false,
-                    prevButton: false,
-                    nextButton: false,
-                    controls: false
-                });
-            }
-        }
-
-        getBillets()
-
-        $('#refesh-slider').on('click', function (){
-            slider.destroy();
-            slider = slider.rebuild();
-        })
-
-        $('#tyne-next-btn').on('click', function (){
-            slider.goTo('next');
-        })
-
-        $('#tyne-prev-btn').on('click', function (){
-            slider.goTo('prev');
-        })
         //
         // function addToCartBtn(data){
         //     var billet = JSON.parse(data);

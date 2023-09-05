@@ -58,7 +58,6 @@
                             </a>
                         </div>
                         <div class="item">
-{{--                        adicionar a class collapsed --}}
                             <a id="linkCollapseSidebar" data-toggle="collapse" href="#collapseSidebar" role="button" aria-expanded="false" aria-controls="collapseSidebar" class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cash-coin"  viewBox="0 0 18 18" width="1.2em">
                                     <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
@@ -67,9 +66,7 @@
                                     <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
                                 </svg>Financeiro
                             </a>
-
                         </div>
-{{--                        remover a class show--}}
                         <div class="collapse pl-4" id="collapseSidebar">
                             <div class="item">
                                 <a href="{{ route('central.payment') }}" class="click-loader close-menu
@@ -101,7 +98,6 @@
                                 </a>
                             </div>
                         </div>
-
                         <div class="item">
                             <a href="{{route('central.support')}}"
                                class="click-loader close-menu {{ Route::currentRouteName() === 'central.support' ? 'btn-side-active' : '' }}">

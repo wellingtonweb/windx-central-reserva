@@ -59,9 +59,9 @@ var billetsCart = (function() {
     }
 
     // Remove item from cart
-    obj.removeItemFromCart = function(reference) {
+    obj.removeItemFromCart = function(billetId) {
         for(var item in cart) {
-            if(cart[item].reference === reference) {
+            if(cart[item].id === billetId) {
                 cart[item].count --;
                 if(cart[item].count === 0) {
                     cart.splice(item, 1);
@@ -206,7 +206,12 @@ function addToCartBtn(data){
         }
     }else{
         $('#select-billet-'+btnId).html('Pagar')
-        swal.fire('Erro! Parcelamento não autorizado.')
+        clearAllSections();
+        Swal.fire({
+            icon: 'error',
+            title: 'Parcelamento não autorizado!',
+            text: 'Fale com nosso setor financeiro.',
+        })
     }
 
 
@@ -268,14 +273,14 @@ function addToCartBtn(data){
 // }
 
 //Remove item to cart
-$('.delete-item').on("click", function(event) {
-    var id = $(this).attr('id');
-    var reference = $(this).data('reference')
-    deleteItemCart(id, reference)
-})
+// $('.delete-item').on("click", function(event) {
+//     var id = $(this).attr('id');
+//     // var reference = $(this).data('reference')
+//     deleteItemCart(id.replace(/[^0-9]/g,''))
+// })
 
-function deleteItemCart(id, reference){
-    billetsCart.removeItemFromCart(reference);
+function deleteItemCart(id){
+    billetsCart.removeItemFromCart(id);
     removePaintItem(id)
     displayCart();
 }
@@ -323,6 +328,8 @@ function clearAllSections() {
     localStorage.clear();
     removePaintAll()
     displayCart();
+    slider.destroy();
+    slider = slider.rebuild();
 }
 
 // Remove paint all
@@ -476,6 +483,106 @@ function displayCart() {
 //     removePaintItem(id)
 //     displayCart();
 // })
+
+async function pixCopyPaste(){
+    let code = $('p.qrcodestring').text()
+    console.log(code);
+    await navigator.clipboard.writeText(code)
+        .then(() => {
+            notify('Copiado para área de transferência!')
+        })
+        .catch((err) => {
+            notify('Falha ao copiar: '+ err);
+            setTimeout(() => {
+                location.reload()
+            }, 1000)
+        });
+}
+
+var slider = '';
+
+async function getBillets(){
+
+    const response = await fetch(urlGetBillets);
+    const billets = await response.json();
+    let sliderBillets = document.querySelector('.billets-slider');
+
+    if(billets.data.length === 0){
+        sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
+    }else{
+        $('.tns-controls').removeClass('d-none');
+        $('#infoCheckout').removeClass('d-none');
+        $('#buttonsCheckout').removeClass('d-none');
+        window.addEventListener('load', inicializeSlider());
+        function inicializeSlider(){
+            let slides = '';
+            for(let billet in billets.data){
+                slides += `
+                                <div id="billet_${billets.data[billet].Id}" class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title font-weight-bold">${billets.data[billet].Referencia}</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
+                                        <p class="card-text">Valor: ${billets.data[billet].valor}</p>
+                                        <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
+                                        <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
+                                        <p class="card-text">${billets.data[billet].LinhaDigitavel}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="d-flex">
+                                            ${billets.data[billet].copy}
+                                            ${billets.data[billet].download}
+                                        </div>
+                                        ${billets.data[billet].add}
+                                        ${billets.data[billet].remove}
+                                    </div>
+                                </div>
+                    `
+            }
+            sliderBillets.innerHTML = slides;
+        }
+
+        slider = tns({
+            container: '.billets-slider',
+            items: 1,
+            responsive: {
+                640: {
+                    edgePadding: 20,
+                    gutter: 20,
+                    items: 2
+                },
+                700: {
+                    gutter: 30
+                },
+                900: {
+                    items: 3
+                }
+            },
+            animateIn: "tns-fadeIn",
+            mouseDrag: true,
+            nav: false,
+            prevButton: false,
+            nextButton: false,
+            controls: false
+        });
+    }
+}
+
+getBillets()
+
+$('#refesh-slider').on('click', function (){
+    slider.destroy();
+    slider = slider.rebuild();
+})
+
+$('#tyne-next-btn').on('click', function (){
+    slider.goTo('next');
+})
+
+$('#tyne-prev-btn').on('click', function (){
+    slider.goTo('prev');
+})
 
 
 displayCart();

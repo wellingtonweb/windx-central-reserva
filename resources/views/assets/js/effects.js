@@ -4,7 +4,6 @@
 		var header = $(".start-style");
 		$(window).scroll(function() {
 			var scroll = $(window).scrollTop();
-
 			if (scroll >= 10) {
 				header.removeClass('start-style').addClass("scroll-on");
 			} else {
@@ -27,9 +26,7 @@
                 $(".sideMenu").removeClass("open")
             })
             setTimeout(() => {
-                // $("#linkCollapseSidebar").addClass('collapsed').attr('aria-expanded', false)
                 $(".overlay").trigger('click')
-                // alert('Funciona!')
             }, 6000);
         });
         $("body").on("click", ".sideMenu.open .nav-item", function () {
@@ -47,8 +44,6 @@
                 $(".sideMenu, .overlay").show()
             }
         })
-
-
     })
 
   })(jQuery);

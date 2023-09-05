@@ -102,8 +102,11 @@ class PagesController extends Controller
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .
-                        '" class="btn btn-danger btn-sm btn-block delete-item d-none" data-reference="'.
-                        $data['NossoNumero'] .'" data-id="'. $data['Id'] .'">REMOVER</a>';
+                        '" class="btn btn-danger btn-sm btn-block delete-item d-none"
+                        onclick="deleteItemCart('. $data['Id'] .')">REMOVER</a>';
+//                    return '<a href="#" id="remove-billet-'. $data['Id'] .
+//                        '" class="btn btn-danger btn-sm btn-block delete-item d-none" data-reference="'.
+//                        $data['NossoNumero'] .'" data-id="'. $data['Id'] .'">REMOVER</a>';
                 })
                 ->addColumn('add', function($data){
                         $isfees = (new WorkingDays)->hasFees($data['Vencimento']);

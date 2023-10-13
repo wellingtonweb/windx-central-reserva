@@ -24,7 +24,7 @@
                             <div class="card-body">
                                 @csrf
 
-                                @if ($errors->has('login') || $errors->has('password') || session('error'))
+                                @if ($errors->has('password') || $errors->has('confirm') || session('error'))
                                     <p class="card-text text-danger pb-1">Verifique os dados informados!</p>
                                 @endif
 
@@ -32,7 +32,7 @@
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
-                                    <input id="password" type="password" class="form-control inputs-login
+                                    <input id="password" type="{{ $errors->has('password') ? 'text' : 'password'}}" value="{{ old('password') }}" class="form-control inputs-login
 
                                 @error('password') is-invalid @enderror"
                                            {{--                                    @error('password') is-invalid @enderror" value="{{old('password')}}"--}}
@@ -48,7 +48,7 @@
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
-                                    <input id="confirm" type="password" class="form-control inputs-login
+                                    <input id="confirm" type="{{ $errors->has('confirm') ? 'text' : 'password'}}" value="{{ old('confirm') }}" class="form-control inputs-login
 
                                 @error('confirm') is-invalid @enderror" name="confirm"
                                            {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
@@ -126,10 +126,7 @@
 @endsection
 
 @section('css')
-    /*
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">*/
-    <success
+    <style>
         .form-horizontal {
             width: 320px;
             background-color: #ffffff;
@@ -209,7 +206,8 @@
     <script>
         let state_password = false;
         let state_confirm = false;
-        // let stateConfirmPassword = false;
+        let statePassword = false;
+        let stateConfirmPassword = false;
         let inputPassword = document.getElementById("password");
         let inputConfirmPassword = document.getElementById("confirm");
         let btnSave = document.getElementById("btn-save");

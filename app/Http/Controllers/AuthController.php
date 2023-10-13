@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\UserInfo;
 use App\Http\Requests\LogonRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreTerminalRequest;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\CustomerLog;
@@ -34,7 +35,7 @@ class AuthController extends Controller
         return view('auth.reset');
     }
 
-    public function resetSend(Request $request)
+    public function resetSend(ResetPasswordRequest $request)
     {
 //        dd($request->all());
 

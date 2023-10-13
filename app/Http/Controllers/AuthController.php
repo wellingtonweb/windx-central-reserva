@@ -25,13 +25,20 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
-            return view('login');
+            return view('auth.login');
         }
     }
 
-    public function login2()
+    public function reset()
     {
-        return view('login2');
+        return view('auth.reset');
+    }
+
+    public function sendReset(Request $request)
+    {
+        dd($request);
+
+        return redirect()->route('central.login');
     }
 
     public function logon(LogonRequest $request)

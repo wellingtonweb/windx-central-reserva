@@ -26,8 +26,6 @@
 
                                 @if ($errors->has('login') || $errors->has('password') || session('error'))
                                     <p class="card-text text-danger pb-1">Verifique os dados informados!</p>
-                                @else
-                                    <p class="card-text text-black-50 pb-1">Preencha com uma nova senha!</p>
                                 @endif
 
                                 <div class="input-group mb-3 {{ $errors->has('password') ? 'is-error' : '' }}">
@@ -42,25 +40,28 @@
                                            placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Digite a nova senha' }}"
                                            aria-label="Password"
                                            aria-describedby="password">
-                                    <span class="show-pass" onclick="toggle()">
-                            <i class="far fa-eye" onclick="myFunction(this)"></i>
-                        </span>
+                                    <span class="show-pass text-danger pr-3" onclick="toggle1()">
+                                        <i class="far fa-eye" onclick="showPassword(this)"></i>
+                                    </span>
                                 </div>
                                 <div class="input-group mb-3 {{ $errors->has('login') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
-                                    <input id="inputConfirPassword" type="password" class="form-control inputs-login
+                                    <input id="confirm" type="password" class="form-control inputs-login
 
-                                @error('login') is-invalid @enderror" name="confirm_password"
+                                @error('confirm') is-invalid @enderror" name="confirm"
                                            {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
-                                           placeholder="{{ $errors->has('confirm_password') ? 'A confirmação da senha é obrigatória' : 'Confirme a nova senha' }}"
+                                           placeholder="{{ $errors->has('confirm') ? 'A confirmação da senha é obrigatória' : 'Confirme a nova senha' }}"
                                            aria-label="Confirm password" aria-describedby="confirm password">
-
+                                    <span class="show-pass text-danger pr-3" onclick="toggle2()">
+                                        <i class="far fa-eye" onclick="showPassword(this)"></i>
+                                    </span>
                                 </div>
                                 <div class="form-group">
-                                    <div id="popover-password" class="col-md-12">
+                                    <div id="popover-password">
                                         <p><span id="result"></span></p>
+
                                         <div class="progress">
                                             <div id="password-strength"
                                                  class="progress-bar"
@@ -71,29 +72,39 @@
                                                  style="width:0%">
                                             </div>
                                         </div>
-                                        <ul class="list-unstyled text-left pt-2 text-muted">
+
+                                        <ul class="list-unstyled text-left pt-2 " style="font-size: 90%">
+                                            <li class="py-1">
+                                                <span class="text-muted">Sua senha deve ter:</span>
+                                            </li>
                                             <li class="">
-                                                    <span class="eight-character">
+                                                    <span class="eight-character text-muted">
                                                         <i class="fas fa-circle" aria-hidden="true"></i>
                                                         &nbsp;Mínimo de 8 caracteres
                                                     </span>
                                             </li>
                                             <li class="">
-                                                    <span class="low-upper-case">
+                                                    <span class="low-upper-case text-muted">
                                                         <i class="fas fa-circle" aria-hidden="true"></i>
                                                         &nbsp;Maiúsculas &amp; minúsculas
                                                     </span>
                                             </li>
                                             <li class="">
-                                                    <span class="one-number">
+                                                    <span class="one-number text-muted">
                                                         <i class="fas fa-circle" aria-hidden="true"></i>
                                                         &nbsp;Números (0-9)
                                                     </span>
                                             </li>
                                             <li class="">
-                                                    <span class="one-special-char">
+                                                    <span class="one-special-char text-muted">
                                                         <i class="fas fa-circle" aria-hidden="true"></i>
                                                         &nbsp;Caracteres especiais (<span style="letter-spacing: 1px">!@#$%^&*</span>)
+                                                    </span>
+                                            </li>
+                                            <li class="">
+                                                    <span class="equals-character text-muted">
+                                                        <i class="fas fa-circle" aria-hidden="true"></i>
+                                                        &nbsp;Caracteres iguais
                                                     </span>
                                             </li>
                                         </ul>
@@ -107,54 +118,6 @@
                                 </button>
                             </div>
                         </form>
-                        <form class="form-horizontal_ d-none" id="validateForm">
-                            <h1>Welcome</h1>
-                            <fieldset>
-                                <!-- Email input-->
-                                <div class="form-group">
-                                    <label class="col-md-12 control-label" for="textinput">
-                                        Email
-                                    </label>
-                                    <div class="col-md-12">
-                                        <input id="email" name="textinput"
-                                               type="email" autocomplete="off"
-                                               placeholder="Enter your email address"
-                                               class="form-control input-md">
-                                    </div>
-                                </div>
-
-                                <!-- Password input-->
-                                <div class="form-group">
-                                    <label class="col-md-12 control-label" for="passwordinput">
-                                        Password
-                                    </label>
-                                    <div class="col-md-12">
-                                        <input id="password_" class="form-control input-md"
-                                               name="password" type="password"
-                                               placeholder="Enter your password">
-                                        <span class="show-pass" onclick="toggle()">
-                                            <i class="far fa-eye" onclick="myFunction(this)"></i>
-                                        </span>
-
-                                    </div>
-                                </div>
-
-
-                                <!-- Button -->
-
-                                <div class="form-group">
-                                    <button type="submit"  class="btn btn-primary btn-block" disabled>
-                                        SALVAR
-                                    </button>
-                                </div>
-                                <div class="ex-account text-center">
-                                    <p>Already have an account? Signin
-                                        <a href="/">here</a>
-                                    </p>
-                                    <div class="divider"></div>
-                                </div>
-                            </fieldset>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -166,7 +129,7 @@
     /*
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">*/
-    <style>
+    <success
         .form-horizontal {
             width: 320px;
             background-color: #ffffff;
@@ -244,60 +207,74 @@
     {{--    <script type="text/javascript" src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>--}}
 
     <script>
-        let state = false;
-        let password = document.getElementById("password");
+        let state_password = false;
+        let state_confirm = false;
+        // let stateConfirmPassword = false;
+        let inputPassword = document.getElementById("password");
+        let inputConfirmPassword = document.getElementById("confirm");
         let btnSave = document.getElementById("btn-save");
         let passwordStrength = document.getElementById("password-strength");
         let lowUpperCase = document.querySelector(".low-upper-case i");
         let number = document.querySelector(".one-number i");
         let specialChar = document.querySelector(".one-special-char i");
         let eightChar = document.querySelector(".eight-character i");
+        let equalsChars = document.querySelector(".equals-character i");
         let checkSpecialChar = false;
         let checkLowUpperCase = false;
         let checkNumber = false;
         let checkEightChar = false;
+        let checkEqualsChars = false;
 
-        password.addEventListener("keyup", function () {
-            let pass = document.getElementById("password").value;
+        inputPassword.addEventListener("keyup", function () {
+            let pass = inputPassword.value;
             checkStrength(pass);
-            checkPassword();
         });
 
-        function checkPassword(){
-            if(checkSpecialChar && checkLowUpperCase && checkNumber && checkEightChar){
-                console.log('Passou em todos os testes!');
-                // swal.fire('Passou em todos os testes!');
-                btnSave.disabled = false;
-            }else{
-                console.log('Não passou em todos os testes!');
-                btnSave.disabled = true;
-            }
-        }
+        inputConfirmPassword.addEventListener("keyup", function () {
+            let confPass = inputConfirmPassword.value;
+            checkStrength(confPass);
+        });
 
-        function toggle() {
-            if (state) {
-                document.getElementById("password").setAttribute("type", "password");
-                state = false;
+        function toggle1() {
+            if (statePassword) {
+                inputPassword.setAttribute("type", "password");
+                statePassword = false;
             } else {
-                document.getElementById("password").setAttribute("type", "text")
-                state = true;
+                inputPassword.setAttribute("type", "text")
+                statePassword = true;
             }
         }
 
-        function myFunction(show) {
+        function toggle2() {
+            if (stateConfirmPassword) {
+                inputConfirmPassword.setAttribute("type", "password");
+                stateConfirmPassword = false;
+            } else {
+                inputConfirmPassword.setAttribute("type", "text")
+                stateConfirmPassword = true;
+            }
+        }
+
+        function showPassword(show) {
             show.classList.toggle("fa-eye-slash");
         }
 
-        function checkStrength(password) {
+        function checkStrength() {
+            let password = inputPassword.value
             let strength = 0;
 
             //If password contains both lower and uppercase characters
             if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
                 strength += 1;
+                document.querySelector(".low-upper-case").classList.remove('text-muted');
+                document.querySelector(".low-upper-case").classList.add('text-success');
                 lowUpperCase.classList.remove('fa-circle');
                 lowUpperCase.classList.add('fa-check');
+
                 checkLowUpperCase = true;
             } else {
+                document.querySelector(".low-upper-case").classList.remove('text-success');
+                document.querySelector(".low-upper-case").classList.add('text-muted');
                 lowUpperCase.classList.add('fa-circle');
                 lowUpperCase.classList.remove('fa-check');
                 checkLowUpperCase = false;
@@ -305,10 +282,14 @@
             //If it has numbers and characters
             if (password.match(/([0-9])/)) {
                 strength += 1;
+                document.querySelector(".one-number").classList.remove('text-muted');
+                document.querySelector(".one-number").classList.add('text-success');
                 number.classList.remove('fa-circle');
                 number.classList.add('fa-check');
                 checkNumber = true;
             } else {
+                document.querySelector(".one-number").classList.remove('text-success');
+                document.querySelector(".one-number").classList.add('text-muted');
                 number.classList.add('fa-circle');
                 number.classList.remove('fa-check');
                 checkNumber = false;
@@ -316,10 +297,14 @@
             //If it has one special character
             if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
                 strength += 1;
+                document.querySelector(".one-special-char").classList.remove('text-muted');
+                document.querySelector(".one-special-char").classList.add('text-success');
                 specialChar.classList.remove('fa-circle');
                 specialChar.classList.add('fa-check');
                 checkSpecialChar = true;
             } else {
+                document.querySelector(".one-special-char").classList.remove('text-success');
+                document.querySelector(".one-special-char").classList.add('text-muted');
                 specialChar.classList.add('fa-circle');
                 specialChar.classList.remove('fa-check');
                 checkSpecialChar = false;
@@ -327,37 +312,60 @@
             //If password is greater than 7
             if (password.length > 7) {
                 strength += 1;
+                document.querySelector(".eight-character").classList.remove('text-muted');
+                document.querySelector(".eight-character").classList.add('text-success');
                 eightChar.classList.remove('fa-circle');
                 eightChar.classList.add('fa-check');
                 checkEightChar = true;
             } else {
+                document.querySelector(".eight-character").classList.remove('text-success');
+                document.querySelector(".eight-character").classList.add('text-muted');
                 eightChar.classList.add('fa-circle');
                 eightChar.classList.remove('fa-check');
                 checkEightChar = false;
             }
+            //If password is equals in inputs
+            if(inputPassword.value == inputConfirmPassword.value){
+                strength += 1;
+                document.querySelector(".equals-character").classList.remove('text-muted');
+                document.querySelector(".equals-character").classList.add('text-success');
+                equalsChars.classList.remove('fa-circle');
+                equalsChars.classList.add('fa-check');
+                checkEqualsChars = true;
+            } else {
+                document.querySelector(".equals-character").classList.remove('text-success');
+                document.querySelector(".equals-character").classList.add('text-muted');
+                equalsChars.classList.add('fa-circle');
+                equalsChars.classList.remove('fa-check');
+                checkEqualsChars = false;
+            }
 
-            // If value is less than 2
-            if (strength < 2) {
-                passwordStrength.classList.remove('progress-bar-warning');
-                passwordStrength.classList.remove('progress-bar-success');
+            //Check that all requirements have been met to enable the button
+            if(checkSpecialChar && checkLowUpperCase && checkNumber && checkEightChar && checkEqualsChars){
+                btnSave.disabled = false;
+            }else{
+                btnSave.disabled = true;
+            }
+
+            //Modified progress bar value with state
+            if (strength == 1) {
                 passwordStrength.classList.add('progress-bar-danger');
-                passwordStrength.style = 'width: 10%';
+                passwordStrength.style = 'width: 20%';
+            } else if (strength == 2) {
+                passwordStrength.classList.add('progress-bar-warning');
+                passwordStrength.style = 'width: 40%';
             } else if (strength == 3) {
-                passwordStrength.classList.remove('progress-bar-success');
-                passwordStrength.classList.remove('progress-bar-danger');
                 passwordStrength.classList.add('progress-bar-warning');
                 passwordStrength.style = 'width: 60%';
             } else if (strength == 4) {
-                passwordStrength.classList.remove('progress-bar-warning');
-                passwordStrength.classList.remove('progress-bar-danger');
+                passwordStrength.classList.add('progress-bar-warning');
+                passwordStrength.style = 'width: 80%';
+            } else if (strength == 5) {
                 passwordStrength.classList.add('progress-bar-success');
                 passwordStrength.style = 'width: 100%';
             }
         }
     </script>
-
-
-
     {{--    <script defer type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>--}}
     @if ($errors->has('document'))
         <script>

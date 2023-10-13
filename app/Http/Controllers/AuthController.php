@@ -34,9 +34,17 @@ class AuthController extends Controller
         return view('auth.reset');
     }
 
-    public function sendReset(Request $request)
+    public function resetSend(Request $request)
     {
-        dd($request);
+//        dd($request->all());
+
+        $validated = $request->validated();
+        dd($validated);
+
+
+//        if(){
+//
+//        }
 
         return redirect()->route('central.login');
     }

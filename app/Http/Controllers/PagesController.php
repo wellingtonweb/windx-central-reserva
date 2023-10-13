@@ -134,7 +134,7 @@ class PagesController extends Controller
                             'price' => $price,
                             'discount' => 0,
                             'addition' => $addition,
-                            'installments' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
+                            'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
                         ]);
 
 //                        $button = '<button type="button" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
@@ -175,16 +175,16 @@ class PagesController extends Controller
             throw new CheckUserException();
         }
     }
+
     public function tokencielo()
     {
         if(session()->has('customer')){
-            return view('tokencielo', ['header' => 'tokencielo']);
+            return view('tkcielo', ['header' => 'tokencielo']);
+//            return view('tokencielo', ['header' => 'tokencielo']);
         } else {
             throw new CheckUserException();
         }
     }
-
-
 
     public function coupons()
     {
@@ -195,7 +195,8 @@ class PagesController extends Controller
             foreach($payments as $key => $payment){
 
                 $paymentCustomer = array_filter($payment, function($v, $k) {
-                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
+                    return $v['customer'] == session('customer')->id && $v['status'] == 'approved';
+//                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
@@ -221,6 +222,7 @@ class PagesController extends Controller
     public function invoices()
     {
         if(session()->has('customer')){
+
             return view('invoices', [
                 'header' => 'Notas fiscais',
             ]);
@@ -233,6 +235,7 @@ class PagesController extends Controller
     {
         if(session()->has('customer')){
             $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
+//            $invoices = null;
 
             return Datatables::of($invoices)
                 ->addColumn('action', function($data){
@@ -251,6 +254,8 @@ class PagesController extends Controller
     public function support()
     {
         if(session()->has('customer')){
+
+//            dd(session('customer')->calls);
             return view('support', [
                 'header' => 'Suporte',
             ]);

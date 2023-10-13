@@ -180,24 +180,24 @@
                                 @endif
                             </td>
                         </tr>
-                        @if($payment_type == 'credit' || $payment_type == 'debit')
-                        <tr class="ttu b-top">
-                            <td class="right">Cartão: </td>
-                            <td id="coupon_reference" class="left" style="max-width: 74mm">
-                                80000000
-                            </td>
-                        </tr>
-                        <tr class="ttu b-top">
-                            <td class="right">ID: </td>
-                            <td id="coupon_id" class="left">88521</td>
-                        </tr>
-                        <tr class="ttu b-top">
-                            <td class="right">Autorização: </td>
-                            <td id="coupon_reference" class="left" style="max-width: 74mm">
-                                94644551
-                            </td>
-                        </tr>
-                        @endif
+{{--                        @if($payment_type == 'credit' || $payment_type == 'debit')--}}
+{{--                        <tr class="ttu b-top">--}}
+{{--                            <td class="right">Cartão: </td>--}}
+{{--                            <td id="coupon_reference" class="left" style="max-width: 74mm">--}}
+{{--                                80000000--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        <tr class="ttu b-top">--}}
+{{--                            <td class="right">ID: </td>--}}
+{{--                            <td id="coupon_id" class="left">88521</td>--}}
+{{--                        </tr>--}}
+{{--                        <tr class="ttu b-top">--}}
+{{--                            <td class="right">Autorização: </td>--}}
+{{--                            <td id="coupon_reference" class="left" style="max-width: 74mm">--}}
+{{--                                94644551--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
+{{--                        @endif--}}
                         <tr class="ttu b-top">
                             <td class="right">Valor: </td>
                             <td class="left">R$

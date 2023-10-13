@@ -18,7 +18,7 @@ function addToCartBtn(data){
     //     .addClass('d-none')
     //     .addClass('fas fa-spinner fa-pulse')
     //     .removeClass('d-none')
-    $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
+    // $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
 
     var btnId = billet.id;
     var billet_id = billet.id;

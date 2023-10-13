@@ -30,7 +30,7 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        console.log(cart)
+        // console.log(cart)
     }
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
@@ -61,10 +61,6 @@ var billetsCart = (function() {
     // Remove item from cart
     obj.removeItemFromCart = function(billetId) {
         for(var item in cart) {
-            console.log('Cart: ', cart)
-            console.log('Cart ID: ', cart[item].billet_id)
-            console.log('Billet ID: ', billetId)
-
             if(cart[item].billet_id == billetId) {
                 cart[item].count --;
                 if(cart[item].count === 0) {

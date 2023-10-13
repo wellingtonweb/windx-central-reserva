@@ -89,13 +89,22 @@
     <script>
         $(document).ready(function() {
             $(function () {
+                $.fn.DataTable.ext.errMode = 'none';
+
                 var billet = '';
-                var table = $('.list-payments').DataTable({
+                var table = $('.list-payments')
+                    .on( 'error.dt', function ( e, settings, techNote, message ) {
+                        console.log( 'An error has been reported by DataTables: ', message );
+                    } )
+                    .DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
                     pagingType: 'full_numbers',
                     processing: true,
                     serverSide: true,
-                    ajax: "{{ route('central.invoices.list') }}",
+                    ajax: {
+                        url:"{{ route('central.invoices.list') }}",
+                        type: "GET"
+                    },
                     columnDefs: [
                         {
                             // targets: [0],

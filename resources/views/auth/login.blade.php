@@ -62,7 +62,7 @@
                             <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Entrar</button>
                         </div>
                     </form>
-                    <form id="form_reset_password" method="POST" action="{{ Route('central.logon') }}">
+                    <form id="form_reset_password" method="POST" action="{{ Route('central.login.check.mail') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                             <h3 style="font-size: 1.5rem; color: #002046;">Lembrar senha</h3>
@@ -99,49 +99,6 @@
                         </div>
                     </form>
                 </div>
-                <div class="d-none scene scene--card">
-                    <div class="card-login {{ ($errors->has('document') ? 'is-flipped' : (session('error') != null ? 'is-flipped' : '')) }}">
-                        <div class="card__face card__face--front">
-                            <div class="card">
-                                <div class="card-header">Central do Assinante<br></div>
-                                <div class="card-body">
-                                    <p class="card-text">Aqui você encontra <br>os serviços: <br>Consulta de débitos, pagamento de faturas e informações de seu cadastro.</p>
-                                </div>
-                                <div class="card-footer">
-                                    <button type="button" class="btn btn-flip btn-block btn-radius-50" >Iniciar</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card card__face card__face--back">
-
-                            <div class="d-none playground form-signin">
-                                <div class="numpad">
-                                    <div class="content">
-                                        <input id="input-document" class="w-100 input-document @error('document') is-invalid @enderror"
-                                               name="document"  placeholder="Digite seu CPF ou CNPJ"
-                                               type="text" aria-label="Documento" aria-describedby="Documento" readonly="true">
-                                    </div>
-                                    <button type="button" class="button btn num-pad">1</button>
-                                    <button type="button" class="button btn num-pad">2</button>
-                                    <button type="button" class="button btn num-pad">3</button>
-                                    <button type="button" class="button btn num-pad">4</button>
-                                    <button type="button" class="button btn num-pad">5</button>
-                                    <button type="button" class="button btn num-pad">6</button>
-                                    <button type="button" class="button btn num-pad">7</button>
-                                    <button type="button" class="button btn num-pad">8</button>
-                                    <button type="button" class="button btn num-pad">9</button>
-                                    <button type="button" id="clear" class="button btn btn btn-danger">
-                                        <i class="fas fa-times" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="button btn num-pad">0</button>
-                                    <button type="submit" id="check-login_" class="button btn btn-success">
-                                        <i class="fas fa-check" aria-hidden="true"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -161,6 +118,73 @@
         $('#form_reset_password').fadeOut().hide();
         $('#form_login').fadeIn(300).show();
     });
+
+    // async function postData(url = "", data = {}) {
+    //     // Default options are marked with *
+    //     const response = await fetch(url, {
+    //         method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //         mode: "cors", // no-cors, *cors, same-origin
+    //         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //         credentials: "same-origin", // include, *same-origin, omit
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             // 'Content-Type': 'application/x-www-form-urlencoded',
+    //         },
+    //         redirect: "follow", // manual, *follow, error
+    //         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    //         body: JSON.stringify(data), // body data type must match "Content-Type" header
+    //     });
+    //     return response.json(); // parses JSON response into native JavaScript objects
+    // }
+
+    $('#form_reset_password').submit(async function (e){
+        e.preventDefault();
+        let formData = $(this).serializeArray()
+        let url = "{{ route('central.login.check.mail') }}";
+
+        await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": formData[0].value
+            },
+            body: JSON.stringify({login: formData[1].value}),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if(!data.error){
+                    console.log("Success: ", data);
+
+                    let timerInterval
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Enviado com sucesso!',
+                        html: data.message,
+                        timer: 4000,
+                        timerProgressBar: false,
+                        willClose: () => {
+                            location.reload()
+                        }
+                    })
+
+                    // swal.fire(data.message)
+                }else{
+                    console.log("Error: ", data);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+        // console.log(response.json());
+
+
+        // console.log(data, data[1].value)
+    })
+
+    {{--postData("{{ route('central.login.check.mail') }}", { answer: 42 }).then((data) => {--}}
+    {{--    console.log(data); // JSON data parsed by `data.json()` call--}}
+    {{--});--}}
 </script>
 
 

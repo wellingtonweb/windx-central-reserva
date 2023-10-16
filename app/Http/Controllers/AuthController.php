@@ -12,10 +12,12 @@ use App\Services\API;
 use App\Services\Functions;
 use App\Services\Logger;
 use App\Services\Validations;
+use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -35,12 +37,59 @@ class AuthController extends Controller
         return view('auth.reset');
     }
 
+    public function checkMailCustomer(Request $request)
+    {
+
+        $validated = $request->validate([
+            'login' => ['required', 'email:rfc,dns'],
+        ]);
+
+//        dd($validated);
+
+        if($validated)
+        {
+//            $response = (new API())->customerLogon($validated);
+//            if()
+//            {
+//
+//            }
+
+//            return response()->json('Enviamos um link de recuperação de senha para seu e-mail de cadastro!');
+            return response()->json([
+                'status' => 200,
+                'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
+            ]);
+
+//            return response()->json('Email de cadastro válido!');
+//            dd($validatedData);
+        }else{
+            return response()->json([
+                'status' => 404,
+                'message' => "Email de cadastro inválido!",
+            ]);
+        }
+
+        return redirect()->route('central.login');
+    }
+
     public function resetSend(ResetPasswordRequest $request)
     {
 //        dd($request->all());
 
         $validated = $request->validated();
-        dd($validated);
+
+//        $faker = Factory::create();
+
+        $string = '1234@Wdx';
+//        $string = Str::random(250);
+        $codificada = base64_encode($string);
+        echo "Resultado da codificação usando base64: " . $codificada;
+        // TyByYXRvIHJldSBhIHJvcGEgZG8gcmVpIGRlIFJvbWE=
+        $original = base64_decode($codificada);
+        echo "Resultado da decodificação usando base64: " . $original;
+        // O rato reu a ropa do rei de Roma
+
+        dd($string, $codificada, $original);
 
 
 //        if(){

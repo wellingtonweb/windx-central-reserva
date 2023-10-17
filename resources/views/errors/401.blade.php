@@ -5,7 +5,7 @@
     <h2 style="color: #ffffff">Desculpe, acesso não autorizado!</h2>
     <script>
         setTimeout(function(){
-            history.back();
+            window.location = `{{Route('central.login')}}`;
         },4000)
     </script>
 @endsection

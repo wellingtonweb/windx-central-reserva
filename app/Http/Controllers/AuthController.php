@@ -8,6 +8,8 @@ use App\Http\Requests\LogonRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreTerminalRequest;
 use App\Http\Requests\CheckoutRequest;
+use App\Jobs\SendMailResetPasswordJob;
+use App\Mail\SendMailResetPassword;
 use App\Models\CustomerLog;
 use App\Services\API;
 use App\Services\Functions;
@@ -16,11 +18,14 @@ use App\Services\Validations;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\URL;
+use App\Models\PasswordResets;
 
 class AuthController extends Controller
 {
@@ -31,10 +36,15 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
-//            $url = (new Functions())->generateUrlReset(34258, 250);
+
+
+            //Gravar no banco de dados o token e o login do cliente
+
+
+//            $url = (new Functions())->generateTokenUrl("sup.windx@gmail.com", 250);
 //
 //
-//            dd($url);
+//            dd($url, base64_decode('c3VwLndpbmR4QGdtYWlsLmNvbQ=='));
 
 //            $login = "sup.windx@gmail.com";
 //
@@ -46,8 +56,19 @@ class AuthController extends Controller
         }
     }
 
-    public function reset()
+    public function reset(Request $request)
     {
+        $tokenUrl = basename(url()->current());
+
+        $response = (new Functions())->checkTokenReset($tokenUrl);
+
+        if(!$response){
+            abort(401);
+        }
+
+        session()->put('token_reset_password', $tokenUrl);
+
+        //Se token for válido no BD
         return view('auth.reset');
     }
 
@@ -63,13 +84,26 @@ class AuthController extends Controller
             $customer = (new API)->checkMailCustomer($request->login);
 
             if($customer != null){
-                //Gerar a hash + ID do cliente
+                //Gerar o token + ID do cliente
+                $token = (new Functions())->generateTokenUrl($customer[0]->login);
+                //Gravar no banco de dados o token e o login do cliente
+                DB::table('password_resets')->insert([
+                    'email' => $customer[0]->login,
+                    'token' => $token,
+                    'created_at' => date("Y-m-d H:i:s")
+                ]);
+//                $customer[0]->id
+//                $customer[0]->login
+//                $customer_name = explode(' ', $customer[0]->nome)[0]
+
+//                $token = (new Functions())->generateTokenUrl($customer[0]->login, 250);
 //                $url = (new Functions())->generateUrlReset($customer[0]->id, 250);
 
 
-                //Gravar no banco de dados a hash e o ID do cliente
+
 
                 //Fazer o disparo do e-mail com o link de recuperação
+//                SendMailResetPasswordJob::dispatch();
 
                 return response()->json([
                     'status' => 200,
@@ -83,7 +117,16 @@ class AuthController extends Controller
 
     public function resetSend(ResetPasswordRequest $request)
     {
-//        dd($request->all());
+
+        $tokenReset = session('token_reset_password');
+
+        DB::table('password_resets')
+            ->where('token', $tokenReset)
+            ->delete();
+
+        $request->session()->forget('token_reset_password');
+
+        dd($request->all(), session('token_reset_password'));
 
         $validated = $request->validated();
 

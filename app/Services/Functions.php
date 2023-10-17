@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Helpers\UserInfo;
 use App\LocalClass\ApiConnect;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Response;
 use Illuminate\Support\Str;
@@ -386,10 +387,32 @@ class Functions
         return $status;
     }
 
-    public function generateUrlReset($customerId, $length)
+    public function generateTokenUrl($customerLogin)
     {
-        $url = env('app_base_url') . "nova-senha/" . Str::random($length) . '.' . base64_encode($customerId);
+        $token = Str::random(200) . '-' . base64_encode($customerLogin);
+//        $url = env('app_base_url') . "nova-senha/" . Str::random($length) . '-' . base64_encode($customerLogin);
 
-        return $url;
+        return $token;
+//        return $url;
+    }
+
+    public function checkTokenReset($tokenUrl)
+    {
+        $login = base64_decode(explode('-',$tokenUrl)[1]);
+
+        $validatedToken = DB::table('password_resets')
+            ->where('token', $tokenUrl)
+            ->exists();
+
+        //Se existir e a hora for maior que 60 min, será excluido
+//        DB::table('password_resets')
+//            ->where('token', $tokenUrl)
+//            ->delete();
+
+        if($validatedToken){
+            return true;
+        }
+
+        return false;
     }
 }

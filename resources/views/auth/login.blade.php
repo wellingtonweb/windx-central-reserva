@@ -161,6 +161,7 @@
                         html: data.message,
                         timer: 4000,
                         timerProgressBar: false,
+                        showConfirmButton: false,
                         willClose: () => {
                             location.reload()
                         }
@@ -168,16 +169,12 @@
                     console.log(data)
                 }else{
                     $('#btn-send-mail').text('Enviar')
-                    console.log("Error: ", data.error);
                     Swal.fire({
                         icon: 'error',
-                        title: 'Erro!',
-                        html: data.error,
+                        title: data.error,
                         timer: 4000,
                         timerProgressBar: false,
-                        willClose: () => {
-                            // $('#inputLoginReset').val('')
-                        }
+                        showConfirmButton: false,
                     })
                 }
             })

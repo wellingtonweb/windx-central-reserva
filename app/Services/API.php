@@ -263,16 +263,18 @@ class API
         $response = Http::accept('application/json')
             ->retry(3, 100)
             ->withToken($this->apiToken)
-            ->get($this->apiUrl . '/api/customer/reset-password', ['login' => $login]);
+            ->post($this->apiUrl . '/api/customer/check-login-customer', ['login' => $login]);
 
-        try {
-            return response()->json($response->object()->data);
-        } catch (HttpException $e) {
-            return response()->json([
-                'status' => 'error',
-                'error' => $e->getMessage(),
-            ], 400);
-        }
+        return $response->object();
+
+//        try {
+//            return response()->json($response);
+//        } catch (HttpException $e) {
+//            return response()->json([
+//                'status' => 'error',
+//                'error' => $e->getMessage(),
+//            ], 400);
+//        }
     }
 
 }

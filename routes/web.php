@@ -29,7 +29,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/nova-senha/{userId}/{forget}', [AuthController::class, 'reset'])->name('login.reset');
+    Route::get('/nova-senha/{forget}', [AuthController::class, 'reset'])->name('login.reset');
     Route::post('check-mail-customer', [AuthController::class, 'checkMailCustomer'])->name('login.check.mail');
     Route::post('reset', [AuthController::class, 'resetSend'])->name('login.reset.send');
 

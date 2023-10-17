@@ -8,6 +8,7 @@ use App\Helpers\UserInfo;
 use App\LocalClass\ApiConnect;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Milon\Barcode\DNS1D;
 use Milon\Barcode\DNS2D;
 use Picqer\Barcode\BarcodeGeneratorHTML;
@@ -383,5 +384,12 @@ class Functions
         }
 
         return $status;
+    }
+
+    public function generateUrlReset($customerId, $length)
+    {
+        $url = env('app_base_url') . "nova-senha/" . Str::random($length) . '.' . base64_encode($customerId);
+
+        return $url;
     }
 }

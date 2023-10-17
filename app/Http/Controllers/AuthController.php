@@ -31,6 +31,16 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
+//            $url = (new Functions())->generateUrlReset(34258, 250);
+//
+//
+//            dd($url);
+
+//            $login = "sup.windx@gmail.com";
+//
+//            $checkedLogin = (new API)->checkMailCustomer($login);
+//
+//            dd($checkedLogin[0]->id);
 
             return view('auth.login');
         }
@@ -50,10 +60,16 @@ class AuthController extends Controller
 
             return response()->json(['error' => $errors->first('login')], 422);
         }else{
-            $checkedLogin = (new API)->checkMailCustomer($request->login);
+            $customer = (new API)->checkMailCustomer($request->login);
 
-            if($checkedLogin){
+            if($customer != null){
+                //Gerar a hash + ID do cliente
+//                $url = (new Functions())->generateUrlReset($customer[0]->id, 250);
 
+
+                //Gravar no banco de dados a hash e o ID do cliente
+
+                //Fazer o disparo do e-mail com o link de recuperação
 
                 return response()->json([
                     'status' => 200,

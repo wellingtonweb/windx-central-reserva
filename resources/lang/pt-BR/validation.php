@@ -200,7 +200,8 @@ return [
         'document' =>  'documento',
         'terminal_id' => 'id do terminal',
         'terminal_key' => 'chave do terminal',
-        'texto' => 'descrição'
+        'texto' => 'descrição',
+        'login' => 'login'
 //        'card_number' =>   'número do cartão',
 //        'expiration_year' => 'ano de expiração',
 //        'expiration_month' => 'mês de expiração',

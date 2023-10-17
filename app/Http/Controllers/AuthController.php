@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\UserInfo;
+use App\Http\Requests\CheckMailRequest;
 use App\Http\Requests\LogonRequest;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreTerminalRequest;
@@ -18,6 +19,8 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -40,36 +43,43 @@ class AuthController extends Controller
     public function checkMailCustomer(Request $request)
     {
 
-        $validated = $request->validate([
-            'login' => ['required', 'email:rfc,dns'],
-        ]);
+//        $validated = $request->validate([
+//            'login' => ['required', 'email:rfc,dns'],
+//        ]);
 
-//        dd($validated);
+//        $validate = $request->validated();
 
-        if($validated)
-        {
-//            $response = (new API())->customerLogon($validated);
-//            if()
-//            {
-//
-//            }
+        $validator = Validator::make($request->all(), ['login' => ['required', 'email:rfc,dns']]);
 
-//            return response()->json('Enviamos um link de recuperação de senha para seu e-mail de cadastro!');
+//        return response()->json(['message' => $request->login], 422);
+
+//        dd($validate);
+
+        if ($validator->fails()) {
+//            return response()->json(['message' => 'E-mail inválido!'], 422);
+            $errors = $validator->errors();
+            return response()->json(['error' => $errors->first('login')], 422);
+        }else{
             return response()->json([
                 'status' => 200,
                 'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
             ]);
 
-//            return response()->json('Email de cadastro válido!');
-//            dd($validatedData);
-        }else{
-            return response()->json([
-                'status' => 404,
-                'message' => "Email de cadastro inválido!",
-            ]);
-        }
+//            $checkedMail = API::checkMailCustomer($request->login);
 
-        return redirect()->route('central.login');
+//            if($checkedMail){
+//                return response()->json([
+//                    'status' => 200,
+//                    'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
+//                ]);
+//            }else{
+//                return response()->json(['message' => 'E-mail não cadastrado'], 422);
+//            }
+        }
+//        return response()->json(['message' => 'E-mail inválido'], 422);
+
+
+//        return redirect()->route('central.login');
     }
 
     public function resetSend(ResetPasswordRequest $request)

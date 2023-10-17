@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">
-                            <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Enviar</button>
+                            <button id="btn-send-mail" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Enviar</button>
                         </div>
                     </form>
                 </div>
@@ -141,6 +141,7 @@
         e.preventDefault();
         let formData = $(this).serializeArray()
         let url = "{{ route('central.login.check.mail') }}";
+        $('#btn-send-mail').text('Enviando...')
 
         await fetch(url, {
             method: "POST",
@@ -153,9 +154,7 @@
             .then((response) => response.json())
             .then((data) => {
                 if(!data.error){
-                    console.log("Success: ", data);
-
-                    let timerInterval
+                    $('#btn-send-mail').text('Enviar')
                     Swal.fire({
                         icon: 'success',
                         title: 'Enviado com sucesso!',
@@ -166,25 +165,39 @@
                             location.reload()
                         }
                     })
-
-                    // swal.fire(data.message)
+                    console.log(data)
                 }else{
-                    console.log("Error: ", data);
+                    $('#btn-send-mail').text('Enviar')
+                    console.log("Error: ", data.error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erro!',
+                        html: data.error,
+                        timer: 4000,
+                        timerProgressBar: false,
+                        willClose: () => {
+                            // $('#inputLoginReset').val('')
+                        }
+                    })
                 }
             })
             .catch((error) => {
-                console.error(error);
+                $('#btn-send-mail').text('Enviar')
+                // $.each()
+                console.dir(error);
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'E-mail inválido!',
+                //     html: error.message,
+                //     // html: 'Favor informar um e-mail válido!',
+                //     timer: 4000,
+                //     timerProgressBar: false,
+                //     willClose: () => {
+                //         $('#inputLoginReset').val('')
+                //     }
+                // })
             });
-
-        // console.log(response.json());
-
-
-        // console.log(data, data[1].value)
     })
-
-    {{--postData("{{ route('central.login.check.mail') }}", { answer: 42 }).then((data) => {--}}
-    {{--    console.log(data); // JSON data parsed by `data.json()` call--}}
-    {{--});--}}
 </script>
 
 

@@ -259,4 +259,20 @@ class API
 //        }
     }
 
+    public function checkMailCustomer($login){
+        $response = Http::accept('application/json')
+            ->retry(3, 100)
+            ->withToken($this->apiToken)
+            ->get($this->apiUrl . '/api/customer/reset-password', ['login' => $login]);
+
+        try {
+            return response()->json($response->object()->data);
+        } catch (HttpException $e) {
+            return response()->json([
+                'status' => 'error',
+                'error' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
 }

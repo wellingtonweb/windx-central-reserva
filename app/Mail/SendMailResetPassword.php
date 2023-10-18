@@ -29,11 +29,7 @@ class SendMailResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.reset', [
-            'customer_id' => $this->mailData->customer_id,
-            'customer_name' => $this->mailData->customer_name,
-            'customer_login' => $this->mailData->customer_login,
-            'url' => $this->mailData->url,
-        ])->subject('Windx Telecomunicações - Notificação de redefinição de senha');
+        return $this->markdown('emails.reset', $this->mailData)
+            ->subject('Windx Telecomunicações - Notificação de redefinição de senha');
     }
 }

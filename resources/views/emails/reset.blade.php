@@ -1,7 +1,5 @@
 @component('mail::message')
 
-{{ $data['body'] }}
-
 <p>Olá, <b>{{ $customer_name }}</b>, você está recebendo este e-mail porque recebemos uma solicitação de redefinição de senha para sua conta da Central do Assinante Windx.</p>
 
 @component('mail::button', ['url' => $url])

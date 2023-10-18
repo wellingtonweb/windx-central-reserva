@@ -169,21 +169,12 @@
                     console.log(data)
                 }else{
                     $('#btn-send-mail').text('Enviar')
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: data.error,
-                    //     // timer: 4000,
-                    //     // timerProgressBar: false,
-                    //     showConfirmButton: false,
-                    // })
-
                     Swal.fire({
                         title: data.error,
                         text: data.message,
                         icon: 'warning',
                         confirmButtonColor: '#208637',
                         confirmButtonText: 'Central de Atendimento',
-                        // cancelButtonColor: '#d33',
                         showCloseButton: true,
                         willClose: () => {
                             window.location.reload()

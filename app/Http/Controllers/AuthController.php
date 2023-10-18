@@ -92,7 +92,7 @@ class AuthController extends Controller
                     'customer_id' => $customer[0]->id,
                     'customer_name' => $customer[0]->nome,
                     'customer_login' => $customer[0]->login,
-                    'url' => env('app_base_url') . "nova-senha/" . Str::random(200) . '-' . base64_encode($customer[0]->login)
+                    'url' => env('app_base_url') . "nova-senha/" . $token
                 ];
 
                 //Gravar no banco de dados o token e o login do cliente

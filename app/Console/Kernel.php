@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('send:pdf-coupon')->everyMinute();
+//         $schedule->command('send:pdf-coupon')->everyMinute();
+        $schedule->command('clear:expired-records')->everyMinute();
+
 //         $schedule->command('backup:clean')->daily()->at('01:00');
 //         $schedule->command('backup:run')->daily()->at('9:02');
     }

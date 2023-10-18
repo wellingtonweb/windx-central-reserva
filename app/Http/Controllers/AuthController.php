@@ -64,7 +64,7 @@ class AuthController extends Controller
         $response = (new Functions())->checkTokenReset($tokenUrl);
 
         if(!$response){
-            abort(401);
+            abort(406);
         }
 
         session()->put('token_reset_password', $tokenUrl);
@@ -85,15 +85,8 @@ class AuthController extends Controller
             $customer = (new API)->checkMailCustomer($request->login);
 
             if($customer != null){
-                //Gerar o token + ID do cliente
+                //Gerar o token + login do cliente
                 $token = (new Functions())->generateTokenUrl($customer[0]->login);
-
-                $customerData = [
-                    'customer_id' => $customer[0]->id,
-                    'customer_name' => $customer[0]->nome,
-                    'customer_login' => $customer[0]->login,
-                    'url' => env('app_base_url') . "nova-senha/" . $token
-                ];
 
                 //Gravar no banco de dados o token e o login do cliente
                 DB::table('password_resets')->insert([
@@ -101,15 +94,13 @@ class AuthController extends Controller
                     'token' => $token,
                     'created_at' => date("Y-m-d H:i:s")
                 ]);
-//                $customer[0]->id
-//                $customer[0]->login
-//                $customer_name = explode(' ', $customer[0]->nome)[0]
 
-//                $token = (new Functions())->generateTokenUrl($customer[0]->login, 250);
-//                $url = (new Functions())->generateUrlReset($customer[0]->id, 250);
-
-
-
+                $customerData = [
+                    'customer_id' => $customer[0]->id,
+                    'customer_name' => $customer[0]->nome,
+                    'customer_login' => $customer[0]->login,
+                    'url' => env('app_base_url') . "nova-senha/" . $token
+                ];
 
                 //Fazer o disparo do e-mail com o link de recuperação
                 SendMailResetPasswordJob::dispatch($customerData);

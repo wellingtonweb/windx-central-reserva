@@ -28,11 +28,11 @@
                             @csrf
 
                             @if ($errors->has('login') || $errors->has('password') || session('error'))
-                                <p class="card-text text-danger pb-1">Verifique os dados informados!</p>
+                                <p class="card-text text-danger font-weight-bold pb-1">Verifique os dados informados!</p>
                             @else
                                 <p class="card-text text-black-50 pb-1">Preencha seus dados de acesso!</p>
                             @endif
-                            <div class="input-group mb-3 {{ $errors->has('login') ? 'is-error' : '' }}">
+                            <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
@@ -42,8 +42,12 @@
                                        {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
                                        placeholder="{{ $errors->has('login') ? 'O login é obrigatório' : 'Seu login' }}"
                                        aria-label="Login" aria-describedby="login">
+
                             </div>
-                            <div class="input-group mb-3 {{ $errors->has('password') ? 'is-error' : '' }}">
+                            @error('login')
+                            <small class="text-danger mt-3">{{$errors->first('login')}}</small>
+                            @enderror
+                            <div class="input-group mt-3 {{ $errors->has('password') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
@@ -53,9 +57,15 @@
                                        {{--                                    @error('password') is-invalid @enderror" value="{{old('password')}}"--}}
                                        name="password"  placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Sua senha' }}" aria-label="Password"
                                        aria-describedby="password">
+
                             </div>
-                            <div class="text-right">
-                                <a href="#" class="card-link text-muted open_reset_password">Esqueceu a senha?</a>
+{{--                            <div class="input-group mb-3" style="background-color: transparent; border: none">--}}
+                            @error('password')
+                            <small class="text-danger mt-3">{{$errors->first('password')}}</small>
+                            @enderror
+{{--                            </div>--}}
+                            <div class="text-right mt-3">
+                                <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">

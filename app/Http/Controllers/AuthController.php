@@ -163,6 +163,12 @@ class AuthController extends Controller
 //        if(!session()->has('customer')){
             $validated = $request->validated();
 
+        dd($validated->fails());
+        if(!$validated){
+            dd($validated);
+        }
+
+
 //            dd($validated['document']);
 
 //        if ($validated['document'] != '097.781.357-62')
@@ -177,6 +183,8 @@ class AuthController extends Controller
             if (!$validated)
             {
                 Logger::log($request->login,'error','Login inválido!');
+
+                dd($validated);
 
                 return redirect()->back()->withInput()->withErrors($validated);
             }

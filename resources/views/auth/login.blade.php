@@ -169,12 +169,29 @@
                     console.log(data)
                 }else{
                     $('#btn-send-mail').text('Enviar')
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: data.error,
+                    //     // timer: 4000,
+                    //     // timerProgressBar: false,
+                    //     showConfirmButton: false,
+                    // })
+
                     Swal.fire({
-                        icon: 'error',
                         title: data.error,
-                        timer: 4000,
-                        timerProgressBar: false,
-                        showConfirmButton: false,
+                        text: data.message,
+                        icon: 'warning',
+                        confirmButtonColor: '#208637',
+                        confirmButtonText: 'Central de Atendimento',
+                        // cancelButtonColor: '#d33',
+                        showCloseButton: true,
+                        willClose: () => {
+                            window.location.reload()
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                        }
                     })
                 }
             })

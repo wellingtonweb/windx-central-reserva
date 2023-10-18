@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Validator;
@@ -86,6 +87,14 @@ class AuthController extends Controller
             if($customer != null){
                 //Gerar o token + ID do cliente
                 $token = (new Functions())->generateTokenUrl($customer[0]->login);
+
+                $customerData = [
+                    'customer_id' => $customer[0]->id,
+                    'customer_name' => $customer[0]->nome,
+                    'customer_login' => $customer[0]->login,
+                    'url' => env('app_base_url') . "nova-senha/" . Str::random(200) . '-' . base64_encode($customer[0]->login)
+                ];
+
                 //Gravar no banco de dados o token e o login do cliente
                 DB::table('password_resets')->insert([
                     'email' => $customer[0]->login,
@@ -103,14 +112,18 @@ class AuthController extends Controller
 
 
                 //Fazer o disparo do e-mail com o link de recuperação
-//                SendMailResetPasswordJob::dispatch();
+                SendMailResetPasswordJob::dispatch($customerData);
 
                 return response()->json([
                     'status' => 200,
                     'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
                 ]);
             }else{
-                return response()->json(['error' => 'Login não cadastrado'], 404);
+                return response()->json([
+                    'error' => "Login não cadastrado!",
+                    'message' => "Solicite seu cadastro em nossa Central de Atendimento.",
+
+                ], 404);
             }
         }
     }
@@ -120,11 +133,11 @@ class AuthController extends Controller
 
         $tokenReset = session('token_reset_password');
 
+        Session::forget('token_reset_password');
+
         DB::table('password_resets')
             ->where('token', $tokenReset)
             ->delete();
-
-        $request->session()->forget('token_reset_password');
 
         dd($request->all(), session('token_reset_password'));
 

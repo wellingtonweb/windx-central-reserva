@@ -67,7 +67,7 @@ class AuthController extends Controller
             abort(406);
         }
 
-        session()->put('token_reset_password', $tokenUrl);
+        session()->put('password_reset.token', $tokenUrl);
 
         //Se token for válido no BD
         return view('auth.reset');
@@ -87,6 +87,8 @@ class AuthController extends Controller
             if($customer != null){
                 //Gerar o token + login do cliente
                 $token = (new Functions())->generateTokenUrl($customer[0]->login);
+
+                $request->session()->put('password_reset.customer_id', $customer[0]->id);
 
                 //Gravar no banco de dados o token e o login do cliente
                 DB::table('password_resets')->insert([
@@ -113,7 +115,6 @@ class AuthController extends Controller
                 return response()->json([
                     'error' => "Login não cadastrado!",
                     'message' => "Solicite seu cadastro em nossa Central de Atendimento.",
-
                 ], 404);
             }
         }
@@ -122,37 +123,36 @@ class AuthController extends Controller
     public function resetSend(ResetPasswordRequest $request)
     {
 
-        $tokenReset = session('token_reset_password');
-
-        Session::forget('token_reset_password');
-
-        DB::table('password_resets')
-            ->where('token', $tokenReset)
-            ->delete();
-
-        dd($request->all(), session('token_reset_password'));
-
+        $reset_session = session('password_reset');
         $validated = $request->validated();
 
-//        $faker = Factory::create();
+        if($validated){
+            //$string = Str::random(250);
+//            dd($reset_session, $request['password']);
 
-        $string = '1234@Wdx';
-//        $string = Str::random(250);
-        $codificada = base64_encode($string);
-        echo "Resultado da codificação usando base64: " . $codificada;
-        // TyByYXRvIHJldSBhIHJvcGEgZG8gcmVpIGRlIFJvbWE=
-        $original = base64_decode($codificada);
-        echo "Resultado da decodificação usando base64: " . $original;
-        // O rato reu a ropa do rei de Roma
+            $response = (new API)
+                ->updatePasswordCustomer([
+                    'customer_id' => $reset_session['customer_id'],
+                    'customer_password' => base64_encode($request['password'])
+                ]);
 
-        dd($string, $codificada, $original);
-
-
-//        if(){
+            if($response){
+//                DB::table('password_resets')
+//                    ->where('token', $reset_session['token'])
+//                    ->delete();
 //
-//        }
+//                $request->session()->forget('password_reset');
 
-        return redirect()->route('central.login');
+//                dd('Funcionou');
+
+                return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
+
+            }
+
+//            dd($request->all(), session('password_reset'), $tokenReset, $validated);
+        }
+
+        return redirect()->route('central.login')->with('error', 'Deu erro!');
     }
 
     public function logon(LogonRequest $request)
@@ -183,6 +183,8 @@ class AuthController extends Controller
             else
             {
                 $response = (new API())->customerLogon($validated);
+
+                dd($response);
 
                 if($response->object() == false){
                     return redirect()->back()->withInput()->with('error', 'Não existe cadastro com o documento informado!');

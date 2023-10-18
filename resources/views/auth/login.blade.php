@@ -38,7 +38,7 @@
                                 </div>
                                 <input id="inputLogin" type="text" class="form-control inputs-login
 
-                                @error('login') is-invalid @enderror" value="123wdf" name="login"
+                                @error('login') is-invalid @enderror" value="sup.windx@gmail.com" name="login"
                                        {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
                                        placeholder="{{ $errors->has('login') ? 'O login é obrigatório' : 'Seu login' }}"
                                        aria-label="Login" aria-describedby="login">
@@ -62,7 +62,7 @@
                             <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Entrar</button>
                         </div>
                     </form>
-                    <form id="form_reset_password" method="POST" action="{{ Route('central.login.check.mail') }}">
+                    <form style="display: none" id="form_reset_password" method="POST" action="{{ Route('central.login.check.mail') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                             <h3 style="font-size: 1.5rem; color: #002046;">Lembrar senha</h3>
@@ -84,7 +84,7 @@
                                 </div>
                                 <input id="inputLoginReset" type="text" class="form-control inputs-login
 
-                                @error('login') is-invalid @enderror" value="supwindx@gmail.com" name="login"
+                                @error('login') is-invalid @enderror" value="sup.windx@gmail.com" name="login"
                                        {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
                                        placeholder="{{ $errors->has('login') ? 'O login é obrigatório' : 'Seu login' }}"
                                        aria-label="Login" aria-describedby="login">
@@ -108,7 +108,6 @@
 @section('js')
 {{--    <script type="text/javascript" src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>--}}
 <script>
-    $('#form_reset_password').hide();
     $('.open_reset_password').click(function() {
         $('#form_login').fadeOut().hide();
         $('#form_reset_password').fadeIn(300).show();
@@ -116,26 +115,8 @@
 
     $('.close_reset_password').click(function() {
         $('#form_reset_password').fadeOut().hide();
-        $('#form_login').fadeIn(300).show();
+        $('#form_login').fadeIn(200).show();
     });
-
-    // async function postData(url = "", data = {}) {
-    //     // Default options are marked with *
-    //     const response = await fetch(url, {
-    //         method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //         mode: "cors", // no-cors, *cors, same-origin
-    //         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-    //         credentials: "same-origin", // include, *same-origin, omit
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             // 'Content-Type': 'application/x-www-form-urlencoded',
-    //         },
-    //         redirect: "follow", // manual, *follow, error
-    //         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    //         body: JSON.stringify(data), // body data type must match "Content-Type" header
-    //     });
-    //     return response.json(); // parses JSON response into native JavaScript objects
-    // }
 
     $('#form_reset_password').submit(async function (e){
         e.preventDefault();
@@ -166,7 +147,6 @@
                             location.reload()
                         }
                     })
-                    console.log(data)
                 }else{
                     $('#btn-send-mail').text('Enviar')
                     Swal.fire({
@@ -188,26 +168,18 @@
             })
             .catch((error) => {
                 $('#btn-send-mail').text('Enviar')
-                // $.each()
-                console.dir(error);
-                // Swal.fire({
-                //     icon: 'error',
-                //     title: 'E-mail inválido!',
-                //     html: error.message,
-                //     // html: 'Favor informar um e-mail válido!',
-                //     timer: 4000,
-                //     timerProgressBar: false,
-                //     willClose: () => {
-                //         $('#inputLoginReset').val('')
-                //     }
-                // })
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops!',
+                    html: error.message,
+                    willClose: () => {
+                        $('#inputLoginReset').val('')
+                    }
+                })
             });
     })
 </script>
 
-
-
-{{--    <script defer type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>--}}
     @if ($errors->has('document'))
         <script>
             let message = `{{$errors->first('document')}}`;
@@ -226,6 +198,15 @@
                 title: 'Erro '+400+'!',
                 text: session,
                 timer: 7000
+            });
+        </script>
+    @elseif(session('success'))
+        <script>
+            let session = `{{session('success')}}`;
+            Swal.fire({
+                icon: 'success',
+                title: session,
+                timer: 5000
             });
         </script>
     @endif

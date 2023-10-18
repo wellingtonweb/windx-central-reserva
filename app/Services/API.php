@@ -61,7 +61,7 @@ class API
                 ->withToken($this->apiToken)
                 ->post($this->apiUrl . '/api/customer/central/login', [
                     'login' => $validate['login'],
-                    'password' => $validate['password']
+                    'password' => base64_encode($validate['password'])
                 ]);
 //                return $response;
 //            dd($response->body());
@@ -275,6 +275,20 @@ class API
 //                'error' => $e->getMessage(),
 //            ], 400);
 //        }
+    }
+
+    public function updatePasswordCustomer($customer)
+    {
+        if(!empty($customer)){
+            $response = Http::accept('application/json')
+                ->retry(3, 100)
+                ->withToken($this->apiToken)
+                ->post($this->apiUrl . '/api/customer/reset-password', $customer);
+
+            return $response;
+        }
+
+        return false;
     }
 
 }

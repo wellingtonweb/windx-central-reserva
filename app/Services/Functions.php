@@ -404,11 +404,6 @@ class Functions
             ->where('token', $tokenUrl)
             ->exists();
 
-        //Se existir e a hora for maior que 60 min, será excluido
-//        DB::table('password_resets')
-//            ->where('token', $tokenUrl)
-//            ->delete();
-
         if($validatedToken){
             return true;
         }

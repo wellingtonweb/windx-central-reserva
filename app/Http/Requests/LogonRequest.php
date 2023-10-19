@@ -24,7 +24,6 @@ class LogonRequest extends FormRequest
     public function rules()
     {
         return [
-//            'document' => ['required','string','min:14','max:18','cpf_cnpj']
             'login' => ['required','email:rfc,dns'],
             'password' => ['required','min:8']
         ];

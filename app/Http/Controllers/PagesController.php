@@ -11,6 +11,7 @@ use App\Services\ApiConnect;
 use App\Services\API;
 use App\Helpers\WorkingDays;
 use App\Services\Functions;
+use App\Services\Validations;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -20,6 +21,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PagesController extends Controller
 {
+
+    public function __construct(){
+        $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
+
+        $hourBackup = Validations::checkHourBackupVigo($array);
+        if ($hourBackup) {
+            abort(423);
+        }
+    }
 
     public function home()
     {

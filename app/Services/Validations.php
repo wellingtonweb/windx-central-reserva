@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Services\API;
 use App\Services\Logger;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
@@ -53,5 +54,24 @@ class Validations
         } else {
             return false;
         }
+    }
+
+
+    public function checkHourBackupVigo($schedulesVigo)
+    {
+        date_default_timezone_set('America/Sao_Paulo');
+
+        $now = Carbon::now();
+
+        foreach ($schedulesVigo as $schedule) {
+            $scheduleInit = Carbon::createFromFormat('H:i', trim($schedule));
+            $scheduleLimit = Carbon::createFromFormat('H:i', trim($schedule))->addMinutes(15);
+
+            if ($now->between($scheduleInit, $scheduleLimit)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

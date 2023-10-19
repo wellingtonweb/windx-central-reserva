@@ -37,22 +37,6 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
-
-
-            //Gravar no banco de dados o token e o login do cliente
-
-
-//            $url = (new Functions())->generateTokenUrl("sup.windx@gmail.com", 250);
-//
-//
-//            dd($url, base64_decode('c3VwLndpbmR4QGdtYWlsLmNvbQ=='));
-
-//            $login = "sup.windx@gmail.com";
-//
-//            $checkedLogin = (new API)->checkMailCustomer($login);
-//
-//            dd($checkedLogin[0]->id);
-
             return view('auth.login');
         }
     }
@@ -91,26 +75,26 @@ class AuthController extends Controller
                 $request->session()->put('password_reset.customer_id', $customer[0]->id);
 
                 //Gravar no banco de dados o token e o login do cliente
-//                DB::table('password_resets')->insert([
-//                    'email' => $customer[0]->login,
-//                    'token' => $token,
-//                    'created_at' => date("Y-m-d H:i:s")
-//                ]);
-//
-//                $customerData = [
-//                    'customer_id' => $customer[0]->id,
-//                    'customer_name' => $customer[0]->nome,
-//                    'customer_login' => $customer[0]->login,
-//                    'url' => env('app_base_url') . "nova-senha/" . $token
-//                ];
+                DB::table('password_resets')->insert([
+                    'email' => $customer[0]->login,
+                    'token' => $token,
+                    'created_at' => date("Y-m-d H:i:s")
+                ]);
+
+                $customerData = [
+                    'customer_id' => $customer[0]->id,
+                    'customer_name' => $customer[0]->nome,
+                    'customer_login' => $customer[0]->login,
+                    'url' => env('app_base_url') . "nova-senha/" . $token
+                ];
 
                 //Fazer o disparo do e-mail com o link de recuperação
-//                SendMailResetPasswordJob::dispatch($customerData);
+                SendMailResetPasswordJob::dispatch($customerData);
 
                 return response()->json([
                     'status' => 200,
                     'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
-                ]);
+                ], 200);
             }else{
                 return response()->json([
                     'error' => "Login não cadastrado!",
@@ -136,12 +120,12 @@ class AuthController extends Controller
                     'customer_password' => base64_encode($request['password'])
                 ]);
 
-            if($response){
-//                DB::table('password_resets')
-//                    ->where('token', $reset_session['token'])
-//                    ->delete();
-//
-//                $request->session()->forget('password_reset');
+            if($response->successful()){
+                DB::table('password_resets')
+                    ->where('token', $reset_session['token'])
+                    ->delete();
+
+                $request->session()->forget('password_reset');
 
 //                dd('Funcionou');
 

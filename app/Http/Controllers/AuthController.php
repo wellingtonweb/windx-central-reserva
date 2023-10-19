@@ -162,36 +162,29 @@ class AuthController extends Controller
             'password' => ['required','min:8']
         ]);
 
-//        return response()->json(['message' => $validator->validate()], 200);
-
         if ($validator->fails()) {
             $errors = $validator->errors();
 
             return response()->json(['error' => $errors], 422);
-//            return response()->json(['error' => $errors->first('login')], 422);
         }else{
             $response = (new API())->customerLogon($validator->validate());
 
-            if($response->object() == false){
-                return response()->json(['error' => 'Não existe cadastro com o login informado!'], 404);
+//            return response()->json(['error' => $response->body()], 404);
+
+            if($response == null){
+                return response()->json(['null' => 'Não existe cadastro com o login informado!'], 404);
             }
 
-            if($response->ok())
+            if($response->successful())
             {
-
                 session()->put('customer', $response->object());
 
                 CustomerLog::create(UserInfo::get_customer_metadata());
 
-                return response()->json(['message' => 'Usuário logado!'], 200);
+                return response()->json(['message' => 'authorized'], 200);
 
             }
-
-
-//        return redirect()->route('central.home')->with('message', 'oi');
-//            return response()->json(['message' => 'Chegou'], 200);
         }
-
     }
 
     public function logout()

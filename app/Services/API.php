@@ -54,8 +54,6 @@ class API
 
     public function customerLogon($validate)
     {
-
-//        dd($validate);
         if($validate){
             $response = Http::accept('application/json')
 //                ->retry(3, 100)
@@ -64,19 +62,15 @@ class API
                     'login' => $validate['login'],
                     'password' => base64_encode($validate['password'])
                 ]);
-//                return $response;
-//            dd($response->body());
-//                return $response->object();
 
             if($response->successful()){
                 return $response;
             }else{
-                return $response->throw();
+                return null;
             }
         }
 
         return null;
-
     }
 
     public function getCustomer($customer_id)

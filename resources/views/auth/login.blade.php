@@ -132,9 +132,7 @@
         e.preventDefault();
         let formData = $(this).serializeArray()
         let url = "{{ route('central.logon') }}";
-        $('#btn-login').text('Entrando...')
-
-        console.log(formData)
+        $('#btn-login').text('Verificando...')
 
         await fetch(url, {
             method: "POST",
@@ -149,7 +147,8 @@
         })
             .then((response) => response.json())
             .then((data) => {
-                if(!data.error){
+                if(data.message == 'authorized'){
+                    $(this)[0].reset();
                     $('#btn-login').text('Entrar')
                     $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUp')
                     location.href = `{{ route('central.home') }}`;
@@ -164,11 +163,11 @@
                     if(data.error.password){
                         $('small.password_error').text(data.error.password)
                     }
-                    $('.form-signin').removeClass('animate__shakeX').addClass('animate__fadeInUp')
+                    // $('.form-signin').removeClass('animate__shakeX').addClass('animate__fadeInUp')
 
-                    if(data.error){
+                    if(data.null){
                         Swal.fire({
-                            title: data.error,
+                            title: data.null,
                             icon: 'error',
                             timer: 4000,
                             timerProgressBar: false,
@@ -180,11 +179,18 @@
             .catch((error) => {
                 $('#btn-login').text('Entrar')
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Ops!',
-                    html: error.message,
+                    title: 'Ops, login não cadastrado!',
+                    text: 'Solicite seu cadastro em nossa Central de Atendimento.',
+                    icon: 'warning',
+                    confirmButtonColor: '#208637',
+                    confirmButtonText: 'Central de Atendimento',
+                    showCloseButton: true,
                     willClose: () => {
-                        $('#inputLoginReset').val('')
+                        $(this)[0].reset();
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
                     }
                 })
             });

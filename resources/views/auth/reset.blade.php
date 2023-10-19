@@ -16,7 +16,7 @@
                 <div class="card-logon p-2">
                     <div class="card form-signin p-4" style="border-radius: 1rem">
                         <form id="form_reset_password" method="POST" class="d-none_"
-                              action="{{ Route('central.login.reset.send') }}">
+                              action="{{ Route('central.reset.password') }}">
                             <div class="card-header font-weight-bold" style="padding-top: 0">
                                 <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                                 <h3 style="font-size: 1.5rem; color: #002046;">Nova senha</h3>

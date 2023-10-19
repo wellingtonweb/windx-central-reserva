@@ -104,9 +104,19 @@ class AuthController extends Controller
         }
     }
 
-    public function resetSend(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request)
     {
+        $reset_session = session('password_reset');
+
         if(session()->has('password_reset')){
+            if(empty($reset_session['customer_id'])){
+                DB::table('password_resets')
+                    ->where('token', $reset_session['token'])
+                    ->delete();
+
+                abort(406);
+            }
+
             $reset_session = session('password_reset');
             $validated = $request->validated();
 

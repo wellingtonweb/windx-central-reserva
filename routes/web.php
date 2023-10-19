@@ -29,8 +29,8 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/nova-senha/{forget}', [AuthController::class, 'reset'])->name('login.reset');
-    Route::post('check-mail-customer', [AuthController::class, 'checkMailCustomer'])->name('login.check.mail');
+    Route::get('/nova-senha/{token}', [AuthController::class, 'reset'])->name('login.reset');
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot.password');
     Route::post('reset', [AuthController::class, 'resetSend'])->name('login.reset.send');
 
     Route::middleware(['check.user'])->group(function () {
@@ -53,7 +53,6 @@ Route::prefix('assinante')->name('central.')->group(function(){
         Route::get('/coupons', [PagesController::class, 'coupons'])->name('coupons');
         Route::get('/tokencielo', [PagesController::class, 'tokencielo'])->name('tkcielo');
 
-
         /* Payment Routes */
         Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
         Route::get('/callback/{id}', [PaymentController::class, 'callbackCheckout'])->name('callback');
@@ -68,6 +67,6 @@ Route::prefix('assinante')->name('central.')->group(function(){
         Route::get('/check/{billetId}', [PagesController::class, 'check'])->name('check');
         Route::post('/contrato/liberar', [PagesController::class, 'release'])->name('release');
 
-        Route::get('paginate', [NotificationController::class, 'index']);
+//        Route::get('paginate', [NotificationController::class, 'index']);
     });
 });

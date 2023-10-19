@@ -19,10 +19,6 @@
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                             <h3 style="font-size: 1.5rem; color: #002046;">Login</h3>
-{{--                            <p style="font-size: 2rem; color: #002046;">Central do Assinante</p>--}}
-{{--                            <p style="font-size: 1.2rem; color: #002046;"></p>Login<br>--}}
-{{--                            PHP: {{ phpversion() }}<br>--}}
-{{--                            Laravel: {{ app()->version() }}--}}
                         </div>
                         <div class="card-body">
                             @csrf
@@ -31,26 +27,17 @@
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputLogin" type="text" class="form-control inputs-login
-
-                                @error('login') is-invalid @enderror" value="sup.windx@gmail.com" name="login"
-                                       {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
-                                       placeholder="{{ $errors->has('login') ? 'O login é obrigatório' : 'Seu login' }}"
+                                <input id="inputLogin" type="text" class="form-control inputs-login" name="login"
+                                       placeholder="Seu login"
                                        aria-label="Login" aria-describedby="login">
-
                             </div>
                             <small class="text-danger mt-3 login_error"></small>
-                            <div class="input-group mt-3 {{ $errors->has('password') ? 'is-error' : '' }}">
+                            <div class="input-group mt-3">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputPassword" type="password" class="form-control inputs-login
-
-                                @error('password') is-invalid @enderror" value="Wdx@1234567890"
-                                       {{--                                    @error('password') is-invalid @enderror" value="{{old('password')}}"--}}
-                                       name="password"  placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Sua senha' }}" aria-label="Password"
+                                <input id="inputPassword" type="password" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
                                        aria-describedby="password">
-
                             </div>
                             <small class="text-danger mt-3 password_error"></small>
                             <div class="text-right mt-3">
@@ -61,25 +48,23 @@
                             <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Entrar</button>
                         </div>
                     </form>
-                    <form style="display: none" id="form_reset_password" method="POST" action="{{ Route('central.login.check.mail') }}">
+                    <form style="display: none" id="form_reset_password" method="POST" action="{{ Route('central.forgot.password') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                             <h3 style="font-size: 1.5rem; color: #002046;">Lembrar senha</h3>
                         </div>
                         <div class="card-body">
                             @csrf
-                            <p class="card-text text-black-50 pb-1">Preencha seu e-mail de cadastro<br> e enviaremos um link <br>para gerar sua nova senha!</p>
+                            <p class="card-text text-black-50 pb-1">
+                                Preencha seu e-mail de cadastro<br>
+                                e lhe enviaremos um link <br>para gerar sua nova senha!
+                            </p>
                             <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputLoginReset" type="text" class="form-control inputs-login
-
-                                @error('login') is-invalid @enderror" name="login"
-                                       {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
-                                       placeholder="{{ $errors->has('login') ? 'O login é obrigatório' : 'Seu login' }}"
-                                       aria-label="Login" aria-describedby="login">
-
+                                <input id="inputLoginReset" type="text" class="form-control inputs-login"
+                                       name="login" placeholder="Seu login" aria-label="Login" aria-describedby="login">
                             </div>
                             <small class="text-danger mt-3 login_reset_error"></small>
                             <div class="text-right mt-3">
@@ -98,7 +83,6 @@
 @endsection
 
 @section('js')
-{{--    <script type="text/javascript" src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>--}}
 <script>
     $('.open_reset_password').click(function() {
         $('#form_login').fadeOut().hide();
@@ -147,7 +131,6 @@
                     if(data.error.password){
                         $('small.password_error').text(data.error.password)
                     }
-                    // $('.form-signin').removeClass('animate__shakeX').addClass('animate__fadeInUp')
 
                     if(data.null){
                         Swal.fire({
@@ -184,7 +167,7 @@
     $('#form_reset_password').submit(async function (e){
         e.preventDefault();
         let formData = $(this).serializeArray()
-        let url = "{{ route('central.login.check.mail') }}";
+        let url = "{{ route('central.forgot.password') }}";
         $('#btn-send-mail').text('Enviando...')
 
         await fetch(url, {

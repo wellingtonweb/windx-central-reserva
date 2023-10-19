@@ -57,7 +57,7 @@ class AuthController extends Controller
         return view('auth.reset');
     }
 
-    public function checkMailCustomer(Request $request)
+    public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), ['login' => ['required', 'email:rfc,dns']]);
 
@@ -106,37 +106,39 @@ class AuthController extends Controller
 
     public function resetSend(ResetPasswordRequest $request)
     {
+        if(session()->has('password_reset')){
+            $reset_session = session('password_reset');
+            $validated = $request->validated();
 
-        $reset_session = session('password_reset');
-        $validated = $request->validated();
-
-        if($validated){
-            //$string = Str::random(250);
+            if($validated){
+                //$string = Str::random(250);
 //            dd($reset_session, $request['password']);
 
-            $response = (new API)
-                ->updatePasswordCustomer([
-                    'customer_id' => $reset_session['customer_id'],
-                    'customer_password' => base64_encode($request['password'])
-                ]);
+                $response = (new API)
+                    ->updatePasswordCustomer([
+                        'customer_id' => $reset_session['customer_id'],
+                        'customer_password' => base64_encode($request['password'])
+                    ]);
 
-            if($response->successful()){
-                DB::table('password_resets')
-                    ->where('token', $reset_session['token'])
-                    ->delete();
+                if($response->successful()){
+                    DB::table('password_resets')
+                        ->where('token', $reset_session['token'])
+                        ->delete();
 
-                $request->session()->forget('password_reset');
+                    $request->session()->forget('password_reset');
 
 //                dd('Funcionou');
 
-                return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
+                    return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
 
-            }
+                }
 
 //            dd($request->all(), session('password_reset'), $tokenReset, $validated);
+            }
+        }else{
+            abort(406);
         }
-
-        return redirect()->route('central.login')->with('error', 'Erro!');
+//        return redirect()->route('central.login')->with('error', 'Erro!');
     }
 
     public function logon(Request $request)

@@ -257,6 +257,10 @@
             show.classList.toggle("fa-eye-slash");
         }
 
+        $('#btn-save').click(function (){
+           $(this).text('Salvando...')
+        });
+
         function checkStrength() {
             let password = inputPassword.value
             let strength = 0;

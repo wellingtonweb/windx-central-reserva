@@ -56,6 +56,7 @@ class API
     {
 
 //        dd($validate);
+        if($validate){
             $response = Http::accept('application/json')
 //                ->retry(3, 100)
                 ->withToken($this->apiToken)
@@ -67,11 +68,15 @@ class API
 //            dd($response->body());
 //                return $response->object();
 
-        if($response->successful()){
-            return $response;
-        }else{
-            return $response->throw();
+            if($response->successful()){
+                return $response;
+            }else{
+                return $response->throw();
+            }
         }
+
+        return null;
+
     }
 
     public function getCustomer($customer_id)

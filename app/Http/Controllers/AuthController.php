@@ -155,76 +155,43 @@ class AuthController extends Controller
         return redirect()->route('central.login')->with('error', 'Deu erro!');
     }
 
-    public function logon(LogonRequest $request)
+    public function logon(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'login' => ['required', 'email:rfc,dns'],
+            'password' => ['required','min:8']
+        ]);
 
-//        Functions::checkApp(getenv('API_URL_VIGO_PROD'));
+//        return response()->json(['message' => $validator->validate()], 200);
 
-//        if(!session()->has('customer')){
-            $validated = $request->validated();
+        if ($validator->fails()) {
+            $errors = $validator->errors();
 
-        dd($validated->fails());
-        if(!$validated){
-            dd($validated);
+            return response()->json(['error' => $errors], 422);
+//            return response()->json(['error' => $errors->first('login')], 422);
+        }else{
+            $response = (new API())->customerLogon($validator->validate());
+
+            if($response->object() == false){
+                return response()->json(['error' => 'Não existe cadastro com o login informado!'], 404);
+            }
+
+            if($response->ok())
+            {
+
+                session()->put('customer', $response->object());
+
+                CustomerLog::create(UserInfo::get_customer_metadata());
+
+                return response()->json(['message' => 'Usuário logado!'], 200);
+
+            }
+
+
+//        return redirect()->route('central.home')->with('message', 'oi');
+//            return response()->json(['message' => 'Chegou'], 200);
         }
 
-
-//            dd($validated['document']);
-
-//        if ($validated['document'] != '097.781.357-62')
-//        {
-////            Logger::log($request->login,'error','Documento não autorizado!');
-//
-//            Log::alert("Erro - Documento não autorizado : {$request->login}");
-//
-//            return redirect()->back()->withInput()->with('error','Documento não autorizado!');
-//        }
-
-            if (!$validated)
-            {
-                Logger::log($request->login,'error','Login inválido!');
-
-                dd($validated);
-
-                return redirect()->back()->withInput()->withErrors($validated);
-            }
-            else
-            {
-                $response = (new API())->customerLogon($validated);
-
-                dd($response);
-
-                if($response->object() == false){
-                    return redirect()->back()->withInput()->with('error', 'Não existe cadastro com o documento informado!');
-                }
-
-                if($response->ok())
-                {
-
-                    session()->put('customer', $response->object());
-
-                    CustomerLog::create(UserInfo::get_customer_metadata());
-
-                    return redirect()->route('central.home');
-//                    return redirect('/assinante/contrato/' . $response->object()->id);
-
-                }
-                else
-                {
-//                    Logger::log($request->login,'error','Login ou senha inválidos.');
-
-                    return redirect()->back()->withInput()->with('error', 'Documento inválido!');
-//                    return response()->json([
-//                        'status' => 'error',
-//                        'error' => 'Não foi possível fazer logon!',
-//                    ], 400);
-                }
-            }
-
-
-//        }else{
-//            redirect()->route('terminal.home');
-//        }
     }
 
     public function logout()

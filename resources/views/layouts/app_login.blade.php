@@ -19,9 +19,9 @@
 <body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
 <div class="bg-body-backdrop"></div>
 <div class="full-screen-backdrop"></div>
-<div class="loading">
-    <img src="{{ asset('assets/img/loading.svg') }}" alt="Carregando...">
-</div>
+{{--<div class="loading">--}}
+{{--    <img src="{{ asset('assets/img/loading.svg') }}" alt="Carregando...">--}}
+{{--</div>--}}
 <div class="loading- d-none">
     <div class="loader animate__animated animate__fadeInUp">
         <h2>

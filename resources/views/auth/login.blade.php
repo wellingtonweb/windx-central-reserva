@@ -14,7 +14,11 @@
                 </h2>
             </div>
             <div class="card-logon p-2">
-                <div class="card form-signin p-4" style="border-radius: 1rem">
+                @if ($errors->has('login') || $errors->has('password') || session('error'))
+                <div class="card form-signin p-4 animate__animated animate__shakeX" style="border-radius: 1rem">
+                @else
+                <div class="card form-signin p-4 animate__animated animate__fadeInUp" style="border-radius: 1rem">
+                @endif
                     <form id="form_login" method="POST" class="d-none_ panel" action="{{ Route('central.logon') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
@@ -44,25 +48,21 @@
                                        aria-label="Login" aria-describedby="login">
 
                             </div>
-                            @error('login')
-                            <small class="text-danger mt-3">{{$errors->first('login')}}</small>
-                            @enderror
+                            <small class="text-danger mt-3 login_error"></small>
                             <div class="input-group mt-3 {{ $errors->has('password') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
                                 <input id="inputPassword" type="password" class="form-control inputs-login
 
-                                @error('password') is-invalid @enderror" value="1234"
+                                @error('password') is-invalid @enderror" value="Wdx@1234567890"
                                        {{--                                    @error('password') is-invalid @enderror" value="{{old('password')}}"--}}
                                        name="password"  placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Sua senha' }}" aria-label="Password"
                                        aria-describedby="password">
 
                             </div>
 {{--                            <div class="input-group mb-3" style="background-color: transparent; border: none">--}}
-                            @error('password')
-                            <small class="text-danger mt-3">{{$errors->first('password')}}</small>
-                            @enderror
+                            <small class="text-danger mt-3 password_error"></small>
 {{--                            </div>--}}
                             <div class="text-right mt-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
@@ -127,6 +127,68 @@
         $('#form_reset_password').fadeOut().hide();
         $('#form_login').fadeIn(200).show();
     });
+
+    $('#form_login').submit(async function (e){
+        e.preventDefault();
+        let formData = $(this).serializeArray()
+        let url = "{{ route('central.logon') }}";
+        $('#btn-login').text('Entrando...')
+
+        console.log(formData)
+
+        await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-Token": formData[0].value
+            },
+            body: JSON.stringify({
+                login: formData[1].value,
+                password: formData[2].value,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if(!data.error){
+                    $('#btn-login').text('Entrar')
+                    $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUp')
+                    location.href = `{{ route('central.home') }}`;
+                }else{
+                    $('#btn-login').text('Entrar')
+                    $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__shakeX')
+
+                    if(data.error.login){
+                        $('small.login_error').text(data.error.login)
+                    }
+
+                    if(data.error.password){
+                        $('small.password_error').text(data.error.password)
+                    }
+                    $('.form-signin').removeClass('animate__shakeX').addClass('animate__fadeInUp')
+
+                    if(data.error){
+                        Swal.fire({
+                            title: data.error,
+                            icon: 'error',
+                            timer: 4000,
+                            timerProgressBar: false,
+                            showCloseButton: true,
+                        })
+                    }
+                }
+            })
+            .catch((error) => {
+                $('#btn-login').text('Entrar')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ops!',
+                    html: error.message,
+                    willClose: () => {
+                        $('#inputLoginReset').val('')
+                    }
+                })
+            });
+    })
 
     $('#form_reset_password').submit(async function (e){
         e.preventDefault();

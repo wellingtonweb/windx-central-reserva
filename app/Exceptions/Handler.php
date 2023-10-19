@@ -36,6 +36,8 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
+
+
     public function register()
     {
         $this->reportable(function (Throwable $e) {
@@ -55,5 +57,9 @@ class Handler extends ExceptionHandler
             return redirect()->back()->with('error', $e->getMessage());
         });
 
+
+
     }
+
+
 }

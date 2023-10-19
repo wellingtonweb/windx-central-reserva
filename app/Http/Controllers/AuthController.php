@@ -91,21 +91,21 @@ class AuthController extends Controller
                 $request->session()->put('password_reset.customer_id', $customer[0]->id);
 
                 //Gravar no banco de dados o token e o login do cliente
-                DB::table('password_resets')->insert([
-                    'email' => $customer[0]->login,
-                    'token' => $token,
-                    'created_at' => date("Y-m-d H:i:s")
-                ]);
-
-                $customerData = [
-                    'customer_id' => $customer[0]->id,
-                    'customer_name' => $customer[0]->nome,
-                    'customer_login' => $customer[0]->login,
-                    'url' => env('app_base_url') . "nova-senha/" . $token
-                ];
+//                DB::table('password_resets')->insert([
+//                    'email' => $customer[0]->login,
+//                    'token' => $token,
+//                    'created_at' => date("Y-m-d H:i:s")
+//                ]);
+//
+//                $customerData = [
+//                    'customer_id' => $customer[0]->id,
+//                    'customer_name' => $customer[0]->nome,
+//                    'customer_login' => $customer[0]->login,
+//                    'url' => env('app_base_url') . "nova-senha/" . $token
+//                ];
 
                 //Fazer o disparo do e-mail com o link de recuperação
-                SendMailResetPasswordJob::dispatch($customerData);
+//                SendMailResetPasswordJob::dispatch($customerData);
 
                 return response()->json([
                     'status' => 200,
@@ -152,7 +152,7 @@ class AuthController extends Controller
 //            dd($request->all(), session('password_reset'), $tokenReset, $validated);
         }
 
-        return redirect()->route('central.login')->with('error', 'Deu erro!');
+        return redirect()->route('central.login')->with('error', 'Erro!');
     }
 
     public function logon(Request $request)

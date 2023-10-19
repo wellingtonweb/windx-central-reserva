@@ -14,11 +14,7 @@
                 </h2>
             </div>
             <div class="card-logon p-2">
-                @if ($errors->has('login') || $errors->has('password') || session('error'))
-                <div class="card form-signin p-4 animate__animated animate__shakeX" style="border-radius: 1rem">
-                @else
                 <div class="card form-signin p-4 animate__animated animate__fadeInUp" style="border-radius: 1rem">
-                @endif
                     <form id="form_login" method="POST" class="d-none_ panel" action="{{ Route('central.logon') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
@@ -30,12 +26,7 @@
                         </div>
                         <div class="card-body">
                             @csrf
-
-                            @if ($errors->has('login') || $errors->has('password') || session('error'))
-                                <p class="card-text text-danger font-weight-bold pb-1">Verifique os dados informados!</p>
-                            @else
-                                <p class="card-text text-black-50 pb-1">Preencha seus dados de acesso!</p>
-                            @endif
+                            <p class="card-text text-black-50 pb-1">Preencha seus dados de acesso!</p>
                             <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -61,9 +52,7 @@
                                        aria-describedby="password">
 
                             </div>
-{{--                            <div class="input-group mb-3" style="background-color: transparent; border: none">--}}
                             <small class="text-danger mt-3 password_error"></small>
-{{--                            </div>--}}
                             <div class="text-right mt-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
                             </div>
@@ -76,32 +65,25 @@
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                             <h3 style="font-size: 1.5rem; color: #002046;">Lembrar senha</h3>
-                            {{--                            <p style="font-size: 1.2rem; color: #002046;"></p>Login<br>--}}
-                            {{--                            PHP: {{ phpversion() }}<br>--}}
-                            {{--                            Laravel: {{ app()->version() }}--}}
                         </div>
                         <div class="card-body">
                             @csrf
-
-                            @if ($errors->has('login') || $errors->has('password') || session('error'))
-                                <p class="card-text text-danger pb-1">Verifique os dados informados!</p>
-                            @else
-                                <p class="card-text text-black-50 pb-1">Preencha seu e-mail de cadastro<br> e enviaremos um link <br>para gerar sua nova senha!</p>
-                            @endif
-                            <div class="input-group mb-3 {{ $errors->has('login') ? 'is-error' : '' }}">
+                            <p class="card-text text-black-50 pb-1">Preencha seu e-mail de cadastro<br> e enviaremos um link <br>para gerar sua nova senha!</p>
+                            <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
                                 <input id="inputLoginReset" type="text" class="form-control inputs-login
 
-                                @error('login') is-invalid @enderror" value="sup.windx@gmail.com" name="login"
+                                @error('login') is-invalid @enderror" name="login"
                                        {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
                                        placeholder="{{ $errors->has('login') ? 'O login é obrigatório' : 'Seu login' }}"
                                        aria-label="Login" aria-describedby="login">
 
                             </div>
-                            <div class="text-right">
-                                <a href="#" class="card-link text-muted close_reset_password">Voltar ao login?</a>
+                            <small class="text-danger mt-3 login_reset_error"></small>
+                            <div class="text-right mt-3">
+                                <a href="#" class="card-link text-primary close_reset_password">Voltar ao login?</a>
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">
@@ -147,14 +129,16 @@
         })
             .then((response) => response.json())
             .then((data) => {
-                if(data.message == 'authorized'){
+                if(data.message === 'authorized'){
                     $(this)[0].reset();
                     $('#btn-login').text('Entrar')
+
                     $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUp')
+                    $('.loader').removeClass('d-none');
                     location.href = `{{ route('central.home') }}`;
                 }else{
                     $('#btn-login').text('Entrar')
-                    $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__shakeX')
+                    shakeError('form-signin')
 
                     if(data.error.login){
                         $('small.login_error').text(data.error.login)
@@ -178,6 +162,7 @@
             })
             .catch((error) => {
                 $('#btn-login').text('Entrar')
+                shakeError('form-signin')
                 Swal.fire({
                     title: 'Ops, login não cadastrado!',
                     text: 'Solicite seu cadastro em nossa Central de Atendimento.',
@@ -221,41 +206,67 @@
                         timer: 4000,
                         timerProgressBar: false,
                         showConfirmButton: false,
+                        didOpen: () => {
+                            $(this)[0].reset();
+                        },
                         willClose: () => {
-                            location.reload()
+                            $('.close_reset_password').click()
                         }
                     })
                 }else{
                     $('#btn-send-mail').text('Enviar')
-                    Swal.fire({
-                        title: data.error,
-                        text: data.message,
-                        icon: 'warning',
-                        confirmButtonColor: '#208637',
-                        confirmButtonText: 'Central de Atendimento',
-                        showCloseButton: true,
-                        willClose: () => {
-                            window.location.reload()
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-                        }
-                    })
+                    shakeError('form-signin')
+                        // console.log(data.error);
+                    $('small.login_reset_error').text(data.error)
+                    $('#inputLoginReset').addClass('is-invalid');
+
+                    if(data.message){
+                        Swal.fire({
+                            title: data.error,
+                            text: data.message,
+                            icon: 'warning',
+                            confirmButtonColor: '#208637',
+                            confirmButtonText: 'Central de Atendimento',
+                            showCloseButton: true,
+                            willClose: () => {
+                                window.location.reload()
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                            }
+                        })
+                    }
                 }
             })
             .catch((error) => {
-                $('#btn-send-mail').text('Enviar')
+                $('#btn-send-mail').text('Enviar - Catch')
+                shakeError('form-signin')
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Ops!',
-                    html: error.message,
+                    title: 'Ops, login não cadastrado!',
+                    text: 'Solicite seu cadastro em nossa Central de Atendimento.',
+                    icon: 'warning',
+                    confirmButtonColor: '#208637',
+                    confirmButtonText: 'Central de Atendimento',
+                    showCloseButton: true,
                     willClose: () => {
-                        $('#inputLoginReset').val('')
+                        $(this)[0].reset();
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
                     }
                 })
             });
     })
+
+    function shakeError(elementClass)
+    {
+        $('.'+elementClass).removeClass('animate__fadeInUp').addClass('animate__shakeX')
+        setTimeout(() => {
+            $('.'+elementClass).removeClass('animate__shakeX')
+        }, 1000);
+    }
 </script>
 
     @if ($errors->has('document'))

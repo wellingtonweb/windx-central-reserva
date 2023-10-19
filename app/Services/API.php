@@ -71,6 +71,23 @@ class API
         }
 
         return null;
+
+//        try {
+//            $response = Http::accept('application/json')
+////                ->retry(3, 100)
+//                ->withToken($this->apiToken)
+//                ->post($this->apiUrl . '/api/customer/central/login', [
+//                    'login' => $validate['login'],
+//                    'password' => base64_encode($validate['password'])
+//                ]);
+//
+//            return $response;
+//
+//        } catch (Throwable $e) {
+//            report($e);
+//
+//            return null;
+//        }
     }
 
     public function getCustomer($customer_id)

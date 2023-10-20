@@ -41,7 +41,7 @@ class AuthController extends Controller
         }
     }
 
-    public function reset(Request $request)
+    public function newPassword(Request $request)
     {
         $tokenUrl = basename(url()->current());
 
@@ -106,9 +106,9 @@ class AuthController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request)
     {
-        $reset_session = session('password_reset');
-
         if(session()->has('password_reset')){
+            $reset_session = session('password_reset');
+
             if(empty($reset_session['customer_id'])){
                 DB::table('password_resets')
                     ->where('token', $reset_session['token'])
@@ -117,13 +117,9 @@ class AuthController extends Controller
                 abort(406);
             }
 
-            $reset_session = session('password_reset');
             $validated = $request->validated();
 
             if($validated){
-                //$string = Str::random(250);
-//            dd($reset_session, $request['password']);
-
                 $response = (new API)
                     ->updatePasswordCustomer([
                         'customer_id' => $reset_session['customer_id'],
@@ -137,18 +133,13 @@ class AuthController extends Controller
 
                     $request->session()->forget('password_reset');
 
-//                dd('Funcionou');
-
                     return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
 
                 }
-
-//            dd($request->all(), session('password_reset'), $tokenReset, $validated);
             }
         }else{
             abort(406);
         }
-//        return redirect()->route('central.login')->with('error', 'Erro!');
     }
 
     public function logon(Request $request)

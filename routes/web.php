@@ -22,14 +22,10 @@ Route::prefix('assinante')->name('central.')->group(function(){
         return redirect()->route('central.login');
     });
 
-//    /* Terminals Routes */
-//    Route::get('bloqueado', [ActivationController::class, 'locked'])->name('locked');
-//    Route::post('/desbloquear', [ActivationController::class, 'unlock'])->name('unlock');
-
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/nova-senha/{token}', [AuthController::class, 'reset'])->name('login.reset');
+    Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
     Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot.password');
     Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('reset.password');
 
@@ -66,7 +62,5 @@ Route::prefix('assinante')->name('central.')->group(function(){
         Route::get('/failure/{data}', [NotificationController::class, 'failure'])->name('failure');
         Route::get('/check/{billetId}', [PagesController::class, 'check'])->name('check');
         Route::post('/contrato/liberar', [PagesController::class, 'release'])->name('release');
-
-//        Route::get('paginate', [NotificationController::class, 'index']);
     });
 });

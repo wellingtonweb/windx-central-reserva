@@ -15,8 +15,7 @@
                 </div>
                 <div class="card-logon p-2">
                     <div class="card form-signin p-4" style="border-radius: 1rem">
-                        <form id="form_reset_password" method="POST" class="d-none_"
-                              action="{{ Route('central.reset.password') }}">
+                        <form id="form_reset_password" method="POST" action="{{ Route('central.reset.password') }}">
                             <div class="card-header font-weight-bold" style="padding-top: 0">
                                 <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                                 <h3 style="font-size: 1.5rem; color: #002046;">Nova senha</h3>
@@ -35,7 +34,6 @@
                                     <input id="password" type="{{ $errors->has('password') ? 'text' : 'password'}}" value="{{ old('password') }}" class="form-control inputs-login
 
                                 @error('password') is-invalid @enderror"
-                                           {{--                                    @error('password') is-invalid @enderror" value="{{old('password')}}"--}}
                                            name="password"
                                            placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Digite a nova senha' }}"
                                            aria-label="Password"
@@ -51,7 +49,6 @@
                                     <input id="confirm" type="{{ $errors->has('confirm') ? 'text' : 'password'}}" value="{{ old('confirm') }}" class="form-control inputs-login
 
                                 @error('confirm') is-invalid @enderror" name="confirm"
-                                           {{--                                    @error('login') is-invalid @enderror" value="{{old('login')}}" name="login"--}}
                                            placeholder="{{ $errors->has('confirm') ? 'A confirmação da senha é obrigatória' : 'Confirme a nova senha' }}"
                                            aria-label="Confirm password" aria-describedby="confirm password">
                                     <span class="show-pass text-danger pr-3" onclick="toggle2()">
@@ -104,7 +101,7 @@
                                             <li class="">
                                                     <span class="equals-character text-muted">
                                                         <i class="fas fa-circle" aria-hidden="true"></i>
-                                                        &nbsp;Caracteres iguais
+                                                        &nbsp;Senha e confirma senha iguais
                                                     </span>
                                             </li>
                                         </ul>
@@ -201,8 +198,6 @@
 @endsection
 
 @section('js')
-    {{--    <script type="text/javascript" src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>--}}
-
     <script>
         let state_password = false;
         let state_confirm = false;
@@ -368,7 +363,6 @@
             }
         }
     </script>
-    {{--    <script defer type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>--}}
     @if ($errors->has('document'))
         <script>
             let message = `{{$errors->first('document')}}`;

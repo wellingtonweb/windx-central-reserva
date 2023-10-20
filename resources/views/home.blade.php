@@ -4,6 +4,14 @@
     <main>
         <section>
             <div class="container">
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5 class="justify-content-center animate__animated animate__zoomIn animate__delay-1s" style="color: lightsalmon">
+                            Seja bem vind{{ (session('customer')->gender === 'Masculino') ? 'o' : 'a' }}
+                            {{ explode(' ', session('customer')->full_name)[0] }}!
+                        </h5>
+                    </div>
+                </div>
                 <div class="row mt-3">
                     <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
                         <a href="{{route('central.contract')}}" class="text-custom">
@@ -19,7 +27,7 @@
                                     </div>
                                     <div class="content mt-lg-4 mt-0">
                                         <h4 class="title">Contrato</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Visualise suas informações de cadastro, como endereço, plano e dados pessoais.</p>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como endereço, plano e dados pessoais.</p>
                                     </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -49,7 +57,7 @@
                                     </div>
                                     <div class="content mt-lg-4 mt-0">
                                         <h4 class="title">Pagamento</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Pague suas faturas com PIX, PICPAY, CRÉDITO, DÉBITO ou baixe a 2ª via.</p>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Pagar faturas usando PIX, PICPAY, CRÉDITO, DÉBITO ou baixar uma 2ª via.</p>
                                     </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -79,7 +87,7 @@
                                     </div>
                                     <div class="content mt-lg-4 mt-0">
                                         <h4 class="title">Comprovantes</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Acompanhe suas faturas pagas ou baixe a 2ª via de seus comprovantes.</p>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Acompanhar faturas pagas, visualizar ou baixar uma 2ª via.</p>
                                     </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -112,7 +120,7 @@
                                     </div>
                                     <div class="content mt-lg-4 mt-0">
                                         <h4 class="title">Notas Fiscais</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Acompanhe suas notas fiscais emitidas conforme suas mensalidades pagas.</p>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Acompanhar notas fiscais emitidas conforme as mensalidades pagas.</p>
                                     </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -141,7 +149,7 @@
                                     </div>
                                     <div class="content mt-lg-4 mt-0">
                                         <h4 class="title">Suporte</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Acompanhe seus atendimentos ou abra um novo ao nosso suporte técnico.</p>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Acompanhar atendimentos ou abrir um novo para o suporte técnico.</p>
                                     </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -168,7 +176,7 @@
                                     </div>
                                     <div class="content mt-lg-4 mt-0">
                                         <h4 class="title">Desbloqueio</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Desbloqueie seu cadastro por até 48h, a fim de regularizar seus débitos.</p>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Desbloquear cadastro por até 48h, a fim de regularizar os débitos.</p>
                                     </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
@@ -391,7 +399,23 @@
         }
 
         .text-custom {
-            color: #ED454C !important;
+            color: #002046 !important;
+            /*color: #ED454C !important;*/
+        }
+
+        h4.title {
+            letter-spacing: 1px;
+            font-weight: bold !important;
+        }
+
+        .content p {
+            letter-spacing: 1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            text-align: justify;
         }
 
         .uim-svg {

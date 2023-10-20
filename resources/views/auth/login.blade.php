@@ -278,7 +278,8 @@
             Swal.fire({
                 icon: 'success',
                 title: session,
-                timer: 5000
+                timer: 5000,
+                showConfirmButton: false,
             });
         </script>
     @endif

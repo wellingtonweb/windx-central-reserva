@@ -27,7 +27,7 @@
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputLogin" type="text" class="form-control inputs-login" name="login"
+                                <input id="inputLogin" type="text" value="sup.windx@gmail.com" class="form-control inputs-login" name="login"
                                        placeholder="Seu login"
                                        aria-label="Login" aria-describedby="login">
                             </div>
@@ -36,7 +36,7 @@
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputPassword" type="password" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
+                                <input id="inputPassword" type="password" value="Wdx@1234567890" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
                                        aria-describedby="password">
                             </div>
                             <small class="text-danger mt-3 password_error"></small>

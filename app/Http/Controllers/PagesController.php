@@ -102,13 +102,21 @@ class PagesController extends Controller
                 ->addColumn('total', function($data){
                     return 'R$ ' .number_format((new Functions)->calcFees($data['Vencimento'], $data['Valor']) + $data['Valor'], 2, ',', '');
                 })
+//                ->addColumn('copy', function($data){
+//                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="btn btn-outline-primary btn-sm btn-block click" data-id="'.
+//                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">COPIAR</a>';
+//                })
+//                ->addColumn('download', function($data){
+//                    return '<a target="_blank" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
+//                        '" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>';
+//                })
                 ->addColumn('copy', function($data){
-                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="btn btn-outline-primary btn-sm btn-block click" data-id="'.
-                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">COPIAR</a>';
+                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="billet-link text-primary click px-3" data-id="'.
+                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">Copiar linha digitável<i class="fas fa-copy pl-1"></i></a>';
                 })
                 ->addColumn('download', function($data){
                     return '<a target="_blank" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
-                        '" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>';
+                        '" class="billet-link text-primary px-3">Download (2ª via)<i class="fas fa-download pl-1"></i></a>';
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .

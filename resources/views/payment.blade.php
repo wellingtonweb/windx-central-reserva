@@ -214,6 +214,11 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12 bg-success">btns checkout</div>
+                                            <div class="col-12 bg-primary">btns cancelar</div>
+                                        </div>
+
                                         <div class="nav flex-lg-column_ flex-row nav-pills" id="v-pills-tab" role="tablist"
                                              aria-orientation="vertical">
                                             <button class="btn btn-windx mb-1 btn-payment-type" id="btn-pix"
@@ -338,24 +343,24 @@
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="checkout-box" class="d-flex flex-wrap">
 {{--                                <div id="checkout-box" class="d-lg-flex d-md-block d-sm-block align-items-stretch">--}}
-                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                    <div class="box-info flex-fill align-items-stretch text-left">
                                         <b>Selecionadas: </b>
                                         <span
                                             class="total-count badge badge-warning px-1 py-1" style="font-size: 100%"></span>
                                     </div>
-                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                    <div class="box-info flex-fill align-items-stretch text-left">
                                         <b>Valor: </b>
                                         <span class="text-muted">R$
                                             <span class="text-muted total-sum"></span>
                                         </span>
                                     </div>
-                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                    <div class="box-info flex-fill align-items-stretch text-left">
                                         <b>Juros + Multa: </b>
                                         <span class="text-muted">R$
                                             <span class="text-muted total-fees"></span>
                                         </span>
                                     </div>
-                                    <div class="pt-1 pb-1 pl-2 pr-2 flex-fill align-items-stretch text-left">
+                                    <div class="box-info flex-fill align-items-stretch text-left">
                                         <b>Total à pagar:
                                             R$
                                             <span
@@ -379,30 +384,42 @@
                             </div>
                         </div>
                         <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
+
+
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div id="v-pills-tab" class="checkout-controls d-flex flex-wrap ">
-{{--                                <div class="checkout-controls d-lg-flex d-md-flex d-sm-block align-items-stretch">--}}
-                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-pix"
-                                            data-toggle="pill" data-target="#v-pills-qrcode" type="button"
-                                            role="tab" aria-controls="v-pills-qrcode" aria-selected="false">PIX
-                                    </button>
-                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-picpay"
-                                            data-toggle="pill" data-target="#v-pills-qrcode" type="button"
-                                            role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
-                                        PICPAY
-                                    </button>
-                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-credit"
-                                            data-toggle="pill" data-target="#v-pills-card" type="button"
-                                            role="tab" aria-controls="v-pills-messages" aria-selected="false">
-                                        CRÉDITO
-                                    </button>
-                                    <button class="btn btn-windx mb-1 btn-payment-type" id="btn-debit"
-                                            data-toggle="pill" data-target="#v-pills-card" type="button"
-                                            role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                                        DÉBITO
-                                    </button>
-                                    <button type="button" id="clear-cart" class="clear-cart btn btn-outline-danger btn-sm btn-block">CANCELAR</button>
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-12 col-sm-12">
+                                        <div id="v-pills-tab" class="checkout-controls d-flex flex-wrap">
+                                            <button class="btn btn-windx mb-1 btn-payment-type m-md-2" id="btn-pix"
+                                                    data-toggle="pill" data-target="#v-pills-qrcode" type="button"
+                                                    role="tab" aria-controls="v-pills-qrcode" aria-selected="false">PIX
+                                            </button>
+                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-picpay"
+                                                    data-toggle="pill" data-target="#v-pills-qrcode" type="button"
+                                                    role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
+                                                PICPAY
+                                            </button>
+                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-credit"
+                                                    data-toggle="pill" data-target="#v-pills-card" type="button"
+                                                    role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                                CRÉDITO
+                                            </button>
+{{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"--}}
+{{--                                                    data-toggle="pill" data-target="#v-pills-card" type="button"--}}
+{{--                                                    role="tab" aria-controls="v-pills-settings" aria-selected="false">--}}
+{{--                                                DÉBITO--}}
+{{--                                            </button>--}}
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-12 col-sm-12">
+                                        <div class="checkout-controls">
+                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger">CANCELAR</button>
+                                        </div>
+                                    </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -554,79 +571,6 @@
 
         }
 
-        .my-slider .card {
-            height: 20rem !important;
-            max-height: 22.55rem !important;
-            border-radius: .5rem;
-            /*responsivo*/
-            /*height: 17.5rem;*/
-            /*max-height: 17.5rem;*/
-        }
-
-        .my-slider .card .card-header
-        {
-            background-color: rgba(0, 32, 70, 0.5);
-            padding: 0.25rem 1.25rem;
-            /*display: flex;*/
-            /*justify-content: center;*/
-
-        }
-
-        .my-slider .card .card-body
-        {
-            background-color: #e6f6f6;
-            /*responsivo*/
-            font-size: 90%;
-            /*font-weight: 400;*/
-        }
-
-        .my-slider .card .card-body p
-        {
-            /*line-height: 20px;*/
-            margin-bottom: .1rem;
-            font-size: 13px;
-            line-height: 14px;
-        }
-
-        .my-slider .card-header:first-child {
-            border-radius: calc(0.45rem - 1px) calc(0.45rem - 1px) 0 0;
-        }
-
-        .my-slider .card .card-header h5.card-title
-        {
-            color: white;
-            font-weight: bold;
-            position: relative;
-            padding: .2rem;
-            margin-bottom: 0;
-        }
-
-        .my-slider .card .card-footer
-        {
-            background-color: #e6f6f6;
-            border-top: none;
-        }
-
-        .my-slider .card .card-footer .btn
-        {
-            padding: 5px 20px;
-            margin: 3px;
-            font-size: 11px;
-        }
-
-        .my-slider .card-footer:first-child {
-            border-radius: calc(0.45rem - 1px) calc(0.45rem - 1px) 0 0;
-        }
-
-        .my-slider .card .card-text {
-            text-align: left;
-        }
-
-
-        #DataTables_Table_0_paginate a{
-            color: #002046 !important;
-        }
-
         .content-box {
             /*width: 100%;*/
             /*display: block;*/
@@ -638,34 +582,6 @@
         .clss {
             color: midnightblue;
         }
-
-        /*body {*/
-        /*    scrollbar-width: thin;          !* "auto" or "thin" *!*/
-        /*    scrollbar-color: rgba(0, 32, 70, 0.5) rgba(255, 255, 255, 0);   !* scroll thumb and track *!*/
-        /*}*/
-
-        /*html ::-webkit-scrollbar {*/
-        /*    width: 10px;*/
-        /*}*/
-        /*html ::-webkit-scrollbar-thumb {*/
-        /*    border-radius: 50px;*/
-        /*    background: rgba(0, 32, 70, 0.5);*/
-        /*    !*background: #6e6ea9;*!*/
-
-        /*}*/
-        /*html ::-webkit-scrollbar-track {*/
-        /*    background: rgba(255, 255, 255, 0);*/
-        /*    !*background: #ededed;*!*/
-        /*}*/
-
-        /*#colInvoices {*/
-        /*    height: 70vh;*/
-        /*    overflow-y: scroll;*/
-        /*}*/
-
-        /*#colInvoices::-webkit-scrollbar {*/
-        /*    display: none;*/
-        /*}*/
 
         .owl-item {
             margin-top: -15px;
@@ -1011,12 +927,43 @@
             width: 100%;
             display: block;
             border-radius: .5rem;
-            background-color: #fff !important;
-            padding: 1rem;
+            /*background-color: #fff !important;*/
+            /*padding: 1rem;*/
         }
 
+        .card {
+            background-color: rgba(0, 0, 0, 0.03) !important;
+            border-radius: .5rem;
+            border: 2px solid rgba(0, 0, 0, 0.09)
+        }
+
+        .card .card-header{
+            background-color: rgba(0, 0, 0, 0.09) !important;
+            border-bottom: none !important;
+        }
+
+        .card .card-footer{
+            background-color: transparent !important;
+            border-top: none !important;
+        }
+
+        #tns1 > .tns-item {
+            padding-right: 0 !important;
+            margin: 1rem;
+        }
+
+        #checkout-box {
+            gap: 10px;
+        }
+
+        #checkout-box .box-info {
+            background-color: rgba(0, 0, 0, 0.03) !important;
+            padding: .25rem .5rem;
+            border-radius: .25rem;
+        }
 
     </style>
+
 {{--    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
 @endsection

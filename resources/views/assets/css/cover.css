@@ -2081,8 +2081,8 @@ svg rect{
     display: flex;
     flex-wrap: wrap;
     border-radius: .5rem;
-    background-color: #ffffff !important;
-    padding: .5rem;
+    /*background-color: #ffffff !important;*/
+    /*padding: .5rem;*/
 }
 
 .checkout-controls .btn {

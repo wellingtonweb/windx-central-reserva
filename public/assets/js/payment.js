@@ -30,7 +30,7 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        console.log(cart)
+        // console.log(cart)
     }
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
@@ -61,10 +61,6 @@ var billetsCart = (function() {
     // Remove item from cart
     obj.removeItemFromCart = function(billetId) {
         for(var item in cart) {
-            console.log('Cart: ', cart)
-            console.log('Cart ID: ', cart[item].billet_id)
-            console.log('Billet ID: ', billetId)
-
             if(cart[item].billet_id == billetId) {
                 cart[item].count --;
                 if(cart[item].count === 0) {
@@ -149,7 +145,7 @@ function addToCartBtn(data){
     //     .addClass('d-none')
     //     .addClass('fas fa-spinner fa-pulse')
     //     .removeClass('d-none')
-    $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
+    // $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
 
     var btnId = billet.id;
     var billet_id = billet.id;

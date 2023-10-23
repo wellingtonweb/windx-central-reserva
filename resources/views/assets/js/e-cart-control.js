@@ -385,27 +385,67 @@ function isDue(dueDate)
 }
 
 var slider = '';
+var sliders = ''
+
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    // centeredSlides: true,
+    initialized: true,
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        type: "fraction",
+        clickable: true,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+        },
+        768: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+        },
+        1024: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+        },
+    },
+    navigation: {
+        nextEl: ".slider-button-next",
+        prevEl: ".slider-button-prev",
+    },
+    on: {
+        init: function () {
+            console.log('swiper initialized');
+
+        },
+    },
+});
+
 
 async function getBillets(){
 
     const response = await fetch(urlGetBillets);
     const billets = await response.json();
-    let sliderBillets = document.querySelector('.billets-slider');
+    let sliderBillets = document.querySelector('.mySwiper');
+    // let sliderBillets = document.querySelector('.billets-slider');
+    sliders = swiper;
 
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
+        alert('Não existem faturas à pagar!');
     }else{
         $('.tns-controls').removeClass('d-none');
         $('#infoCheckout').removeClass('d-none');
         $('#buttonsCheckout').removeClass('d-none');
         window.addEventListener('load', inicializeSlider());
         function inicializeSlider(){
-            let slides = '';
+            let slide = '';
+
             for(let billet in billets.data){
-                // let overDue = `<div id="billet_${billets.data[billet].Id}" class="card `+
-                //     (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">`
-                slides += `
-                                <div id="billet_${billets.data[billet].Id}" class="card `+
+                slide += `
+                                <div id="billet_${billets.data[billet].Id}" class="card swiper-slide  `+
                     (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">
                                     <div class="card-header d-flex justify-content-center `+
                     (isDue(billets.data[billet].dtEmissao) ? 'card-header-overdue' : '') +`">
@@ -456,38 +496,57 @@ async function getBillets(){
                                         ${billets.data[billet].remove}
                                     </div>
                                 </div>
-                    `
+                    `;
+                sliders.appendSlide(slide);
+
             }
-            sliderBillets.innerHTML = slides;
+            console.log('Agora sim!')
+            $('.lds-ellipsis').addClass('d-none');
+            // sliderBillets.innerHTML = slides;
         }
 
-        slider = tns({
-            container: '.billets-slider',
-            items: 1,
-            responsive: {
-                640: {
-                    edgePadding: 20,
-                    gutter: 20,
-                    items: 2
-                },
-                700: {
-                    gutter: 10,
-                    items: 3.2
-                },
-                900: {
-                    // gutter: 10,
-                    items: 4.5
-                }
-            },
-            animateIn: "tns-fadeIn",
-            mouseDrag: true,
-            touch: true,
-            nav: false,
-            prevButton: false,
-            nextButton: false,
-            controls: false,
-            slideBy: "page"
-        });
+        // slider = tns({
+        //     container: '.billets-slider',
+        //     items: 1,
+        //     responsive: {
+        //         380: {
+        //             // edgePadding: 20,
+        //             // gutter: 20,
+        //             items: 1
+        //         },
+        //         640: {
+        //             // edgePadding: 20,
+        //             // gutter: 20,
+        //             items: 2,
+        //             center: true,
+        //         },
+        //         700: {
+        //             // gutter: 10,
+        //             items: 3,
+        //             center: true,
+        //         },
+        //         900: {
+        //             // gutter: 10,
+        //             items: 4,
+        //             center: true,
+        //         },
+        //         980: {
+        //             // gutter: 10,
+        //             items: 5,
+        //             center: true,
+        //         }
+        //     },
+        //     animateIn: "tns-fadeIn",
+        //     mouseDrag: true,
+        //     touch: true,
+        //     nav: false,
+        //     prevButton: false,
+        //     nextButton: false,
+        //     controls: false,
+        //     swipeAngle: false,
+        //     speed: 400,
+        //     center: true,
+        // });
     }
 }
 
@@ -496,16 +555,22 @@ getBillets()
 $('#refesh-slider').on('click', function (){
     // slider.destroy();
     // slider = slider.rebuild();
-    slider.goTo(0);
+    // slider.goTo('first');
+    $('.lds-ellipsis').removeClass('d-none')
+    sliders.removeAllSlides()
+    // swiper.init()
+
     getBillets()
 })
 
 $('#tyne-next-btn').on('click', function (){
-    slider.goTo('next');
+    // slider.goTo('next');
+    swiper.nextEl()
 })
 
 $('#tyne-prev-btn').on('click', function (){
-    slider.goTo('prev');
+    // slider.goTo('prev');
+    swiper.prevEl()
 })
 
 

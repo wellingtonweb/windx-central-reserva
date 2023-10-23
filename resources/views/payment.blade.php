@@ -373,14 +373,33 @@
                         <div class="col-12 pl-0 pr-0 mb-2">
                             <div class="content-box">
                                 <div class="btn-group tns-controls d-none" role="group" aria-label="Basic example">
-                                    <button id="tyne-prev-btn" type="button" data-controls="prev"
-                                            class="btn btn-primary btn-sm mr-1" aria-controls="tns1">Fatura anterior</button>
-                                    <button id="tyne-next-btn" type="button" data-controls="next"
-                                            class="btn btn-primary btn-sm" aria-controls="tns1">Próxima fatura</button>
+                                    <button id="tyne-prev-btn_" type="button" data-controls="prev"
+                                            class="btn btn-primary btn-sm mr-1 slider-button-prev" aria-controls="tns1">Fatura anterior</button>
+                                    <button type="button"
+                                            class="btn btn-primary btn-sm " disabled aria-controls="tns1">
+                                        <small class="swiper-pagination "></small>
+                                    </button>
+                                    <button id="tyne-next-btn_" type="button" data-controls="next"
+                                            class="btn btn-primary btn-sm slider-button-next" aria-controls="tns1">Próxima fatura</button>
                                 </div>
-                                <div class="billets-slider pt-3">
+                                <div class="billets-slider pt-3 d-none">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                 </div>
+
+                                <div #swiperRef="" class="swiper mySwiper">
+                                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+                                    <div class="swiper-wrapper">
+                                    </div>
+                                </div>
+                                <div class="py-1">
+                                    <small class="swiper-pagination text-muted "></small>
+                                </div>
+{{--                                <p class="append-buttons">--}}
+{{--                                    <button class="prepend-2-slides">Prepend 2 Slides</button>--}}
+{{--                                    <button class="prepend-slide">Prepend Slide</button>--}}
+{{--                                    <button class="append-slide">Append Slide</button>--}}
+{{--                                    <button class="append-2-slides">Append 2 Slides</button>--}}
+{{--                                </p>--}}
                             </div>
                         </div>
                         <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
@@ -492,6 +511,26 @@
 
 @section('css')
     <style>
+        .swiper {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .swiper {
+            width: 100%;
+            height: auto;
+            /*height: 450px;*/
+            margin: 10px auto;
+        }
+
+        /* --------  */
+
         .card-header {
             text-align: center;
         }
@@ -1025,6 +1064,10 @@
             border: 2px solid rgba(253, 2, 2, 0.3) !important;
         }
 
+        .card .card-body {
+            font-size: .9rem !important;
+        }
+
         .card .card-header{
             background-color: rgba(4, 149, 253, 0.3);
             border-bottom: none !important;
@@ -1061,9 +1104,53 @@
 
 {{--    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+
 @endsection
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+
+
+        var appendNumber = 4;
+        var prependNumber = 1;
+        document
+            .querySelector(".prepend-2-slides")
+            .addEventListener("click", function (e) {
+                e.preventDefault();
+                swiper.prependSlide([
+                    '<div class="swiper-slide">Slide ' + --prependNumber + "</div>",
+                    '<div class="swiper-slide">Slide ' + --prependNumber + "</div>",
+                ]);
+            });
+        document
+            .querySelector(".prepend-slide")
+            .addEventListener("click", function (e) {
+                e.preventDefault();
+                swiper.prependSlide(
+                    '<div class="swiper-slide">Slide ' + --prependNumber + "</div>"
+                );
+            });
+        document
+            .querySelector(".append-slide")
+            .addEventListener("click", function (e) {
+                e.preventDefault();
+                swiper.appendSlide(
+                    '<div class="swiper-slide">Slide ' + ++appendNumber + "</div>"
+                );
+            });
+        document
+            .querySelector(".append-2-slides")
+            .addEventListener("click", function (e) {
+                e.preventDefault();
+                swiper.appendSlide([
+                    '<div class="swiper-slide">Slide ' + ++appendNumber + "</div>",
+                    '<div class="swiper-slide">Slide ' + ++appendNumber + "</div>",
+                ]);
+            });
+    </script>
     <script>
         var idCustomer = {{session('customer')->id}};
         var customerActive = @json(session('customer'));

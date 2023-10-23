@@ -425,25 +425,85 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4 bg-light">
+                        <div class="col-3 bg-light">
                             <div id="billet_1246934" class="card tns-item tns-slide-active">
                                 <div class="card-header">
-                                    <h5 class="card-title font-weight-bold">MAIO/2023</h5>
+                                    <h5 class="card-title font-weight-bold">MAIO/2023 (012345-6)</h5>
                                 </div>
+{{--                                <div class="card-body">--}}
+{{--                                    <div class="row letter-1">--}}
+{{--                                        <div class="col-12 py-1 d-flex justify-content-between" >--}}
+{{--                                            <small style="border-bottom: 2px solid #CCCCCC; width: 100%"--}}
+{{--                                                   class="card-text font-weight-bold text-muted text-left">--}}
+{{--                                                RESUMO DA FATURA--}}
+{{--                                            </small>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">--}}
+{{--                                            <span class="card-text ">--}}
+{{--                                                Total à pagar: </span>--}}
+{{--                                            <span class="card-text">R$ 7,88</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12 py-1 d-flex justify-content-between">--}}
+{{--                                            <span class="card-text">Valor: </span>--}}
+{{--                                            <span class="card-text">R$ 5,90</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12 py-1 d-flex justify-content-between">--}}
+{{--                                            <span class="card-text">Juros + Multa:</span>--}}
+{{--                                            <span class="card-text">R$ 1,98</span>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12 py-1 d-flex justify-content-between">--}}
+{{--                                            <span class="card-text">Vencimento: </span>--}}
+{{--                                            <span class="card-text">15/05/2023</span>--}}
+{{--                                        </div>--}}
+
+{{--                                    </div>--}}
+{{--                                    <div class="d-flex py-3" style="vertical-align: middle">--}}
+{{--                                        <p class="card-text px-2">--}}
+{{--                                            75691.30011   01131.961201   08887.440017   1   93510000000590--}}
+{{--                                        </p>--}}
+
+{{--                                        <a href="#" id="copy-barcode-1246934" class="billet-link text-primary click pt-0"--}}
+{{--                                           data-id="1246934" onclick="copyBarcode3(this)"--}}
+{{--                                           data-code="75691.30011   01131.961201   08887.440017   1   93510000000590">--}}
+{{--                                            <i class="fa fa-copy"></i>--}}
+{{--                                        </a>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="d-flex justify-content-center">--}}
+{{--                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">Baixar 2ª via<i class="fas fa-download pl-2"></i></a>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="pt-2">--}}
+{{--                                        <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6 py-2"><p class="card-text">Vencimento: 15/05/2023</p></div>
-                                        <div class="col-6 py-2"><p class="card-text">Valor: R$ 5,90</p></div>
-                                        <div class="col-6 py-2"><p class="card-text">Juros + Multa: R$ 1,98</p></div>
-                                        <div class="col-6 py-2"><p class="card-text font-weight-bold">Total: R$ 7,88</p></div>
+                                    <div class="row letter-1">
+                                        <div class="col-12 py-1 d-flex justify-content-between" >
+                                            <small style="border-bottom: 2px solid #CCCCCC; width: 100%"
+                                                   class="card-text font-weight-bold text-muted text-left">
+                                                RESUMO DA FATURA
+                                            </small>
+                                        </div>
+                                        <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">
+                                            <span class="card-text ">
+                                                Total à pagar: </span>
+                                            <span class="card-text">R$ 7,88</span>
+                                        </div>
+                                        <div class="col-12 py-1 d-flex justify-content-between">
+                                            <span class="card-text">Valor: </span>
+                                            <span class="card-text">R$ 5,90</span>
+                                        </div>
+                                        <div class="col-12 py-1 d-flex justify-content-between">
+                                            <span class="card-text">Juros + Multa:</span>
+                                            <span class="card-text">R$ 1,98</span>
+                                        </div>
+                                        <div class="col-12 py-1 d-flex justify-content-between">
+                                            <span class="card-text">Vencimento: </span>
+                                            <span class="card-text">15/05/2023</span>
+                                        </div>
+
                                     </div>
-
-
-
-
-
                                     <div class="d-flex py-3" style="vertical-align: middle">
-                                        <p class="card-text">
+                                        <p class="card-text px-2">
                                             75691.30011   01131.961201   08887.440017   1   93510000000590
                                         </p>
 
@@ -453,13 +513,12 @@
                                             <i class="fa fa-copy"></i>
                                         </a>
                                     </div>
-                                    <div class="py-2">
+                                    <div class="d-flex justify-content-center">
+                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">Baixar 2ª via<i class="fas fa-download pl-2"></i></a>
+                                    </div>
+                                    <div class="pt-2">
                                         <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
                                     </div>
-                                    <div class="d-flex justify-content-center py-2">
-                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">Download (2ª via)<i class="fas fa-download pl-2"></i></a>
-                                    </div>
-
                                 </div>
                                 <div class="card-footer">
 {{--                                    <div class="d-flex_">--}}
@@ -481,6 +540,10 @@
 
 @section('css')
     <style>
+        .letter-1 {
+            letter-spacing: 1px;
+        }
+
         .billet-link {
             font-size: 1rem;
         }

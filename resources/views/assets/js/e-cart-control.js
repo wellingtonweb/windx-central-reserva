@@ -396,10 +396,11 @@ async function getBillets(){
                                         <h5 class="card-title font-weight-bold">${billets.data[billet].Referencia}</h5>
                                     </div>
                                     <div class="card-body">
+                                        <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
                                         <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
                                         <p class="card-text">Valor: ${billets.data[billet].valor}</p>
                                         <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
-                                        <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
+
                                         <p class="card-text">${billets.data[billet].LinhaDigitavel}</p>
                                     </div>
                                     <div class="card-footer">

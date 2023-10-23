@@ -378,7 +378,7 @@
                                     <button id="tyne-next-btn" type="button" data-controls="next"
                                             class="btn btn-primary btn-sm" aria-controls="tns1">Próxima fatura</button>
                                 </div>
-                                <div class="billets-slider">
+                                <div class="billets-slider pt-3">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                 </div>
                             </div>
@@ -1018,15 +1018,15 @@
             background-color: rgba(0, 0, 0, 0.03);
             /*background-color: rgba(0, 0, 0, 0.03) !important;*/
             border-radius: .5rem;
-            border: 2px solid rgba(4, 149, 253, 0.09)
+            border: 2px solid rgba(4, 149, 253, 0.3)
         }
 
         .card-overdue {
-            border: 2px solid rgba(253, 2, 2, 0.5) !important;
+            border: 2px solid rgba(253, 2, 2, 0.3) !important;
         }
 
         .card .card-header{
-            background-color: rgba(4, 149, 253, 0.09);
+            background-color: rgba(4, 149, 253, 0.3);
             border-bottom: none !important;
             /*margin: 1px;*/
             border-top-right-radius: .3rem;
@@ -1034,7 +1034,7 @@
         }
 
         .card-header-overdue {
-            background-color: rgba(253, 2, 2, 0.5) !important;
+            background-color: rgba(253, 2, 2, 0.3) !important;
         }
 
         .card .card-footer{

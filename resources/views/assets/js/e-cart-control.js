@@ -372,6 +372,18 @@ async function pixCopyPaste(){
         });
 }
 
+function isDue(dueDate)
+{
+    let today = new Date();
+    let pay = (dueDate).split("/");
+    let payFormat = Date.parse(pay[2]+'-'+pay[1]+'-'+pay[0]);
+
+    if(payFormat < today){
+        return true;
+    }
+    return false;
+}
+
 var slider = '';
 
 async function getBillets(){
@@ -390,24 +402,56 @@ async function getBillets(){
         function inicializeSlider(){
             let slides = '';
             for(let billet in billets.data){
+                // let overDue = `<div id="billet_${billets.data[billet].Id}" class="card `+
+                //     (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">`
                 slides += `
-                                <div id="billet_${billets.data[billet].Id}" class="card">
-                                    <div class="card-header">
-                                        <h5 class="card-title font-weight-bold">${billets.data[billet].Referencia}</h5>
+                                <div id="billet_${billets.data[billet].Id}" class="card `+
+                    (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">
+                                    <div class="card-header d-flex justify-content-center `+
+                    (isDue(billets.data[billet].dtEmissao) ? 'card-header-overdue' : '') +`">
+                                        <div class="title font-weight-bold">${billets.data[billet].Referencia}</div>
+                                        <span class="pl-1 font-weight-bold">(${billets.data[billet].NossoNumero})</span>
                                     </div>
                                     <div class="card-body">
-                                        <p class="card-text font-weight-bold">Total: ${billets.data[billet].total}</p>
-                                        <p class="card-text">Vencimento: ${billets.data[billet].dtEmissao}</p>
-                                        <p class="card-text">Valor: ${billets.data[billet].valor}</p>
-                                        <p class="card-text">Juros + Multa: ${billets.data[billet].fees}</p>
-
-                                        <p class="card-text">${billets.data[billet].LinhaDigitavel}</p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="d-flex">
+                                        <div class="row letter-1">
+                                            <div class="col-12 py-1 d-flex justify-content-between" >
+                                                <small style="border-bottom: 2px solid #CCCCCC; width: 100%"
+                                                       class="card-text font-weight-bold text-muted text-left">
+                                                    RESUMO DA FATURA
+                                                </small>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">
+                                                <span class="card-text ">
+                                                    Total à pagar: </span>
+                                                <span class="card-text">${billets.data[billet].total}</span>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                                <span class="card-text">Valor: </span>
+                                                <span class="card-text">${billets.data[billet].valor}</span>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                                <span class="card-text">Juros + Multa:</span>
+                                                <span class="card-text">${billets.data[billet].fees}</span>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                                <span class="card-text">Vencimento: </span>
+                                                <span class="card-text">${billets.data[billet].dtEmissao}</span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex py-3" style="vertical-align: middle">
+                                            <small class="card-text px-2">
+                                                ${billets.data[billet].LinhaDigitavel}
+                                            </small>
                                             ${billets.data[billet].copy}
+                                        </div>
+                                        <div class="d-flex justify-content-center">
                                             ${billets.data[billet].download}
                                         </div>
+                                        <div class="pt-2">
+                                            <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
                                         ${billets.data[billet].add}
                                         ${billets.data[billet].remove}
                                     </div>
@@ -427,18 +471,22 @@ async function getBillets(){
                     items: 2
                 },
                 700: {
-                    gutter: 30
+                    gutter: 10,
+                    items: 3.2
                 },
                 900: {
-                    items: 3
+                    // gutter: 10,
+                    items: 4.5
                 }
             },
             animateIn: "tns-fadeIn",
             mouseDrag: true,
+            touch: true,
             nav: false,
             prevButton: false,
             nextButton: false,
-            controls: false
+            controls: false,
+            slideBy: "page"
         });
     }
 }
@@ -446,8 +494,10 @@ async function getBillets(){
 getBillets()
 
 $('#refesh-slider').on('click', function (){
-    slider.destroy();
-    slider = slider.rebuild();
+    // slider.destroy();
+    // slider = slider.rebuild();
+    slider.goTo(0);
+    getBillets()
 })
 
 $('#tyne-next-btn').on('click', function (){

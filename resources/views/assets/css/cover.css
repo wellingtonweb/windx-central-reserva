@@ -1509,7 +1509,7 @@ svg rect{
     border-radius: 50px;
     text-transform: uppercase;
     letter-spacing: 2px !important;
-    margin: 10px;
+    /*margin: 10px;*/
 }
 
 .btn:active {

@@ -112,11 +112,11 @@ class PagesController extends Controller
 //                })
                 ->addColumn('copy', function($data){
                     return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="billet-link text-primary click px-3" data-id="'.
-                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'">Copiar linha digitável<i class="fas fa-copy pl-1"></i></a>';
+                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'"><i class="fas fa-copy pl-1"></i></a>';
                 })
                 ->addColumn('download', function($data){
                     return '<a target="_blank" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
-                        '" class="billet-link text-primary px-3">Download (2ª via)<i class="fas fa-download pl-1"></i></a>';
+                        '" class="billet-link text-primary px-3">Baixar 2ª via<i class="fas fa-download pl-1"></i></a>';
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .

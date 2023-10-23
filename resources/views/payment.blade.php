@@ -426,55 +426,11 @@
                     </div>
                     <div class="row">
                         <div class="col-3 bg-light">
-                            <div id="billet_1246934" class="card tns-item tns-slide-active">
-                                <div class="card-header">
-                                    <h5 class="card-title font-weight-bold">MAIO/2023 (012345-6)</h5>
+                            <div id="billet_1246934" class="card tns-item tns-slide-active card-overdue">
+                                <div class="card-header d-flex card-header-overdue">
+                                    <div class="title font-weight-bold">TESTE NOVA CENTRAL ASSINANTE</div>
+                                    <span class="font-weight-bold"> (0000144-0)</span>
                                 </div>
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="row letter-1">--}}
-{{--                                        <div class="col-12 py-1 d-flex justify-content-between" >--}}
-{{--                                            <small style="border-bottom: 2px solid #CCCCCC; width: 100%"--}}
-{{--                                                   class="card-text font-weight-bold text-muted text-left">--}}
-{{--                                                RESUMO DA FATURA--}}
-{{--                                            </small>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">--}}
-{{--                                            <span class="card-text ">--}}
-{{--                                                Total à pagar: </span>--}}
-{{--                                            <span class="card-text">R$ 7,88</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-12 py-1 d-flex justify-content-between">--}}
-{{--                                            <span class="card-text">Valor: </span>--}}
-{{--                                            <span class="card-text">R$ 5,90</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-12 py-1 d-flex justify-content-between">--}}
-{{--                                            <span class="card-text">Juros + Multa:</span>--}}
-{{--                                            <span class="card-text">R$ 1,98</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-12 py-1 d-flex justify-content-between">--}}
-{{--                                            <span class="card-text">Vencimento: </span>--}}
-{{--                                            <span class="card-text">15/05/2023</span>--}}
-{{--                                        </div>--}}
-
-{{--                                    </div>--}}
-{{--                                    <div class="d-flex py-3" style="vertical-align: middle">--}}
-{{--                                        <p class="card-text px-2">--}}
-{{--                                            75691.30011   01131.961201   08887.440017   1   93510000000590--}}
-{{--                                        </p>--}}
-
-{{--                                        <a href="#" id="copy-barcode-1246934" class="billet-link text-primary click pt-0"--}}
-{{--                                           data-id="1246934" onclick="copyBarcode3(this)"--}}
-{{--                                           data-code="75691.30011   01131.961201   08887.440017   1   93510000000590">--}}
-{{--                                            <i class="fa fa-copy"></i>--}}
-{{--                                        </a>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="d-flex justify-content-center">--}}
-{{--                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">Baixar 2ª via<i class="fas fa-download pl-2"></i></a>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="pt-2">--}}
-{{--                                        <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                                 <div class="card-body">
                                     <div class="row letter-1">
                                         <div class="col-12 py-1 d-flex justify-content-between" >
@@ -489,24 +445,22 @@
                                             <span class="card-text">R$ 7,88</span>
                                         </div>
                                         <div class="col-12 py-1 d-flex justify-content-between">
-                                            <span class="card-text">Valor: </span>
-                                            <span class="card-text">R$ 5,90</span>
+                                            <small class="card-text">Valor: </small>
+                                            <small class="card-text">R$ 5,90</small>
                                         </div>
                                         <div class="col-12 py-1 d-flex justify-content-between">
-                                            <span class="card-text">Juros + Multa:</span>
-                                            <span class="card-text">R$ 1,98</span>
+                                            <small class="card-text">Juros + Multa:</small>
+                                            <small class="card-text">R$ 1,98</small>
                                         </div>
                                         <div class="col-12 py-1 d-flex justify-content-between">
-                                            <span class="card-text">Vencimento: </span>
-                                            <span class="card-text">15/05/2023</span>
+                                            <small class="card-text">Vencimento: </small>
+                                            <small class="card-text">15/05/2023</small>
                                         </div>
-
                                     </div>
                                     <div class="d-flex py-3" style="vertical-align: middle">
-                                        <p class="card-text px-2">
+                                        <small class="card-text px-2">
                                             75691.30011   01131.961201   08887.440017   1   93510000000590
-                                        </p>
-
+                                        </small>
                                         <a href="#" id="copy-barcode-1246934" class="billet-link text-primary click pt-0"
                                            data-id="1246934" onclick="copyBarcode3(this)"
                                            data-code="75691.30011   01131.961201   08887.440017   1   93510000000590">
@@ -514,17 +468,15 @@
                                         </a>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">Baixar 2ª via<i class="fas fa-download pl-2"></i></a>
+                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">
+                                            Baixar 2ª via<i class="fas fa-download pl-2"></i>
+                                        </a>
                                     </div>
                                     <div class="pt-2">
                                         <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
                                     </div>
                                 </div>
                                 <div class="card-footer">
-{{--                                    <div class="d-flex_">--}}
-{{--                                        <a href="#" id="copy-barcode-1246934" class="billet-link text-primary click px-4" data-id="1246934" onclick="copyBarcode3(this)" data-code="75691.30011   01131.961201   08887.440017   1   93510000000590"><i class="fas fa-copy pl-2"></i></a>--}}
-{{--                                        --}}
-{{--                                    </div>--}}
                                     <a href="#" id="select-billet-1246934" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn(&quot;{\&quot;id\&quot;:1246934,\&quot;reference\&quot;:\&quot;0088874-4\&quot;,\&quot;value\&quot;:5.9,\&quot;duedate\&quot;:\&quot;15\\\/05\\\/2023\&quot;,\&quot;price\&quot;:\&quot;7.88\&quot;,\&quot;discount\&quot;:0,\&quot;addition\&quot;:\&quot;1.98\&quot;,\&quot;installment\&quot;:1}&quot;)">PAGAR
                                     </a><a href="#" id="remove-billet-1246934" class="btn btn-danger btn-sm btn-block delete-item d-none" onclick="deleteItemCart(1246934)">REMOVER</a>
                                 </div>
@@ -540,6 +492,17 @@
 
 @section('css')
     <style>
+        .card-header {
+            text-align: center;
+        }
+
+        .card-header div.title {
+            white-space: nowrap;
+            max-width: 15em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .letter-1 {
             letter-spacing: 1px;
         }
@@ -1052,14 +1015,26 @@
         }
 
         .card {
-            background-color: rgba(0, 0, 0, 0.03) !important;
+            background-color: rgba(0, 0, 0, 0.03);
+            /*background-color: rgba(0, 0, 0, 0.03) !important;*/
             border-radius: .5rem;
-            border: 2px solid rgba(0, 0, 0, 0.09)
+            border: 2px solid rgba(4, 149, 253, 0.09)
+        }
+
+        .card-overdue {
+            border: 2px solid rgba(253, 2, 2, 0.5) !important;
         }
 
         .card .card-header{
-            background-color: rgba(0, 0, 0, 0.09) !important;
+            background-color: rgba(4, 149, 253, 0.09);
             border-bottom: none !important;
+            /*margin: 1px;*/
+            border-top-right-radius: .3rem;
+            border-top-left-radius: .3rem;
+        }
+
+        .card-header-overdue {
+            background-color: rgba(253, 2, 2, 0.5) !important;
         }
 
         .card .card-footer{
@@ -1069,7 +1044,7 @@
 
         #tns1 > .tns-item {
             padding-right: 0 !important;
-            margin: 1rem;
+            margin-left: 1rem;
         }
 
         #checkout-box {

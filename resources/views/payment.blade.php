@@ -1097,6 +1097,11 @@
             margin-top: 0 !important
         }
 
+        .card-disabled {
+            color: rgba(0,0,0, .4) !important;
+        }
+
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 @endsection

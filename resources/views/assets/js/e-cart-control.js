@@ -32,14 +32,6 @@ function addToCartBtn(data){
     var installment = Number(billet.installment);
     var installmentValue = 0;
 
-    console.log('Installment: ', installment)
-
-    // billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
-    // var cart = [];
-    // cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-    // console.log('Cart: ', cart)
-
-
     if(installment == 1){
         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
         addPaintItem(btnId)
@@ -237,6 +229,7 @@ $('.clear-cart').click(function() {
     $('#v-pills-tabContent').addClass('d-none')
     // removePaintAll()
     // displayCart();
+    swiper.slideTo(0);
     notify('Todas as faturas foram removidas!')
     //location.reload();
 });
@@ -248,12 +241,12 @@ function clearAllSections() {
     localStorage.clear();
     removePaintAll()
     displayCart();
-    refreshSliderCards()
+    // refreshSliderCards()
 }
 
 // Remove paint all
 function removePaintAll() {
-    $('.invoice-slide').each(function (el) {
+    $('.swiper-slide').each(function (el) {
         $(this).removeClass('border-success text-windx-50');
         $('.delete-item').addClass('d-none not-active');
         $('.add-to-cart').removeClass('not-active d-none');
@@ -285,7 +278,9 @@ async function copyBarcode(id) {
 
 // Add paint and disable buttons
 function addPaintItem(id) {
-    $('#invoice-'+id).addClass('border-success text-windx-50');
+    console.log('Id do elemento add: ', id)
+    // $('#invoice-'+id).addClass('border-success text-windx-50');
+    $('#billet_'+id).addClass('text-windx-50');
     $('#title-'+id).addClass('text-windx-50');
     $('#select-billet-'+id).addClass('d-none').addClass('not-active');
     $('#remove-billet-'+id).removeClass('d-none not-active');
@@ -296,8 +291,10 @@ function addPaintItem(id) {
 
 // Remove paint item and enable buttons
 function removePaintItem(id) {
+    console.log('Id do elemento remove: ', id)
     // const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
-    $('#invoice-'+id).removeClass('border-success text-windx-50');
+    // $('#invoice-'+id).removeClass('border-success text-windx-50');
+    $('#billet_'+id).removeClass('text-windx-50');
     $('#title-'+id).removeClass('text-windx-50');
     $('#select-billet-'+id).removeClass('d-none').removeClass('not-active');
     $('#remove-billet-'+id).addClass('d-none not-active');
@@ -549,6 +546,7 @@ $('#refesh-slider').on('click', function (){
 
 function refreshSliderCards()
 {
+    swiper.removeAllSlides();
     $('.lds-ellipsis').removeClass('d-none')
     getBillets()
 }

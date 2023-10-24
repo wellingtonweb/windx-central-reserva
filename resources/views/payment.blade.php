@@ -30,7 +30,7 @@
                                 </svg>
                                 Voltar
                             </a>
-                            <button id="refesh-slider" class="btn btn-primary">Refresh</button>
+{{--                            <button id="refesh-slider" class="btn btn-primary">Refresh</button>--}}
 
                         </div>
 {{--                        checkout--}}
@@ -395,15 +395,12 @@
                                     <div class="swiper-wrapper">
                                     </div>
                                 </div>
-{{--                                <div class="py-1">--}}
-{{--                                    <small class="swiper-pagination text-muted "></small>--}}
-{{--                                </div>--}}
-                                <p class="append-buttons">
-                                    <button class="prepend-2-slides">Prepend 2 Slides</button>
-                                    <button class="prepend-slide">Prepend Slide</button>
-                                    <button class="append-slide">Append Slide</button>
-                                    <button class="append-2-slides">Append 2 Slides</button>
-                                </p>
+{{--                                <p class="append-buttons">--}}
+{{--                                    <button class="prepend-2-slides">Prepend 2 Slides</button>--}}
+{{--                                    <button class="prepend-slide">Prepend Slide</button>--}}
+{{--                                    <button class="append-slide">Append Slide</button>--}}
+{{--                                    <button class="append-2-slides">Append 2 Slides</button>--}}
+{{--                                </p>--}}
                             </div>
                         </div>
                         <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
@@ -447,7 +444,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row d-none">
                         <div class="col-3 bg-light">
                             <div id="billet_1246934" class="card tns-item tns-slide-active card-overdue">
                                 <div class="card-header d-flex card-header-overdue">
@@ -535,7 +532,7 @@
 
         .swiper-pagination-fraction {
             padding-top: 1.2rem;
-            width: 25px !important;
+            width: 35px !important;
         }
 
         .swiper-pagination {
@@ -1117,19 +1114,12 @@
         }
 
     </style>
-
-{{--    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">--}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
-
 @endsection
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script>
-
-
         var appendNumber = 4;
         var prependNumber = 1;
         document
@@ -1171,6 +1161,7 @@
         var idCustomer = {{session('customer')->id}};
         var customerActive = @json(session('customer'));
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
+        var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";
 
         $('.checkoutBtn').on('click', function () {

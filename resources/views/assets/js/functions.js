@@ -306,9 +306,6 @@ function clearAllSections(){
     sessionStorage.clear()
 }
 
-
-
-
 function logout(){
     clearAllSections()
     $('.sideMenu').removeClass('open');

@@ -4,7 +4,6 @@ var count = 0;
 var checkBillet = false;
 
 // Add item to cart
-
 function addToCartBtn(data){
     var billet = JSON.parse(data);
     console.log('Data: ',billet);
@@ -27,68 +26,108 @@ function addToCartBtn(data){
     var value = billet.value;
     var addition = billet.addition;
     var discount = billet.discount;
-    var price = billet.price;
-    var installments = billet.installments;
+    var price = Number(billet.price);
+    var installment = Number(billet.installments);
+    var installmentValue = 0;
 
-    console.log('btnId ',btnId ,'billet_id', billet_id)
+    if(installment == 1){
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+        addPaintItem(btnId)
+        displayCart();
+    }else if(installment > 1){
+        installmentValue = (parseFloat(value) / parseInt(installment));
 
-    if(installments < maxInstallment){
-        if(installments > 1){
+        if(installment <= maxInstallment){
+            if(installmentValue >= minInstallmentValue){
+                Swal.fire({
+                    icon: "info",
+                    title: 'Pagamento de acordo!',
+                    html: 'Deseja pagar o acordo em '+ installment +' vezes no cartão de crédito?',
+                    // timer: 5000,
+                    confirmButtonColor: '#38c172',
+                    denyButtonColor: '#6c757d',
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: `Cancelar`,
+                    allowOutsideClick: () => {
+                        const popup = Swal.getPopup()
+                        popup.classList.remove('swal2-show')
+                        setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
+                        })
+                        setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                        }, 500)
+                        return false
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        clearAllSections();
+                        // console.log('Cart: ', billetsCart.totalCart())
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment);
+                        addPaintItem(btnId)
+                        displayCart();
+                        Swal.close();
+                        // swal.fire('Pop-up Card')
+
+                        $('button#btn-credit').click();
+                    }else{
+                        deleteItemCart(btnId, reference)
+                        Swal.close();
+                    }
+                })
+            }else{
+                $('#select-billet-'+btnId).html('Pagar')
+                // clearAllSections();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Acordo não autorizado!',
+                    text: 'Deseja realizar o pagamento à vista?',
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                        addPaintItem(btnId)
+                        displayCart();
+                    } else {
+                        clearAllSections();
+                    }
+                })
+            }
+        }else{
+            $('#select-billet-'+btnId).html('Pagar')
+            // clearAllSections();
             Swal.fire({
-                icon: "info",
-                title: 'Pagamento de acordo!',
-                html: 'Deseja pagar o acordo em '+ installments +' vezes no cartão de crédito?',
-                // timer: 5000,
-                confirmButtonColor: '#38c172',
-                denyButtonColor: '#6c757d',
+                icon: 'error',
+                title: 'Parcelamento não autorizado!',
+                text: 'Deseja realizar o pagamento à vista?',
                 showDenyButton: false,
                 showCancelButton: true,
                 confirmButtonText: 'Confirmar',
                 cancelButtonText: `Cancelar`,
-                allowOutsideClick: () => {
-                    const popup = Swal.getPopup()
-                    popup.classList.remove('swal2-show')
-                    setTimeout(() => {
-                        popup.classList.add('animate__animated', 'animate__headShake')
-                    })
-                    setTimeout(() => {
-                        popup.classList.remove('animate__animated', 'animate__headShake')
-                    }, 500)
-                    return false
-                },
             }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    clearAllSections();
-                    console.log('Cart: ', billetsCart.totalCart())
-                    billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
+                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                    console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
-                    Swal.close();
-                    swal.fire('Pop-up Card')
-                    // $('#btn-credit').trigger();
-                }else{
-                    deleteItemCart(btnId, reference)
-                    Swal.close();
+                    console.log(cart);
+                } else {
+                    clearAllSections();
                 }
             })
-        }else{
-            // $('#select-billet-'+billet.id).html('Pagar')
-            billetsCart.addItemToCart(btnId, reference, duedate, value, addition, discount, price, 1, installments);
-            addPaintItem(btnId)
-            displayCart();
         }
-    }else{
-        $('#select-billet-'+btnId).html('Pagar')
-        clearAllSections();
-        Swal.fire({
-            icon: 'error',
-            title: 'Parcelamento não autorizado!',
-            text: 'Fale com nosso setor financeiro.',
-        })
     }
 
 
-    checkBillet = getCheckBillet(billet_id)
+
+    // checkBillet = getCheckBillet(billet_id)
 
     // if(checkBillet === true){
     //     // icon.removeClass('fas fa-spinner fa-pulse')
@@ -201,8 +240,7 @@ function clearAllSections() {
     localStorage.clear();
     removePaintAll()
     displayCart();
-    slider.destroy();
-    slider = slider.rebuild();
+    refreshSliderCards()
 }
 
 // Remove paint all
@@ -385,12 +423,12 @@ function isDue(dueDate)
 }
 
 var slider = '';
-var sliders = ''
+// var sliders = ''
 
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
-    // centeredSlides: true,
     initialized: true,
+    freeMode: true,
     spaceBetween: 10,
     pagination: {
         el: ".swiper-pagination",
@@ -418,31 +456,29 @@ var swiper = new Swiper(".mySwiper", {
     on: {
         init: function () {
             console.log('swiper initialized');
+            getBillets()
 
         },
     },
 });
-
+// sliders = swiper;
 
 async function getBillets(){
-
     const response = await fetch(urlGetBillets);
     const billets = await response.json();
     let sliderBillets = document.querySelector('.mySwiper');
-    // let sliderBillets = document.querySelector('.billets-slider');
-    sliders = swiper;
 
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
-        alert('Não existem faturas à pagar!');
     }else{
         $('.tns-controls').removeClass('d-none');
         $('#infoCheckout').removeClass('d-none');
         $('#buttonsCheckout').removeClass('d-none');
         window.addEventListener('load', inicializeSlider());
         function inicializeSlider(){
+            swiper.removeAllSlides();
             for(let billet in billets.data){
-                sliders.appendSlide(`
+                swiper.appendSlide(`
                                 <div id="billet_${billets.data[billet].Id}" class="card swiper-slide  `+
                     (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">
                                     <div class="card-header d-flex justify-content-center `+
@@ -498,64 +534,23 @@ async function getBillets(){
             }
             $('.lds-ellipsis').addClass('d-none');
         }
-
-        // slider = tns({
-        //     container: '.billets-slider',
-        //     items: 1,
-        //     responsive: {
-        //         380: {
-        //             // edgePadding: 20,
-        //             // gutter: 20,
-        //             items: 1
-        //         },
-        //         640: {
-        //             // edgePadding: 20,
-        //             // gutter: 20,
-        //             items: 2,
-        //             center: true,
-        //         },
-        //         700: {
-        //             // gutter: 10,
-        //             items: 3,
-        //             center: true,
-        //         },
-        //         900: {
-        //             // gutter: 10,
-        //             items: 4,
-        //             center: true,
-        //         },
-        //         980: {
-        //             // gutter: 10,
-        //             items: 5,
-        //             center: true,
-        //         }
-        //     },
-        //     animateIn: "tns-fadeIn",
-        //     mouseDrag: true,
-        //     touch: true,
-        //     nav: false,
-        //     prevButton: false,
-        //     nextButton: false,
-        //     controls: false,
-        //     swipeAngle: false,
-        //     speed: 400,
-        //     center: true,
-        // });
     }
 }
 
-getBillets()
 
 $('#refesh-slider').on('click', function (){
     // slider.destroy();
     // slider = slider.rebuild();
     // slider.goTo('first');
-    $('.lds-ellipsis').removeClass('d-none')
-    sliders.removeAllSlides()
-    // swiper.init()
 
-    getBillets()
+    refreshSliderCards()
 })
+
+function refreshSliderCards()
+{
+    $('.lds-ellipsis').removeClass('d-none')
+    getBillets()
+}
 
 $('#tyne-next-btn').on('click', function (){
     // slider.goTo('next');

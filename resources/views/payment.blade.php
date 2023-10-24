@@ -372,15 +372,19 @@
                         </div>
                         <div class="col-12 pl-0 pr-0 mb-2">
                             <div class="content-box">
-                                <div class="btn-group tns-controls d-none" role="group" aria-label="Basic example">
-                                    <button id="tyne-prev-btn_" type="button" data-controls="prev"
-                                            class="btn btn-primary btn-sm mr-1 slider-button-prev" aria-controls="tns1">Fatura anterior</button>
-                                    <button type="button"
-                                            class="btn btn-primary btn-sm " disabled aria-controls="tns1">
-                                        <small class="swiper-pagination "></small>
-                                    </button>
-                                    <button id="tyne-next-btn_" type="button" data-controls="next"
-                                            class="btn btn-primary btn-sm slider-button-next" aria-controls="tns1">Próxima fatura</button>
+                                <div class="btn-group_ tns-controls d-none" role="group" aria-label="Basic example">
+                                    <div>
+                                        <button id="tyne-prev-btn_" type="button" data-controls="prev"
+                                                 class="btn btn-primary btn-sm slider-button-prev" aria-controls="tns1">
+                                            Fatura anterior</button>
+                                    </div>
+                                    <div class="px-4">
+                                        <div class="swiper-pagination text-muted "></div>
+                                    </div>
+                                    <div>
+                                        <button id="tyne-next-btn_" type="button" data-controls="next"
+                                                class="btn btn-primary btn-sm slider-button-next" aria-controls="tns1">Próxima fatura</button>
+                                    </div>
                                 </div>
                                 <div class="billets-slider pt-3 d-none">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
@@ -391,9 +395,9 @@
                                     <div class="swiper-wrapper">
                                     </div>
                                 </div>
-                                <div class="py-1">
-                                    <small class="swiper-pagination text-muted "></small>
-                                </div>
+{{--                                <div class="py-1">--}}
+{{--                                    <small class="swiper-pagination text-muted "></small>--}}
+{{--                                </div>--}}
 {{--                                <p class="append-buttons">--}}
 {{--                                    <button class="prepend-2-slides">Prepend 2 Slides</button>--}}
 {{--                                    <button class="prepend-slide">Prepend Slide</button>--}}
@@ -528,6 +532,17 @@
             /*height: 450px;*/
             margin: 10px auto;
         }
+
+        .swiper-pagination-fraction {
+            padding-top: 1.2rem;
+            width: 25px !important;
+        }
+
+        .swiper-pagination {
+            position: relative !important;
+            font-size: .6rem !important;
+        }
+
 
         /* --------  */
 

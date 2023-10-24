@@ -571,7 +571,7 @@ async function getBillets(){
             let slide = '';
 
             for(let billet in billets.data){
-                slide += `
+                sliders.appendSlide(`
                                 <div id="billet_${billets.data[billet].Id}" class="card swiper-slide  `+
                     (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">
                                     <div class="card-header d-flex justify-content-center `+
@@ -623,11 +623,12 @@ async function getBillets(){
                                         ${billets.data[billet].remove}
                                     </div>
                                 </div>
-                    `;
-                sliders.appendSlide(slide);
+                    `);
+                // sliders.appendSlide(slide);
 
             }
-            console.log('Agora sim!')
+            // sliders.appendSlide(slide);
+            console.log('Slides: ', slide)
             $('.lds-ellipsis').addClass('d-none');
             // sliderBillets.innerHTML = slides;
         }

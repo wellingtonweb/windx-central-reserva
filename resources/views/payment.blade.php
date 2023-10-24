@@ -398,12 +398,12 @@
 {{--                                <div class="py-1">--}}
 {{--                                    <small class="swiper-pagination text-muted "></small>--}}
 {{--                                </div>--}}
-{{--                                <p class="append-buttons">--}}
-{{--                                    <button class="prepend-2-slides">Prepend 2 Slides</button>--}}
-{{--                                    <button class="prepend-slide">Prepend Slide</button>--}}
-{{--                                    <button class="append-slide">Append Slide</button>--}}
-{{--                                    <button class="append-2-slides">Append 2 Slides</button>--}}
-{{--                                </p>--}}
+                                <p class="append-buttons">
+                                    <button class="prepend-2-slides">Prepend 2 Slides</button>
+                                    <button class="prepend-slide">Prepend Slide</button>
+                                    <button class="append-slide">Append Slide</button>
+                                    <button class="append-2-slides">Append 2 Slides</button>
+                                </p>
                             </div>
                         </div>
                         <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
@@ -548,7 +548,7 @@
 
         .card-header {
             text-align: center;
-            font-size: 2em;
+            font-size: .8em;
         }
 
         .card-header div.title {

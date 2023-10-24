@@ -441,10 +441,8 @@ async function getBillets(){
         $('#buttonsCheckout').removeClass('d-none');
         window.addEventListener('load', inicializeSlider());
         function inicializeSlider(){
-            let slide = '';
-
             for(let billet in billets.data){
-                slide += `
+                sliders.appendSlide(`
                                 <div id="billet_${billets.data[billet].Id}" class="card swiper-slide  `+
                     (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">
                                     <div class="card-header d-flex justify-content-center `+
@@ -496,13 +494,9 @@ async function getBillets(){
                                         ${billets.data[billet].remove}
                                     </div>
                                 </div>
-                    `;
-                sliders.appendSlide(slide);
-
+                    `);
             }
-            console.log('Agora sim!')
             $('.lds-ellipsis').addClass('d-none');
-            // sliderBillets.innerHTML = slides;
         }
 
         // slider = tns({

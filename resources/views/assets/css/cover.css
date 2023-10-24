@@ -352,7 +352,7 @@ header {
 /* Screen medium than 400px? 2 column */
 @media (min-width: 300px) and (max-width: 400px) {
     .card-header{
-        padding-top: .1rem !important;
+        padding-top: .5rem !important;
     }
 
     .card__face--front h1 {

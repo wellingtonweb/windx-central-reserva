@@ -8,7 +8,7 @@ var billetsCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installment) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
         this.duedate = duedate;
@@ -17,7 +17,7 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
-        this.installments = installments;
+        this.installment = installment;
     }
 
     // Save cart
@@ -30,7 +30,7 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        // console.log(cart)
+        console.log('Cart: ', cart)
     }
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
@@ -40,8 +40,8 @@ var billetsCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installments);
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installment) {
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installment);
 
         // var itemCheck = cart.some(function(testItem) {
         //     return testItem.billet_id === item.billet_id;

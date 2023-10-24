@@ -1,3 +1,5 @@
+import('e-cart');
+
 /* E-Cart Control */
 var total = 0;
 var count = 0;
@@ -6,7 +8,7 @@ var checkBillet = false;
 // Add item to cart
 function addToCartBtn(data){
     var billet = JSON.parse(data);
-    console.log('Data: ',billet);
+    console.log('Billet: ',billet);
 
 // $('.add-to-cart').click(function(event) {
 //     event.preventDefault();
@@ -27,8 +29,16 @@ function addToCartBtn(data){
     var addition = billet.addition;
     var discount = billet.discount;
     var price = Number(billet.price);
-    var installment = Number(billet.installments);
+    var installment = Number(billet.installment);
     var installmentValue = 0;
+
+    console.log('Installment: ', installment)
+
+    // billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+    // var cart = [];
+    // cart = JSON.parse(sessionStorage.getItem('billetsCart'));
+    // console.log('Cart: ', cart)
+
 
     if(installment == 1){
         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
@@ -124,8 +134,6 @@ function addToCartBtn(data){
             })
         }
     }
-
-
 
     // checkBillet = getCheckBillet(billet_id)
 
@@ -423,8 +431,6 @@ function isDue(dueDate)
 }
 
 var slider = '';
-// var sliders = ''
-
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
     initialized: true,
@@ -461,7 +467,6 @@ var swiper = new Swiper(".mySwiper", {
         },
     },
 });
-// sliders = swiper;
 
 async function getBillets(){
     const response = await fetch(urlGetBillets);
@@ -539,10 +544,6 @@ async function getBillets(){
 
 
 $('#refesh-slider').on('click', function (){
-    // slider.destroy();
-    // slider = slider.rebuild();
-    // slider.goTo('first');
-
     refreshSliderCards()
 })
 

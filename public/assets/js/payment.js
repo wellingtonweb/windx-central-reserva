@@ -8,7 +8,7 @@ var billetsCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installment) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
         this.duedate = duedate;
@@ -17,7 +17,7 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
-        this.installments = installments;
+        this.installment = installment;
     }
 
     // Save cart
@@ -30,7 +30,7 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        // console.log(cart)
+        console.log('Cart: ', cart)
     }
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
@@ -40,8 +40,8 @@ var billetsCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installments) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installments);
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installment) {
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installment);
 
         // var itemCheck = cart.some(function(testItem) {
         //     return testItem.billet_id === item.billet_id;
@@ -125,6 +125,8 @@ var billetsCart = (function() {
     return obj;
 })();
 
+import('e-cart');
+
 /* E-Cart Control */
 var total = 0;
 var count = 0;
@@ -133,7 +135,7 @@ var checkBillet = false;
 // Add item to cart
 function addToCartBtn(data){
     var billet = JSON.parse(data);
-    console.log('Data: ',billet);
+    console.log('Billet: ',billet);
 
 // $('.add-to-cart').click(function(event) {
 //     event.preventDefault();
@@ -154,8 +156,16 @@ function addToCartBtn(data){
     var addition = billet.addition;
     var discount = billet.discount;
     var price = Number(billet.price);
-    var installment = Number(billet.installments);
+    var installment = Number(billet.installment);
     var installmentValue = 0;
+
+    console.log('Installment: ', installment)
+
+    // billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+    // var cart = [];
+    // cart = JSON.parse(sessionStorage.getItem('billetsCart'));
+    // console.log('Cart: ', cart)
+
 
     if(installment == 1){
         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
@@ -251,8 +261,6 @@ function addToCartBtn(data){
             })
         }
     }
-
-
 
     // checkBillet = getCheckBillet(billet_id)
 
@@ -550,8 +558,6 @@ function isDue(dueDate)
 }
 
 var slider = '';
-// var sliders = ''
-
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
     initialized: true,
@@ -588,7 +594,6 @@ var swiper = new Swiper(".mySwiper", {
         },
     },
 });
-// sliders = swiper;
 
 async function getBillets(){
     const response = await fetch(urlGetBillets);
@@ -666,10 +671,6 @@ async function getBillets(){
 
 
 $('#refesh-slider').on('click', function (){
-    // slider.destroy();
-    // slider = slider.rebuild();
-    // slider.goTo('first');
-
     refreshSliderCards()
 })
 

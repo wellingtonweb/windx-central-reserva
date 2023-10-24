@@ -6,39 +6,15 @@
             <div class="container-fluid container-payment">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-{{--                        <div id="infoCustomerActive"  class="d-flex col-12 order-0 py-2 px-lg-0 px-md-1 mb-2 text-windx">--}}
-{{--                            <a href="javascript:void(0)" class="d-lg-none pr-1" onclick="toggleLineClamp()">--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"--}}
-{{--                                     class="bi bi-info-square-fill" viewBox="0 0 16 16">--}}
-{{--                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93--}}
-{{--                                     4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105--}}
-{{--                                     1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275--}}
-{{--                                      0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>--}}
-{{--                                </svg>--}}
-{{--                            </a>--}}
-{{--                            <p id="infoText" class="text-uppercase space-1 clamped px-lg-3 text-justify">--}}
-{{--                                Contrato Nº: {{session('customer')->id}} |--}}
-{{--                                {{session('customer')->full_name}} |--}}
-{{--                                {{session('customer')->street}}, {{session('customer')->district}},--}}
-{{--                                {{session('customer')->city}}--}}
-{{--                            </p>--}}
-{{--                        </div>--}}
                         <div id="infoCustomerActive" class="d-flex d-none col-12 order-0 px-lg-0 px-md-1 mb-2">
                             <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
                                     <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                                </svg>
-                                Voltar
+                                </svg>Voltar
                             </a>
-{{--                            <button id="refesh-slider" class="btn btn-primary">Refresh</button>--}}
-
                         </div>
-{{--                        checkout--}}
-{{--                        {{count(session('customer')->billets)}}--}}
                         <div id="colCheckout" class="d-none {{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-4 order-lg-2
-                        col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0
-{{--                        py-2 px-lg-0 pl-md-3 pr-md-3 px-sm-0 --}}
-                        mb-4">
+                        col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
                                 Checkout
                             </h4>
@@ -1081,6 +1057,10 @@
             font-size: .9rem !important;
         }
 
+        .card .card-body .row{
+            cursor: grab;
+        }
+
         .card .card-header{
             background-color: rgba(4, 149, 253, 0.3);
             border-bottom: none !important;
@@ -1113,50 +1093,16 @@
             border-radius: .25rem;
         }
 
+        .delete-item {
+            margin-top: 0 !important
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script>
-        var appendNumber = 4;
-        var prependNumber = 1;
-        document
-            .querySelector(".prepend-2-slides")
-            .addEventListener("click", function (e) {
-                e.preventDefault();
-                swiper.prependSlide([
-                    '<div class="swiper-slide">Slide ' + --prependNumber + "</div>",
-                    '<div class="swiper-slide">Slide ' + --prependNumber + "</div>",
-                ]);
-            });
-        document
-            .querySelector(".prepend-slide")
-            .addEventListener("click", function (e) {
-                e.preventDefault();
-                swiper.prependSlide(
-                    '<div class="swiper-slide">Slide ' + --prependNumber + "</div>"
-                );
-            });
-        document
-            .querySelector(".append-slide")
-            .addEventListener("click", function (e) {
-                e.preventDefault();
-                swiper.appendSlide(
-                    '<div class="swiper-slide">Slide ' + ++appendNumber + "</div>"
-                );
-            });
-        document
-            .querySelector(".append-2-slides")
-            .addEventListener("click", function (e) {
-                e.preventDefault();
-                swiper.appendSlide([
-                    '<div class="swiper-slide">Slide ' + ++appendNumber + "</div>",
-                    '<div class="swiper-slide">Slide ' + ++appendNumber + "</div>",
-                ]);
-            });
-    </script>
+
     <script>
         var idCustomer = {{session('customer')->id}};
         var customerActive = @json(session('customer'));
@@ -1210,8 +1156,8 @@
         console.log(cart2)
 
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+{{--    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
 

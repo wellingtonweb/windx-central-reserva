@@ -548,6 +548,7 @@
 
         .card-header {
             text-align: center;
+            font-size: 2em;
         }
 
         .card-header div.title {

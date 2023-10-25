@@ -135,19 +135,7 @@ var checkBillet = false;
 // Add item to cart
 function addToCartBtn(data){
     var billet = JSON.parse(data);
-    console.log('Billet: ',billet);
-
-// $('.add-to-cart').click(function(event) {
-//     event.preventDefault();
     checkBillet = false;
-
-    // var icon = $(this).find('i');
-    // icon.removeClass('fa fa-check')
-    //     .addClass('d-none')
-    //     .addClass('fas fa-spinner fa-pulse')
-    //     .removeClass('d-none')
-    // $('#select-billet-'+billet.id).append("<i class='fas fa-spinner fa-pulse' aria-hidden='true'></i>")
-
     var btnId = billet.id;
     var billet_id = billet.id;
     var reference = billet.reference;
@@ -172,7 +160,6 @@ function addToCartBtn(data){
                     icon: "info",
                     title: 'Pagamento de acordo!',
                     html: 'Deseja pagar o acordo em '+ installment +' vezes no cartão de crédito?',
-                    // timer: 5000,
                     confirmButtonColor: '#38c172',
                     denyButtonColor: '#6c757d',
                     showDenyButton: false,
@@ -193,13 +180,10 @@ function addToCartBtn(data){
                 }).then((result) => {
                     if (result.isConfirmed) {
                         clearAllSections();
-                        // console.log('Cart: ', billetsCart.totalCart())
                         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
-                        // swal.fire('Pop-up Card')
-
                         $('button#btn-credit').click();
                     }else{
                         deleteItemCart(btnId, reference)
@@ -208,7 +192,6 @@ function addToCartBtn(data){
                 })
             }else{
                 $('#select-billet-'+btnId).html('Pagar')
-                // clearAllSections();
                 Swal.fire({
                     icon: 'error',
                     title: 'Acordo não autorizado!',
@@ -218,19 +201,18 @@ function addToCartBtn(data){
                     confirmButtonText: 'Confirmar',
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
                         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
                         addPaintItem(btnId)
                         displayCart();
-                    } else {
-                        clearAllSections();
                     }
+                    // else {
+                    //     clearAllSections();
+                    // }
                 })
             }
         }else{
             $('#select-billet-'+btnId).html('Pagar')
-            // clearAllSections();
             Swal.fire({
                 icon: 'error',
                 title: 'Parcelamento não autorizado!',
@@ -240,16 +222,16 @@ function addToCartBtn(data){
                 confirmButtonText: 'Confirmar',
                 cancelButtonText: `Cancelar`,
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
                     console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
                     console.log(cart);
-                } else {
-                    clearAllSections();
                 }
+                // else {
+                //     clearAllSections();
+                // }
             })
         }
     }
@@ -299,39 +281,12 @@ function addToCartBtn(data){
     //     displayCart();
     // }
 }
-// });
-
-// function addInvoiceToCart(data){
-//     let btnId = data.id, billet_id = data.dataset.id, reference = data.dataset.reference,
-//         value = data.dataset.value, addition = data.dataset.addition,
-//         discount = data.dataset.discount, price = Number(data.dataset.price);
-//
-//     billetsCart.addItemToCart(billet_id, reference, value, addition, discount, price, 1);
-//     addPaintItem(btnId)
-//     displayCart();
-// }
-
-//Remove item to cart
-// $('.delete-item').on("click", function(event) {
-//     var id = $(this).attr('id');
-//     // var reference = $(this).data('reference')
-//     deleteItemCart(id.replace(/[^0-9]/g,''))
-// })
 
 function deleteItemCart(id){
     billetsCart.removeItemFromCart(id);
     removePaintItem(id)
     displayCart();
 }
-// function removeInvoiceToCart(data){
-//     let btnId = data.id, reference = data.dataset.reference,
-//         value = data.dataset.value, addition = data.dataset.addition,
-//         discount = data.dataset.discount, price = Number(data.dataset.price);
-//
-//     billetsCart.removeItemFromCart(reference);
-//     removePaintItem(btnId)
-//     displayCart();
-// }
 
 function getCheckBillet(id){
     $.ajax({
@@ -347,18 +302,13 @@ function getCheckBillet(id){
     return checkBillet
 }
 
-
 // Clear items of cart
 $('.clear-cart').click(function() {
-    // billetsCart.clearCart();
     clearAllSections();
     $('#v-pills-tab').removeClass('d-none')
     $('#v-pills-tabContent').addClass('d-none')
-    // removePaintAll()
-    // displayCart();
     swiper.slideTo(0);
     notify('Todas as faturas foram removidas!')
-    //location.reload();
 });
 
 // Clear all sections
@@ -368,7 +318,7 @@ function clearAllSections() {
     localStorage.clear();
     removePaintAll()
     displayCart();
-    // refreshSliderCards()
+    clearInterval(callback)
 }
 
 // Remove paint all
@@ -405,8 +355,6 @@ async function copyBarcode(id) {
 
 // Add paint and disable buttons
 function addPaintItem(id) {
-    console.log('Id do elemento add: ', id)
-    // $('#invoice-'+id).addClass('border-success text-windx-50');
     $('#billet_'+id).addClass('text-windx-50');
     $('#title-'+id).addClass('text-windx-50');
     $('#select-billet-'+id).addClass('d-none').addClass('not-active');
@@ -418,9 +366,6 @@ function addPaintItem(id) {
 
 // Remove paint item and enable buttons
 function removePaintItem(id) {
-    console.log('Id do elemento remove: ', id)
-    // const id = parseInt(btn_id.replace(/[^0-9]/g, ''));
-    // $('#invoice-'+id).removeClass('border-success text-windx-50');
     $('#billet_'+id).removeClass('text-windx-50');
     $('#title-'+id).removeClass('text-windx-50');
     $('#select-billet-'+id).removeClass('d-none').removeClass('not-active');
@@ -429,58 +374,12 @@ function removePaintItem(id) {
     $('#print-billet-'+id).removeClass('not-active');
     sessionStorage.removeItem(id);
 }
-
-/* Session paint components */
-function paintBilletSession(){
-    let billet_Id = '';
-    let card_data_id = '';
-
-    if (sessionStorage.getItem("billetsCart") != null) {
-        billetsSession = JSON.parse(sessionStorage.getItem("billetsCart"))
-        $.each(billetsSession, function(i, v) {
-            billet_Id = billetsSession[i].billet_id;
-            $('.invoice-slide').each(function (el) {
-                card_data_id = $(this).attr('data-id')
-                if(card_data_id == billet_Id){
-                    $(this).addClass('border-success text-windx-50')
-                    // $('.invoice-title').addClass('text-windx-50')
-                    $('.invoice-title').each(function() {
-                        if ($(this).attr('data-id') == card_data_id){
-                            $(this).addClass('text-windx-50');
-                        }
-                    });
-                    $('.btn.btn-copy').each(function() {
-                        if ($(this).attr('data-id') == card_data_id){
-                            $(this).addClass('not-active');
-                        }
-                    });
-                    $('.btn.btn-print-billet').each(function() {
-                        if ($(this).attr('data-id') == card_data_id){
-                            $(this).addClass('not-active');
-                        }
-                    });
-                    $('.btn.add-to-cart').each(function() {
-                        if ($(this).attr('data-id') == card_data_id){
-                            $(this).addClass('d-none');
-                        }
-                    });
-                    $('.btn.delete-item').each(function() {
-                        if ($(this).attr('data-id') == card_data_id){
-                            $(this).removeClass('d-none');
-                        }
-                    });
-                }
-            });
-        });
-    }
-}
-
-paintBilletSession()
+var count = 0;
 
 // Show checkout information on dashboard
 function displayCart() {
     var total = billetsCart.totalCart();
-    var count = billetsCart.totalCount();
+    count = billetsCart.totalCount();
     var fees = billetsCart.totalFees();
     var totalSum = billetsCart.totalSum();
 
@@ -503,33 +402,8 @@ function displayCart() {
     }
 }
 
-// $('.add-to-cart').click(function(event) {
-//     event.preventDefault();
-//     let invoice = $(this).data('invoice');
-//     console.log(invoice);
-//     var btnId = $(this).attr('id');
-//     var billet_id = $(this).data('id');
-//     var reference = $(this).data('reference');
-//     var value = $(this).data('value');
-//     var addition = $(this).data('addition');
-//     var discount = $(this).data('discount');
-//     var price = Number($(this).data('price'));
-//
-//     billetsCart.addItemToCart(billet_id, reference, value, addition, discount, price, 1);
-//     addPaintItem(btnId)
-//     displayCart();
-// });
-// $('.delete-item').on("click", function(event) {
-//     var id = $(this).attr('id');
-//     var reference = $(this).data('reference')
-//     billetsCart.removeItemFromCart(reference);
-//     removePaintItem(id)
-//     displayCart();
-// })
-
 async function pixCopyPaste(){
     let code = $('p.qrcodestring').text()
-    console.log(code);
     await navigator.clipboard.writeText(code)
         .then(() => {
             notify('Copiado para área de transferência!')
@@ -554,6 +428,7 @@ function isDue(dueDate)
     return false;
 }
 
+/* Swiper Slider Billets Cards */
 var slider = '';
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 1,
@@ -585,9 +460,7 @@ var swiper = new Swiper(".mySwiper", {
     },
     on: {
         init: function () {
-            console.log('swiper initialized');
             getBillets()
-
         },
     },
 });
@@ -666,11 +539,6 @@ async function getBillets(){
     }
 }
 
-
-$('#refesh-slider').on('click', function (){
-    refreshSliderCards()
-})
-
 function refreshSliderCards()
 {
     swiper.removeAllSlides();
@@ -678,37 +546,7 @@ function refreshSliderCards()
     getBillets()
 }
 
-$('#tyne-next-btn').on('click', function (){
-    // slider.goTo('next');
-    swiper.nextEl()
-})
-
-$('#tyne-prev-btn').on('click', function (){
-    // slider.goTo('prev');
-    swiper.prevEl()
-})
-
-
 displayCart();
-
-
-// function timerOut(){
-//     window.onload = resetTimer;
-//     // DOM Events
-//     document.onmousemove = resetTimer;
-//     document.onkeypress = resetTimer;
-//     document.onmousedown = resetTimer; // touchscreen presses
-//     document.ontouchstart = resetTimer;
-//     document.onclick = resetTimer;     // touchpad clicks
-//     // logout();
-//     function resetTimer() {
-//         clearTimeout(time);
-//         time = setTimeout(() => {
-//             $('.card-login').removeClass('is-flipped');
-//         }, 15000)
-//         // time = setTimeout(logout, 60000)
-//     }
-// }
 
 /* Tries reload callback = 5 */
 let tries = 0;
@@ -768,7 +606,7 @@ $('button.btn-payment-type').click(function (){
             $('#method').val('ecommerce');
             //$('#terminal_id').val('2');
             // $('#reference').val();
-            // $('#modal-payment-form').modal('show');
+            $('#modal-payment-form').modal('show');
             // Swal.fire('Aguardando aprovação do pagamento!')
             // $('#form_checkout').submit();
             break
@@ -850,36 +688,36 @@ function sendPayment(payment){
         url: payment.actionForm,
         data: payment.dataForm,
         beforeSend: function (){
-            console.log('BeforeSend')
-            // Swal.fire({
-            //     title: 'Pagamento via '+getPaymentText(payment.paymentType),
-            //     html: payment.method == 'picpay' || payment.method == 'pix' ? 'Gerando qrcode...':'Validando dados...',
-            //     timer: 60000,
-            //     // timerProgressBar: true,
-            //     showConfirmButton: false,
-            //     didOpen: () => {
-            //         Swal.showLoading()
-            //     },
-            //     allowOutsideClick: () => {
-            //         const popup = Swal.getPopup()
-            //         popup.classList.remove('swal2-show')
-            //         setTimeout(() => {
-            //             popup.classList.add('animate__animated', 'animate__headShake')
-            //         })
-            //         setTimeout(() => {
-            //             popup.classList.remove('animate__animated', 'animate__headShake')
-            //         }, 500)
-            //         return false
-            //     },
-            //     willClose: () => {
-            //         // clearInterval(timerInterval)
-            //     },
-            // }).then((result) => {
-            //     /* Read more about isConfirmed, isDenied below */
-            //     if (result.dismiss === Swal.DismissReason.timer) {
-            //         displayMessageErrorPayment('Servidor indisponível')
-            //     }
-            // })
+            // console.log('BeforeSend')
+            Swal.fire({
+                title: 'Pagamento via '+getPaymentText(payment.paymentType),
+                html: payment.method == 'picpay' || payment.method == 'pix' ? 'Gerando qrcode...':'Validando dados...',
+                timer: 60000,
+                // timerProgressBar: true,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+                willClose: () => {
+                    // clearInterval(timerInterval)
+                },
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    displayMessageErrorPayment('Servidor indisponível')
+                }
+            })
         },
         success: function(response) {
             console.log(response)
@@ -888,6 +726,7 @@ function sendPayment(payment){
                 transactionId = sessionStorage.getItem("transactionId");
 
                 if (payment.paymentType == 'picpay' || payment.paymentType == 'pix') {
+                    console.log('Data: ', response.data)
                     setQrcode(response.data.qrCode, payment.paymentType, response.data.copyPaste)
                 }else{
                     if(response.status != 422){
@@ -946,82 +785,85 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(qrcode, payment_type, qrString){
-    // console.log(qrcode, payment_type, qrString)
+    console.log(qrcode, payment_type, qrString)
     let timerInterval
     let pref64 = 'data:image\\/png;base64,';
     displayCart()
     countdown()
 
-    if(payment_type == 'pix'){
-        $('#qrcode-img').attr('src', pref64 + qrcode)
-        $('.qrcodestring').text(qrString);
-        $('#copyPix').removeClass('d-none');
-        $('#boxQrString').removeClass('d-none');
+    // if(payment_type == 'pix'){
+    //     $('#qrcode-img').attr('src', pref64 + qrcode)
+    //     $('.qrcodestring').text(qrString);
+    //     $('#copyPix').removeClass('d-none');
+    //     $('#boxQrString').removeClass('d-none');
+    //
+    // }else{
+    //     $('#qrcode-img').attr('src', qrcode)
+    // }
 
-    }else{
-        $('#qrcode-img').attr('src', qrcode)
-    }
-
-    //callbackTransaction()
-    // Swal.fire({
-    //     title: 'Windx Telecomunicações',
-    //     html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong>'+count+'</strong> '+ (count>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
-    //         '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+$('.total-cart').html()+'</span>' +
-    //         '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
-    //         '<p>Leia o QRCode com seu app</p>' +
-    //         // '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
-    //         // '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
-    //         // '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
-    //         // 'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
-    //         '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
-    //         '<p id="timer" class="text-danger"></p></div>',
-    //     // timer: 10000,
-    //     // timer: 60000,
-    //     // timer: 90000,//1.5min
-    //     timer: 120000,//2min
-    //     // timer: 120000,//3min
-    //     timerProgressBar: false,
-    //     showConfirmButton: false,
-    //     showDenyButton: true,
-    //     denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
-    //     denyButtonColor: '#d33',
-    //     didOpen: () => {
-    //         if(payment_type == 'pix'){
-    //             $('#btnPixCopyPaste').removeClass('d-none');
-    //         }
-    //         Swal.hideLoading()
-    //         //$('.swal2-loader').addClass('d-none');
-    //         countdown();
-    //         setTimeout(() => {
-    //             $('#labelWaitingPayment').removeClass('d-none');
-    //         }, 60000)
-    //     },
-    //     willClose: () => {
-    //         clearInterval(timerInterval)
-    //     },
-    //     allowOutsideClick: () => {
-    //         const popup = Swal.getPopup()
-    //         popup.classList.remove('swal2-show')
-    //         setTimeout(() => {
-    //             popup.classList.add('animate__animated', 'animate__headShake')
-    //         })
-    //         setTimeout(() => {
-    //             popup.classList.remove('animate__animated', 'animate__headShake')
-    //         }, 500)
-    //         return false
-    //     }
-    // }).then((result) => {
-    //     if (result.dismiss === Swal.DismissReason.timer || result.isDismissed) {
-    //         // displayMessageWaitingPayment()
-    //         msgStatusTransaction('expired')
-    //     }
-    //     else if (result.isDenied) {
-    //         tries = 5;
-    //         clearAllSections()
-    //         msgStatusTransaction('canceled')
-    //         window.location.reload()
-    //     }
-    // })
+    callbackTransaction()
+    Swal.fire({
+        // title: 'Windx Telecomunicações',
+        html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
+            '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold total-cart"></span>' +
+            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
+            '<p>Leia o QRCode com seu app</p>' +
+            '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
+            '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
+            '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
+            'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
+            '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
+            '<p id="timer" class="text-danger"></p></div>',
+        // timer: 10000,
+        // timer: 60000,
+        // timer: 90000,//1.5min
+        timer: 120000,//2min
+        // timer: 120000,//3min
+        timerProgressBar: false,
+        showConfirmButton: false,
+        showDenyButton: true,
+        denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
+        denyButtonColor: '#d33',
+        didOpen: () => {
+            if(payment_type == 'pix'){
+                $('#btnPixCopyPaste').removeClass('d-none');
+            }
+            Swal.hideLoading()
+            //$('.swal2-loader').addClass('d-none');
+            countdown();
+            setTimeout(() => {
+                $('#labelWaitingPayment').removeClass('d-none');
+            }, 60000)
+        },
+        willClose: () => {
+            clearInterval(timerInterval)
+        },
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer || result.isDismissed) {
+            // displayMessageWaitingPayment()
+            clearAllSections()
+            msgStatusTransaction('expired')
+            refreshSliderCards()
+        }
+        else if (result.isDenied) {
+            tries = 5;
+            clearAllSections()
+            msgStatusTransaction('canceled')
+            refreshSliderCards()
+            // window.location.reload()
+        }
+    })
 
 }
 

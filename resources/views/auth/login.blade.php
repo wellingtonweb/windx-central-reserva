@@ -100,17 +100,81 @@
         let url = "{{ route('central.logon') }}";
         $('#btn-login').text('Verificando...')
 
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-Token": formData[0].value
-            },
-            body: JSON.stringify({
-                login: formData[1].value,
-                password: formData[2].value,
-            }),
-        })
+        try {
+            let response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": formData[0].value
+                },
+                body: JSON.stringify({
+                    login: formData[1].value,
+                    password: formData[2].value,
+                }),
+            });
+            let data = await response.json();
+
+            if(data.error === undefined && response.status > 200){
+                Swal.fire({
+                    title: '403 - Serviço indisponível!',
+                    html: "Informe em nossa<br> Central de Atendimento.",
+                    icon: 'error',
+                    confirmButtonColor: '#208637',
+                    confirmButtonText: 'Central de Atendimento',
+                    showCloseButton: true,
+                    willClose: () => {
+                        $(this)[0].reset();
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                    }
+                })
+            }
+
+            if(response.status > 200){
+                $('#btn-login').text('Entrar')
+                if(data.error.login){
+                    $('small.login_error').text(data.error.login)
+                }else if(data.error.password){
+                    $('small.password_error').text(data.error.password)
+                }else{
+                    shakeError('form-signin')
+                    if(response.status === 404){
+                        Swal.fire({
+                            title: data.error,
+                            text: 'Solicite seu cadastro em nossa Central de Atendimento.',
+                            icon: 'warning',
+                            confirmButtonColor: '#208637',
+                            confirmButtonText: 'Central de Atendimento',
+                            showCloseButton: true,
+                            willClose: () => {
+                                $(this)[0].reset();
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                            }
+                        })
+                    }else{
+                        Swal.fire({title: data.error, icon: (response.status === 423 ? 'warning' : 'error' ), timer: 4000, timerProgressBar: false, showCloseButton: true})
+                    }
+                }
+            }
+
+            if(response.status === 200){
+                $(this)[0].reset();
+                $('#btn-login').text('Entrar')
+                $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUp')
+                $('.loader').removeClass('d-none');
+                location.href = `{{ route('central.home') }}`;
+            }
+        }catch(error) {
+            console.log(error);
+        }
+
+/*
+
             .then((response) => response.json())
             .then((data) => {
                 if(data.message === 'authorized'){
@@ -141,27 +205,47 @@
                             showCloseButton: true,
                         })
                     }
+
+                    console.log(response.status)
+
+                    // if(data.status){
+                    //     Swal.fire({
+                    //         title: data.error,
+                    //         icon: 'warning',
+                    //         timer: 4000,
+                    //         timerProgressBar: false,
+                    //         showCloseButton: true,
+                    //     })
+                    // }
                 }
             })
             .catch((error) => {
-                $('#btn-login').text('Entrar')
-                shakeError('form-signin')
-                Swal.fire({
-                    title: 'Ops, login não cadastrado!',
-                    text: 'Solicite seu cadastro em nossa Central de Atendimento.',
-                    icon: 'warning',
-                    confirmButtonColor: '#208637',
-                    confirmButtonText: 'Central de Atendimento',
-                    showCloseButton: true,
-                    willClose: () => {
-                        $(this)[0].reset();
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-                    }
-                })
+                // var textError = error.json()
+
+                    console.log('Outro erro: ' + error.message.error);
+
+
+
+                // $('#btn-login').text('Entrar')
+                // shakeError('form-signin')
+                // Swal.fire({
+                //     title: 'Ops, login não cadastrado!',
+                //     text: 'Solicite seu cadastro em nossa Central de Atendimento.',
+                //     icon: 'warning',
+                //     confirmButtonColor: '#208637',
+                //     confirmButtonText: 'Central de Atendimento',
+                //     showCloseButton: true,
+                //     willClose: () => {
+                //         $(this)[0].reset();
+                //     }
+                // }).then((result) => {
+                //     if (result.isConfirmed) {
+                //         window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                //     }
+                // })
             });
+*/
+
     })
 
     $('#form_reset_password').submit(async function (e){

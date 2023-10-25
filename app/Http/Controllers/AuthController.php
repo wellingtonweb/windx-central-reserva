@@ -16,6 +16,7 @@ use App\Services\Functions;
 use App\Services\Logger;
 use App\Services\Validations;
 use Faker\Factory;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -144,32 +145,36 @@ class AuthController extends Controller
 
     public function logon(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'login' => ['required', 'email:rfc,dns'],
-            'password' => ['required','min:8']
-        ]);
+        $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
 
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            return response()->json(['error' => $errors], 422);
+        $hourBackup = Validations::checkHourBackupVigo($array);
+        if ($hourBackup) {
+            return response()->json(['error' => 'Servidor em manutenção! Tente novamente dentro de alguns minutos.'], 423);
         }else{
-            $response = (new API())->customerLogon($validator->validate());
+            $validator = Validator::make($request->all(), [
+                'login' => ['required', 'email:rfc,dns'],
+                'password' => ['required','min:8']
+            ]);
 
-//            return response()->json(['error' => $response->body()], 404);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
 
-            if($response == null){
-                return response()->json(['null' => 'Não existe cadastro com o login informado!'], 404);
-            }
+                return response()->json(['error' => $errors], 422);
+            }else{
+                $response = (new API())->customerLogon($validator->validate());
 
-            if($response->successful())
-            {
-                session()->put('customer', $response->object());
+                if($response == null){
+                    return response()->json(['error' => 'Ops, login não cadastrado!'], 404);
+                }
 
-                CustomerLog::create(UserInfo::get_customer_metadata());
+                if($response->successful())
+                {
+                    session()->put('customer', $response->object());
 
-                return response()->json(['message' => 'authorized'], 200);
+                    CustomerLog::create(UserInfo::get_customer_metadata());
 
+                    return response()->json(200);
+                }
             }
         }
     }

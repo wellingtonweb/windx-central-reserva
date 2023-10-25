@@ -190,7 +190,7 @@
                         </a>
                     </div><!--end col-->
                     @endif
-                </div><!--end row-->
+                </div>
             </div>
         </section>
     </main>

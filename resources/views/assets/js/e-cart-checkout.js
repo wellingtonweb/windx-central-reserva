@@ -170,13 +170,27 @@ function sendPayment(payment){
             })
         },
         success: function(response) {
-            console.log(response)
-            if (response != false || response.original.status != 'error' || response.data === undefined) {
+            console.log('Resposta do servidor: ', response)
+
+            // if (response != false || response.original.status != 'error' || response.data === undefined || response.data.status != 500) {
+            if (response.data.id == undefined) {
+                console.log(response.data.message)
+                // clearInterval(callback)
+                displayMessageErrorPayment(response.data.message)
+                return;
+
+                // }else{
+                //     console.log('Resposta sem ID: ', response)
+                // }
+            } else {
                 sessionStorage.setItem('transactionId', response.data.id)
                 transactionId = sessionStorage.getItem("transactionId");
 
+                callback = setInterval(function () {
+                    callbackTransaction(response.data.id)
+                }, 5000);
+
                 if (payment.paymentType == 'picpay' || payment.paymentType == 'pix') {
-                    console.log('Data: ', response.data)
                     setQrcode(response.data.qrCode, payment.paymentType, response.data.copyPaste)
                 }else{
                     if(response.status != 422){
@@ -187,16 +201,6 @@ function sendPayment(payment){
                         console.log('Verifique os campos em vermelho!')
                     }
                 }
-                callback = setInterval(function () {
-                    if (transactionId != 'undefined' || transactionId != null) {
-                        callbackTransaction(transactionId)
-                    }
-                }, 5000);
-            } else {
-                console.log('Servidor indisponível')
-                clearInterval(callback)
-                //displayMessageErrorPayment('Servidor indisponível')
-                return;
             }
         },
         error: function(data) {
@@ -235,9 +239,8 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(qrcode, payment_type, qrString){
-    console.log(qrcode, payment_type, qrString)
     let timerInterval
-    let pref64 = 'data:image\\/png;base64,';
+    // let pref64 = 'data:image\\/png;base64,';
     displayCart()
     countdown()
 
@@ -251,12 +254,11 @@ function setQrcode(qrcode, payment_type, qrString){
     //     $('#qrcode-img').attr('src', qrcode)
     // }
 
-    callbackTransaction()
     Swal.fire({
         // title: 'Windx Telecomunicações',
         html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
             '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold total-cart"></span>' +
-            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+(payment_type=="pix"?pref64:"")+qrcode+'"></div></div>' +
+            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+qrcode+'"></div></div>' +
             '<p>Leia o QRCode com seu app</p>' +
             '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
             '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +

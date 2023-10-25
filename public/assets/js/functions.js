@@ -30,7 +30,8 @@ async function copyBarcode3(btnThis){
     // console.log(code);
     await navigator.clipboard.writeText(code)
         .then(() => {
-            notify('Copiado para área de transferência!')
+            // notify('Copiado para área de transferência!')
+            notify5('Copiado para área de transferência!')
         })
         .catch((err) => {
             notify('Falha ao copiar: '+ err);
@@ -325,28 +326,29 @@ function logout(){
     });
 }
 
+let time;
 let inactivitySession = function () {
-    let time;
     document.onkeypress = resetTimer;
     document.onmousedown = resetTimer; // touchscreen presses
     document.ontouchstart = resetTimer;
     document.onclick = resetTimer;     // touchpad clicks
     // window.onload = resetTimer;
-    function resetTimer() {
-        // clearTimeout(counterBack);
-        clearInterval(time);
-        var i = 100;
-        time = setInterval(function () {
-            i--;
-            if (i > 0) {
-                $('.progress-bar-system').css('width', i + '%');
-            } else {
-                clearInterval(time);
-                logout()
-            }
-        }, 1000);
-    }
 };
+
+function resetTimer() {
+    // clearTimeout(counterBack);
+    clearInterval(time);
+    var i = 100;
+    time = setInterval(function () {
+        i--;
+        if (i > 0) {
+            $('.progress-bar-system').css('width', i + '%');
+        } else {
+            clearInterval(time);
+            logout()
+        }
+    }, 1000);
+}
 
 $('.container-fluid').trigger('click');
 

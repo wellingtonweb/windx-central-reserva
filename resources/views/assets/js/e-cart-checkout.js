@@ -122,6 +122,7 @@ function callbackTransaction(id){
                 // callbackPrintCoupon(id)
             }
             msgStatusTransaction(data.status)
+            resetTimer()
             console.log('Message: ', data)
         }
     })
@@ -138,10 +139,9 @@ function sendPayment(payment){
         url: payment.actionForm,
         data: payment.dataForm,
         beforeSend: function (){
-            // console.log('BeforeSend')
             Swal.fire({
                 title: 'Pagamento via '+getPaymentText(payment.paymentType),
-                html: payment.method == 'picpay' || payment.method == 'pix' ? 'Gerando qrcode...':'Validando dados...',
+                html: (payment.method == 'picpay' || payment.paymentType == 'pix') ? 'Gerando qrcode...':'Validando dados...',
                 timer: 60000,
                 // timerProgressBar: true,
                 showConfirmButton: false,
@@ -163,7 +163,6 @@ function sendPayment(payment){
                     // clearInterval(timerInterval)
                 },
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.dismiss === Swal.DismissReason.timer) {
                     displayMessageErrorPayment('Servidor indisponível')
                 }
@@ -172,16 +171,10 @@ function sendPayment(payment){
         success: function(response) {
             console.log('Resposta do servidor: ', response)
 
-            // if (response != false || response.original.status != 'error' || response.data === undefined || response.data.status != 500) {
             if (response.data.id == undefined) {
                 console.log(response.data.message)
-                // clearInterval(callback)
                 displayMessageErrorPayment(response.data.message)
                 return;
-
-                // }else{
-                //     console.log('Resposta sem ID: ', response)
-                // }
             } else {
                 sessionStorage.setItem('transactionId', response.data.id)
                 transactionId = sessionStorage.getItem("transactionId");
@@ -190,7 +183,7 @@ function sendPayment(payment){
                     callbackTransaction(response.data.id)
                 }, 5000);
 
-                if (payment.paymentType == 'picpay' || payment.paymentType == 'pix') {
+                if (payment.method == 'picpay' || payment.paymentType == 'pix') {
                     setQrcode(response.data.qrCode, payment.paymentType, response.data.copyPaste)
                 }else{
                     if(response.status != 422){
@@ -238,7 +231,8 @@ function sendPayment(payment){
 }
 
 /* Display qrcode for payment */
-function setQrcode(qrcode, payment_type, qrString){
+function setQrcode(qrcode, payment_type, copyPaste){
+    console.log(copyPaste)
     let timerInterval
     // let pref64 = 'data:image\\/png;base64,';
     displayCart()
@@ -262,10 +256,13 @@ function setQrcode(qrcode, payment_type, qrString){
             '<p>Leia o QRCode com seu app</p>' +
             '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
             '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
-            '<p id="btnPixCopyPaste" class="animate__animated d-none"><a id="copyPix" href="#" class="card-link text-primary" ' +
-            'onclick="pixCopyPaste(this)" data-qrcodestring="'+qrString+'">Pix Copia e Cola</a></p></div>' +
-            '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none">Aguardando confirmação de pagamento...</p>' +
-            '<p id="timer" class="text-danger"></p></div>',
+            '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+copyPaste+'">' +
+            // '<a id="copyPix" href="#" class="card-link text-primary" ' +
+            // 'onclick="pixCopyPaste(this)" data-codeCopyPaste="'+copyPaste+'">Pix Copia e Cola</a>' +
+            'Pix Copia e Cola</p>' +
+            '</div>' +
+            '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>' +
+            '<p id="timerPayment" class="text-danger"></p></div>',
         // timer: 10000,
         // timer: 60000,
         // timer: 90000,//1.5min
@@ -285,7 +282,7 @@ function setQrcode(qrcode, payment_type, qrString){
             countdown();
             setTimeout(() => {
                 $('#labelWaitingPayment').removeClass('d-none');
-            }, 60000)
+            }, 10000)
         },
         willClose: () => {
             clearInterval(timerInterval)
@@ -307,13 +304,6 @@ function setQrcode(qrcode, payment_type, qrString){
             clearAllSections()
             msgStatusTransaction('expired')
             refreshSliderCards()
-        }
-        else if (result.isDenied) {
-            tries = 5;
-            clearAllSections()
-            msgStatusTransaction('canceled')
-            refreshSliderCards()
-            // window.location.reload()
         }
     })
 

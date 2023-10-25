@@ -347,6 +347,16 @@ header {
     /*max-width: 200em;*/
 }
 
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.3rem 1rem;
+    margin-bottom: .5rem;
+    list-style: none;
+    background-color: #fff;
+    border-radius: 0.25rem;
+}
+
 /* #Media
 ================================================== */
 /* Screen medium than 400px? 2 column */

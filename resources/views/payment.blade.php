@@ -6,13 +6,20 @@
             <div class="container-fluid container-payment">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-                        <div id="infoCustomerActive" class="d-flex d-none col-12 order-0 px-lg-0 px-md-1 mb-2">
-                            <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                    <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                                </svg>Voltar
-                            </a>
-                        </div>
+{{--                        <div id="infoCustomerActive" class="d-flex d-none col-12 order-0 px-lg-0 px-md-1 mb-2">--}}
+{{--                            <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">--}}
+{{--                                    <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>--}}
+{{--                                </svg>Voltar--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+
+                        <nav id="infoCustomerActive" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
+                            </ol>
+                        </nav>
                         <div id="colCheckout" class="d-none {{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-4 order-lg-2
                         col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0 mb-4">
                             <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
@@ -486,8 +493,47 @@
     </main>
 @endsection
 
+@section('modal')
+    <div class="modal fade backdrop-modal-transparent" id="modalMessage" tabindex="-1" data-keyboard="false" data-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h4 id="modalMessageText"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('css')
     <style>
+        .backdrop-modal-transparent {
+            background-color: transparent !important;
+        }
+
+        #modalMessage {
+            z-index: 1070 !important;
+        }
+
+        #modalMessage .modal-body {
+            padding: .6rem !important;
+        }
+
+        #modalMessage .modal-content {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fbfafa;
+            background-clip: padding-box;
+            border: none !important;
+            border-radius: 0.3rem;
+            outline: 0;
+            color: #002046;
+            font-weight: bold !important;
+        }
+
         .swiper {
             width: 100%;
             height: 100%;
@@ -1166,7 +1212,10 @@
 
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>--}}
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>--}}
-    {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+        <script type="text/javascript" defer>
+
+            // inactivitySession();
+        </script>
 @endsection
 
 

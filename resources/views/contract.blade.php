@@ -5,14 +5,20 @@
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
                 <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
-                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">
-                        <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                            </svg>
-                            Voltar
-                        </a>
-                    </div>
+{{--                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">--}}
+{{--                        <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">--}}
+{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">--}}
+{{--                                <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>--}}
+{{--                            </svg>--}}
+{{--                            Voltar--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+                    <nav id="infoCustomerActive" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Contrato</li>
+                        </ol>
+                    </nav>
 {{--                    {{dd($customer)}}--}}
                     <div class="col-12">
                         <div class="row d-none" style="gap: 10px">

@@ -275,18 +275,23 @@ function displayCart() {
     }
 }
 
-async function pixCopyPaste(){
-    let code = $('p.qrcodestring').text()
-    await navigator.clipboard.writeText(code)
-        .then(() => {
-            notify('Copiado para área de transferência!')
-        })
-        .catch((err) => {
-            notify('Falha ao copiar: '+ err);
-            setTimeout(() => {
-                location.reload()
-            }, 1000)
-        });
+async function pixCopyPaste(e){
+    let code = $(e).data('code');
+
+    if(code != undefined){
+        await navigator.clipboard.writeText(code)
+            .then(() => {
+                notify5('Copiado para área de transferência!')
+            })
+            .catch((err) => {
+                notify5('Falha ao copiar chave pix: '+ err);
+                setTimeout(() => {
+                    location.reload()
+                }, 1000)
+            });
+    }else{
+        notify5('Falha ao copiar chave pix');
+    }
 }
 
 function isDue(dueDate)

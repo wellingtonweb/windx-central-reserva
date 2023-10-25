@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">
@@ -41,7 +41,7 @@
                             </div>
                         </a>
                     </div><!--end col-->
-                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.payment')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">
@@ -73,7 +73,7 @@
                             </div>
                         </a>
                     </div><!--end col-->
-                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.payments')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">
@@ -102,7 +102,7 @@
                             <i class="mdi mdi-chevron-right"></i>
                         </a>
                     </div><!--end col-->
-                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.invoices')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">
@@ -135,7 +135,7 @@
                             <i class="mdi mdi-chevron-right"></i>
                         </a>
                     </div><!--end col-->
-                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.support')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">
@@ -163,7 +163,7 @@
                         </a>
                     </div><!--end col-->
                     @if(session('customer')->status === 'B')
-                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a id="{{session('customer')->id}}" onclick="releaseCustomer(this.id)" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">

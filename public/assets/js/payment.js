@@ -696,7 +696,7 @@ function sendPayment(payment){
         beforeSend: function (){
             Swal.fire({
                 title: 'Pagamento via '+getPaymentText(payment.paymentType),
-                html: (payment.method == 'picpay' || payment.paymentType == 'pix') ? 'Gerando qrcode...':'Validando dados...',
+                html: (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') ? 'Gerando qrcode...':'Validando dados...',
                 timer: 60000,
                 // timerProgressBar: true,
                 showConfirmButton: false,
@@ -738,8 +738,9 @@ function sendPayment(payment){
                     callbackTransaction(response.data.id)
                 }, 5000);
 
-                if (payment.method == 'picpay' || payment.paymentType == 'pix') {
-                    setQrcode(response.data.qrCode, payment.paymentType, response.data.copyPaste)
+                if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
+                    setQrcode(response.data)
+                    // setQrcode(response.data.qrCode, payment, response.data.copyPaste)
                 }else{
                     if(response.status != 422){
                         $('#modal-payment-form').modal('hide')
@@ -786,58 +787,42 @@ function sendPayment(payment){
 }
 
 /* Display qrcode for payment */
-function setQrcode(qrcode, payment_type, copyPaste){
-    console.log(copyPaste)
-    let timerInterval
-    // let pref64 = 'data:image\\/png;base64,';
-    displayCart()
-    countdown()
-
-    // if(payment_type == 'pix'){
-    //     $('#qrcode-img').attr('src', pref64 + qrcode)
-    //     $('.qrcodestring').text(qrString);
-    //     $('#copyPix').removeClass('d-none');
-    //     $('#boxQrString').removeClass('d-none');
-    //
-    // }else{
-    //     $('#qrcode-img').attr('src', qrcode)
-    // }
+function setQrcode(payment){
+    console.log('Valor: ', payment.amount)
+let amount = (payment.amount).toLocaleString('pt-BR');
 
     Swal.fire({
-        // title: 'Windx Telecomunicações',
-        html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment_type+'</strong>' +
-            '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold total-cart"></span>' +
-            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+qrcode+'"></div></div>' +
+        html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment.payment_type+'</strong>' +
+            '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+amount+'</span>' +
+            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+payment.qrCode+'"></div></div>' +
             '<p>Leia o QRCode com seu app</p>' +
-            '<p id="labelPixCopyPaste" class="'+ (payment_type=="pix"?"":"d-none")+'"></p>' +
-            '<p id="msgPixCopyPaste" class="text-success animate__animated d-none">Copiado para área de transferência!</p>' +
-            '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+copyPaste+'">' +
-            // '<a id="copyPix" href="#" class="card-link text-primary" ' +
-            // 'onclick="pixCopyPaste(this)" data-codeCopyPaste="'+copyPaste+'">Pix Copia e Cola</a>' +
+            '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+payment.copyPaste+'">' +
             'Pix Copia e Cola</p>' +
             '</div>' +
             '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>' +
-            '<p id="timerPayment" class="text-danger"></p></div>',
-        // timer: 10000,
-        // timer: 60000,
-        // timer: 90000,//1.5min
+            '<p id="timerPaymentQrCode" class="text-danger"></p></div>',
         timer: 120000,//2min
-        // timer: 120000,//3min
         timerProgressBar: false,
         showConfirmButton: false,
         showDenyButton: true,
         denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
         denyButtonColor: '#d33',
         didOpen: () => {
+            displayCart()
+
             if(payment_type == 'pix'){
                 $('#btnPixCopyPaste').removeClass('d-none');
             }
             Swal.hideLoading()
+            console.log('Valor: ', payment.amount)
+
+
+            // Swal.showLoading()
             //$('.swal2-loader').addClass('d-none');
-            countdown();
-            setTimeout(() => {
-                $('#labelWaitingPayment').removeClass('d-none');
-            }, 10000)
+            // countdown(120);
+            // setTimeout(() => {
+            //     $('#labelWaitingPayment').removeClass('d-none');
+            // }, 10000)
         },
         willClose: () => {
             clearInterval(timerInterval)
@@ -854,10 +839,14 @@ function setQrcode(qrcode, payment_type, copyPaste){
             return false
         }
     }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer || result.isDismissed) {
-            // displayMessageWaitingPayment()
+        if (result.dismiss === Swal.DismissReason.timer) {
             clearAllSections()
             msgStatusTransaction('expired')
+            refreshSliderCards()
+        }else
+        if (result.isDenied || result.isDismissed) {
+            clearAllSections()
+            msgStatusTransaction('canceled')
             refreshSliderCards()
         }
     })
@@ -889,7 +878,7 @@ function msgStatusTransaction(status){
                 return false;
                 break;
             case 'created':
-                console.log('Status: ', status)
+                // console.log('Status: ', status)
                 return false;
                 break;
             default:
@@ -910,7 +899,7 @@ function displayMessageWaitingPayment(){
         showConfirmButton: false,
         didOpen: () => {
             Swal.showLoading()
-            //callbackTransaction()
+            // clearInterval(callback)
         },
         willClose: () => {
             clearInterval(timerInterval)
@@ -930,7 +919,6 @@ function displayMessageWaitingPayment(){
 }
 
 function displayMessageErrorPayment(title){
-    clearInterval(callback)
     Swal.fire({
         icon: 'error',
         title: title,
@@ -942,6 +930,7 @@ function displayMessageErrorPayment(title){
         showDenyButton: false,
         didOpen: () => {
             Swal.hideLoading()
+            clearInterval(callback)
         },
         willClose: () => {
             displayMessageQuestionFinish()
@@ -994,13 +983,13 @@ function displayMessageErrorPayment(title){
 }
 
 function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
-    clearInterval(callback)
     Swal.fire({
         title: dTitle,
         icon: dIcon,
         timer: dTimer,
         didOpen: () => {
             Swal.hideLoading()
+            // clearInterval(callback)
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -1026,10 +1015,10 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
 }
 
 
-var tempo = 120;
+// var tempo = 120;
 // var tempo = 60;
 
-function countdown() {
+function countdown(tempo) {
     if ((tempo - 1) >= -1) {
         var min = parseInt(tempo / 60);
         var seg = tempo % 60;
@@ -1042,14 +1031,15 @@ function countdown() {
             seg = "0" + seg;
         }
 
-        $("#timerPayment").html(min + ':' + seg);
-            setTimeout('countdown()', 1000);
+        $("#timerPaymentQrCode").text(min + ':' + seg);
+            setTimeout('countdown(tempo)', 1000);
         tempo--;
+        console.log('Tempo de pagamento: ', tempo)
     }
     else {
-        $("#timerPayment").fadeOut(1000)
+        $("#timerPaymentQrCode").fadeOut(1000)
         $("#v-pills-qrcode").fadeOut(1000)
         $('#methodTitle').text('').fadeOut(1000)
-        displayMessageStatusTransaction('Tempo expirado!', 'error', 10000)
+        // displayMessageStatusTransaction('Tempo expirado!', 'error', 10000)
     }
 }

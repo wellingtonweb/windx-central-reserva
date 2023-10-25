@@ -42,7 +42,6 @@ async function copyBarcode3(btnThis){
 }
 
 function displayMessageQuestionFinish(){
-    clearInterval(callback)
     Swal.fire({
         title: 'Deseja realizar outro pagamento?',
         showDenyButton: true,
@@ -58,6 +57,7 @@ function displayMessageQuestionFinish(){
         },
         didOpen: () => {
             Swal.hideLoading()
+            clearInterval(callback)
         },
     }).then((result) => {
         if (result.isConfirmed) {
@@ -336,7 +336,6 @@ let inactivitySession = function () {
 };
 
 function resetTimer() {
-    // clearTimeout(counterBack);
     clearInterval(time);
     var i = 100;
     time = setInterval(function () {

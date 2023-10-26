@@ -12,8 +12,16 @@
                         </h5>
                     </div>
                 </div>
-                <div class="row mt-3">
-                    <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2 animate__animated animate__fadeIn animate__delay-2s">
+
+                <div class="container-actions-buttons d-flex justify-content-start bd-highlight mb-3 flex-wrap">
+                    <div class="action-button p-2 bg-primary text-dark w-50">Flex item</div>
+                    <div class="action-button p-2 bg-primary text-dark w-50">Flex item</div>
+                    <div class="action-button p-2 bg-primary text-dark w-50">Flex item</div>
+                    <div class="action-button p-2 bg-primary text-dark w-50">Flex item</div>
+                </div>
+
+                <div class="row mt-3 d-none">
+                    <div class="d-none card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="container-icon w-100 bg-success d-flex justify-content-center">
@@ -42,7 +50,46 @@
                         </a>
                     </div><!--end col-->
 
-                    <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2 animate__animated animate__fadeIn animate__delay-2s">
+                    <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2animate__animated animate__fadeIn animate__delay-2s">
+                        <a href="{{route('central.payment')}}" class="text-custom">
+                            <div class="media bg-white p-2">
+                                {{--                                <img class="mr-3" src=".../64x64" alt="Imagem de exemplo genérica">--}}
+                                <div class="icon mr-3 text-center text-custom h1 shadow rounded">
+                                    <span class="uim-svg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-text" viewBox="0 0 18 18" width="1.2em">
+                                          <path d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
+                                          <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="mt-0">Pagamento</h5>
+                                    Pagar faturas usando PIX, PICPAY, CRÉDITO, DÉBITO ou baixar uma 2ª via.
+                                </div>
+                            </div>
+                        </a>
+                    </div><!--end col-->
+                    <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2animate__animated animate__fadeIn animate__delay-2s">
+                        <a href="{{route('central.payment')}}" class="text-custom">
+                            <div class="media bg-white p-2">
+{{--                                <img class="mr-3" src=".../64x64" alt="Imagem de exemplo genérica">--}}
+                                <div class="icon mr-3 text-center text-custom h1 shadow rounded">
+                                    <span class="uim-svg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-text" viewBox="0 0 18 18" width="1.2em">
+                                          <path d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
+                                          <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="mt-0">Pagamento</h5>
+                                    Pagar faturas usando PIX, PICPAY, CRÉDITO, DÉBITO ou baixar uma 2ª via.
+                                </div>
+                            </div>
+                        </a>
+                    </div><!--end col-->
+
+                    <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2 pl-0 pr-0 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.payment')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="container-icon w-100 bg-success d-flex justify-content-center">
@@ -232,14 +279,67 @@
 
 @section('css')
     <style>
-        .custom-container {
+        /* Dispositivos extra small (telefones em modo retrato, com menos de 576px) */
+        @media (max-width: 575.98px) {
+            .action-button {
+                /*width: calc(50% - 5px) !important;*/
+                /*height: 0;*/
+                /*padding-bottom: 50%;*/
+
+                min-width: calc(25% - .75rem);
+                max-width: calc(50% - .75rem);
+            }
+        }
+
+        /* Dispositivos small (telefones em modo paisagem, com 576px ou mais) */
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .action-button {
+                max-width: calc(50% - .75rem) !important;
+
+                /*min-width: calc(25% - .75rem);*/
+                /*max-width: calc(50% - .75rem);*/
+            }
+        }
+
+        /* Dispositivos médios (tablets com 768px ou mais) */
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .action-button {
+                max-width: calc(25% - 1.2rem) !important;
+            }
+        }
+
+        /* Dispositivos large (desktops com 992px ou mais) */
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .action-button {
+                max-width: calc(25% - 1.2rem) !important;
+            }
+        }
+
+        /* Dispositivos extra large (desktops grandes com 1200px ou mais) */
+        @media (min-width: 1200px) {
+            .action-button {
+                max-width: calc(25% - 1.2rem) !important;
+            }
+        }
+
+        .bd-highlight {
+            background-color:#e0e0e0;
+            border: 1px solid #d0d0d0;
+        }
+
+        .container-actions-buttons {
             padding: 1rem;
             gap: 1.5rem;
         }
 
-        .custom-div {
-            width: auto;
+        .action-button {
             height: auto;
+        }
+
+        .action-button:after {
+            content: "";
+            display: block;
+            padding-bottom: 75%;
         }
 
         .card-button .content{

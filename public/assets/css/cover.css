@@ -361,6 +361,10 @@ header {
 ================================================== */
 /* Screen medium than 400px? 2 column */
 @media (min-width: 300px) and (max-width: 400px) {
+    .navbar-brand img {
+        height: 40px;
+    }
+
     .card-header{
         padding-top: .5rem !important;
     }
@@ -408,11 +412,13 @@ header {
         font-size: 32px;
     }
 
+
     .card-button .icon {
         width: 60px;
     }
 
     .card-button .content h4 {
+        padding-top: .5rem;
         font-size: 1.12rem;
     }
 

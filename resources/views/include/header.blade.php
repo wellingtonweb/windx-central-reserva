@@ -12,11 +12,11 @@
                 <div class="side-bar">
                     <div class="text-left m-3 p-3" style="border-bottom: 1px solid rgba(248,249,250,0.6)">
                         <div class="item-text">
-                            <h5 class="text-light font-weight-bold text-left">Contrato ID:</h5>
+                            <h5 class="item-title text-light font-weight-bold text-left">Contrato ID:</h5>
                             <span class=" text-uppercase text-right">{{session('customer')->id}}</span>
                         </div>
                         <div class="item-text">
-                            <h5 class="text-light font-weight-bold text-left">Status:</h5>
+                            <h5 class="item-title text-light font-weight-bold text-left">Status:</h5>
                             @switch(session('customer')->status)
                                 @case('L')
                                 <span class="text-status text-right text-primary">LIBERADO</span>
@@ -30,11 +30,11 @@
                             @endswitch
                         </div>
                         <div class="item-text">
-                            <h5 class="text-light font-weight-bold text-left">Cliente:</h5>
+                            <h5 class="item-title text-light font-weight-bold text-left">Cliente:</h5>
                             <span class=" text-right text-uppercase">{{session('customer')->full_name}}</span>
                         </div>
                         <div class="item-text">
-                            <h5 class="text-light font-weight-bold">Endereço:</h5>
+                            <h5 class="item-title text-light font-weight-bold">Endereço:</h5>
                             <span class=" text-right text-uppercase text-address-menu">{{session('customer')->street}}, {{session('customer')->district}},
                                 {{session('customer')->city}}</span>
                         </div>

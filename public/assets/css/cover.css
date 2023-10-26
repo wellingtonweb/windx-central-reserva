@@ -361,6 +361,14 @@ header {
 ================================================== */
 /* Screen medium than 400px? 2 column */
 @media (min-width: 300px) and (max-width: 400px) {
+    .item-text {
+        font-size: .8em !important;
+    }
+
+    .item-title {
+        font-size: 1.2em !important;
+    }
+
     .navbar-brand img {
         height: 40px;
     }
@@ -425,6 +433,8 @@ header {
     .card-button .content p {
         display: none;
     }
+
+
 }
 
 @media (max-width: 992px) {

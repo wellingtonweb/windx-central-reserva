@@ -1,5 +1,5 @@
 <header id="header" class="masthead- justify-content-center- animate__animated animate__fadeInDown animate__delay-1s">
-    <nav class="navbar sidebarNavigation p-3 d-none-" data-sidebarClass="navbar-dark- bg-dark-">
+    <nav class="navbar sidebarNavigation p-lg-3 p-md-3 p-sm-0 d-none-" data-sidebarClass="navbar-dark- bg-dark-">
         <div class="container-fluid">
             <a class="navbar-brand pl-1" href="#">
                 <img class="logo-windx" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">

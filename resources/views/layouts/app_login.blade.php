@@ -14,6 +14,40 @@
     <link rel="stylesheet" href="{{ asset('assets/css/cover.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <style>
+        .full-screen-splash {
+            display: table;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            /*background-color: #002046;*/
+            z-index: 9999;
+        }
+
+        section{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /*background-color: #002046;*/
+        }
+
+        article{
+            display: block;
+            width: 300px;
+            height: 350px;
+            margin-left: -150px; /* metade da largura */
+            margin-top: -175px; /* metade da altura */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+        article img {
+            width: 75%;
+        }
+    </style>
 </head>
 
 <body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
@@ -33,25 +67,30 @@
         </h2>
     </div>
 </div>
-
+<div class="full-screen-splash">
+    <section>
+        <article>
+            <img class="animate__animated animate__zoomIn" src="{{ asset('assets/img/logox.svg') }}" alt="{{ config('app.name') }}">
+            <h2 class="text-white mt-3 animate__animated animate__zoomIn animate__delay-1s">Windx <br> Telecomunicações</h2>
+        </article>
+    </section>
+</div>
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
-{{--    @if (Route::currentRouteName() == 'terminal.login' ||Route::currentRouteName() == 'terminal.login2' || Route::currentRouteName() == 'terminal.locked')--}}
-        <div class="mt-3">
-            <img class="logo-windx animate__animated animate__fadeInDown" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
-        </div>
-{{--    @else--}}
-{{--        @include('include.header')--}}
-{{--    @endif--}}
+    <div class="mt-3">
+        <img class="logo-windx d-none" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
+    </div>
 
     @yield('content')
 
-{{--    @hasSection('modal')--}}
-{{--        @yield('modal')--}}
-{{--    @endif--}}
-
-    @include('include.footer')
-    @include('include.card-contact')
-
+    <footer id="footer" class="mastfoot mt-auto pt-3 d-none ">
+        <small class=" d-block">&copy; {{date('Y')}} {{ getenv('APP_NAME') }}<br>
+            0800 028 2309 | (28) 3532-2309
+        </small>
+        <small class="mb-1 d-block w-100 pl-3 pr-3">{{ getenv('WINDX_STORES') }}</small>
+    </footer>
+    <div class="mb-0 mr-0 button-card-contact d-none">
+        @include('include.card-contact')
+    </div>
 </div>
 
 <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
@@ -64,22 +103,15 @@
     $('#form_login').submit(function (e){
         $('.loading').removeClass('d-none')
     })
-</script>
-{{--<script type="text/javascript" src="{{ asset('assets/js/libs.js') }}"></script>--}}
-{{--<script defer type="text/javascript" src="{{ asset('assets/js/pdf.js') }}"></script>--}}
-{{--<script type="text/javascript" src="{{ asset('assets/js/js.jsbarcode2.js') }}"></script>--}}
-{{--<script>--}}
-{{--    const route_login = '{{route('terminal.login')}}';--}}
-{{--    const route_logout = '{{route('terminal.logout')}}';--}}
-{{--    const app_url = '{{env('APP_URL')}}';--}}
-{{--    const base_url = '{{env('APP_BASE_URL')}}';--}}
-{{--    const contracts = '{{route('terminal.contracts')}}';--}}
-{{--    const release_url = `{{route('terminal.release')}}`;--}}
 
-{{--    if(window.location.href != route_login){--}}
-{{--        inactivitySession();--}}
-{{--    }--}}
-{{--</script>--}}
+    setTimeout(() => {
+        $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')
+        $('.logo-windx').removeClass('d-none').addClass('animate__animated animate__fadeInDown')
+        $('.form-signin').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
+        $('.mastfoot').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
+        $('.button-card-contact').removeClass('d-none').addClass('animate__animated animate__slideInRight')
+    }, "3000");
+</script>
 @if(session('message') || session('error') || session('error_checkout') )
 <script>
     Swal.fire({

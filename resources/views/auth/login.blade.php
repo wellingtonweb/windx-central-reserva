@@ -14,7 +14,7 @@
                 </h2>
             </div>
             <div class="card-logon p-2">
-                <div class="card form-signin p-4 animate__animated animate__fadeInUp" style="border-radius: 1rem">
+                <div class="card form-signin p-4 d-none" style="border-radius: 1rem">
                     <form id="form_login" method="POST" class="d-none_ panel" action="{{ Route('central.logon') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>

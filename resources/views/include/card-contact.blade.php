@@ -17,6 +17,9 @@
     <div class="card-body">
         <p class="card-text">
             Escaneie o código com seu celular<br> ou clique no botão abaixo</p>
-        <a href="{{ env('WHATSAPP_SERVICE') }}" target="_blank" class="btn btn-success btn-sm py-1 btn-block">WhatsApp Windx</a>
+        <a href="{{ env('WHATSAPP_SERVICE') }}"
+           target="_blank" class="btn btn-success btn-sm py-1 btn-block">
+            WhatsApp Windx
+        </a>
     </div>
 </div>

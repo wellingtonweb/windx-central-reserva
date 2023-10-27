@@ -794,8 +794,9 @@ let amount = (payment.amount).toLocaleString('pt-BR');
     Swal.fire({
         html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment.payment_type+'</strong>' +
             '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+amount+'</span>' +
-            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+payment.qrCode+'"></div></div>' +
             '<p>Leia o QRCode com seu app</p>' +
+            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-75-" src="'+payment.qrCode+'"></div></div>' +
+
             '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+payment.copyPaste+'">' +
             'Pix Copia e Cola</p>' +
             '</div>' +
@@ -808,11 +809,10 @@ let amount = (payment.amount).toLocaleString('pt-BR');
         denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
         denyButtonColor: '#d33',
         didOpen: () => {
-            displayCart()
-
             if(payment_type == 'pix'){
                 $('#btnPixCopyPaste').removeClass('d-none');
             }
+            displayCart()
             Swal.hideLoading()
             console.log('Valor: ', payment.amount)
 

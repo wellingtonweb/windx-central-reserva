@@ -235,18 +235,46 @@ function sendPayment(payment){
 function setQrcode(payment){
     console.log('Valor: ', payment.amount)
 let amount = (payment.amount).toLocaleString('pt-BR');
+    let paymentId = payment.id;
 
     Swal.fire({
-        html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment.payment_type+'</strong>' +
-            '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+amount+'</span>' +
-            '<p>Leia o QRCode com seu app</p>' +
-            '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-50" src="'+payment.qrCode+'"></div></div>' +
+        title: `Pagamento nº ${payment.id} com PIX`,
+        // html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment.payment_type+'</strong>' +
+        //     '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+amount+'</span>' +
+        //     '<p>Leia o QRCode com seu app</p>' +
+        //     '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-50" src="'+payment.qrCode+'"></div></div>' +
+        //
+        //     '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+payment.copyPaste+'">' +
+        //     'Pix Copia e Cola</p>' +
+        //     '</div>' +
+        //     '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>' +
+        //     '<p id="timerPaymentQrCode" class="text-danger"></p></div>',
 
-            '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+payment.copyPaste+'">' +
-            'Pix Copia e Cola</p>' +
-            '</div>' +
-            '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>' +
-            '<p id="timerPaymentQrCode" class="text-danger"></p></div>',
+        html: `
+            <div id="modal-qrcode" class="bg-white text-center justify-content-center">
+                <small id="timerPaymentQrCode" class="text-danger">00:00</small>
+                <div class="box-price-qrcode-card pb-1">
+                    <h4 class="text-danger pt-2"><b>Valor total: </b><span class="font-weight-bold">${amount}</span></h4>
+                    <p> Faturas selecionadas: <b class="total-count"></b></p>
+                </div>
+                <small class="pt-2 text-black-50">Use seu app de pagamento e leia o qrcode</small>
+                <div id="container-qrcode">
+                    <div class="body-popup-qrcode">
+                        <div class="qrcode-container">
+                            <img id="qrcode-img" class="w-50_" src="${payment.qrCode}">
+                        </div>
+                    </div>
+                    <div class="form-floating group-pix-copy-paste">
+                        <input type="text" class="form-control" value="${payment.copyPaste}" />
+                        <label for="pixcopypaste">Código do Pix Copia e Cola</label>
+                    </div>
+                    <span id="btnPixCopyPaste" class="animate__animated text-primary d-none_" onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
+                    Copiar código do PIX
+                    </span>
+                </div>
+                <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
+            </div>
+            `,
         timer: 120000,//2min
         timerProgressBar: false,
         showConfirmButton: false,

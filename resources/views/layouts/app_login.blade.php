@@ -76,7 +76,7 @@
     </section>
 </div>
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
-    <div class="mt-3">
+    <div id="container-logo" class="mt-3">
         <img class="logo-windx d-none" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
     </div>
 

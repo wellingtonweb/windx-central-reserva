@@ -15,6 +15,7 @@ $('#form_login').submit(async function (e){
     let formData = $(this).serializeArray()
     let url = "/assinante/logon";
     $('#btn-login').fadeIn().text('Entrando...')
+
     setTimeout(() => {
         $('#btn-login').fadeIn().text('Validando...')
     }, 1000)
@@ -52,6 +53,7 @@ $('#form_login').submit(async function (e){
         }
 
         if(response.status > 200){
+
             $('#btn-login').text('Entrar')
             if(data.error.login){
                 $('small.login_error').text(data.error.login)
@@ -82,9 +84,11 @@ $('#form_login').submit(async function (e){
         }
 
         if(response.status === 200){
+            $('#container-logo').addClass('animate__animated animate__fadeOutUp');
+            $('#footer').addClass('animate__animated animate__fadeOutDown');
             $(this)[0].reset();
             $('#btn-login').text('Entrar')
-            $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUp')
+            $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
             $('.loader').removeClass('d-none');
             location.href = `/assinante/home`;
         }

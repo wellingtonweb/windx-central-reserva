@@ -1343,8 +1343,7 @@
         //     // console.log('Clicou!')
         // }
 
-        cart2 = JSON.parse(sessionStorage.getItem('billetsCart'));
-        console.log(cart2)
+
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
@@ -1354,9 +1353,6 @@
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>--}}
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>--}}
         <script type="text/javascript" defer>
-
-
-
             // inactivitySession();
         </script>
 @endsection

@@ -44,6 +44,7 @@ async function copyBarcode3(btnThis){
 function displayMessageQuestionFinish(){
     Swal.fire({
         title: 'Deseja realizar outro pagamento?',
+        icon: 'question',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Sim',

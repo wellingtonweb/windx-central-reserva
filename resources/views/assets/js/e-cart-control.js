@@ -1,4 +1,4 @@
-import('e-cart');
+// import('e-cart');
 
 /* E-Cart Control */
 var total = 0;

@@ -123,7 +123,7 @@ function callbackTransaction(id){
             }
             msgStatusTransaction(data.status)
             resetTimer()
-            console.log('Message: ', data)
+            // console.log('Message: ', data)
         }
     })
 }
@@ -140,7 +140,7 @@ function sendPayment(payment){
         data: payment.dataForm,
         beforeSend: function (){
             Swal.fire({
-                title: 'Pagamento via '+getPaymentText(payment.paymentType),
+                title: 'Pagamento com '+getPaymentText(payment.paymentType),
                 html: (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') ? 'Gerando qrcode...':'Validando dados...',
                 timer: 60000,
                 // timerProgressBar: true,
@@ -185,7 +185,6 @@ function sendPayment(payment){
 
                 if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
                     setQrcode(response.data)
-                    // setQrcode(response.data.qrCode, payment, response.data.copyPaste)
                 }else{
                     if(response.status != 422){
                         $('#modal-payment-form').modal('hide')
@@ -233,44 +232,31 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(payment){
-    console.log('Valor: ', payment.amount)
-let amount = (payment.amount).toLocaleString('pt-BR');
-    let paymentId = payment.id;
+    let amount = (payment.amount).toLocaleString('pt-BR');
 
     Swal.fire({
-        title: `Pagamento nº ${payment.id} com PIX`,
-        // html: '<div id="modal-qrcode" class="text-center justify-content-center">Pagamento de <strong class="total-count"></strong> '+ (billetsCart.totalCount()>1?"faturas":"fatura")+' via <strong class="text-capitalize">'+payment.payment_type+'</strong>' +
-        //     '<br><br>Total à pagar: <b>R$ </b><span class="font-weight-bold">'+amount+'</span>' +
-        //     '<p>Leia o QRCode com seu app</p>' +
-        //     '<div id="container-qrcode"><div class="body-popup-qrcode"><div class="qrcode-container"><img id="qrcode-img" class="w-50" src="'+payment.qrCode+'"></div></div>' +
-        //
-        //     '<p id="btnPixCopyPaste" class="animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="'+payment.copyPaste+'">' +
-        //     'Pix Copia e Cola</p>' +
-        //     '</div>' +
-        //     '<p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>' +
-        //     '<p id="timerPaymentQrCode" class="text-danger"></p></div>',
-
+        title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'Pix' ? 'PIX' : 'PICPAY')}`,
         html: `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
-                <small id="timerPaymentQrCode" class="text-danger">00:00</small>
+                <small id="timerPaymentQrCode" class="text-danger">02:00</small>
                 <div class="box-price-qrcode-card pb-1">
                     <h4 class="text-danger pt-2"><b>Valor total: </b><span class="font-weight-bold">${amount}</span></h4>
-                    <p> Faturas selecionadas: <b class="total-count"></b></p>
+                    <p>Faturas selecionadas: <b class="total-count"></b></p>
                 </div>
                 <small class="pt-2 text-black-50">Use seu app de pagamento e leia o qrcode</small>
                 <div id="container-qrcode">
                     <div class="body-popup-qrcode">
                         <div class="qrcode-container">
-                            <img id="qrcode-img" class="w-50_" src="${payment.qrCode}">
+                            <img id="qrcode-img" src="${payment.qrCode}">
                         </div>
                     </div>
-                    <div class="form-floating group-pix-copy-paste">
+                    <div class="form-floating group-pix-copy-paste d-none">
                         <input type="text" class="form-control" value="${payment.copyPaste}" />
                         <label for="pixcopypaste">Código do Pix Copia e Cola</label>
                     </div>
-                    <span id="btnPixCopyPaste" class="animate__animated text-primary d-none_" onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
+                    <a href="javascript:void(0)" id="btnPixCopyCode" class="mt-2 animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
                     Copiar código do PIX
-                    </span>
+                    </a>
                 </div>
                 <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
             </div>
@@ -282,23 +268,13 @@ let amount = (payment.amount).toLocaleString('pt-BR');
         denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
         denyButtonColor: '#d33',
         didOpen: () => {
-            if(payment_type == 'pix'){
-                $('#btnPixCopyPaste').removeClass('d-none');
-            }
+            countdown();
             displayCart()
             Swal.hideLoading()
-            console.log('Valor: ', payment.amount)
-
-
-            // Swal.showLoading()
-            //$('.swal2-loader').addClass('d-none');
-            // countdown(120);
-            // setTimeout(() => {
-            //     $('#labelWaitingPayment').removeClass('d-none');
-            // }, 10000)
-        },
-        willClose: () => {
-            clearInterval(timerInterval)
+            if(payment.payment_type == 'Pix'){
+                $('#btnPixCopyCode').removeClass('d-none');
+                $('.group-pix-copy-paste').removeClass('d-none');
+            }
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -316,14 +292,12 @@ let amount = (payment.amount).toLocaleString('pt-BR');
             clearAllSections()
             msgStatusTransaction('expired')
             refreshSliderCards()
-        }else
-        if (result.isDenied || result.isDismissed) {
+        } else if(result.isDenied || result.isDismissed) {
             clearAllSections()
             msgStatusTransaction('canceled')
             refreshSliderCards()
         }
     })
-
 }
 
 /* Functions Display Messages */
@@ -488,10 +462,10 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
 }
 
 
-// var tempo = 120;
+var tempo = 120;
 // var tempo = 60;
 
-function countdown(tempo) {
+function countdown() {
     if ((tempo - 1) >= -1) {
         var min = parseInt(tempo / 60);
         var seg = tempo % 60;
@@ -507,7 +481,7 @@ function countdown(tempo) {
         $("#timerPaymentQrCode").text(min + ':' + seg);
             setTimeout('countdown(tempo)', 1000);
         tempo--;
-        console.log('Tempo de pagamento: ', tempo)
+        // console.log('Tempo de pagamento: ', tempo)
     }
     else {
         $("#timerPaymentQrCode").fadeOut(1000)

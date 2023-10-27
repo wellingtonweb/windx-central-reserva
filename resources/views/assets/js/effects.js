@@ -49,7 +49,7 @@
   })(jQuery);
 
 $('.click-loader').click(function(event){
-    // event.preventDefault(); //Essa linha vc coloca caso queira anular o evento do click da tag <a>;
+    // event.preventDefault();
     $('.loading').removeClass('d-none');
 });
 
@@ -97,7 +97,3 @@ $('#close-contact').click(function (){
         $('#card-contact').addClass('d-none')
     }, 1000);
 })
-function closeCard(){
-    //
-}
-

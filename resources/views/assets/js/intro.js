@@ -10,9 +10,14 @@ $('.close_reset_password').click(function() {
 
 $('#form_login').submit(async function (e){
     e.preventDefault();
+    $('.loading').removeClass('d-none')
+
     let formData = $(this).serializeArray()
     let url = "/assinante/logon";
-    $('#btn-login').text('Verificando...')
+    $('#btn-login').fadeIn().text('Entrando...')
+    setTimeout(() => {
+        $('#btn-login').fadeIn().text('Validando...')
+    }, 1000)
 
     try {
         let response = await fetch(url, {
@@ -94,6 +99,7 @@ $('#form_reset_password').submit(async function (e){
     let url = "/assinante/forgot-password";
     $('#btn-send-mail').text('Enviando...')
 
+
     await fetch(url, {
         method: "POST",
         headers: {
@@ -173,3 +179,11 @@ function shakeError(elementClass)
         $('.'+elementClass).removeClass('animate__shakeX')
     }, 1000);
 }
+
+setTimeout(() => {
+    $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')
+    $('.logo-windx').removeClass('d-none').addClass('animate__animated animate__fadeInDown')
+    $('.form-signin').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
+    $('.mastfoot').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
+    $('.button-card-contact').removeClass('d-none').addClass('animate__animated animate__slideInRight')
+}, "3000");

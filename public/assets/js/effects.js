@@ -49,7 +49,7 @@
   })(jQuery);
 
 $('.click-loader').click(function(event){
-    // event.preventDefault(); //Essa linha vc coloca caso queira anular o evento do click da tag <a>;
+    // event.preventDefault();
     $('.loading').removeClass('d-none');
 });
 
@@ -97,7 +97,25 @@ $('#close-contact').click(function (){
         $('#card-contact').addClass('d-none')
     }, 1000);
 })
-function closeCard(){
-    //
-}
 
+function logout(){
+    sessionStorage.clear()
+    if(typeof callback != "undefined"){
+        clearInterval(callback)
+    }
+
+    $('.sideMenu').removeClass('open');
+    $('.container-all').addClass('animate__animated animate__zoomOut animate__delay-1s');
+
+    Swal.fire({
+        icon: 'info',
+        title: 'Agradecemos a sua visita!',
+        timer: 2000,
+        timerProgressBar: false,
+        showConfirmButton: false,
+        willClose: () => {
+            // $('.loading').removeClass('d-none')
+            window.location = route_logout;
+        }
+    });
+}

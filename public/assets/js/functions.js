@@ -44,6 +44,7 @@ async function copyBarcode3(btnThis){
 function displayMessageQuestionFinish(){
     Swal.fire({
         title: 'Deseja realizar outro pagamento?',
+        icon: 'question',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Sim',
@@ -308,23 +309,7 @@ function calculaJuros(vencimento, valor) {
 //     sessionStorage.clear()
 // }
 
-function logout(){
-    clearAllSections()
-    $('.sideMenu').removeClass('open');
-    $('.container-all').addClass('animate__animated animate__zoomOut animate__delay-1s');
-
-    Swal.fire({
-        icon: 'info',
-        title: 'Agradecemos a sua visita!',
-        timer: 2000,
-        timerProgressBar: false,
-        showConfirmButton: false,
-        willClose: () => {
-            $('.loading').removeClass('d-none')
-            window.location = route_logout;
-        }
-    });
-}
+//logout
 
 let time;
 let inactivitySession = function () {

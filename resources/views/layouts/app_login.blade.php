@@ -99,19 +99,7 @@
 <script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
-<script>
-    $('#form_login').submit(function (e){
-        $('.loading').removeClass('d-none')
-    })
 
-    setTimeout(() => {
-        $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')
-        $('.logo-windx').removeClass('d-none').addClass('animate__animated animate__fadeInDown')
-        $('.form-signin').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
-        $('.mastfoot').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
-        $('.button-card-contact').removeClass('d-none').addClass('animate__animated animate__slideInRight')
-    }, "3000");
-</script>
 @if(session('message') || session('error') || session('error_checkout') )
 <script>
     Swal.fire({

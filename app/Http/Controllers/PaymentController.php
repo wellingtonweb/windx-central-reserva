@@ -147,24 +147,9 @@ class PaymentController extends Controller implements ShouldQueue
 
             return response()->json($response->original);
         }
-//        elseif ($validated['method'] == 'tef')
-//        {
-//            $body = Checkout::getBodyPaymentTef($validated);
-//
-//            $response = (new API())->postPayment($body);
-//
-//            if($response->status() > 201)
-//            {
-//                return response()->json($response);
-//            }
-//
-//            return response()->json($response->original);
-//        }
         else
         {
             $body = Checkout::getBodyPaymentEcommerce($validated);
-
-//            dd($body);
 
             $response = (new API())->postPayment($body);
 

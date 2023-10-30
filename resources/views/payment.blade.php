@@ -14,6 +14,7 @@
 {{--                            </a>--}}
 {{--                        </div>--}}
 
+{{--                        {{dd(session('customer'))}}--}}
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
@@ -97,7 +98,8 @@
                                                 PICPAY
                                             </button>
                                             <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-credit"
-                                                    data-toggle="modal" data-target="#modalCard" type="button">
+{{--                                                    data-toggle="modal" data-target="#modalCard" --}}
+                                                    type="button">
                                                 CRÉDITO
                                             </button>
 {{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"--}}
@@ -150,7 +152,7 @@
                     <div id="modalCard" class="bg-white text-center justify-content-center">
                         <small id="timerPaymentQrCode" class="text-danger">00:00</small>
                         <div class="box-price-qrcode-card pb-1">
-                            <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold">1,00</span></h4>
+                            <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold total-cart"></span></h4>
                             <p> Faturas selecionadas: <b class="total-count"></b></p>
                         </div>
                         <small class="pt-2 text-black-50">Preencha os campos com os dados de seu cartão</small>
@@ -175,7 +177,7 @@
                                                value="{{session('customer')->phone}}" hidden>
                                         <input id="payment_type" name="payment_type" type="text"
                                                hidden>
-                                        <input id="cpf_cnpj_type" name="cpf_cnpj_type" type="text" hidden>
+{{--                                        <input id="cpf_cnpj_type" name="cpf_cnpj_type" type="text" value=" " hidden>--}}
                                         <input id="token" type="hidden" name="_token"
                                                value="{{ csrf_token() }}"/>
                                         <input id="method" name="method" type="text" hidden>

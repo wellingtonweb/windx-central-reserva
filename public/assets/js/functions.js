@@ -367,8 +367,6 @@ function setPaymentMethod(method){
     }
 }
 
-
-
 // $("#table-coupons-list tbody tr").on('click', function(){
 //     $(this).find("a.btn-payment-details")[0].click();
 // });

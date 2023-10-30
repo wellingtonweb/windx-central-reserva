@@ -23,8 +23,16 @@ function getPaymentText(payment_type){
     }
 }
 
-$('#modal-payment-form').on('hidden.bs.modal', function (event) {
+$('#modalCard').on('show.bs.modal', function (event) {
     resetCardFields();
+    countdown();
+})
+
+$('#modalCard').on('hidden.bs.modal', function (event) {
+    resetCardFields();
+    clearAllSections()
+    msgStatusTransaction('canceled')
+    refreshSliderCards()
 })
 
 function resetCardFields() {
@@ -56,7 +64,7 @@ $('button.btn-payment-type').click(function (){
             $('#method').val('ecommerce');
             //$('#terminal_id').val('2');
             // $('#reference').val();
-            $('#modal-payment-form').modal('show');
+            $('#modalCard').modal('show');
             // Swal.fire('Aguardando aprovação do pagamento!')
             // $('#form_checkout').submit();
             break
@@ -168,33 +176,58 @@ function sendPayment(payment){
                 }
             })
         },
-        success: function(response) {
+        success: function(response, textStatus, xhr) {
             console.log('Resposta do servidor: ', response)
-
-            if (response.data.id == undefined) {
-                console.log(response.data.message)
-                displayMessageErrorPayment(response.data.message)
-                return;
-            } else {
-                sessionStorage.setItem('transactionId', response.data.id)
-                transactionId = sessionStorage.getItem("transactionId");
-
-                callback = setInterval(function () {
-                    callbackTransaction(response.data.id)
-                }, 5000);
-
-                if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
-                    setQrcode(response.data)
-                }else{
-                    if(response.status != 422){
+            if(xhr.status === 404){
+                alert(response.data.message)
+                // msgStatusTransaction(response.data.status)
+                $('#modalCard').modal('hide')
+            }else if(xhr.status === 200){
+                if(typeof response.data != "undefined"){
+                    if(response.data.status === 'approved'){
                         $('#modalCard').modal('hide')
-                        displayMessageWaitingPayment()
-                        console.log('Aguardando status do pagamento')
+                        alert('Esta fatura foi paga com sucesso!')
                     }else{
-                        console.log('Verifique os campos em vermelho!')
+                        msgStatusTransaction(response.data.status)
+                        alert('Erro', response.data.status)
                     }
+                }else{
+                    alert(response.original.message)
+                    console.log(response.data, response.data.message)
                 }
+            }else{
+                alert('outro erro')
+                console.log(response.data)
             }
+
+            // if (response.data.id == undefined) {
+            //     console.log(response.data.message)
+            //     displayMessageErrorPayment(response.data.message)
+            //     return;
+            // } else {
+            //     if(response.status === 200){
+            //         msgStatusTransaction(response.data.status)
+            //     }else{
+            //         sessionStorage.setItem('transactionId', response.data.id)
+            //         transactionId = sessionStorage.getItem("transactionId");
+            //
+            //         callback = setInterval(function () {
+            //             callbackTransaction(response.data.id)
+            //         }, 5000);
+            //
+            //         if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
+            //             setQrcode(response.data)
+            //         }else{
+            //             if(response.status != 422){
+            //                 $('#modalCard').modal('hide')
+            //                 displayMessageWaitingPayment()
+            //                 console.log('Aguardando status do pagamento')
+            //             }else{
+            //                 console.log('Verifique os campos em vermelho!')
+            //             }
+            //         }
+            //     }
+            // }
         },
         error: function(data) {
             console.log('Data error: ',data);
@@ -305,11 +338,6 @@ function setQrcode(payment){
     })
 }
 
-$('#modalCard').on('hidden.bs.modal', function (event) {
-    clearAllSections()
-    msgStatusTransaction('canceled')
-    refreshSliderCards()
-})
 
 /* Functions Display Messages */
 function msgStatusTransaction(status){
@@ -391,6 +419,7 @@ function displayMessageErrorPayment(title){
             clearInterval(callback)
         },
         willClose: () => {
+            $('#modalCard').modal('hide')
             displayMessageQuestionFinish()
         }
     })

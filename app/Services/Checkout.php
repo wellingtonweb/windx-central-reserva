@@ -57,6 +57,7 @@ class Checkout
                 ],
                 'payment_type' => $valid["payment_type"],
                 'method' => $valid["method"],
+                'installment' => 1,
             ];
         }
 //        $body = [

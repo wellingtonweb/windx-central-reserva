@@ -85,6 +85,7 @@ $('#form_login').submit(async function (e){
 
         if(response.status === 200){
             $('#container-logo').addClass('animate__animated animate__fadeOutUp');
+            $('#btn-contact').addClass('animate__animated animate__fadeOutRight');
             $('#footer').addClass('animate__animated animate__fadeOutDown');
             $(this)[0].reset();
             $('#btn-login').text('Entrar')

@@ -232,7 +232,8 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(payment){
-    let amount = (payment.amount).toLocaleString('pt-BR');
+    let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
 
     Swal.fire({
         title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'Pix' ? 'PIX' : 'PICPAY')}`,
@@ -254,11 +255,16 @@ function setQrcode(payment){
                         <input type="text" class="form-control" value="${payment.copyPaste}" />
                         <label for="pixcopypaste">Código do Pix Copia e Cola</label>
                     </div>
-                    <a href="javascript:void(0)" id="btnPixCopyCode" class="mt-2 animate__animated text-primary d-none" onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
-                    Copiar código do PIX
-                    </a>
+                    <div class="py-1">
+                        <a href="javascript:void(0)"
+                        id="btnPixCopyCode"
+                        class="mt-2 animate__animated text-primary d-none"
+                        onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
+                        Copiar código do PIX
+                        </a>
+                    </div>
                 </div>
-                <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
+                <p id="labelWaitingPayment" class="mt-2 text-black-50 animate__animated animate__fadeIn d-none"></p>
             </div>
             `,
         timer: 120000,//2min

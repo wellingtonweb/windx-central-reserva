@@ -63,7 +63,7 @@ function displayMessageQuestionFinish(){
     }).then((result) => {
         if (result.isConfirmed) {
             clearAllSections()
-            refreshSliderCards()
+            // refreshSliderCards()
         } else if (result.dismiss || result.isDenied) {
             logout()
         }

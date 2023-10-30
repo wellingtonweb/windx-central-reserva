@@ -187,8 +187,8 @@ function sendPayment(payment){
                     setQrcode(response.data)
                 }else{
                     if(response.status != 422){
-                        $('#modal-payment-form').modal('hide')
-                        // displayMessageWaitingPayment()
+                        $('#modalCard').modal('hide')
+                        displayMessageWaitingPayment()
                         console.log('Aguardando status do pagamento')
                     }else{
                         console.log('Verifique os campos em vermelho!')
@@ -215,7 +215,7 @@ function sendPayment(payment){
                             //$('div.text-display-error').html('Erro: 422 - Favor informar ao administrador!').removeClass('d-none');
                             //Criar rotina de notificação por e-mail
                             console.log(key, value[0])
-                            alert('Erro: 422 - Dados inválidos')
+                            // alert('Erro: 422 - Dados inválidos')
                             // displayMessageErrorPayment('Erro: 422 - Dados inválidos')
                             //notifySystem('422', 'error', 'Dados inválidos!')
                         } else {
@@ -233,7 +233,6 @@ function sendPayment(payment){
 /* Display qrcode for payment */
 function setQrcode(payment){
     let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-
 
     Swal.fire({
         title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'Pix' ? 'PIX' : 'PICPAY')}`,
@@ -305,6 +304,12 @@ function setQrcode(payment){
         }
     })
 }
+
+$('#modalCard').on('hidden.bs.modal', function (event) {
+    clearAllSections()
+    msgStatusTransaction('canceled')
+    refreshSliderCards()
+})
 
 /* Functions Display Messages */
 function msgStatusTransaction(status){

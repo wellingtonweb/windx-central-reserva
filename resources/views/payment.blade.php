@@ -20,307 +20,7 @@
                                 <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
                             </ol>
                         </nav>
-                        <div id="colCheckout" class="d-none {{count(session('customer')->billets) == 0 ? 'd-none': ''}} col-lg-4 order-lg-2
-                        col-md-6 order-md-2 col-sm-6 order-sm-2 pl-lg-0 pl-md-0 mb-4">
-                            <h4 class="d-flex font-weight-bold justify-content-center align-items-center mb-3">
-                                Checkout
-                            </h4>
-                            <ul class="list-group mb-3" style="border-radius: .5rem">
-                                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                    <div>
-                                        <h4 class="my-0 font-weight-bold">Faturas selecionadas</h4>
-                                    </div>
-                                    <span
-                                        class="total-count badge badge-secondary badge-pill px-3 py-0 d-flex
-                                        justify-content-center align-items-center"></span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                    <div>
-                                        <h6 class="my-0">Valor:</h6>
-                                        {{--                                            <small class="text-muted">Brief description</small>--}}
-                                    </div>
-                                    <span class="text-muted">R$
-                                        <span class="text-muted total-sum"></span>
-                                    </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                    <div>
-                                        <h6 class="my-0">Juros + Multa:</h6>
-                                        {{--                                            <small class="text-muted">Brief description</small>--}}
-                                    </div>
-                                    <span class="text-muted">R$
-                                        <span class="text-muted total-fees"></span>
-                                    </span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between" style="font-size: 1.1rem">
-                                    <strong>Valor total: </strong>
-                                    <strong>R$<span class="total-cart pl-1"></span></strong>
-                                </li>
-                            </ul>
-                            <div class="checkout-controls">
-                                <div class="row flex flex-column">
-                                    <div class="col-12">
-                                        <div class="tab-content" id="v-pills-tabContent">
-                                            <div class="w-100">
-                                                <h5 id="methodTitle" class=" font-weight-bold p-1">Escolha a forma de pagamento</h5>
-                                            </div>
-                                            <div class="tab-pane fade justify-content-center" id="v-pills-qrcode"
-                                                 role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                                <div class="py-2">
-                                                    <h5>Leia o qrcode com seu app</h5>
-                                                    <p id="timerPayment" class="text-danger mb-0" style="letter-spacing: 1px; font-size: 1.2em"></p>
-                                                </div>
 
-                                                <div id="container-qrcode">
-                                                    <div class="body-popup-qrcode">
-                                                        <div class="qrcode-container">
-                                                            <img width="80%"
-                                                                 alt="qrcode"
-                                                                 id="qrcode-img"
-                                                                 src="{{ asset('assets/img/loading2.svg') }}"
-                                                            >
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="boxQrString" class="p-2 d-none rounded" style="border: 2px solid rgba(0,32,70,0.6)">
-                                                    <p class="py-1 qrcodestring" style="word-wrap: break-word;"></p>
-                                                </div>
-                                                <a id="copyPix" href="javascript:pixCopyPaste()" type="button"
-                                                   class="text-primary p-2 d-none"
-                                                >
-                                                    <p class="py-1 font-weight-bold" style="letter-spacing: 1px">PIX COPIA E COLA</p>
-                                                </a>
-
-                                            </div>
-                                            <div class="tab-pane fade" id="v-pills-card" role="tabpanel"
-                                                 aria-labelledby="v-pills-messages-tab">
-                                                <form id="form_checkout" method="POST"
-                                                      action="{{route('central.checkout')}}">
-                                                    <div class="row">
-                                                        <div class="pl-3 justify-content-center text-black-50"><span>Preencha com dados do cartão</span>
-                                                        </div>
-
-                                                        <div id="inputs-hidden" class="form-row d-none">
-                                                            <input id="customer" name="customer"
-                                                                   value="{{session('customer')->id}}"
-                                                                   type="text" hidden>
-                                                            <input id="cartBillets" name="billets" type="text" hidden>
-                                                            <input id="ip_address" value="1.1.1.1" name="ip_address"
-                                                                   type="text" hidden>
-                                                            <input id="full_name" name="full_name" type="text"
-                                                                   value="{{session('customer')->full_name}}" hidden>
-                                                            <input id="email" name="email" type="text"
-                                                                   value="{{session('customer')->email}}" hidden>
-                                                            <input id="cpf_cnpj" name="cpf_cnpj" type="text"
-                                                                   value="{{session('customer')->document}}" hidden>
-                                                            <input id="phone" name="phone" type="text"
-                                                                   value="{{session('customer')->phone}}" hidden>
-                                                            <input id="payment_type" name="payment_type" type="text"
-                                                                   hidden>
-                                                            {{--                                                        <input id="cpf_cnpj_type" name="cpf_cnpj_type" type="text" hidden>--}}
-                                                            <input id="token" type="hidden" name="_token"
-                                                                   value="{{ csrf_token() }}"/>
-                                                            <input id="method" name="method" type="text" hidden>
-                                                            {{--                                                        <input id="terminal_id" name="terminal_id" type="text" value="{{Cookie::get('terminal_id')}}" hidden>--}}
-                                                        </div>
-                                                        <div
-                                                            class="col-12 alert alert-danger text-display-error text-center justify-content-center w-100 font-weight-bold d-none"
-                                                            role="alert">
-                                                        </div>
-                                                        <div class="col-12 mb-3 text-left">
-                                                            <label for="cc-nome">Nome no cartão</label>
-                                                            <input type="text" class="form-control text-uppercase"
-                                                                   value="WELLINGTON FERREIRA" id="cc-nome"
-                                                                   name="holder_name"
-                                                                   placeholder="Nome como está no cartão">
-                                                            <small
-                                                                class="text-danger error-text holder_name_error"></small>
-                                                        </div>
-                                                        <div class="col-12 mb-3 text-left">
-                                                            <label for="cc-numero">Número do cartão</label>
-                                                            <input type="text" class="form-control"
-                                                                   value="5226069490151810" id="cc-numero"
-                                                                   name="card_number" placeholder="0000 0000 0000 0000">
-                                                            <small
-                                                                class="text-danger error-text card_number_error"></small>
-                                                        </div>
-
-                                                        <div class="col-6 mb-3 text-left">
-                                                            <label for="cc-expiracao">Validade (Mês)</label>
-                                                            <input type="text" class="form-control" value="07"
-                                                                   id="expiration_month" name="expiration_month"
-                                                                   placeholder="Ex: 12">
-                                                            <small
-                                                                class="text-danger error-text expiration_month_error"></small>
-                                                        </div>
-                                                        <div class="col-6 mb-3 text-left">
-                                                            <label for="cc-expiracao">Validade (Ano)</label>
-                                                            <input type="text" class="form-control" value="2023"
-                                                                   id="expiration_year" name="expiration_year"
-                                                                   placeholder="Ex: 2028">
-                                                            <small
-                                                                class="text-danger error-text expiration_year_error"></small>
-                                                        </div>
-                                                        <div class="col-6 mb-3 text-left">
-                                                            <label for="cc-bandeira">Bandeira do cartão</label>
-                                                            <select id="cc-bandeira" name="bandeira"
-                                                                    class="form-control">
-                                                                <option disabled>Selecionar</option>
-                                                                <option value="American Express">American Express
-                                                                </option>
-                                                                <option value="Aura">Aura</option>
-                                                                <option value="Banescard">Banescard</option>
-                                                                <option value="Cabal">Cabal</option>
-                                                                <option value="Dinners">Dinners</option>
-                                                                <option value="Elo">Elo</option>
-                                                                <option value="Hipercard">Hipercard</option>
-                                                                <option selected value="Master">Master</option>
-                                                                <option value="Visa">Visa</option>
-                                                            </select>
-                                                            <small
-                                                                class="text-danger error-text bandeira_error"></small>
-                                                        </div>
-                                                        <div class="col-6 mb-3 text-left">
-                                                            <label for="cc-cvv">Cód. de segurança</label>
-                                                            <input type="text" class="form-control" value="271"
-                                                                   id="cc-cvv" name="cvv" placeholder="Ex: 123">
-                                                            <small class="text-danger error-text cvv_error"></small>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <button class="btn btn-success" style="width: calc(100% - 3%);"
-                                                                type="submit">Finalizar pagamento
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="row">
-                                            <div class="col-12 bg-success">btns checkout</div>
-                                            <div class="col-12 bg-primary">btns cancelar</div>
-                                        </div>
-
-                                        <div class="nav flex-lg-column_ flex-row nav-pills" id="v-pills-tab" role="tablist"
-                                             aria-orientation="vertical">
-                                            <button class="btn btn-windx mb-1 btn-payment-type" id="btn-pix"
-                                                    data-toggle="pill" data-target="#v-pills-qrcode" type="button"
-                                                    role="tab" aria-controls="v-pills-qrcode" aria-selected="false">PIX
-                                            </button>
-                                            <button class="btn btn-windx mb-1 btn-payment-type" id="btn-picpay"
-                                                    data-toggle="pill" data-target="#v-pills-qrcode" type="button"
-                                                    role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
-                                                PICPAY
-                                            </button>
-                                            <button class="btn btn-windx mb-1 btn-payment-type" id="btn-credit"
-                                                    data-toggle="pill" data-target="#v-pills-card" type="button"
-                                                    role="tab" aria-controls="v-pills-messages" aria-selected="false">
-                                                CRÉDITO
-                                            </button>
-                                            <button class="btn btn-windx mb-1 btn-payment-type" id="btn-debit"
-                                                    data-toggle="pill" data-target="#v-pills-card" type="button"
-                                                    role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                                                DÉBITO
-                                            </button>
-                                        </div>
-                                        <button type="button" id="clear-cart" style="width: calc(100% - 3%);"
-                                                class="btn btn-danger clear-cart mt-2 btn-radius-50"
-                                                disabled>Cancelar
-                                        </button>
-{{--                                        <button id="authenticate" type="button" style="width: calc(100% - 3%);"--}}
-{{--                                                class="btn btn-warning mt-2 btn-radius-50"--}}
-{{--                                                >Autenticar--}}
-{{--                                        </button>--}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-{{--                        faturas--}}
-                        <div id="colInvoices" class="d-none {{count(session('customer')->billets) == 0 ? 'col-lg-12': 'col-lg-8'}}
-                            order-lg-1 col-md-6 order-md-1 col-sm-6 order-sm-1
-{{--                            py-2 pr-lg-3 px-0--}}
-">
-                            <h4 class="mb-3">Selecione a fatura a pagar</h4>
-{{--                            {{ dd(\App\Helpers\WorkingDays::checkDate('2022-01-01T00:00:00'), session('customer')->billets) }}--}}
-                            <div class="content-box">
-                                <div class="my-slider">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">text</p>
-                                            <p class="card-text">text</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="d-flex">
-                                                <a href="#" class="btn btn-outline-primary btn-sm btn-block">COPIAR</a>
-                                                <a href="#" class="btn btn-outline-info btn-sm btn-block">BAIXAR</a>
-                                            </div>
-                                            <a href="#" class="btn btn-success btn-sm btn-block">PAGAR</a>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 2</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 3</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 4</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 5</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="card-title">Card title 6</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">Last updated 3 mins ago</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <table class="d-none table table-bordered table-striped display list-billets text-uppercase">
-                                </table>
-                            </div>
-                        </div>
 
                         <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
@@ -353,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 pl-0 pr-0 mb-2">
+                        <div style="display: none_" class="col-12 pl-0 pr-0 mb-2">
                             <div class="content-box">
                                 <div class="btn-group_ tns-controls d-none" role="group" aria-label="Basic example">
                                     <div>
@@ -372,18 +72,11 @@
                                 <div class="billets-slider pt-3 d-none">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                 </div>
-
                                 <div #swiperRef="" class="swiper mySwiper">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                     <div class="swiper-wrapper">
                                     </div>
                                 </div>
-{{--                                <p class="append-buttons">--}}
-{{--                                    <button class="prepend-2-slides">Prepend 2 Slides</button>--}}
-{{--                                    <button class="prepend-slide">Prepend Slide</button>--}}
-{{--                                    <button class="append-slide">Append Slide</button>--}}
-{{--                                    <button class="append-2-slides">Append 2 Slides</button>--}}
-{{--                                </p>--}}
                             </div>
                         </div>
                         <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
@@ -404,8 +97,7 @@
                                                 PICPAY
                                             </button>
                                             <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-credit"
-                                                    data-toggle="pill" data-target="#v-pills-card" type="button"
-                                                    role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                                    data-toggle="modal" data-target="#modalCard" type="button">
                                                 CRÉDITO
                                             </button>
 {{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"--}}
@@ -427,68 +119,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row d-none">
-                        <div class="col-3 bg-light">
-                            <div id="billet_1246934" class="card tns-item tns-slide-active card-overdue">
-                                <div class="card-header d-flex card-header-overdue">
-                                    <div class="title font-weight-bold">TESTE NOVA CENTRAL ASSINANTE</div>
-                                    <span class="font-weight-bold"> (0000144-0)</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row letter-1">
-                                        <div class="col-12 py-1 d-flex justify-content-between" >
-                                            <small style="border-bottom: 2px solid #CCCCCC; width: 100%"
-                                                   class="card-text font-weight-bold text-muted text-left">
-                                                RESUMO DA FATURA
-                                            </small>
-                                        </div>
-                                        <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">
-                                            <span class="card-text ">
-                                                Total à pagar: </span>
-                                            <span class="card-text">R$ 7,88</span>
-                                        </div>
-                                        <div class="col-12 py-1 d-flex justify-content-between">
-                                            <small class="card-text">Valor: </small>
-                                            <small class="card-text">R$ 5,90</small>
-                                        </div>
-                                        <div class="col-12 py-1 d-flex justify-content-between">
-                                            <small class="card-text">Juros + Multa:</small>
-                                            <small class="card-text">R$ 1,98</small>
-                                        </div>
-                                        <div class="col-12 py-1 d-flex justify-content-between">
-                                            <small class="card-text">Vencimento: </small>
-                                            <small class="card-text">15/05/2023</small>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex py-3" style="vertical-align: middle">
-                                        <small class="card-text px-2">
-                                            75691.30011   01131.961201   08887.440017   1   93510000000590
-                                        </small>
-                                        <a href="#" id="copy-barcode-1246934" class="billet-link text-primary click pt-0"
-                                           data-id="1246934" onclick="copyBarcode3(this)"
-                                           data-code="75691.30011   01131.961201   08887.440017   1   93510000000590">
-                                            <i class="fa fa-copy"></i>
-                                        </a>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <a target="_blank" href="https://windx.vigoweb.com.br/clientes/boleto?k=75691935100000005901300101131961200888744001&amp;q=1246934" class="billet-link text-primary px-4">
-                                            Baixar 2ª via<i class="fas fa-download pl-2"></i>
-                                        </a>
-                                    </div>
-                                    <div class="pt-2">
-                                        <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="#" id="select-billet-1246934" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn(&quot;{\&quot;id\&quot;:1246934,\&quot;reference\&quot;:\&quot;0088874-4\&quot;,\&quot;value\&quot;:5.9,\&quot;duedate\&quot;:\&quot;15\\\/05\\\/2023\&quot;,\&quot;price\&quot;:\&quot;7.88\&quot;,\&quot;discount\&quot;:0,\&quot;addition\&quot;:\&quot;1.98\&quot;,\&quot;installment\&quot;:1}&quot;)">PAGAR
-                                    </a><a href="#" id="remove-billet-1246934" class="btn btn-danger btn-sm btn-block delete-item d-none" onclick="deleteItemCart(1246934)">REMOVER</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-8">Teste</div>
 
-
-                    </div>
                 </main>
             </div>
         </section>
@@ -501,6 +132,134 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h4 id="modalMessageText"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCard" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center" style="border-bottom: none; display: ruby">
+                    <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Pagamento nº 12345 com CRÉDITO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pb-4 pr-4 pl-4 pt-0">
+                    <div id="modalCard" class="bg-white text-center justify-content-center">
+                        <small id="timerPaymentQrCode" class="text-danger">00:00</small>
+                        <div class="box-price-qrcode-card pb-1">
+                            <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold">1,00</span></h4>
+                            <p> Faturas selecionadas: <b class="total-count"></b></p>
+                        </div>
+                        <small class="pt-2 text-black-50">Preencha os campos com os dados de seu cartão</small>
+                        <div class="container-card">
+                            <form id="form_checkout" method="POST"
+                                  action="{{route('central.checkout')}}">
+                                <div class="row">
+                                    <div id="inputs-hidden" class="form-row d-none">
+                                        <input id="customer" name="customer"
+                                               value="{{session('customer')->id}}"
+                                               type="text" hidden>
+                                        <input id="cartBillets" name="billets" type="text" hidden>
+                                        <input id="ip_address" value="1.1.1.1" name="ip_address"
+                                               type="text" hidden>
+                                        <input id="full_name" name="full_name" type="text"
+                                               value="{{session('customer')->full_name}}" hidden>
+                                        <input id="email" name="email" type="text"
+                                               value="{{session('customer')->email}}" hidden>
+                                        <input id="cpf_cnpj" name="cpf_cnpj" type="text"
+                                               value="{{session('customer')->document}}" hidden>
+                                        <input id="phone" name="phone" type="text"
+                                               value="{{session('customer')->phone}}" hidden>
+                                        <input id="payment_type" name="payment_type" type="text"
+                                               hidden>
+                                        <input id="cpf_cnpj_type" name="cpf_cnpj_type" type="text" hidden>
+                                        <input id="token" type="hidden" name="_token"
+                                               value="{{ csrf_token() }}"/>
+                                        <input id="method" name="method" type="text" hidden>
+                                        <input id="terminal_id" name="terminal_id" type="text" value="{{Cookie::get('terminal_id')}}" hidden>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="col-12 w-100 alert alert-danger text-display-error text-center justify-content-center font-weight-bold d-none"
+                                             role="alert">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mb-3 text-left">
+                                        <label for="cc-nome">Nome no cartão</label>
+                                        <input type="text" class="form-control text-uppercase"
+                                               value="WELLINGTON FERREIRA" id="cc-nome"
+                                               name="holder_name"
+                                               placeholder="Nome como está no cartão">
+                                        <small
+                                            class="text-danger error-text holder_name_error"></small>
+                                    </div>
+                                    <div class="col-12 mb-3 text-left">
+                                        <label for="cc-numero">Número do cartão</label>
+                                        <input type="text" class="form-control"
+                                               value="4024007153763191" id="cc-numero"
+                                               name="card_number" placeholder="0000 0000 0000 0000">
+                                        <small
+                                            class="text-danger error-text card_number_error"></small>
+                                    </div>
+
+                                    <div class="col-6 mb-3 text-left">
+                                        <label for="cc-expiracao">Validade (Mês)</label>
+                                        <input type="text" class="form-control" value="12"
+                                               id="expiration_month" name="expiration_month"
+                                               placeholder="Ex: 12">
+                                        <small
+                                            class="text-danger error-text expiration_month_error"></small>
+                                    </div>
+                                    <div class="col-6 mb-3 text-left">
+                                        <label for="cc-expiracao">Validade (Ano)</label>
+                                        <input type="text" class="form-control" value="2023"
+                                               id="expiration_year" name="expiration_year"
+                                               placeholder="Ex: 2028">
+                                        <small
+                                            class="text-danger error-text expiration_year_error"></small>
+                                    </div>
+                                    <div class="col-6 mb-3 text-left">
+                                        <label for="cc-bandeira">Bandeira do cartão</label>
+                                        <select id="cc-bandeira" name="bandeira"
+                                                class="form-control">
+                                            <option disabled>Selecionar</option>
+                                            <option value="American Express">American Express
+                                            </option>
+                                            <option value="Aura">Aura</option>
+                                            <option value="Banescard">Banescard</option>
+                                            <option value="Cabal">Cabal</option>
+                                            <option value="Dinners">Dinners</option>
+                                            <option value="Elo">Elo</option>
+                                            <option value="Hipercard">Hipercard</option>
+                                            <option selected value="Master">Master</option>
+                                            <option value="Visa">Visa</option>
+                                        </select>
+                                        <small
+                                            class="text-danger error-text bandeira_error"></small>
+                                    </div>
+                                    <div class="col-6 mb-3 text-left">
+                                        <label for="cc-cvv">Cód. de segurança</label>
+                                        <input type="text" class="form-control" value="271"
+                                               id="cc-cvv" name="cvv" placeholder="Ex: 123">
+                                        <small class="text-danger error-text cvv_error"></small>
+                                    </div>
+                                </div>
+                                <div class="p-2">
+{{--                                    <button class="btn btn-secondary" data-dismiss="modal"--}}
+{{--                                            type="reset">Cancelar--}}
+{{--                                    </button>--}}
+                                    <button class="btn btn-success btn-block"
+                                            type="submit">Finalizar pagamento
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -566,6 +325,12 @@
         .form-floating > .form-control:-webkit-autofill ~ label {
             opacity: 0.65;
             transform: scale(0.75) translateY(-0.5rem) translateX(0.15rem);
+        }
+
+        .form-control, .form-control:focus {
+            background-color: aliceblue;
+            border: 1px solid rgba(128, 128, 128, .3) !important;
+
         }
 
         div:where(.swal2-container) h2:where(.swal2-title) {
@@ -1258,8 +1023,10 @@
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";
+        var checkoutForm = $('#form_checkout')[0];
+        console.log(checkoutForm)
 
-        // var paymentId = 12345;
+        var paymentId = 12345;
         //
         var modalQrCode = `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
@@ -1291,15 +1058,30 @@
             </div>
             `;
 
-        Swal.fire({
-            title: 'Pagamento nº '+ paymentId +' com PIX',
-            html: modalQrCode,
-            showConfirmButton: false,
-            showDenyButton: true,
-            denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
-            denyButtonColor: '#d33',
-            // footer: '<a href="">Cancelar</a>'
-        })
+        var modalCard = `
+            <div id="modalCard" class="bg-white text-center justify-content-center">
+                <small id="timerPaymentQrCode" class="text-danger">00:00</small>
+                <div class="box-price-qrcode-card pb-1">
+                    <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold">1,00</span></h4>
+                    <p> Faturas selecionadas: <b class="total-count"></b></p>
+                </div>
+                <small class="pt-2 text-black-50">Preencha os campos com os dados de seu cartão</small>
+                <div class="container-card">
+
+                </div>
+                <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
+            </div>
+            `;
+
+        // Swal.fire({
+        //     title: 'Pagamento nº '+ paymentId +' com CRÉDITO',
+        //     html: modalCard,
+        //     showConfirmButton: false,
+        //     showDenyButton: false,
+        //     denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
+        //     denyButtonColor: '#d33',
+        //     // footer: '<a href="">Cancelar</a>'
+        // })
 
         $('.checkoutBtn').on('click', function () {
             const paymentType = $(this).attr('id')

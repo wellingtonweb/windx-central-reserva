@@ -85,6 +85,7 @@
 @section('js')
     @if ($errors->has('document'))
         <script>
+            $('.full-screen-splash').addClass('d-none')
             let message = `{{$errors->first('document')}}`;
             Swal.fire({
                 icon: 'error',
@@ -95,6 +96,7 @@
         </script>
     @elseif(session('error'))
         <script>
+            $('.full-screen-splash').addClass('d-none')
             let session = `{{session('error')}}`;
             Swal.fire({
                 icon: 'error',
@@ -105,6 +107,7 @@
         </script>
     @elseif(session('success'))
         <script>
+            $('.full-screen-splash').addClass('d-none')
             let session = `{{session('success')}}`;
             Swal.fire({
                 icon: 'success',

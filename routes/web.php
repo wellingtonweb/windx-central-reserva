@@ -18,7 +18,6 @@ Route::prefix('assinante')->name('central.')->group(function(){
         $clearConfig = Artisan::call('config:clear');
         $clearOptimize = Artisan::call('optimize:clear');
         $clearRoute = Artisan::call('route:clear');
-        $clearCache = Artisan::call('cache:clear');
         return redirect()->route('central.login');
     });
 

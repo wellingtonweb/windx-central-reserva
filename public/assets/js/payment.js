@@ -558,6 +558,7 @@ let tries = 0;
 let paymentType = '';
 var callback = '';
 let transactionId  = '';
+let responseObj = null;
 
 clearAllSections();
 
@@ -652,7 +653,6 @@ $('#form_checkout').submit(function (e){
 
 });
 
-
 function callbackPrintCoupon(id){
     console.log(base_url + 'coupon/' + id)
     window.location = base_url + 'coupon/'+ id;
@@ -743,12 +743,18 @@ function sendPayment(payment){
                         $('#modalCard').modal('hide')
                         alert('Esta fatura foi paga com sucesso!')
                     }else{
-                        msgStatusTransaction(response.data.status)
-                        alert('Erro', response.data.status)
+                        responseObj = response
+                        // msgStatusTransaction(response.data.status)
+                        alert('Erro: '+ response.data.status)
                     }
                 }else{
-                    alert(response.original.message)
-                    console.log(response.data, response.data.message)
+                    if(typeof response.original != "undefined"){
+                        responseObj = getResponseError(response.original)
+                        alert(responseObj)
+                        console.log(responseObj)
+                    }else{
+                        console.log('Erro 500!')
+                    }
                 }
             }else{
                 alert('outro erro')
@@ -816,6 +822,16 @@ function sendPayment(payment){
             }
         }
     });
+}
+
+function getResponseError(ObjData)
+{
+    var startIndex = ObjData.error.indexOf('{');
+    var endIndex = ObjData.error.lastIndexOf('}') + 1;
+    var jsonStr = ObjData.error.substring(startIndex, endIndex);
+    var jsonObj = JSON.parse(jsonStr);
+
+    return jsonObj.message
 }
 
 /* Display qrcode for payment */

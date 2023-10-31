@@ -1128,6 +1128,37 @@
         // }
 
 
+        var ObjData = {
+            "data": {
+                "customer": "34258",
+                "billets": [
+                    {
+                        "billet_id": "1246934",
+                        "reference": "0088874-4",
+                        "duedate": "15/05/2023",
+                        "value": 5.9,
+                        "addition": "2.11",
+                        "discount": 0,
+                        "price": 8.01,
+                        "count": 1,
+                        "installment": 1,
+                        "total": 8.01
+                    }
+                ],
+                "installment": 1,
+                "method": "ecommerce",
+                "payment_type": "credit",
+                "amount": 8.01,
+                "reference": "d3924e99-be88-41ed-8853-05cede4fb75e",
+                "updated_at": "2023-10-31T13:19:13.000000Z",
+                "created_at": "2023-10-31T13:19:13.000000Z",
+                "id": 1418,
+                "status": "refused",
+                "terminal": null
+            }
+        }
+
+
 
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

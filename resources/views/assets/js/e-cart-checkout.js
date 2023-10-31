@@ -32,9 +32,13 @@ $('#modalCard').on('show.bs.modal', function (event) {
 $('#modalCard').on('hidden.bs.modal', function (event) {
     resetCardFields();
     clearAllSections()
-    msgStatusTransaction('canceled')
+    // msgStatusTransaction('canceled')
     refreshSliderCards()
 })
+
+$('#btnCloseModalCard').click(function (){
+    msgStatusTransaction('canceled')
+});
 
 function resetCardFields() {
     $('#cc-numero').val('');
@@ -178,7 +182,7 @@ function sendPayment(payment){
         },
         success: function(response, textStatus, xhr) {
             console.log('Resposta do servidor: ', response)
-            if(xhr.status === 404){
+            if(xhr.status === 404 || xhr.status === 500){
                 alert(response.data.message)
                 // msgStatusTransaction(response.data.status)
                 $('#modalCard').modal('hide')
@@ -186,18 +190,20 @@ function sendPayment(payment){
                 if(typeof response.data != "undefined"){
                     if(response.data.status === 'approved'){
                         $('#modalCard').modal('hide')
-                        alert('Esta fatura foi paga com sucesso!')
+                        // refreshSliderCards()
+                        msgStatusTransaction(response.data.status)
                     }else{
-                        responseObj = response
+                        responseObj = getResponseError(response.original)
+                        displayMessageErrorPayment(responseObj)
                         // msgStatusTransaction(response.data.status)
-                        alert('Erro: '+ response.data.status)
                     }
                 }else{
                     console.log('Erro')
                     // if(typeof response.original != "undefined"){
-                    //     responseObj = getResponseError(response.original)
-                    //     alert(responseObj)
-                    //     console.log(responseObj)
+                        responseObj = getResponseError(response.original)
+                    // alert('Erro indefinido: '+ responseObj)
+                    displayMessageErrorPayment(responseObj)
+                        console.log(responseObj)
                     // }else{
                     //     console.log('Erro 500!')
                     // }
@@ -346,11 +352,11 @@ function setQrcode(payment){
         if (result.dismiss === Swal.DismissReason.timer) {
             clearAllSections()
             msgStatusTransaction('expired')
-            refreshSliderCards()
+            // refreshSliderCards()
         } else if(result.isDenied || result.isDismissed) {
             clearAllSections()
             msgStatusTransaction('canceled')
-            refreshSliderCards()
+            // refreshSliderCards()
         }
     })
 }
@@ -362,21 +368,25 @@ function msgStatusTransaction(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 5000)
                 return true;
                 break;
             case 'expired':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Tempo expirado!','error', 5000)
                 return false;
                 break;
             case 'refused':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento recusado!','error', 5000)
                 return false;
                 break;
             case 'canceled':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento cancelado!','error', 5000)
                 return false;
                 break;
@@ -517,6 +527,7 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
     //     // displayMessageQuestionFinish()
     // })
 }
+
 
 
 var tempo = 120;

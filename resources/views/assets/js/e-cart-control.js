@@ -17,13 +17,16 @@ function addToCartBtn(data){
     var addition = billet.addition;
     var discount = billet.discount;
     var price = Number(billet.price);
+    var company_id = Number(billet.company);
     var installment = Number(billet.installment);
     var installmentValue = 0;
+    console.log('Empresa: '+ company_id)
 
     if(installment == 1){
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
         addPaintItem(btnId)
         displayCart();
+        console.log(billetsCart)
     }else if(installment > 1){
         installmentValue = (parseFloat(value) / parseInt(installment));
 
@@ -52,8 +55,9 @@ function addToCartBtn(data){
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $('input#installment').val(installment);
                         clearAllSections();
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment, company_id);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
@@ -75,7 +79,7 @@ function addToCartBtn(data){
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                     }
@@ -96,7 +100,7 @@ function addToCartBtn(data){
                 cancelButtonText: `Cancelar`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
                     console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
@@ -308,7 +312,7 @@ function isDue(dueDate)
 
 /* Swiper Slider Billets Cards */
 var slider = '';
-var swiper = new Swiper(".mySwiper", {
+var swiper = new Swiper(".billetsSwiper", {
     slidesPerView: 1,
     initialized: true,
     freeMode: true,
@@ -346,8 +350,8 @@ var swiper = new Swiper(".mySwiper", {
 async function getBillets(){
     const response = await fetch(urlGetBillets);
     const billets = await response.json();
-    let sliderBillets = document.querySelector('.mySwiper');
-
+    let sliderBillets = document.querySelector('.billetsSwiper');
+    $('.billetsSwiper').addClass('billetsSwiperLoading');
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
     }else{
@@ -413,6 +417,7 @@ async function getBillets(){
                     `);
             }
             $('.lds-ellipsis').addClass('d-none');
+            $('.billetsSwiper').removeClass('billetsSwiperLoading');
         }
     }
 }

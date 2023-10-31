@@ -73,7 +73,7 @@
                                 <div class="billets-slider pt-3 d-none">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                 </div>
-                                <div #swiperRef="" class="swiper mySwiper">
+                                <div #swiperRef="" class="swiper billetsSwiper">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                     <div class="swiper-wrapper">
                                     </div>
@@ -144,7 +144,7 @@
             <div class="modal-content">
                 <div class="modal-header text-center" style="border-bottom: none; display: ruby">
                     <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Pagamento nº 12345 com CRÉDITO</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button id="btnCloseModalCard" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -181,6 +181,8 @@
                                         <input id="token" type="hidden" name="_token"
                                                value="{{ csrf_token() }}"/>
                                         <input id="method" name="method" type="text" hidden>
+                                        <input id="installment" name="installment" type="text" hidden>
+                                        <input id="company" name="company" type="text" hidden>
                                         <input id="terminal_id" name="terminal_id" type="text" value="{{Cookie::get('terminal_id')}}" hidden>
                                     </div>
                                     <div class="col-12">
@@ -393,6 +395,11 @@
         .swiper {
             width: 100%;
             height: 100%;
+        }
+
+        .billetsSwiperLoading {
+            opacity: .5;
+            transition: all 200ms linear;
         }
 
         .swiper-slide {

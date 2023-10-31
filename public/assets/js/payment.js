@@ -8,7 +8,7 @@ var billetsCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installment) {
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installment, company_id) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
         this.duedate = duedate;
@@ -18,6 +18,7 @@ var billetsCart = (function() {
         this.price = price;
         this.count = count;
         this.installment = installment;
+        this.company_id = company_id;
     }
 
     // Save cart
@@ -40,8 +41,8 @@ var billetsCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installment) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installment);
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installment, company_id) {
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installment, company_id);
 
         // var itemCheck = cart.some(function(testItem) {
         //     return testItem.billet_id === item.billet_id;
@@ -144,13 +145,16 @@ function addToCartBtn(data){
     var addition = billet.addition;
     var discount = billet.discount;
     var price = Number(billet.price);
+    var company_id = Number(billet.company);
     var installment = Number(billet.installment);
     var installmentValue = 0;
+    console.log('Empresa: '+ company_id)
 
     if(installment == 1){
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
         addPaintItem(btnId)
         displayCart();
+        console.log(billetsCart)
     }else if(installment > 1){
         installmentValue = (parseFloat(value) / parseInt(installment));
 
@@ -179,8 +183,9 @@ function addToCartBtn(data){
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        $('input#installment').val(installment);
                         clearAllSections();
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment, company_id);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
@@ -202,7 +207,7 @@ function addToCartBtn(data){
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                     }
@@ -223,7 +228,7 @@ function addToCartBtn(data){
                 cancelButtonText: `Cancelar`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1);
+                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
                     console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
@@ -435,7 +440,7 @@ function isDue(dueDate)
 
 /* Swiper Slider Billets Cards */
 var slider = '';
-var swiper = new Swiper(".mySwiper", {
+var swiper = new Swiper(".billetsSwiper", {
     slidesPerView: 1,
     initialized: true,
     freeMode: true,
@@ -473,8 +478,8 @@ var swiper = new Swiper(".mySwiper", {
 async function getBillets(){
     const response = await fetch(urlGetBillets);
     const billets = await response.json();
-    let sliderBillets = document.querySelector('.mySwiper');
-
+    let sliderBillets = document.querySelector('.billetsSwiper');
+    $('.billetsSwiper').addClass('billetsSwiperLoading');
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
     }else{
@@ -540,6 +545,7 @@ async function getBillets(){
                     `);
             }
             $('.lds-ellipsis').addClass('d-none');
+            $('.billetsSwiper').removeClass('billetsSwiperLoading');
         }
     }
 }
@@ -587,9 +593,13 @@ $('#modalCard').on('show.bs.modal', function (event) {
 $('#modalCard').on('hidden.bs.modal', function (event) {
     resetCardFields();
     clearAllSections()
-    msgStatusTransaction('canceled')
+    // msgStatusTransaction('canceled')
     refreshSliderCards()
 })
+
+$('#btnCloseModalCard').click(function (){
+    msgStatusTransaction('canceled')
+});
 
 function resetCardFields() {
     $('#cc-numero').val('');
@@ -733,7 +743,7 @@ function sendPayment(payment){
         },
         success: function(response, textStatus, xhr) {
             console.log('Resposta do servidor: ', response)
-            if(xhr.status === 404){
+            if(xhr.status === 404 || xhr.status === 500){
                 alert(response.data.message)
                 // msgStatusTransaction(response.data.status)
                 $('#modalCard').modal('hide')
@@ -741,20 +751,23 @@ function sendPayment(payment){
                 if(typeof response.data != "undefined"){
                     if(response.data.status === 'approved'){
                         $('#modalCard').modal('hide')
-                        alert('Esta fatura foi paga com sucesso!')
+                        // refreshSliderCards()
+                        msgStatusTransaction(response.data.status)
                     }else{
-                        responseObj = response
+                        responseObj = getResponseError(response.original)
+                        displayMessageErrorPayment(responseObj)
                         // msgStatusTransaction(response.data.status)
-                        alert('Erro: '+ response.data.status)
                     }
                 }else{
-                    if(typeof response.original != "undefined"){
+                    console.log('Erro')
+                    // if(typeof response.original != "undefined"){
                         responseObj = getResponseError(response.original)
-                        alert(responseObj)
+                    // alert('Erro indefinido: '+ responseObj)
+                    displayMessageErrorPayment(responseObj)
                         console.log(responseObj)
-                    }else{
-                        console.log('Erro 500!')
-                    }
+                    // }else{
+                    //     console.log('Erro 500!')
+                    // }
                 }
             }else{
                 alert('outro erro')
@@ -900,11 +913,11 @@ function setQrcode(payment){
         if (result.dismiss === Swal.DismissReason.timer) {
             clearAllSections()
             msgStatusTransaction('expired')
-            refreshSliderCards()
+            // refreshSliderCards()
         } else if(result.isDenied || result.isDismissed) {
             clearAllSections()
             msgStatusTransaction('canceled')
-            refreshSliderCards()
+            // refreshSliderCards()
         }
     })
 }
@@ -916,21 +929,25 @@ function msgStatusTransaction(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 5000)
                 return true;
                 break;
             case 'expired':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Tempo expirado!','error', 5000)
                 return false;
                 break;
             case 'refused':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento recusado!','error', 5000)
                 return false;
                 break;
             case 'canceled':
                 clearInterval(callback)
+                refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento cancelado!','error', 5000)
                 return false;
                 break;
@@ -1071,6 +1088,7 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
     //     // displayMessageQuestionFinish()
     // })
 }
+
 
 
 var tempo = 120;

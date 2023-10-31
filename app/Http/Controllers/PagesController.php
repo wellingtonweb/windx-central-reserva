@@ -142,6 +142,7 @@ class PagesController extends Controller
                             'discount' => 0,
                             'addition' => $addition,
                             'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
+                            'company' => $data['Id_Empresa']
                         ]);
 
 //                        $button = '<button type="button" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"

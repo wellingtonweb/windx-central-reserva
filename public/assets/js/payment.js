@@ -752,6 +752,8 @@ function sendPayment(payment){
                     if(response.data.status === 'approved'){
                         $('#modalCard').modal('hide')
                         // refreshSliderCards()
+                        sessionStorage.setItem('transactionId', response.data.id)
+                        transactionId = sessionStorage.getItem("transactionId");
                         msgStatusTransaction(response.data.status)
                     }else{
                         responseObj = getResponseError(response.original)
@@ -925,12 +927,17 @@ function setQrcode(payment){
 
 /* Functions Display Messages */
 function msgStatusTransaction(status){
+    var dButton = ``;
     if(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
                 refreshSliderCards()
-                displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 5000)
+                dButton = `<a href="${base_url}comprovante/${transactionId}/download"
+                            class="download-pdf btn btn-primary btn-sm" target="_blank">
+                            <i class="fa fa-download pr-1"></i> Baixar comprovante
+                            </a>`
+                displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 10000, dButton)
                 return true;
                 break;
             case 'expired':
@@ -1057,11 +1064,12 @@ function displayMessageErrorPayment(title){
     // })
 }
 
-function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+function displayMessageStatusTransaction(dTitle, dIcon, dTimer, dButton){
     Swal.fire({
         title: dTitle,
         icon: dIcon,
         timer: dTimer,
+        html: dButton,
         didOpen: () => {
             Swal.hideLoading()
             // clearInterval(callback)

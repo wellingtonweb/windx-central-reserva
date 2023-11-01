@@ -1217,6 +1217,13 @@ svg rect{
         right: 1rem !important;
     }
 
+    .credits {
+        padding: .5rem !important;
+    }
+
+    .side-bar .menu .item a {
+        line-height: 35px !important;
+    }
 
 }
 

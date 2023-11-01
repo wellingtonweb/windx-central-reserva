@@ -27,7 +27,7 @@
     />
 </head>
 
-<body class="body" style="background-color: #002046 !important;">
+<body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
 <div class="bg-body-backdrop"></div>
 <div class="progress progress-system {{ (Route::currentRouteName() === 'central.login' ? 'd-none' : '') }} animate__animated animate__fadeIn">
     <div class="progress-bar progress-bar-system" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>

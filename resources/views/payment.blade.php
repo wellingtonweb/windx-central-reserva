@@ -155,12 +155,13 @@
                 </div>
                 <div class="modal-body pb-4 pr-4 pl-4 pt-0">
                     <div id="modalCard" class="bg-white text-center justify-content-center">
-                        <small id="timerPaymentQrCode" class="text-danger">00:00</small>
+
                         <div class="box-price-qrcode-card pb-1">
                             <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold total-cart"></span></h4>
                             <p> Faturas selecionadas: <b class="total-count"></b></p>
                         </div>
-                        <small class="pt-2 text-black-50">Preencha os campos com os dados de seu cartão</small>
+                        <small class="pt-2 text-black-50">Preencha os campos com os dados de seu cartão</small><br>
+                        <small id="timerPaymentQrCode" class="mt-2 text-danger font-weight-bold">02:00</small>
                         <div class="container-card">
                             <form id="form_checkout" method="POST"
                                   action="{{route('central.checkout')}}">
@@ -196,7 +197,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 mb-3 text-left">
+                                    <div class="col-12 mb-3 px-3 text-left">
                                         <label for="cc-nome">Nome no cartão</label>
                                         <input type="text" class="form-control text-uppercase"
                                                value="WELLINGTON FERREIRA" id="cc-nome"
@@ -205,7 +206,7 @@
                                         <small
                                             class="text-danger error-text holder_name_error"></small>
                                     </div>
-                                    <div class="col-12 mb-3 text-left">
+                                    <div class="col-12 mb-3 px-3 text-left">
                                         <label for="cc-numero">Número do cartão</label>
                                         <input type="text" class="form-control"
                                                value="4024007153763191" id="cc-numero"
@@ -214,7 +215,7 @@
                                             class="text-danger error-text card_number_error"></small>
                                     </div>
 
-                                    <div class="col-6 mb-3 text-left">
+                                    <div class="col-6 mb-3 px-3 text-left">
                                         <label for="cc-expiracao">Validade (Mês)</label>
                                         <input type="text" class="form-control" value="12"
                                                id="expiration_month" name="expiration_month"
@@ -222,7 +223,7 @@
                                         <small
                                             class="text-danger error-text expiration_month_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 text-left">
+                                    <div class="col-6 mb-3 px-3 text-left">
                                         <label for="cc-expiracao">Validade (Ano)</label>
                                         <input type="text" class="form-control" value="2023"
                                                id="expiration_year" name="expiration_year"
@@ -230,7 +231,7 @@
                                         <small
                                             class="text-danger error-text expiration_year_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 text-left">
+                                    <div class="col-6 mb-3 px-3 text-left">
                                         <label for="cc-bandeira">Bandeira do cartão</label>
                                         <select id="cc-bandeira" name="bandeira"
                                                 class="form-control">
@@ -249,7 +250,7 @@
                                         <small
                                             class="text-danger error-text bandeira_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 text-left">
+                                    <div class="col-6 mb-3 px-3 text-left">
                                         <label for="cc-cvv">Cód. de segurança</label>
                                         <input type="text" class="form-control" value="271"
                                                id="cc-cvv" name="cvv" placeholder="Ex: 123">
@@ -445,7 +446,7 @@
             text-overflow: ellipsis;
         }
 
-        .container-payment .col-xl, .col-xl-auto, .col-xl-12,
+        .card-body .col-xl, .col-xl-auto, .col-xl-12,
         .col-xl-11, .col-xl-10, .col-xl-9, .col-xl-8, .col-xl-7,
         .col-xl-6, .col-xl-5, .col-xl-4, .col-xl-3, .col-xl-2, .col-xl-1,
         .col-lg, .col-lg-auto, .col-lg-12, .col-lg-11, .col-lg-10, .col-lg-9,

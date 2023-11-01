@@ -591,6 +591,9 @@ function countdown() {
         $("#timerPaymentQrCode").fadeOut(1000)
         $("#v-pills-qrcode").fadeOut(1000)
         $('#methodTitle').text('').fadeOut(1000)
+        $('#modalCard').modal('hide')
+        tempo = 120;
         // displayMessageStatusTransaction('Tempo expirado!', 'error', 10000)
+        msgStatusTransaction('expired')
     }
 }

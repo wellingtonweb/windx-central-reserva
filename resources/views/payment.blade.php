@@ -575,16 +575,16 @@
                 font-size: 80%;
                 font-weight: 400;
             }
+
             .my-slider .card .card-body
             {
                 font-size: 80%;
                 font-weight: 400;
             }
+
             /*.content-box {*/
             /*    padding: .5rem !important;*/
             /*}*/
-
-
 
             #infoCustomerActive {
                 display: none !important;
@@ -593,6 +593,10 @@
             .tns-controls .btn {
                 font-size: .6rem;
                 line-height: 1.5;
+            }
+
+            .info-plus {
+                display: none !important;
             }
 
             #timerPaymentQrCode {
@@ -718,6 +722,17 @@
             /*.checkout-controls .btn {*/
             /*    padding: .5rem;*/
             /*}*/
+            .col-12 {
+                padding-bottom: 0 !important;
+            }
+
+            .card .card-body {
+                font-size: .84rem !important;
+            }
+
+            .btn {
+                padding: 8px;
+            }
         }
 
         @media (max-width: 1100px) {

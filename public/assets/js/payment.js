@@ -511,15 +511,15 @@ async function getBillets(){
                                                     Total à pagar: </span>
                                                 <span class="card-text">${billets.data[billet].total}</span>
                                             </div>
-                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">
                                                 <span class="card-text">Valor: </span>
                                                 <span class="card-text">${billets.data[billet].valor}</span>
                                             </div>
-                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">
                                                 <span class="card-text">Juros + Multa:</span>
                                                 <span class="card-text">${billets.data[billet].fees}</span>
                                             </div>
-                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">
                                                 <span class="card-text">Vencimento: </span>
                                                 <span class="card-text">${billets.data[billet].dtEmissao}</span>
                                             </div>
@@ -538,7 +538,7 @@ async function getBillets(){
                                             <div class="col-12 py-2 d-flex justify-content-center">
                                                 ${billets.data[billet].download}
                                             </div>
-                                            <div class="col-12 pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
+                                            <div class="col-12" style="border-top: 2px solid #CCCCCC; width: 100%">
                                                 <small class="text-muted">
                                                 * Pagamento do boleto sujeito a compensação do banco (até 72h úteis)
                                                 </small>

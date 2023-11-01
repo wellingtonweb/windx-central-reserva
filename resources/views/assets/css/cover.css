@@ -1211,6 +1211,13 @@ svg rect{
     .header-page {
         display: none !important;
     }
+
+    .contact-client {
+        bottom: .5rem !important;
+        right: 1rem !important;
+    }
+
+
 }
 
 @media (max-width: 767.98px) {

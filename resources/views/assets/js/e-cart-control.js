@@ -371,8 +371,8 @@ async function getBillets(){
                                         <span class="pl-1 font-weight-bold">(${billets.data[billet].NossoNumero})</span>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row letter-1">
-                                            <div class="col-12 py-1 d-flex justify-content-between" >
+                                        <div class="row letter-1 resume">
+                                            <div class="col-12 py-1 d-flex justify-content-between">
                                                 <small style="border-bottom: 2px solid #CCCCCC; width: 100%"
                                                        class="card-text font-weight-bold text-muted text-left">
                                                     RESUMO DA FATURA
@@ -396,16 +396,37 @@ async function getBillets(){
                                                 <span class="card-text">${billets.data[billet].dtEmissao}</span>
                                             </div>
                                         </div>
-                                        <div class="d-flex py-3" style="vertical-align: middle">
+                                        <div class="row">
+                                            <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
+                                                <div>
+                                                    <small class="card-text px-2 ">
+                                                    ${billets.data[billet].LinhaDigitavel}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    ${billets.data[billet].copy}
+                                                </div>
+                                            </div>
+                                            <div class="col-12 py-2 d-flex justify-content-center">
+                                                ${billets.data[billet].download}
+                                            </div>
+                                            <div class="col-12 pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
+                                                <small class="text-muted">
+                                                * Pagamento do boleto sujeito a compensação do banco (até 72h úteis)
+                                                </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex_ d-none py-3" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
                                             <small class="card-text px-2">
                                                 ${billets.data[billet].LinhaDigitavel}
                                             </small>
                                             ${billets.data[billet].copy}
                                         </div>
-                                        <div class="d-flex justify-content-center">
+                                        <div class="d-flex_ d-none justify-content-center">
                                             ${billets.data[billet].download}
                                         </div>
-                                        <div class="pt-2">
+                                        <div class="d-none pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
                                             <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
                                         </div>
                                     </div>

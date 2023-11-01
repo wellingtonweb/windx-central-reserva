@@ -58,16 +58,21 @@
                             <div class="content-box">
                                 <div class="btn-group_ tns-controls d-none" role="group" aria-label="Basic example">
                                     <div>
-                                        <button id="tyne-prev-btn_" type="button" data-controls="prev"
-                                                 class="btn btn-primary btn-sm slider-button-prev" aria-controls="tns1">
-                                            Fatura anterior</button>
+                                        <button type="button" data-controls="prev"
+                                                 class="btn btn-primary btn-sm px-2 slider-button-prev" aria-controls="tns1">
+                                            Anterior
+{{--                                            Fatura anterior--}}
+                                        </button>
                                     </div>
                                     <div class="px-4">
                                         <div class="swiper-pagination text-muted "></div>
                                     </div>
                                     <div>
-                                        <button id="tyne-next-btn_" type="button" data-controls="next"
-                                                class="btn btn-primary btn-sm slider-button-next" aria-controls="tns1">Próxima fatura</button>
+                                        <button type="button" data-controls="next"
+                                                class="btn btn-primary btn-sm px-2 slider-button-next" aria-controls="tns1">
+                                            Próxima
+{{--                                            Próxima fatura--}}
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="billets-slider pt-3 d-none">
@@ -102,11 +107,11 @@
                                                     type="button">
                                                 CRÉDITO
                                             </button>
-{{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"--}}
-{{--                                                    data-toggle="pill" data-target="#v-pills-card" type="button"--}}
-{{--                                                    role="tab" aria-controls="v-pills-settings" aria-selected="false">--}}
-{{--                                                DÉBITO--}}
-{{--                                            </button>--}}
+                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"
+                                                    data-toggle="pill" data-target="#v-pills-card" type="button"
+                                                    role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                                DÉBITO
+                                            </button>
 
                                         </div>
                                     </div>
@@ -341,11 +346,11 @@
             font-size: 1.33em !important;
         }
 
-        #timerPaymentQrCode {
-            position: absolute;
-            top: 1.5rem;
-            left: 2rem;
-        }
+        /*#timerPaymentQrCode {*/
+        /*    position: absolute;*/
+        /*    top: 1.5rem;*/
+        /*    left: 2rem;*/
+        /*}*/
 
         .box-price-qrcode-card {
             background-color: whitesmoke;
@@ -440,6 +445,23 @@
             text-overflow: ellipsis;
         }
 
+        .container-payment .col-xl, .col-xl-auto, .col-xl-12,
+        .col-xl-11, .col-xl-10, .col-xl-9, .col-xl-8, .col-xl-7,
+        .col-xl-6, .col-xl-5, .col-xl-4, .col-xl-3, .col-xl-2, .col-xl-1,
+        .col-lg, .col-lg-auto, .col-lg-12, .col-lg-11, .col-lg-10, .col-lg-9,
+        .col-lg-8, .col-lg-7, .col-lg-6, .col-lg-5, .col-lg-4, .col-lg-3,
+        .col-lg-2, .col-lg-1, .col-md, .col-md-auto, .col-md-12, .col-md-11,
+        .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5,
+        .col-md-4, .col-md-3, .col-md-2, .col-md-1, .col-sm, .col-sm-auto,
+        .col-sm-12, .col-sm-11, .col-sm-10, .col-sm-9, .col-sm-8, .col-sm-7,
+        .col-sm-6, .col-sm-5, .col-sm-4, .col-sm-3, .col-sm-2, .col-sm-1, .col,
+        .col-auto, .col-12, .col-11, .col-10, .col-9, .col-8, .col-7, .col-6,
+        .col-5, .col-4, .col-3, .col-2, .col-1 {
+            padding-right: 0;
+            padding-left: 0;
+            gap: 5px;
+        }
+
         .letter-1 {
             letter-spacing: 1px;
         }
@@ -523,7 +545,7 @@
         }
 
         .tns-controls .btn {
-            padding: 0.25rem 0.5rem !important;
+            padding: 0.25rem 1.5rem !important;
             font-size: .875rem;
             line-height: 1.5;
         }
@@ -545,6 +567,10 @@
             /*    max-height: 17.5rem;*/
             /*}*/
 
+            .btn {
+                font-size: .6rem !important;
+            }
+
             #checkout-box {
                 font-size: 80%;
                 font-weight: 400;
@@ -558,33 +584,13 @@
             /*    padding: .5rem !important;*/
             /*}*/
 
-            .checkout-controls .btn{
-                padding: 0.25rem 0.5rem;
-            }
 
-            .container-payment .col-xl, .col-xl-auto, .col-xl-12,
-            .col-xl-11, .col-xl-10, .col-xl-9, .col-xl-8, .col-xl-7,
-            .col-xl-6, .col-xl-5, .col-xl-4, .col-xl-3, .col-xl-2, .col-xl-1,
-            .col-lg, .col-lg-auto, .col-lg-12, .col-lg-11, .col-lg-10, .col-lg-9,
-            .col-lg-8, .col-lg-7, .col-lg-6, .col-lg-5, .col-lg-4, .col-lg-3,
-            .col-lg-2, .col-lg-1, .col-md, .col-md-auto, .col-md-12, .col-md-11,
-            .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5,
-            .col-md-4, .col-md-3, .col-md-2, .col-md-1, .col-sm, .col-sm-auto,
-            .col-sm-12, .col-sm-11, .col-sm-10, .col-sm-9, .col-sm-8, .col-sm-7,
-            .col-sm-6, .col-sm-5, .col-sm-4, .col-sm-3, .col-sm-2, .col-sm-1, .col,
-            .col-auto, .col-12, .col-11, .col-10, .col-9, .col-8, .col-7, .col-6,
-            .col-5, .col-4, .col-3, .col-2, .col-1 {
-                padding-right: 0;
-                padding-left: 0;
-                gap: 5px;
-            }
 
             #infoCustomerActive {
                 display: none !important;
             }
 
             .tns-controls .btn {
-                padding: 0.25rem 0.5rem !important;
                 font-size: .6rem;
                 line-height: 1.5;
             }
@@ -976,7 +982,7 @@
             font-size: .9rem !important;
         }
 
-        .card .card-body .row{
+        .card .card-body .row .resume{
             cursor: grab;
         }
 

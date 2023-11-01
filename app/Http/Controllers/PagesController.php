@@ -103,8 +103,9 @@ class PagesController extends Controller
                     return 'R$ ' .number_format((new Functions)->calcFees($data['Vencimento'], $data['Valor']) + $data['Valor'], 2, ',', '');
                 })
                 ->addColumn('copy', function($data){
-                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="billet-link btn-copy text-primary click px-3" data-id="'.
-                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'"><i class="fas fa-copy pl-1"></i></a>';
+                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="d-block billet-link btn-copy text-primary click px-2" data-id="'.
+                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'"><i class="fas fa-copy pl-1"></i>'.
+                                    '<small class="text-primary" style="font-size: .7rem">copiar</small></a>';
                 })
                 ->addColumn('download', function($data){
                     return '<a target="_blank" id="print-billet-'. $data['Id'] .'" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .

@@ -499,8 +499,8 @@ async function getBillets(){
                                         <span class="pl-1 font-weight-bold">(${billets.data[billet].NossoNumero})</span>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row letter-1">
-                                            <div class="col-12 py-1 d-flex justify-content-between" >
+                                        <div class="row letter-1 resume">
+                                            <div class="col-12 py-1 d-flex justify-content-between">
                                                 <small style="border-bottom: 2px solid #CCCCCC; width: 100%"
                                                        class="card-text font-weight-bold text-muted text-left">
                                                     RESUMO DA FATURA
@@ -524,16 +524,37 @@ async function getBillets(){
                                                 <span class="card-text">${billets.data[billet].dtEmissao}</span>
                                             </div>
                                         </div>
-                                        <div class="d-flex py-3" style="vertical-align: middle">
+                                        <div class="row">
+                                            <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
+                                                <div>
+                                                    <small class="card-text px-2 ">
+                                                    ${billets.data[billet].LinhaDigitavel}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    ${billets.data[billet].copy}
+                                                </div>
+                                            </div>
+                                            <div class="col-12 py-2 d-flex justify-content-center">
+                                                ${billets.data[billet].download}
+                                            </div>
+                                            <div class="col-12 pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
+                                                <small class="text-muted">
+                                                * Pagamento do boleto sujeito a compensação do banco (até 72h úteis)
+                                                </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex_ d-none py-3" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
                                             <small class="card-text px-2">
                                                 ${billets.data[billet].LinhaDigitavel}
                                             </small>
                                             ${billets.data[billet].copy}
                                         </div>
-                                        <div class="d-flex justify-content-center">
+                                        <div class="d-flex_ d-none justify-content-center">
                                             ${billets.data[billet].download}
                                         </div>
-                                        <div class="pt-2">
+                                        <div class="d-none pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
                                             <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
                                         </div>
                                     </div>
@@ -756,8 +777,20 @@ function sendPayment(payment){
                         transactionId = sessionStorage.getItem("transactionId");
                         msgStatusTransaction(response.data.status)
                     }else{
-                        responseObj = getResponseError(response.original)
-                        displayMessageErrorPayment(responseObj)
+                        if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
+                            setQrcode(response.data)
+                        }else{
+                            if(response.status != 422){
+                                $('#modalCard').modal('hide')
+                                displayMessageWaitingPayment()
+                                console.log('Aguardando status do pagamento')
+                            }else{
+                                console.log('Verifique os campos em vermelho!')
+                            }
+                        }
+
+                        // responseObj = getResponseError(response.original)
+                        // displayMessageErrorPayment(responseObj)
                         // msgStatusTransaction(response.data.status)
                     }
                 }else{
@@ -857,13 +890,13 @@ function setQrcode(payment){
         title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'Pix' ? 'PIX' : 'PICPAY')}`,
         html: `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
-                <small id="timerPaymentQrCode" class="text-danger">02:00</small>
                 <div class="box-price-qrcode-card pb-1">
-                    <h4 class="text-danger pt-2"><b>Valor total: </b><span class="font-weight-bold">${amount}</span></h4>
-                    <p>Faturas selecionadas: <b class="total-count"></b></p>
+                    <h4 class="text-danger pt-2 font-weight-bold">Valor total: <span>${amount}</span></h4>
+                    <p>Faturas selecionadas: <span class="font-weight-bold total-count"></span></p>
                 </div>
                 <small class="pt-2 text-black-50">Use seu app de pagamento e leia o qrcode</small>
                 <div id="container-qrcode">
+                    <small id="timerPaymentQrCode" class="text-danger"><b></b></small>
                     <div class="body-popup-qrcode">
                         <div class="qrcode-container">
                             <img id="qrcode-img" src="${payment.qrCode}">
@@ -892,13 +925,27 @@ function setQrcode(payment){
         denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
         denyButtonColor: '#d33',
         didOpen: () => {
-            countdown();
             displayCart()
             Swal.hideLoading()
             if(payment.payment_type == 'Pix'){
                 $('#btnPixCopyCode').removeClass('d-none');
                 $('.group-pix-copy-paste').removeClass('d-none');
             }
+
+            const b = Swal.getHtmlContainer().querySelector('b')
+
+            timerInterval = setInterval(() => {
+                const timerLeftInSeconds = Swal.getTimerLeft() / 1000;
+                const minutes = Math.floor(timerLeftInSeconds / 60);
+                const seconds = Math.floor(timerLeftInSeconds % 60);
+                const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+                const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+                b.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                if(formattedSeconds == '00'){
+                    $('#timerPaymentQrCode').fadeOut();
+                }
+            }, 100);
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -927,17 +974,12 @@ function setQrcode(payment){
 
 /* Functions Display Messages */
 function msgStatusTransaction(status){
-    var dButton = ``;
     if(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
                 refreshSliderCards()
-                dButton = `<a href="${base_url}comprovante/${transactionId}/download"
-                            class="download-pdf btn btn-primary btn-sm" target="_blank">
-                            <i class="fa fa-download pr-1"></i> Baixar comprovante
-                            </a>`
-                displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 10000, dButton)
+                displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 10000)
                 return true;
                 break;
             case 'expired':
@@ -1064,12 +1106,19 @@ function displayMessageErrorPayment(title){
     // })
 }
 
-function displayMessageStatusTransaction(dTitle, dIcon, dTimer, dButton){
+function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+    var dButton =
+        `<a href="${base_url}comprovante/${transactionId}/download"
+        class="download-pdf btn btn-primary btn-sm" target="_blank">
+            <i class="fa fa-download pr-1"></i>
+            Baixar comprovante
+        </a>`;
+
     Swal.fire({
         title: dTitle,
         icon: dIcon,
         timer: dTimer,
-        html: dButton,
+        html: dIcon === 'success' ? dButton : '',
         didOpen: () => {
             Swal.hideLoading()
             // clearInterval(callback)

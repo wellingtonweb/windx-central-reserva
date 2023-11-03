@@ -19,7 +19,9 @@
 {{--    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">--}}
 
     <style>
-
+        .container-all {
+            padding: .5rem;
+        }
     </style>
     <link
         rel="stylesheet"
@@ -34,8 +36,17 @@
 </div>
 <div class="full-screen-backdrop"></div>
 <div class="loading">
-    <img src="{{ asset('assets/img/loading.svg') }}" alt="Carregando...">
+    <div class="loader animate__animated animate__fadeIn">
+        <h2>
+            <span>W</span>
+            <span>I</span>
+            <span>N</span>
+            <span>D</span>
+            <span>X</span>
+        </h2>
+    </div>
 </div>
+
 
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
     @if (Route::currentRouteName() == 'central.login' ||Route::currentRouteName() == 'central.login2' || Route::currentRouteName() == 'central.locked')
@@ -76,6 +87,8 @@
     {{--const contracts = '{{route('central.contracts')}}';--}}
     const release_url = `{{route('central.release')}}`;
 
+
+    $('.loading').removeClass('d-none');
 </script>
 
 @if(session('message') || session('error') || session('error_checkout') )

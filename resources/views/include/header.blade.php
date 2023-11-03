@@ -12,7 +12,7 @@
                 <div class="side-bar">
                     <div class="text-left m-3 p-3" style="border-bottom: 1px solid rgba(248,249,250,0.6)">
                         <div class="item-text">
-                            <h5 class="item-title text-light font-weight-bold text-left">Contrato ID:</h5>
+                            <h5 class="item-title text-light font-weight-bold text-left">Contrato Nº:</h5>
                             <span class=" text-uppercase text-right">{{session('customer')->id}}</span>
                         </div>
                         <div class="item-text">

@@ -455,8 +455,8 @@
         /* Dispositivos extra small (telefones em modo retrato, com menos de 576px) */
         @media (max-width: 575.98px) {
             .action-button {
-                min-width: calc(25% - .75rem);
-                max-width: calc(50% - .75rem);
+                /*min-width: calc(25% - .75rem);*/
+                max-width: calc(50% - 20px);
             }
 
             .action-button .icon {
@@ -485,7 +485,7 @@
         /* Dispositivos small (telefones em modo paisagem, com 576px ou mais) */
         @media (min-width: 576px) and (max-width: 767.98px) {
             .action-button {
-                max-width: calc(50% - .75rem) !important;
+                max-width: calc(50% - 30px) !important;
             }
         }
 

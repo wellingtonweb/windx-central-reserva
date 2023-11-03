@@ -66,6 +66,7 @@ mix
 
     .scripts('resources/views/assets/js/jsbarcode2.js', 'public/assets/js/jsbarcode2.js')
     .scripts('resources/views/assets/js/intro.js', 'public/assets/js/intro.js')
+    .scripts('resources/views/assets/js/customer.release.min.js', 'public/assets/js/customer.release.min.js')
     .scripts('resources/views/assets/js/moment.min.js', 'public/assets/js/moment.min.js')
     .scripts('resources/views/assets/js/functions-payment.js', 'public/assets/js/functions-payment.js')
 

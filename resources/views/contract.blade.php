@@ -4,6 +4,18 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
+{{--                <div class="box rounded text-white" style="position: absolute; top: 0; left: 0; top: 0; bottom: 0; width: 100vw; height: 100vh; background-color: rgb(0 32 70 / 0.5); backdrop-filter: blur(10px); z-index: 9998">--}}
+{{--                    <div class="loader animate__animated animate__fadeInUp">--}}
+{{--                        <h2>--}}
+{{--                            <span>W</span>--}}
+{{--                            <span>I</span>--}}
+{{--                            <span>N</span>--}}
+{{--                            <span>D</span>--}}
+{{--                            <span>X</span>--}}
+{{--                        </h2>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
                 <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
 {{--                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">--}}
 {{--                        <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">--}}
@@ -22,7 +34,7 @@
 {{--                    {{dd($customer)}}--}}
                     <div class="col-12">
                         <div class="row d-none" style="gap: 10px">
-                            <div class="card-info col-md-4">
+                            <div class="card-info col-md-4 style="backdrop-filter: blur(10px)">
                                 <h2>Heading</h2>
                                 <p>Will you do the same for me? It's time to face the music I'm no longer your muse. Heard it's beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.</p>
                                 <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
@@ -39,7 +51,7 @@
                             </div>
                         </div>
                         <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mb-4">
+                            <div class="col mt-3 pr-sm-0 pl-sm-0 ">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Dados Pessoais</h4>
@@ -60,7 +72,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mb-4">
+                            <div class="col mt-3">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Endereço e Contato</h4>
@@ -97,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mb-4">
+                            <div class="col mt-3">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Dados da Conta</h4>
@@ -134,7 +146,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

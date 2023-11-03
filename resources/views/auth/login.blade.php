@@ -4,21 +4,12 @@
 <main role="main" class="inner cover mt-md-3">
     <section>
         <div id="main" class="container-logon">
-            <div class="loader animate__animated animate__fadeInUp d-none">
-                <h2>
-                    <span>W</span>
-                    <span>I</span>
-                    <span>N</span>
-                    <span>D</span>
-                    <span>X</span>
-                </h2>
-            </div>
             <div class="card-logon p-2">
-                <div class="card form-signin p-4 d-none" style="border-radius: 1rem">
+                <div class="card form-signin p-4 d-none" style="border-radius: .5rem">
                     <form id="form_login" method="POST" class="d-none_ panel" action="{{ Route('central.logon') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
-                            <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
-                            <h3 style="font-size: 1.5rem; color: #002046;">Login</h3>
+                            <h2 style="color: #002046;">Central do Assinante</h2>
+{{--                            <h3 style="color: #002046;">Login</h3>--}}
                         </div>
                         <div class="card-body">
                             @csrf
@@ -45,7 +36,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">
-                            <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Entrar</button>
+                            <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" >Entrar</button>
                         </div>
                     </form>
                     <form style="display: none" id="form_reset_password" method="POST" action="{{ Route('central.forgot.password') }}">

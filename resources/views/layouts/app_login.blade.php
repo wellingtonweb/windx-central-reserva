@@ -14,48 +14,11 @@
     <link rel="stylesheet" href="{{ asset('assets/css/cover.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
-    <style>
-        .full-screen-splash {
-            display: table;
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            /*background-color: #002046;*/
-            z-index: 9999;
-        }
-
-        section{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            /*background-color: #002046;*/
-        }
-
-        article{
-            display: block;
-            width: 300px;
-            height: 350px;
-            margin-left: -150px; /* metade da largura */
-            margin-top: -175px; /* metade da altura */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-        }
-
-        article img {
-            width: 75%;
-        }
-    </style>
 </head>
 
 <body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
 <div class="bg-body-backdrop"></div>
 <div class="full-screen-backdrop"></div>
-{{--<div class="loading">--}}
-{{--    <img src="{{ asset('assets/img/loading.svg') }}" alt="Carregando...">--}}
-{{--</div>--}}
 <div class="loading- d-none">
     <div class="loader animate__animated animate__fadeInUp">
         <h2>

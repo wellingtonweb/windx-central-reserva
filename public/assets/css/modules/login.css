@@ -13,16 +13,82 @@ body {
     padding: 1rem;
 }
 
+.full-screen-splash {
+    display: table;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    /*background-color: #002046;*/
+    z-index: 9999;
+}
+
+section{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /*background-color: #002046;*/
+}
+
+article{
+    display: block;
+    width: 300px;
+    height: 350px;
+    margin-left: -150px; /* metade da largura */
+    margin-top: -175px; /* metade da altura */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+article img {
+    width: 75%;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 575.98px) {
     .container-all {
         /*min-width: 360px;*/
         min-height: 100vh;
         width: 100vw;
-        padding: 0 !important;
+        /*padding: 0 !important;*/
     }
     .contents{
         padding: 0 !important;
+    }
+
+    .card-logon {
+        width: 350px;
+        /*font-size: 1.5rem;*/
+    }
+
+    .card-logon h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-logon h3 {
+        font-size: 1rem;
+    }
+
+    .input-group .input-group-prepend {
+        height: auto !important;
+    }
+
+    .logo-windx {
+        width: 8.5rem !important;
+    }
+
+    .card-body, .card-footer {
+        padding: .5rem !important;
+    }
+
+    footer small{
+        font-size: 75% !important;
+    }
+
+    .card-contact {
+        right: .2rem !important;
     }
 }
 
@@ -32,10 +98,39 @@ body {
         /*min-width: 360px;*/
         min-height: 100vh;
         width: 100vw;
-        padding: 0 !important;
+        /*padding: 0 !important;*/
     }
     .contents{
         padding: 0 !important;
+    }
+
+    .card-logon {
+        width: 350px;
+        /*font-size: 1.5rem;*/
+    }
+
+    .card-logon h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-logon h3 {
+        font-size: 1rem;
+    }
+
+    .input-group .input-group-prepend {
+        height: auto !important;
+    }
+
+    .logo-windx {
+        width: 8.5rem !important;
+    }
+
+    .card-body, .card-footer {
+        padding: .5rem !important;
+    }
+
+    footer small{
+        font-size: 75% !important;
     }
 }
 
@@ -492,8 +587,8 @@ button:nth-of-type(10):active {
     width: 18rem !important;
     height: auto;
     position: absolute;
-    bottom: 1rem !important;
-    right: 1rem !important;
+    bottom: 1rem;
+    right: 1rem;
     border-radius: .5rem;
     justify-content: center;
     display: flex;

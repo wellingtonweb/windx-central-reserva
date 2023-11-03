@@ -13,11 +13,11 @@
                     <div class="text-left m-3 p-3" style="border-bottom: 1px solid rgba(248,249,250,0.6)">
                         <div class="item-text">
                             <h5 class="item-title text-light font-weight-bold text-left">Contrato Nº:</h5>
-                            <span class=" text-uppercase text-right">{{session('customer')->id}}</span>
+                            <span class=" text-uppercase text-right">{{session('customer.id')}}</span>
                         </div>
                         <div class="item-text">
                             <h5 class="item-title text-light font-weight-bold text-left">Status:</h5>
-                            @switch(session('customer')->status)
+                            @switch(session('customer.status'))
                                 @case('L')
                                 <span class="text-status text-right text-primary">LIBERADO</span>
                                 @break;
@@ -31,12 +31,12 @@
                         </div>
                         <div class="item-text">
                             <h5 class="item-title text-light font-weight-bold text-left">Cliente:</h5>
-                            <span class=" text-right text-uppercase">{{session('customer')->full_name}}</span>
+                            <span class=" text-right text-uppercase">{{session('customer.full_name')}}</span>
                         </div>
                         <div class="item-text">
                             <h5 class="item-title text-light font-weight-bold">Endereço:</h5>
-                            <span class=" text-right text-uppercase text-address-menu">{{session('customer')->street}}, {{session('customer')->district}},
-                                {{session('customer')->city}}</span>
+                            <span class=" text-right text-uppercase text-address-menu">{{session('customer.street')}}, {{session('customer.district')}},
+                                {{session('customer.city')}}</span>
                         </div>
                     </div>
                     <div class="menu ">
@@ -107,9 +107,9 @@
                                 </svg>Suporte
                             </a>
                         </div>
-                        @if(session()->has('customer') && session('customer')->status === 'B')
-                        <div class="item">
-                            <a href="javascript:void(0)" id="{{session('customer')->id}}" class="btnRelease click-loader close-menu text-white " onclick="releaseCustomer(this.id)">
+                        @if(session()->has('customer') && session('customer.status') === 'B')
+                        <div id="btn-release-sidebar" class="item btnReleaseItem">
+                            <a href="javascript:void(0)" id="{{session('customer.id')}}" class="btnRelease click-loader close-menu text-white " onclick="releaseCustomer(this.id)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-unlock" viewBox="0 0 18 18" width="1.2em">
                                     <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
                                 </svg>Desbloqueio

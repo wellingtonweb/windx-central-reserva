@@ -168,19 +168,19 @@
                                 <div class="row">
                                     <div id="inputs-hidden" class="form-row d-none">
                                         <input id="customer" name="customer"
-                                               value="{{session('customer')->id}}"
+                                               value="{{session('customer.id')}}"
                                                type="text" hidden>
                                         <input id="cartBillets" name="billets" type="text" hidden>
                                         <input id="ip_address" value="1.1.1.1" name="ip_address"
                                                type="text" hidden>
                                         <input id="full_name" name="full_name" type="text"
-                                               value="{{session('customer')->full_name}}" hidden>
+                                               value="{{session('customer.full_name')}}" hidden>
                                         <input id="email" name="email" type="text"
-                                               value="{{session('customer')->email}}" hidden>
+                                               value="{{session('customer.email')}}" hidden>
                                         <input id="cpf_cnpj" name="cpf_cnpj" type="text"
-                                               value="{{session('customer')->document}}" hidden>
+                                               value="{{session('customer.document')}}" hidden>
                                         <input id="phone" name="phone" type="text"
-                                               value="{{session('customer')->phone}}" hidden>
+                                               value="{{session('customer.phone')}}" hidden>
                                         <input id="payment_type" name="payment_type" type="text"
                                                hidden>
 {{--                                        <input id="cpf_cnpj_type" name="cpf_cnpj_type" type="text" value=" " hidden>--}}
@@ -1049,7 +1049,7 @@
 
 @section('js')
     <script>
-        var idCustomer = {{session('customer')->id}};
+        var idCustomer = {{session('customer.id')}};
         var customerActive = @json(session('customer'));
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};

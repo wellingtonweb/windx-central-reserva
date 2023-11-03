@@ -58,15 +58,15 @@
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Nome:
-                                                <span class="text-black-50 text-right">{{ $customer->full_name }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['full_name'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 CPF/CNPJ:
-                                                <span class="text-black-50 text-right">{{ $customer->document }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['document'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Data de nascimento:
-                                                <span class="text-black-50 text-right">{{ date("d/m/Y", strtotime($customer->dt_trust)) }}</span>
+                                                <span class="text-black-50 text-right">{{ date("d/m/Y", strtotime($customer['dt_trust'])) }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -79,31 +79,31 @@
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Endereço:
-                                                <span class="text-black-50 text-right">{{ $customer->street }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['street'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Referência:
-                                                <span class="text-black-50 text-right">{{ $customer->reference }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['reference'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Cidade:
-                                                <span class="text-black-50 text-right">{{ $customer->city }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['city'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 CEP:
-                                                <span class="text-black-50 text-right">{{ $customer->cep }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['cep'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Telefone:
-                                                <span class="text-black-50 text-right">{{ $customer->phone }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['phone'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Celular:
-                                                <span class="text-black-50 text-right">{{ $customer->cell }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['cell'] }}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 E-mail:
-                                                <span class="text-black-50 text-right">{{ $customer->email }}</span>
+                                                <span class="text-black-50 text-right">{{ $customer['email'] }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -116,21 +116,21 @@
                                         <ul class="list-group">
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Plano contratado:
-                                                @foreach($customer->plans as $plan)
-                                                <span class="text-black-50 text-right">{{ $plan->descricao }}</span>
+                                                @foreach($customer['plans'] as $plan)
+                                                <span class="text-black-50 text-right">{{ $plan['descricao'] }}</span>
                                                 @endforeach
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Dia de Vencimento:
                                                 <span class="text-black-50 text-right">15</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                Cliente Desde:
-                                                <span class="text-black-50 text-right">01/05/2004</span>
-                                            </li>
+{{--                                            <li class="list-group-item d-flex justify-content-between align-items-center">--}}
+{{--                                                Cliente Desde:--}}
+{{--                                                <span class="text-black-50 text-right">01/05/2004</span>--}}
+{{--                                            </li>--}}
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Status:
-                                                @switch($customer->status)
+                                                @switch($customer['status'])
                                                     @case('B')
                                                     <span class="badge badge-pill badge-danger">BLOQUEADO</span>
                                                     @break

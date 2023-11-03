@@ -7,8 +7,8 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <h5 class="justify-content-center animate__animated animate__zoomIn animate__delay-1s" style="color: lightsalmon">
-                            Seja bem vind{{ (session('customer')->gender === 'Masculino') ? 'o' : 'a' }}
-                            {{ explode(' ', session('customer')->full_name)[0] }}!
+                            Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}
+                            {{ explode(' ', session('customer.full_name'))[0] }}!
                         </h5>
                     </div>
                 </div>
@@ -163,9 +163,9 @@
                             <i class="mdi mdi-chevron-right"></i>
                         </a>
                     </div>
-{{--                    @if(session('customer')->status === 'B')--}}
+                    @if(session('customer.status') === 'B')
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a id="{{session('customer')->id}}" onclick="releaseCustomer(this.id)" class="text-custom">
+                        <a id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
                                 <div class="container-icon w-100  d-flex justify-content-center">
                                     <div class="icon text-center text-custom h1 shadow rounded">
@@ -190,7 +190,7 @@
                             </div>
                         </a>
                     </div>
-{{--                    @endif--}}
+                    @endif
                 </div>
 
                 <div class="row mt-3 d-none">
@@ -416,9 +416,9 @@
                             <i class="mdi mdi-chevron-right"></i>
                         </a>
                     </div><!--end col-->
-                    @if(session('customer')->status === 'B')
-                    <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-0 pt-2 animate__animated animate__fadeIn animate__delay-2s">
-                        <a id="{{session('customer')->id}}" onclick="releaseCustomer(this.id)" class="text-custom">
+                    @if(session('customer.status') === 'B')
+                    <div id="btn-release-home" class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-0 pt-2 animate__animated animate__fadeIn animate__delay-2s">
+                        <a id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
                                 <div class="d-flex flex-lg-column flex-row">
                                     <div class="icon text-center text-custom h1 shadow rounded" style="width: 33.33%">

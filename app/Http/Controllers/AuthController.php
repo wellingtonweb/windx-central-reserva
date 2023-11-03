@@ -169,7 +169,9 @@ class AuthController extends Controller
 
                 if($response->successful())
                 {
-                    session()->put('customer', $response->object());
+                    $customer = json_decode(json_encode($response->object()),true);
+
+                    session()->put('customer',  $customer);
 
                     CustomerLog::create(UserInfo::get_customer_metadata());
 

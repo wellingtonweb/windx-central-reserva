@@ -191,7 +191,7 @@ class UserInfo
 //            $customerLog->save();
 
             return [
-                'customer_id' => session('customer')->id,
+                'customer_id' => session('customer.id'),
                 'ip' => self::get_ip(),
                 'os' => self::get_os(),
                 'browser' => self::get_browser(),

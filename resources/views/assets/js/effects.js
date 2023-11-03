@@ -70,7 +70,8 @@ $('a.nav-click').click(function (){
 });
 
 $('#btn-logout').on('click', function() {
-    $('#principal').addClass('animate__animated animate__zoomOut');
+    $('#principal').addClass('animate__animated animate__fadeOut');
+    // $('#principal').addClass('animate__animated animate__zoomOut');
     $('#header').addClass('animate__animated animate__fadeOutUp');
     $('#footer').addClass('animate__animated animate__fadeOutDown');
 });
@@ -107,7 +108,7 @@ function logout(){
     }
 
     $('.sideMenu').removeClass('open');
-    $('.container-all').addClass('animate__animated animate__zoomOut animate__delay-1s');
+    $('.container-all').addClass('animate__animated animate__fadeOut animate__delay-1s');
 
     Swal.fire({
         icon: 'info',

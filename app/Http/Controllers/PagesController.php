@@ -34,6 +34,9 @@ class PagesController extends Controller
     public function home()
     {
         if(session()->has('customer')){
+//            session()->put('customer', 'X');
+
+//            dd(session('customer'));
             return view('home', ['header' => 'Home']);
         } else {
             throw new CheckUserException();
@@ -61,6 +64,13 @@ class PagesController extends Controller
 
         if(isset($data)){
             $response = (new API())->releaseCustomerID($data);
+
+            if($response === 'OK'){
+                if ($request->session()->has('customer')) {
+                    session()->put('customer.status',  'L');
+                }
+            }
+
             return response()->json($response);
         } else {
             throw new CheckUserException();
@@ -87,7 +97,7 @@ class PagesController extends Controller
     {
         if(session()->has('customer')){
 //            $customer = json_decode(json_encode((new API())->getCustomer(9)),true);
-            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
+            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
 
             return Datatables::of($customer[0]['billets'])
                 ->addColumn('dtEmissao', function($data){
@@ -169,7 +179,7 @@ class PagesController extends Controller
 
     public function getbillets2(){
         if(session()->has('customer')){
-            $customer = json_decode(json_encode((new API())->getCustomer(session('customer')->id)),true);
+            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
             return $customer[0]['billets'];
         } else {
             throw new CheckUserException();
@@ -204,7 +214,7 @@ class PagesController extends Controller
             foreach($payments as $key => $payment){
 
                 $paymentCustomer = array_filter($payment, function($v, $k) {
-                    return $v['customer'] == session('customer')->id && $v['status'] == 'approved';
+                    return $v['customer'] == session('customer.id') && $v['status'] == 'approved';
 //                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
                 }, ARRAY_FILTER_USE_BOTH);
             }
@@ -243,7 +253,7 @@ class PagesController extends Controller
     public function invoicesList()
     {
         if(session()->has('customer')){
-            $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
+            $invoices = array_reverse(json_decode(json_encode(session('customer.invoices'),true)));
 //            $invoices = null;
 
             return Datatables::of($invoices)
@@ -276,7 +286,7 @@ class PagesController extends Controller
     public function supportList()
     {
         if(session()->has('customer')){
-            $calls = json_decode(json_encode((new API())->getCalls(session('customer')->id)),true);
+            $calls = json_decode(json_encode((new API())->getCalls(session('customer.id'))),true);
 
 //            dd($calls);
 //            $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
@@ -308,7 +318,7 @@ class PagesController extends Controller
 
         $call = (new API())
             ->postCall([
-                'customer_id' => session('customer')->id,
+                'customer_id' => session('customer.id'),
                 'texto' => $validated['texto']
             ]);
 

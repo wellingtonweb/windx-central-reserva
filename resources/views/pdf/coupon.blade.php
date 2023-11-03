@@ -9,7 +9,8 @@
         @page { margin: 0; }
 
         body{
-            background-color: #ffffff !important;
+            background-color: #fff9f2 !important;
+            /*background-color: #ffffff !important;*/
             color: black;
             /*background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;*/
             /*-webkit-background-size: cover;*/
@@ -23,13 +24,14 @@
             /*border: 1px solid #000000;*/
             /*display: flex;*/
             /*align-items: center;*/
-            /*justify-content: center;*/
+            justify-content: center;
+            margin: 0 auto;
         }
         .comprovante{
             font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
             margin: 0;
             /*border: bold solid black;*/
-            width: 68mm;
+            width: 70mm;
             font-size: 10px !important;
             text-align: center;
         }
@@ -120,8 +122,8 @@
                         <tr class="ttu b-top">
                             <td class="right">Cliente: </td>
                             <td id="coupon_reference-" class="left">
-                                <p class="coupon_customer_fullname">{{session('customer')->full_name}}
-                                    <span id="coupon_customer_id">(ID: {{session('customer')->id}})</span></p>
+                                <p class="coupon_customer_fullname">{{session('customer.full_name')}}
+                                    <span id="coupon_customer_id">(ID: {{session('customer.id')}})</span></p>
                             </td>
                         </tr>
                         <tr class="ttu b-top">
@@ -151,7 +153,7 @@
                                 @foreach($billets as $key => $info)
 {{--                                        {{ $info->reference }} {{ $info->due}}--}}
                                     @if($billets >= 1)
-                                        {{ $info->reference }} ({{!empty($info->duedate) ? $info->duedate : '' }}){{!$loop->last ? ',':''}}
+                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.$info->duedate.')' : '' }} {{!$loop->last ? ',':''}}
                                     @endif
                                 @endforeach
                             </td>
@@ -180,24 +182,26 @@
                                 @endif
                             </td>
                         </tr>
-{{--                        @if($payment_type == 'credit' || $payment_type == 'debit')--}}
-{{--                        <tr class="ttu b-top">--}}
-{{--                            <td class="right">Cartão: </td>--}}
-{{--                            <td id="coupon_reference" class="left" style="max-width: 74mm">--}}
-{{--                                80000000--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                        <tr class="ttu b-top">--}}
-{{--                            <td class="right">ID: </td>--}}
-{{--                            <td id="coupon_id" class="left">88521</td>--}}
-{{--                        </tr>--}}
-{{--                        <tr class="ttu b-top">--}}
-{{--                            <td class="right">Autorização: </td>--}}
-{{--                            <td id="coupon_reference" class="left" style="max-width: 74mm">--}}
-{{--                                94644551--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
-{{--                        @endif--}}
+                        @if($payment_type == 'credit' || $payment_type == 'debit')
+                            @if($receipt != null)
+                                <tr class="ttu b-top">
+                                    <td class="right">Cartão: </td>
+                                    <td id="coupon_reference" class="left" style="max-width: 74mm">
+                                        {{ $receipt->card_number }}
+                                    </td>
+                                </tr>
+                                <tr class="ttu b-top">
+                                    <td class="right">ID: </td>
+                                    <td id="coupon_id" class="left">88521</td>
+                                </tr>
+                                <tr class="ttu b-top">
+                                    <td class="right">Autorização: </td>
+                                    <td id="coupon_reference" class="left" style="max-width: 74mm">
+                                        94644551
+                                    </td>
+                                </tr>
+                            @endif
+                        @endif
                         <tr class="ttu b-top">
                             <td class="right">Valor: </td>
                             <td class="left">R$

@@ -189,6 +189,8 @@ class PagesController extends Controller
     public function payments()
     {
         if(session()->has('customer')){
+
+
             return view('payments', ['header' => 'Comprovantes (2ª via)']);
         } else {
             throw new CheckUserException();

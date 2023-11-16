@@ -82,8 +82,8 @@ class PagesController extends Controller
         if(session()->has('customer'))
         {
 
-//            $isfees = (new WorkingDays)->hasFees("2023-12-25T00:00:00");
-//            dd($isfees);
+            $isfees = (new WorkingDays)->hasFees("2023-12-15T00:00:00");
+            dd($isfees);
 
 //            $customer = (new API())->getCustomer(session('customer')->id);
 

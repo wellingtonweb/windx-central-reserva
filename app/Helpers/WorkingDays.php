@@ -32,47 +32,65 @@ class WorkingDays
     public static function hasFees($dateInput)
     {
         $pay = Carbon::parse($dateInput);
-        $today = Carbon::now()->startOfDay();
-//        $today = Carbon::parse('2023-11-17T00:00:00');
+//        $today = Carbon::now()->startOfDay();
+        $today = Carbon::parse('2023-12-19T00:00:00');
 
-        if($today <= $pay)//Tá vencido?
-        {
-            return false;
+        if ($pay->isFriday() && $today >= $pay->addDays(4)) {
+            return true;
         }
-        else
-        {
-            $isHoliday = self::isHoliday($dateInput);
 
-            if($isHoliday)//Vencimento é feriado?
-            {
-                if($pay->isWeekend()) //É final de semana?
-                {
-                    if($today >= $pay->next(Carbon::THURSDAY))
-                    {
-                        return true;
-                    }
-                }
-                elseif($today > $pay->addDay())
-                {
-                    return true;
-                }
-            }
+        $isHoliday = self::isHoliday($dateInput);
 
-            if($pay->isWeekend()) //É final de semana?
-            {
-                if($today >= $pay->next(Carbon::THURSDAY))
-                {
-                    return true;
-                }
-                elseif($today > $pay->addDay())
-                {
-                    return true;
-                }
-            }
+        if ($isHoliday && ($pay->isWeekend() || $today > $pay->addDay())) {
+            return true;
+        }
 
+        if (
+            $pay->isWeekend() &&
+            ($today >= $pay->next(Carbon::THURSDAY) || $today > $pay->addDay())
+        ) {
+            return true;
         }
 
         return false;
     }
 
+    //        if($today <= $pay)
+//        {
+//            return false;
+//        }
+//        else
+//        {
+//            $isHoliday = self::isHoliday($dateInput);
+//
+//            if($isHoliday)
+//            {
+//                if($pay->isWeekend())
+//                {
+//                    if($today >= $pay->next(Carbon::THURSDAY))
+//                    {
+//                        return true;
+//                    }
+//                }
+//                elseif($today > $pay->addDay())
+//                {
+//                    return true;
+//                }
+//            }
+//
+//            if($pay->isWeekend())
+//            {
+//                if($today >= $pay->next(Carbon::THURSDAY))
+//                {
+//                    return true;
+//                }
+//                elseif($today > $pay->addDay())
+//                {
+//                    return true;
+//                }
+//            }
+//
+//        }
+//
+//        return false;
 }

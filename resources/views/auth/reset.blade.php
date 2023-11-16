@@ -31,9 +31,11 @@
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
-                                    <input id="password" type="{{ $errors->has('password') ? 'text' : 'password'}}" value="{{ old('password') }}" class="form-control inputs-login
-
-                                @error('password') is-invalid @enderror"
+                                    <input id="password"
+                                           type="{{ $errors->has('password') ? 'text' : 'password'}}"
+                                           value="{{ old('password') }}"
+                                           class="form-control inputs-login
+                                            @error('password') is-invalid @enderror"
                                            name="password"
                                            placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Digite a nova senha' }}"
                                            aria-label="Password"
@@ -46,11 +48,14 @@
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
-                                    <input id="confirm" type="{{ $errors->has('confirm') ? 'text' : 'password'}}" value="{{ old('confirm') }}" class="form-control inputs-login
-
-                                @error('confirm') is-invalid @enderror" name="confirm"
+                                    <input id="confirm"
+                                           type="{{ $errors->has('confirm') ? 'text' : 'password'}}"
+                                           value="{{ old('confirm') }}"
+                                           class="form-control inputs-login
+                                            @error('confirm') is-invalid @enderror" name="confirm"
                                            placeholder="{{ $errors->has('confirm') ? 'A confirmação da senha é obrigatória' : 'Confirme a nova senha' }}"
-                                           aria-label="Confirm password" aria-describedby="confirm password">
+                                           aria-label="Confirm password"
+                                           aria-describedby="confirm password">
                                     <span class="show-pass text-danger pr-3" onclick="toggle2()">
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
@@ -107,7 +112,9 @@
                                         </ul>
                                     </div>
                                 </div>
-
+                                <div class="text-right mt-3">
+                                    <a href="{{ route('central.login') }}" class="card-link text-primary close_reset_password">Voltar ao login?</a>
+                                </div>
                             </div>
                             <div class="card-footer bg-white border-0">
                                 <button id="btn-save" type="submit" class="btn btn-primary btn-load_ btn-block" disabled

@@ -63,9 +63,20 @@ class Validations
 
         $now = Carbon::now();
 
+        session()->forget('backupLimitTime');
+
         foreach ($schedulesVigo as $schedule) {
             $scheduleInit = Carbon::createFromFormat('H:i', trim($schedule));
+//            $scheduleLimit = Carbon::createFromFormat('H:i', trim($schedule))->addMinutes(1);
             $scheduleLimit = Carbon::createFromFormat('H:i', trim($schedule))->addMinutes(15);
+
+            $limitSession = [
+                "timeLimit" => $scheduleLimit->format('H:i'),
+//                "miliseconds" => $scheduleInit->diffInMilliseconds($scheduleLimit),
+                "miliseconds" => $now->diffInMilliseconds($scheduleLimit)
+            ];
+
+            session()->put('backupLimitTime', $limitSession);
 
             if ($now->between($scheduleInit, $scheduleLimit)) {
                 return true;

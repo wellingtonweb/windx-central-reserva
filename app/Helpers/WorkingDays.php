@@ -31,30 +31,48 @@ class WorkingDays
 
     public static function hasFees($dateInput)
     {
-        $holiday = self::isHoliday($dateInput);
-
         $pay = Carbon::parse($dateInput);
+        $today = Carbon::now()->startOfDay();
+//        $today = Carbon::parse('2023-11-17T00:00:00');
 
-//        $today = new Carbon();
-        $today = Carbon::parse('2023-01-03T00:00:00');
+        if($today <= $pay)//Tá vencido?
+        {
+            return false;
+        }
+        else
+        {
+            $isHoliday = self::isHoliday($dateInput);
 
-        if($holiday){
-            if($today >= $pay){
-                //Considera final de semana para não cobrar juros
-                //if($today <= $pay->addDay()->nextWeekday()){
-                if($today <= $pay->addDay()){
+            if($isHoliday)//Vencimento é feriado?
+            {
+                if($pay->isWeekend()) //É final de semana?
+                {
+                    if($today >= $pay->next(Carbon::THURSDAY))
+                    {
+                        return true;
+                    }
+                }
+                elseif($today > $pay->addDay())
+                {
                     return true;
                 }
             }
-        }elseif($pay->isWeekend()) {
-             if($today <= $pay->nextWeekday()) {
-                 return true;
-             }else{
-                 return false;
-             }
-        } else {
-            return false;
+
+            if($pay->isWeekend()) //É final de semana?
+            {
+                if($today >= $pay->next(Carbon::THURSDAY))
+                {
+                    return true;
+                }
+                elseif($today > $pay->addDay())
+                {
+                    return true;
+                }
+            }
+
         }
+
+        return false;
     }
 
 }

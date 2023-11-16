@@ -30,6 +30,7 @@
         </h2>
     </div>
 </div>
+@if (!Route::currentRouteName() == 'central.new.password')
 <div class="full-screen-splash">
     <section>
         <article>
@@ -38,6 +39,7 @@
         </article>
     </section>
 </div>
+@endif
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
     <div id="container-logo" class="mt-3">
         <img class="logo-windx d-none" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
@@ -63,17 +65,61 @@
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
 
-@if(session('message') || session('error') || session('error_checkout') )
 <script>
-    Swal.fire({
-        title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',
-        icon: '{{ (session('message') ? 'warning': 'error') }}',
-        html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',
-        timer: 5000,
-        timerProgressBar: false,
-        showConfirmButton: false,
-    })
+    var teste = {{gettype(session('error'))}}
+    console.log(teste)
 </script>
+
+@if(session('message') || session('error') || session('error_checkout') )
+    @if (session('error'))
+        <script>
+            $('.full-screen-splash').addClass('d-none')
+            let session = `{{session('error')}}`;
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro '+400+'!',
+                text: session,
+                timer: 7000
+            });
+        </script>
+    @else(session('success'))
+        <script>
+            $('.full-screen-splash').addClass('d-none')
+            let session = `{{session('success')}}`;
+            Swal.fire({
+                icon: 'success',
+                title: session,
+                timer: 5000,
+                showConfirmButton: false,
+            });
+        </script>
+    @endif
+
+        <script>
+            {{--var teste = {{json_decode(session('error'))}}--}}
+            {{--console.log(teste)--}}
+            // alert('Array!')
+
+            {{--Swal.fire({--}}
+            {{--    title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
+            {{--    icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
+            {{--    html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
+            {{--    timer: 5000,--}}
+            {{--    timerProgressBar: false,--}}
+            {{--    showConfirmButton: false,--}}
+            {{--})--}}
+        </script>
+{{--    @else--}}
+{{--        <script>--}}
+{{--            Swal.fire({--}}
+{{--                title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
+{{--                icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
+{{--                html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
+{{--                timer: 5000,--}}
+{{--                timerProgressBar: false,--}}
+{{--                showConfirmButton: false,--}}
+{{--            })--}}
+{{--        </script>--}}
 @endif
 @hasSection('js')
     @yield('js')

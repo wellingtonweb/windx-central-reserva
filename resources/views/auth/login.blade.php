@@ -73,39 +73,39 @@
 </main>
 @endsection
 
-@section('js')
-    @if ($errors->has('document'))
-        <script>
-            $('.full-screen-splash').addClass('d-none')
-            let message = `{{$errors->first('document')}}`;
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro '+400+'!',
-                text: message,
-                timer: 7000
-            });
-        </script>
-    @elseif(session('error'))
-        <script>
-            $('.full-screen-splash').addClass('d-none')
-            let session = `{{session('error')}}`;
-            Swal.fire({
-                icon: 'error',
-                title: 'Erro '+400+'!',
-                text: session,
-                timer: 7000
-            });
-        </script>
-    @elseif(session('success'))
-        <script>
-            $('.full-screen-splash').addClass('d-none')
-            let session = `{{session('success')}}`;
-            Swal.fire({
-                icon: 'success',
-                title: session,
-                timer: 5000,
-                showConfirmButton: false,
-            });
-        </script>
-    @endif
-@endsection
+{{--@section('js')--}}
+{{--    @if ($errors->has('document'))--}}
+{{--        <script>--}}
+{{--            $('.full-screen-splash').addClass('d-none')--}}
+{{--            let message = `{{$errors->first('document')}}`;--}}
+{{--            Swal.fire({--}}
+{{--                icon: 'error',--}}
+{{--                title: 'Erro '+400+'!',--}}
+{{--                text: message,--}}
+{{--                timer: 7000--}}
+{{--            });--}}
+{{--        </script>--}}
+{{--    @elseif(session('error'))--}}
+{{--        <script>--}}
+{{--            $('.full-screen-splash').addClass('d-none')--}}
+{{--            let session = `{{session('error')}}`;--}}
+{{--            Swal.fire({--}}
+{{--                icon: 'error',--}}
+{{--                title: 'Erro '+400+'!',--}}
+{{--                text: session,--}}
+{{--                timer: 7000--}}
+{{--            });--}}
+{{--        </script>--}}
+{{--    @elseif(session('success'))--}}
+{{--        <script>--}}
+{{--            $('.full-screen-splash').addClass('d-none')--}}
+{{--            let session = `{{session('success')}}`;--}}
+{{--            Swal.fire({--}}
+{{--                icon: 'success',--}}
+{{--                title: session,--}}
+{{--                timer: 5000,--}}
+{{--                showConfirmButton: false,--}}
+{{--            });--}}
+{{--        </script>--}}
+{{--    @endif--}}
+{{--@endsection--}}

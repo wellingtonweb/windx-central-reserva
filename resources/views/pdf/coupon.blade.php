@@ -3,34 +3,22 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html charset=utf-8"/>
     <title>Windx Telecomunicações - 2ª via de comprovante</title>
-{{--    <link rel="stylesheet" href="{{ public_path('assets/css_old/print-pdf.css_old') }}">--}}
-{{--    <link rel="stylesheet" href="{{ public_path('assets/css_old/print.coupon.css_old') }}">--}}
     <style>
         @page { margin: 0; }
 
         body{
             background-color: #fff9f2 !important;
-            /*background-color: #ffffff !important;*/
             color: black;
-            /*background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;*/
-            /*-webkit-background-size: cover;*/
-            /*-moz-background-size: cover;*/
-            /*-o-background-size: cover;*/
-            /*background-size: cover;*/
         }
 
         #content{
             display: none;
-            /*border: 1px solid #000000;*/
-            /*display: flex;*/
-            /*align-items: center;*/
             justify-content: center;
             margin: 0 auto;
         }
         .comprovante{
             font-family: Courier, Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
             margin: 0;
-            /*border: bold solid black;*/
             width: 70mm;
             font-size: 10px !important;
             text-align: center;
@@ -38,12 +26,10 @@
 
         .comprovante p{
             line-height: 12px;
-            /*letter-spacing: 1px;*/
         }
         .comprovante .table-coupon {
             text-align: center !important;
             line-height: 15px !important;
-            /*letter-spacing: 1px;*/
         }
 
         .comprovante table tbody, .comprovante table tfoot{
@@ -72,14 +58,9 @@
                 text-align: center;
                 font-size: 10px !important;
                 background-color: darkgrey !important;
-
             }
 
             p.coupon_customer_fullname {
-                /*max-width: 25ch;*/
-                /*overflow: hidden;*/
-                /*text-overflow: ellipsis;*/
-                /*white-space: nowrap;*/
                 line-height: 12px !important;
                 padding-top: 1rem
             }
@@ -87,7 +68,6 @@
     </style>
 </head>
 <body>
-{{--{{dd($full_name)}}--}}
 <div id="container">
     <div class="document">
         <div id="coupon" class="d-flex justify-content-center comprovante">
@@ -106,20 +86,8 @@
                                     <span style="letter-spacing: 1px; padding-top: 1rem; padding-bottom: 1rem;">(Cupom não fiscal)</span>
                                 </th>
                             </tr>
-{{--                        <tr class="b-top">--}}
-{{--                            <th class="ttu text-center" colspan="2">--}}
-{{--                                <p>--}}
-{{--                                <span>Cliente ID: </span><span id="coupon_customer_id">{{$id}}</span>--}}
-{{--                                </p>--}}
-{{--                            </th>--}}
-{{--                        </tr>--}}
                         </thead>
                         <tbody>
-{{--                        <tr class="ttu ">--}}
-{{--                            <th colspan="2" class="ttu text-center justify-content-center" >--}}
-{{--                                <strong class="mt-2 p-1">Dados do pagamento: </strong>--}}
-{{--                            </th>--}}
-{{--                        </tr>--}}
                             <tr class="ttu b-top" >
                                 <td class="right">Cliente: </td>
                                 <td id="coupon_reference-" class="left" style="padding-top: 1rem">
@@ -242,13 +210,15 @@
                             </tr>
                             <tr class="ttu b-top pb-4" style="font-weight: bold">
                                 <td class="right">Valor pago: </td>
-                                <td class="left" >R$ <span id="coupon_amount">
+                                <td class="left">
+                                    R$ <span id="coupon_amount">
                                             {{number_format($amount, 2, ',', '.') }}
-                                        </span></td>
+                                        </span>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
-                            @if((json_decode($receipt))->card_ent_mode)
+                            @if(isset((json_decode($receipt))->card_ent_mode))
                             <tr class="ttu b-top text-center ">
                                 <td colspan="4" style="text-align: center; padding-top: 1rem; letter-spacing: 1px">
                                     {{ (json_decode($receipt))->card_ent_mode }}

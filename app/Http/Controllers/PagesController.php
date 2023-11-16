@@ -79,7 +79,11 @@ class PagesController extends Controller
 
     public function payment()
     {
-        if(session()->has('customer')){
+        if(session()->has('customer'))
+        {
+
+//            $isfees = (new WorkingDays)->hasFees("2023-12-25T00:00:00");
+//            dd($isfees);
 
 //            $customer = (new API())->getCustomer(session('customer')->id);
 
@@ -127,12 +131,12 @@ class PagesController extends Controller
                         onclick="deleteItemCart('. $data['Id'] .')">REMOVER</a>';
                 })
                 ->addColumn('add', function($data){
-                        $isfees = (new WorkingDays)->hasFees($data['Vencimento']);
+                        $hasFees = (new WorkingDays)->hasFees($data['Vencimento']);
                         $fees = (new Functions)->calcFees($data['Vencimento'], $data['Valor']);
                         $price = 0;
                         $addition = 0;
 
-                        if($isfees){
+                        if(!$hasFees){
                             $price = number_format((float)($data['Valor']), 2, '.', ',');;
 //                            $price = number_format($data['Valor'], 2, '.', '');
                             $addition = number_format((float)(0), 2, '.', '');
@@ -153,7 +157,7 @@ class PagesController extends Controller
                             'discount' => 0,
                             'addition' => $addition,
                             'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
-                            'company' => $data['Id_Empresa']
+                            'company_id' => $data['Id_Empresa']
                         ]);
 
 //                        $button = '<button type="button" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
@@ -189,8 +193,6 @@ class PagesController extends Controller
     public function payments()
     {
         if(session()->has('customer')){
-
-
             return view('payments', ['header' => 'Comprovantes (2ª via)']);
         } else {
             throw new CheckUserException();

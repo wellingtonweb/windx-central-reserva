@@ -149,7 +149,16 @@ class AuthController extends Controller
 
         $hourBackup = Validations::checkHourBackupVigo($array);
         if ($hourBackup) {
-            return response()->json(['error' => 'Servidor em manutenção! Tente novamente dentro de alguns minutos.'], 423);
+//            return abort(423);
+            return response()
+                ->json(['error' =>
+                    [
+                        "code" => 423,
+                        "title" => "Servidor em manutenção!",
+                        "message" => "Previsão de retorno: ".
+                            session('backupLimitTime')['timeLimit']
+                    ]
+                ], 423);
         }else{
             $validator = Validator::make($request->all(), [
                 'login' => ['required', 'email:rfc,dns'],

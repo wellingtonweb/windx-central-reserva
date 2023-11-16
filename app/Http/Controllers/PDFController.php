@@ -88,12 +88,6 @@ class PDFController extends Controller
 
             $payment = (new API())->getPayment($id);
 
-//            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
-
-//            dd($payment->data);
-//            dd((json_decode(($payment->data)->receipt))->payer);
-//            ($payment->data)->receipt = json_decode(($payment->data)->receipt);
-
             return (new API())->getCouponPDF($payment->data);
 //            return view('pdf.coupon', ['payment' => $payment->data]);
 

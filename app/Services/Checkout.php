@@ -42,6 +42,9 @@ class Checkout
                     "cpf_cnpj" => $identity,
                 ],
                 'payment_type' => 'Pix',
+                'customer_origin' => json_encode([
+                    'origin' => 'central'
+                ])
 //                'payment_type' => $valid["payment_type"],
             ];
         }else{
@@ -58,37 +61,11 @@ class Checkout
                 'payment_type' => $valid["payment_type"],
                 'method' => $valid["method"],
                 'installment' => 1,
+                'customer_origin' => json_encode([
+                    'origin' => 'central'
+                ])
             ];
         }
-//        $body = [
-//            'billets' => $valid["billets"],
-//            'method' => $valid["method"],
-//            'customer' => $valid["customer"],
-//            'buyer' => [
-//                "first_name" => $name[0],
-//                "last_name" => end($name),
-//                "cpf_cnpj" => $identity,
-//            ],
-//            'payment_type' => $valid["payment_type"],
-//            'method' => $valid["method"],
-////            'terminal_id' => Cookie::get('terminal_id'),
-//        ];
-
-        return $body;
-    }
-
-    public function getBodyPaymentTef($valid)
-    {
-        $body = [
-            'customer' => $valid["customer"],
-            'billets' => $valid["billets"],
-            'method' => $valid["method"],
-            "payment_type" => $valid["payment_type"],
-//            'customer_origin' => Functions::getCustomerOrigin(),
-//            "terminal_id" => 2,
-//            "terminal_id" => Cookie::get('terminal_id'),
-            "terminal_id" => Cookie::has('terminal_id') ? Cookie::get('terminal_id') : null,
-        ];
 
         return $body;
     }
@@ -109,6 +86,9 @@ class Checkout
             ],
 //            'customer_origin' => Functions::getCustomerOrigin(),
             'method' => $valid["payment_type"],
+            'customer_origin' => json_encode([
+                'origin' => 'central'
+            ])
         ];
 
         return $body;

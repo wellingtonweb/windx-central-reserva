@@ -86,7 +86,7 @@
     const base_url = '{{env('APP_BASE_URL')}}';
     {{--const contracts = '{{route('central.contracts')}}';--}}
     const release_url = `{{route('central.release')}}`;
-
+    // alert('Corrigir a verificação da cobrança de juros para o fim de semana');
 
     $('.loading').removeClass('d-none');
 </script>

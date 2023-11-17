@@ -46,13 +46,25 @@ class AuthController extends Controller
     {
         $tokenUrl = basename(url()->current());
 
-        $response = (new Functions())->checkTokenReset($tokenUrl);
+//        $response = (new Functions())->checkTokenReset($tokenUrl);
 
-        if(!$response){
+        $validatedToken = DB::table('password_resets')
+            ->where('token', $tokenUrl)
+            ->exists();
+
+        if(!$validatedToken){
+            DB::table('password_resets')
+                ->where('token', $tokenUrl)
+                ->delete();
+
             abort(406);
         }
 
         session()->put('password_reset.token', $tokenUrl);
+
+//        DB::table('password_resets')
+//            ->where('token', $tokenUrl)
+//            ->delete();
 
         //Se token for válido no BD
         return view('auth.reset');
@@ -105,7 +117,7 @@ class AuthController extends Controller
         }
     }
 
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(Request $request)
     {
         if(session()->has('password_reset')){
             $reset_session = session('password_reset');
@@ -118,9 +130,17 @@ class AuthController extends Controller
                 abort(406);
             }
 
-            $validated = $request->validated();
+            $validator = Validator::make($request->all(), [
+                'login' => ['required', 'email:rfc,dns'],
+                'password' => ['required','min:8'],
+                'confirm' => ['required','min:8','same:password']
+            ]);
 
-            if($validated){
+            dd($validator->validated());
+
+//            $validated = $request->validated();
+
+            if(!$validator->fails()){
                 $response = (new API)
                     ->updatePasswordCustomer([
                         'customer_id' => $reset_session['customer_id'],

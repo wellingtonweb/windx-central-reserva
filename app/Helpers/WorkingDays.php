@@ -29,26 +29,23 @@ class WorkingDays
         return false;
     }
 
-    public static function hasFees($dateInput)
+    public static function hasFees($dueDate)
     {
-        $pay = Carbon::parse($dateInput);
-//        $today = Carbon::now()->startOfDay();
-        $today = Carbon::parse('2023-12-19T00:00:00');
+        $pay = Carbon::parse($dueDate);
+        $today = Carbon::now()->startOfDay();
+//        $today = Carbon::parse('2023-12-19T00:00:00');
 
         if ($pay->isFriday() && $today >= $pay->addDays(4)) {
             return true;
         }
 
-        $isHoliday = self::isHoliday($dateInput);
+        $isHoliday = self::isHoliday($dueDate);
 
         if ($isHoliday && ($pay->isWeekend() || $today > $pay->addDay())) {
             return true;
         }
 
-        if (
-            $pay->isWeekend() &&
-            ($today >= $pay->next(Carbon::THURSDAY) || $today > $pay->addDay())
-        ) {
+        if ($pay->isWeekend() && ($today >= $pay->next(Carbon::THURSDAY) || $today > $pay->addDay())) {
             return true;
         }
 

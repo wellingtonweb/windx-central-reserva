@@ -4,15 +4,6 @@
     <main role="main" class="inner cover mt-md-3">
         <section>
             <div id="main" class="container-logon">
-                <div class="loader animate__animated animate__fadeInUp d-none">
-                    <h2>
-                        <span>W</span>
-                        <span>I</span>
-                        <span>N</span>
-                        <span>D</span>
-                        <span>X</span>
-                    </h2>
-                </div>
                 <div class="card-logon p-2">
                     <div class="card form-signin p-4" style="border-radius: 1rem">
                         <form id="form_reset_password" method="POST" action="{{ Route('central.reset.password') }}">
@@ -20,14 +11,27 @@
                                 <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                                 <h3 style="font-size: 1.5rem; color: #002046;">Nova senha</h3>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body" style="padding: 0 !important;">
                                 @csrf
 
-                                @if ($errors->has('password') || $errors->has('confirm') || session('error'))
+                                @if ($errors->has('email') || $errors->has('password') || $errors->has('confirm') || session('error'))
                                     <p class="card-text text-danger pb-1">Verifique os dados informados!</p>
                                 @endif
-
-                                <div class="input-group mb-3 {{ $errors->has('password') ? 'is-error' : '' }}">
+                                <div class="input-group mb-2 {{ $errors->has('email') ? 'is-error' : '' }}">
+                                    <div class="input-group-prepend">
+                                        <i class="fa fa-user {{ $errors->has('email') ? 'text-danger' : '' }} " aria-hidden="true"></i>
+                                    </div>
+                                    <input id="email"
+                                           type="text"
+                                           value="{{ old('email') }}"
+                                           class="form-control inputs-login
+                                            @error('email') is-invalid @enderror"
+                                           name="email"
+                                           placeholder="{{ $errors->has('email') ? 'O e-mail é obrigatório' : 'Digite seu e-mail' }}"
+                                           aria-label="E-mail"
+                                           aria-describedby="email">
+                                </div>
+                                <div class="input-group mb-2 {{ $errors->has('password') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
@@ -44,7 +48,7 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
-                                <div class="input-group mb-3 {{ $errors->has('login') ? 'is-error' : '' }}">
+                                <div class="input-group mb-3 {{ $errors->has('confirm') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>

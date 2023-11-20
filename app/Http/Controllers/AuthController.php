@@ -42,32 +42,61 @@ class AuthController extends Controller
         }
     }
 
-    public function newPassword(Request $request)
+    public function logon(Request $request)
     {
-        $tokenUrl = basename(url()->current());
+        $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
 
-//        $response = (new Functions())->checkTokenReset($tokenUrl);
+        $hourBackup = Validations::checkHourBackupVigo($array);
+        if ($hourBackup) {
+//            return abort(423);
+            return response()
+                ->json(['error' =>
+                    [
+                        "code" => 423,
+                        "title" => "Servidor em manutenção!",
+                        "message" => "Previsão de retorno: ".
+                            session('backupLimitTime')['timeLimit']
+                    ]
+                ], 423);
+        }else{
+            $validator = Validator::make($request->all(), [
+                'login' => ['required', 'email:rfc,dns'],
+                'password' => ['required','min:8']
+            ]);
 
-        $validatedToken = DB::table('password_resets')
-            ->where('token', $tokenUrl)
-            ->exists();
+            if ($validator->fails()) {
+                $errors = $validator->errors();
 
-        if(!$validatedToken){
-            DB::table('password_resets')
-                ->where('token', $tokenUrl)
-                ->delete();
+                return response()->json(['error' => $errors], 422);
+            }else{
+                $response = (new API())->customerLogon($validator->validate());
 
-            abort(406);
+                if($response == null){
+                    return response()->json(['error' => 'Ops, login não cadastrado!'], 404);
+                }
+
+                if($response->successful())
+                {
+                    $customer = json_decode(json_encode($response->object()),true);
+
+                    session()->put('customer',  $customer);
+
+                    CustomerLog::create(UserInfo::get_customer_metadata());
+
+                    return response()->json(200);
+                }
+            }
         }
+    }
 
-        session()->put('password_reset.token', $tokenUrl);
+    public function logout()
+    {
 
-//        DB::table('password_resets')
-//            ->where('token', $tokenUrl)
-//            ->delete();
+//        Logger::log(session('customer.login'),'info','Fez o logout.');
 
-        //Se token for válido no BD
-        return view('auth.reset');
+        (new Functions())->destroySessions();
+
+        return redirect()->route('central.login');
     }
 
     public function forgotPassword(Request $request)
@@ -136,7 +165,7 @@ class AuthController extends Controller
                 'confirm' => ['required','min:8','same:password']
             ]);
 
-            dd($validator->validated());
+//            dd($validator->validated());
 
 //            $validated = $request->validated();
 
@@ -163,60 +192,37 @@ class AuthController extends Controller
         }
     }
 
-    public function logon(Request $request)
+    public function newPassword(Request $request)
     {
-        $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
 
-        $hourBackup = Validations::checkHourBackupVigo($array);
-        if ($hourBackup) {
-//            return abort(423);
-            return response()
-                ->json(['error' =>
-                    [
-                        "code" => 423,
-                        "title" => "Servidor em manutenção!",
-                        "message" => "Previsão de retorno: ".
-                            session('backupLimitTime')['timeLimit']
-                    ]
-                ], 423);
-        }else{
-            $validator = Validator::make($request->all(), [
-                'login' => ['required', 'email:rfc,dns'],
-                'password' => ['required','min:8']
-            ]);
+//        dd($request->all());
 
-            if ($validator->fails()) {
-                $errors = $validator->errors();
+        $tokenUrl = basename(url()->current());
 
-                return response()->json(['error' => $errors], 422);
-            }else{
-                $response = (new API())->customerLogon($validator->validate());
+//        dd($tokenUrl);
 
-                if($response == null){
-                    return response()->json(['error' => 'Ops, login não cadastrado!'], 404);
-                }
+//        $response = (new Functions())->checkTokenReset($tokenUrl);
 
-                if($response->successful())
-                {
-                    $customer = json_decode(json_encode($response->object()),true);
+        $validatedToken = DB::table('password_resets')
+            ->where('token', $tokenUrl)
+            ->exists();
 
-                    session()->put('customer',  $customer);
+        if(!$validatedToken){
+            DB::table('password_resets')
+                ->where('token', $tokenUrl)
+                ->delete();
 
-                    CustomerLog::create(UserInfo::get_customer_metadata());
-
-                    return response()->json(200);
-                }
-            }
+            abort(406);
         }
+
+        session()->put('password_reset.token', $tokenUrl);
+
+//        DB::table('password_resets')
+//            ->where('token', $tokenUrl)
+//            ->delete();
+
+        //Se token for válido no BD
+        return view('auth.reset');
     }
 
-    public function logout()
-    {
-
-//        Logger::log(session('customer.login'),'info','Fez o logout.');
-
-        (new Functions())->destroySessions();
-
-        return redirect()->route('central.login');
-    }
 }

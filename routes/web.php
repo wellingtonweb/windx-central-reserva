@@ -24,9 +24,9 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot.password');
     Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
-    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot.password');
-    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('reset.password');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset.password');
 
     Route::middleware(['check.user'])->group(function () {
 

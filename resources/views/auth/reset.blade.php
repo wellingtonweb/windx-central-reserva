@@ -333,7 +333,7 @@
                 checkEightChar = false;
             }
             //If password is equals in inputs
-            if(inputPassword.value == inputConfirmPassword.value){
+            if((inputPassword.value == inputConfirmPassword.value) && (inputPassword.value != "") && (inputConfirmPassword.value != "")){
                 strength += 1;
                 document.querySelector(".equals-character").classList.remove('text-muted');
                 document.querySelector(".equals-character").classList.add('text-success');

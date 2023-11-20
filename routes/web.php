@@ -7,6 +7,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ActivationController;
+use App\Http\Controllers\CaptchaController;
 
 
 
@@ -27,6 +28,8 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot.password');
     Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
     Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset.password');
+    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');
+
 
     Route::middleware(['check.user'])->group(function () {
 

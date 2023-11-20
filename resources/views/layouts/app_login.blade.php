@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/cover.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <link href="{{ captcha_layout_stylesheet_url() }}" type="text/css" rel="stylesheet">
 </head>
 
 <body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">

@@ -38,7 +38,14 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
-            return view('auth.login');
+            return view('auth.login', [
+                // Captcha configuration for example page
+                'ExampleCaptcha' => [
+                    'UserInputID' => 'CaptchaCode',
+                    'ImageWidth' => 250,
+                    'ImageHeight' => 50,
+                ]
+            ]);
         }
     }
 
@@ -61,7 +68,8 @@ class AuthController extends Controller
         }else{
             $validator = Validator::make($request->all(), [
                 'login' => ['required', 'email:rfc,dns'],
-                'password' => ['required','min:8']
+                'password' => ['required','min:8'],
+                'captcha' => ['required','captcha'],
             ]);
 
             if ($validator->fails()) {

@@ -31,6 +31,32 @@
                                        aria-describedby="password">
                             </div>
                             <small class="text-danger mt-3 password_error"></small>
+
+                            <div class="input-group mt-3 d-flex">
+                                <div class="input-group-prepend">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </div>
+{{--                                <input style="position: relative" id="inputCapcha" type="text" class="form-control inputs-login w-25" name="captcha" placeholder="Captcha" aria-label="Captcha"--}}
+{{--                                       aria-describedby="captcha">--}}
+                                <input type="text" id="captcha" class="form-control inputs-login w-25" name="captcha" autocomplete="off">
+{{--                                <div class="w-25 bg-primary d-flex">--}}
+                                    <div class="captcha" style="background-color: #e6fcfd">
+                                        @captcha
+                                        <button type="button" class="rounded" onclick="reloadCaptcha()">
+                                            <i class="fa fa-sync text-windx" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+{{--                                    <div>--}}
+{{--                                        <button type="button" class="rounded" onclick="reloadCaptcha()">--}}
+{{--                                            <i class="fa fa-sync text-windx" aria-hidden="true"></i>--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
+
+{{--                                </div>--}}
+                            </div>
+
+
+                            <small class="text-danger mt-3 captcha_error"></small>
                             <div class="text-right mt-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
                             </div>
@@ -72,8 +98,16 @@
     </section>
 </main>
 @endsection
+@section('js')
+    <script>
+        async function reloadCaptcha() {
+            const response = await fetch("{{ route('central.reload.captcha') }}");
+            const data = await response.json();
+            $(".captcha span").html(data.captcha)
+        }
+    </script>
 
-{{--@section('js')--}}
+
 {{--    @if ($errors->has('document'))--}}
 {{--        <script>--}}
 {{--            $('.full-screen-splash').addClass('d-none')--}}
@@ -108,4 +142,4 @@
 {{--            });--}}
 {{--        </script>--}}
 {{--    @endif--}}
-{{--@endsection--}}
+@endsection

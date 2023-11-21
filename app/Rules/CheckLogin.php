@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
+use App\Services\API;
 use Illuminate\Contracts\Validation\Rule;
 
-class Captcha implements Rule
+class CheckLogin implements Rule
 {
     /**
      * Create a new rule instance.
@@ -25,7 +26,15 @@ class Captcha implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $value === session('bone_captcha');
+        $response = (new API())->checkMailCustomer($value);
+
+        if($response != null){
+            session()->put('password_reset.customer_id',$response[0]->id);
+            session()->put('password_reset.customer_fullname',$response[0]->nome);
+            session()->put('password_reset.customer_login',$response[0]->login);
+        }
+
+        return $response != null;
     }
 
     /**
@@ -35,6 +44,6 @@ class Captcha implements Rule
      */
     public function message()
     {
-        return 'Captcha inválido! Digite conforme a imagem.';
+        return 'Ops, login não cadastrado';
     }
 }

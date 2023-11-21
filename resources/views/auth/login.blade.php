@@ -47,21 +47,21 @@
                                     </div>
                             </div>
                             <small class="text-danger mt-3 captcha_error"></small>
-                            <div class="text-right mt-3">
+                            <div class="text-right my-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">
-                            <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" >Entrar</button>
+                            <button id="btn-login" type="submit" class="btn btn-primary btn-block" >Entrar</button>
                         </div>
                     </form>
 {{--                    {{dd(session('bone_captcha'))}}--}}
-                    <form style="display: none" id="form_reset_password" method="POST" action="{{ Route('central.forgot.password') }}">
+                    <form style="display: none;" id="form_forgot_password" method="POST" action="{{ Route('central.forgot.password') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
                             <h3 style="font-size: 1.5rem; color: #002046;">Lembrar senha</h3>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="padding: 0 !important;">
                             @csrf
                             <p class="card-text text-black-50 pb-1">
                                 Preencha seu e-mail de cadastro<br>
@@ -75,12 +75,12 @@
                                        name="login" placeholder="Seu login" aria-label="Login" aria-describedby="login">
                             </div>
                             <small class="text-danger mt-3 login_reset_error"></small>
-                            <div class="text-right mt-3">
+                            <div class="text-right my-3">
                                 <a href="#" class="card-link text-primary close_reset_password">Voltar ao login?</a>
                             </div>
                         </div>
                         <div class="card-footer bg-white border-0">
-                            <button id="btn-send-mail" type="submit" class="btn btn-primary btn-load_ btn-block" style="font-size: 1rem; margin: 0">Enviar</button>
+                            <button id="btn-send-mail" type="submit" class="btn btn-primary btn-block" style="font-size: 1rem; margin: 0">Enviar</button>
                         </div>
                     </form>
                 </div>

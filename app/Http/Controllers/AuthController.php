@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
 use App\Models\PasswordResets;
 use App\Rules\Captcha;
+use App\Rules\CheckLogin;
 
 class AuthController extends Controller
 {
@@ -69,22 +70,10 @@ class AuthController extends Controller
         }else{
 
             $validator = Validator::make($request->all(), [
-                'login' => ['required', 'email:rfc,dns'],
+                'login' => ['required', 'email:rfc,dns', new CheckLogin],
                 'password' => ['required','min:8'],
                 'captcha' => ['required', new Captcha],
             ]);
-
-//            $captcha = ($validator->validate())['captcha'];
-//
-//            $validateCaptcha = Validations::checkCaptcha($captcha);
-//
-//            if($validateCaptcha){
-//                dd('Captcha válido');
-//            }else{
-//                dd('Captcha inválido');
-//            }
-
-//            dd($captcha, session('bone_captcha'));
 
             if ($validator->fails())
             {
@@ -125,8 +114,8 @@ class AuthController extends Controller
     public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login' => ['required', 'email:rfc,dns'],
-            'captcha' => ['required','captcha'],
+            'login' => ['required', 'email:rfc,dns', new CheckLogin],
+//            'captcha' => ['required', new Captcha],
         ]);
 
         if ($validator->fails()) {
@@ -134,25 +123,29 @@ class AuthController extends Controller
 
             return response()->json(['error' => $errors->first('login')], 422);
         }else{
-            $customer = (new API)->checkMailCustomer($request->login);
+//            $customer = (new API)->checkMailCustomer($request->login);
 
-            if($customer != null){
+//            if($customer != null){
                 //Gerar o token + login do cliente
-                $token = (new Functions())->generateTokenUrl($customer[0]->login);
 
-                $request->session()->put('password_reset.customer_id', $customer[0]->id);
+
+                $customer_reset = session('password_reset');
+
+                $token = (new Functions())->generateTokenUrl($customer_reset['customer_login']);
+
+//                $request->session()->put('password_reset.customer_id', $customer[0]->id);
 
                 //Gravar no banco de dados o token e o login do cliente
                 DB::table('password_resets')->insert([
-                    'email' => $customer[0]->login,
+                    'email' => $customer_reset['customer_login'],
                     'token' => $token,
                     'created_at' => date("Y-m-d H:i:s")
                 ]);
 
                 $customerData = [
-                    'customer_id' => $customer[0]->id,
-                    'customer_name' => $customer[0]->nome,
-                    'customer_login' => $customer[0]->login,
+                    'customer_id' => $customer_reset['customer_id'],
+                    'customer_name' => $customer_reset['customer_fullname'],
+                    'customer_login' => $customer_reset['customer_login'],
                     'url' => env('app_base_url') . "nova-senha/" . $token
                 ];
 
@@ -163,12 +156,12 @@ class AuthController extends Controller
                     'status' => 200,
                     'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
                 ], 200);
-            }else{
-                return response()->json([
-                    'error' => "Login não cadastrado!",
-                    'message' => "Solicite seu cadastro em nossa Central de Atendimento.",
-                ], 404);
-            }
+//            }else{
+//                return response()->json([
+//                    'error' => "Login não cadastrado!",
+//                    'message' => "Solicite seu cadastro em nossa Central de Atendimento.",
+//                ], 404);
+//            }
         }
     }
 
@@ -189,7 +182,7 @@ class AuthController extends Controller
                 'login' => ['required', 'email:rfc,dns'],
                 'password' => ['required','min:8'],
                 'confirm' => ['required','min:8','same:password'],
-                'captcha' => ['required','captcha'],
+                'captcha' => ['required', new Captcha],
             ]);
 
 //            dd($validator->validated());

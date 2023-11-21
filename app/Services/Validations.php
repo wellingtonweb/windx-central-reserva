@@ -85,4 +85,13 @@ class Validations
 
         return false;
     }
+
+    public function checkCaptcha($captcha)
+    {
+        $captchaSession = session('bone_captcha');
+        if($captcha === $captchaSession){
+            return true;
+        }
+        return false;
+    }
 }

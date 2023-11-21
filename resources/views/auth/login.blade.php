@@ -11,7 +11,7 @@
                             <h2 style="color: #002046;">Central do Assinante</h2>
 {{--                            <h3 style="color: #002046;">Login</h3>--}}
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" style="padding: 0 !important;">
                             @csrf
                             <p class="card-text subtitle-login text-black-50 pb-1">Preencha seus dados de acesso!</p>
 
@@ -32,15 +32,12 @@
                                        aria-describedby="password">
                             </div>
                             <small class="text-danger mt-3 password_error"></small>
-
                             <div class="input-group mt-3 d-flex">
                                 <div class="input-group-prepend">
                                     <i class="fas fa-asterisk text-windx" aria-hidden="true"></i>
                                 </div>
-{{--                                <input style="position: relative" id="inputCapcha" type="text" class="form-control inputs-login w-25" name="captcha" placeholder="Captcha" aria-label="Captcha"--}}
-{{--                                       aria-describedby="captcha">--}}
                                 <input style="width: 100px" type="text" id="captcha" placeholder="Captcha"
-                                       class="form-control inputs-login" name="captcha"
+                                       class="form-control inputs-login" name="captcha" aria-describedby="captcha"
                                        autocomplete="off">
                                     <div class="captcha">
                                         @captcha
@@ -48,13 +45,6 @@
                                             <i class="fa fa-sync text-windx-80" aria-hidden="true"></i>
                                         </span>
                                     </div>
-{{--                                    <div>--}}
-{{--                                        <button type="button" class="rounded" onclick="reloadCaptcha()">--}}
-{{--                                            <i class="fa fa-sync text-windx" aria-hidden="true"></i>--}}
-{{--                                        </button>--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
                             </div>
                             <small class="text-danger mt-3 captcha_error"></small>
                             <div class="text-right mt-3">
@@ -65,6 +55,7 @@
                             <button id="btn-login" type="submit" class="btn btn-primary btn-load_ btn-block" >Entrar</button>
                         </div>
                     </form>
+{{--                    {{dd(session('bone_captcha'))}}--}}
                     <form style="display: none" id="form_reset_password" method="POST" action="{{ Route('central.forgot.password') }}">
                         <div class="card-header font-weight-bold" style="padding-top: 0">
                             <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
@@ -106,6 +97,9 @@
             $(".captcha img").click();
             $(".captcha span i").addClass('text-danger');
         }
+
+        var capt = `{{session('bone_captcha')}}`;
+        console.log(capt)
     </script>
 
 

@@ -28,6 +28,7 @@ use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
 use App\Models\PasswordResets;
+use App\Rules\Captcha;
 
 class AuthController extends Controller
 {
@@ -66,11 +67,24 @@ class AuthController extends Controller
                     ]
                 ], 423);
         }else{
+
             $validator = Validator::make($request->all(), [
                 'login' => ['required', 'email:rfc,dns'],
                 'password' => ['required','min:8'],
-                'captcha' => ['required','captcha'],
+                'captcha' => ['required', new Captcha],
             ]);
+
+//            $captcha = ($validator->validate())['captcha'];
+//
+//            $validateCaptcha = Validations::checkCaptcha($captcha);
+//
+//            if($validateCaptcha){
+//                dd('Captcha válido');
+//            }else{
+//                dd('Captcha inválido');
+//            }
+
+//            dd($captcha, session('bone_captcha'));
 
             if ($validator->fails())
             {

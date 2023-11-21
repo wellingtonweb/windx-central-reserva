@@ -1,11 +1,11 @@
 $('.open_reset_password').click(function() {
-    $('#form_login').fadeOut().hide();
-    $('#form_reset_password').fadeIn(300).show();
+    $('#form_login').prop("disabled", true).fadeOut().hide();
+    $('#form_reset_password').prop("disabled", false).fadeIn(300).show();
 });
 
 $('.close_reset_password').click(function() {
-    $('#form_reset_password').fadeOut().hide();
-    $('#form_login').fadeIn(200).show();
+    $('#form_reset_password').prop("disabled", true).fadeOut().hide();
+    $('#form_login').prop("disabled", false).fadeIn(200).show();
 });
 
 $('#form_login').submit(async function (e){
@@ -30,6 +30,7 @@ $('#form_login').submit(async function (e){
             body: JSON.stringify({
                 login: formData[1].value,
                 password: formData[2].value,
+                captcha: formData[3].value,
             }),
         });
         let data = await response.json();
@@ -57,9 +58,14 @@ $('#form_login').submit(async function (e){
             $('#btn-login').text('Entrar')
             if(data.error.login){
                 $('small.login_error').text(data.error.login)
-            }else if(data.error.password){
+            }
+            if(data.error.password){
                 $('small.password_error').text(data.error.password)
-            }else{
+            }
+            if(data.error.captcha){
+                $('small.captcha_error').text(data.error.captcha)
+            }
+            if(data.status > 422){
                 shakeError('form-signin')
                 if(response.status === 404){
                     Swal.fire({
@@ -77,8 +83,6 @@ $('#form_login').submit(async function (e){
                             window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
                         }
                     })
-                }else{
-                    Swal.fire({title: data.error, icon: (response.status === 423 ? 'warning' : 'error' ), timer: 4000, timerProgressBar: false, showCloseButton: true})
                 }
             }
         }
@@ -98,12 +102,11 @@ $('#form_login').submit(async function (e){
     }
 })
 
-$('#form_reset_password').submit(async function (e){
+$('#form_forgot_password').submit(async function (e){
     e.preventDefault();
     let formData = $(this).serializeArray()
     let url = "/assinante/forgot-password";
     $('#btn-send-mail').text('Enviando...')
-
 
     await fetch(url, {
         method: "POST",
@@ -111,7 +114,85 @@ $('#form_reset_password').submit(async function (e){
             "Content-Type": "application/json",
             "X-CSRF-Token": formData[0].value
         },
-        body: JSON.stringify({login: formData[1].value}),
+        body: JSON.stringify({login: formData[1].value, captcha: formData[2].value}),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if(!data.error){
+                $('#btn-send-mail').text('Enviar')
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Enviado com sucesso!',
+                    html: data.message,
+                    timer: 4000,
+                    timerProgressBar: false,
+                    showConfirmButton: false,
+                    didOpen: () => {
+                        $(this)[0].reset();
+                    },
+                    willClose: () => {
+                        $('.close_reset_password').click()
+                    }
+                })
+            }else{
+                $('#btn-send-mail').text('Enviar')
+                shakeError('form-signin')
+                $('small.login_reset_error').text(data.error)
+                $('#inputLoginReset').addClass('is-invalid');
+
+                if(data.message){
+                    Swal.fire({
+                        title: data.error,
+                        text: data.message,
+                        icon: 'warning',
+                        confirmButtonColor: '#208637',
+                        confirmButtonText: 'Central de Atendimento',
+                        showCloseButton: true,
+                        willClose: () => {
+                            window.location.reload()
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                        }
+                    })
+                }
+            }
+        })
+        .catch((error) => {
+            $('#btn-send-mail').text('Enviar - Catch')
+            shakeError('form-signin')
+            Swal.fire({
+                title: 'Ops, login não cadastrado!',
+                text: 'Solicite seu cadastro em nossa Central de Atendimento.',
+                icon: 'warning',
+                confirmButtonColor: '#208637',
+                confirmButtonText: 'Central de Atendimento',
+                showCloseButton: true,
+                willClose: () => {
+                    $(this)[0].reset();
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                }
+            })
+        });
+})
+
+$('#form_reset_password').submit(async function (e){
+    e.preventDefault();
+    let formData = $(this).serializeArray()
+    let url = "/assinante/forgot-password";
+    $('#btn-send-mail').text('Enviando...')
+
+    await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": formData[0].value
+        },
+        body: JSON.stringify({login: formData[1].value, captcha: formData[2].value}),
     })
         .then((response) => response.json())
         .then((data) => {

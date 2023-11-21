@@ -119,7 +119,7 @@ return [
     |
     |
     */
-    'width'  => 170,
+    'width'  => 100,
     'height' => 40,
 
     /*
@@ -129,7 +129,8 @@ return [
     | You can specify an array or string.
     |
     */
-    'background' => 'FFE1E8FF',
+//    'background' => '002646FF',
+    'background' => 'E6E9EEFF',
 
     /*
     |--------------------------------------------------------------------------

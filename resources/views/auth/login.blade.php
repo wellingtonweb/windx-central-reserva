@@ -13,7 +13,8 @@
                         </div>
                         <div class="card-body">
                             @csrf
-                            <p class="card-text text-black-50 pb-1">Preencha seus dados de acesso!</p>
+                            <p class="card-text subtitle-login text-black-50 pb-1">Preencha seus dados de acesso!</p>
+
                             <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -34,17 +35,18 @@
 
                             <div class="input-group mt-3 d-flex">
                                 <div class="input-group-prepend">
-                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <i class="fas fa-asterisk text-windx" aria-hidden="true"></i>
                                 </div>
 {{--                                <input style="position: relative" id="inputCapcha" type="text" class="form-control inputs-login w-25" name="captcha" placeholder="Captcha" aria-label="Captcha"--}}
 {{--                                       aria-describedby="captcha">--}}
-                                <input type="text" id="captcha" class="form-control inputs-login w-25" name="captcha" autocomplete="off">
-{{--                                <div class="w-25 bg-primary d-flex">--}}
-                                    <div class="captcha" style="background-color: #e6fcfd">
+                                <input style="width: 100px" type="text" id="captcha" placeholder="Captcha"
+                                       class="form-control inputs-login" name="captcha"
+                                       autocomplete="off">
+                                    <div class="captcha">
                                         @captcha
-                                        <button type="button" class="rounded" onclick="reloadCaptcha()">
-                                            <i class="fa fa-sync text-windx" aria-hidden="true"></i>
-                                        </button>
+                                        <span class="m-2" onclick="reloadCaptcha()">
+                                            <i class="fa fa-sync text-windx-80" aria-hidden="true"></i>
+                                        </span>
                                     </div>
 {{--                                    <div>--}}
 {{--                                        <button type="button" class="rounded" onclick="reloadCaptcha()">--}}
@@ -54,8 +56,6 @@
 
 {{--                                </div>--}}
                             </div>
-
-
                             <small class="text-danger mt-3 captcha_error"></small>
                             <div class="text-right mt-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
@@ -100,10 +100,11 @@
 @endsection
 @section('js')
     <script>
-        async function reloadCaptcha() {
-            const response = await fetch("{{ route('central.reload.captcha') }}");
-            const data = await response.json();
-            $(".captcha span").html(data.captcha)
+        function reloadCaptcha() {
+            {{--const response = await fetch("{{ route('central.reload.captcha') }}");--}}
+            {{--const data = await response.json();--}}
+            $(".captcha img").click();
+            $(".captcha span i").addClass('text-danger');
         }
     </script>
 

@@ -72,11 +72,12 @@ class AuthController extends Controller
                 'captcha' => ['required','captcha'],
             ]);
 
-            if ($validator->fails()) {
-                $errors = $validator->errors();
-
-                return response()->json(['error' => $errors], 422);
-            }else{
+            if ($validator->fails())
+            {
+                return response()->json(['error' => $validator->errors()], 422);
+            }
+            else
+            {
                 $response = (new API())->customerLogon($validator->validate());
 
                 if($response == null){
@@ -109,7 +110,10 @@ class AuthController extends Controller
 
     public function forgotPassword(Request $request)
     {
-        $validator = Validator::make($request->all(), ['login' => ['required', 'email:rfc,dns']]);
+        $validator = Validator::make($request->all(), [
+            'login' => ['required', 'email:rfc,dns'],
+            'captcha' => ['required','captcha'],
+        ]);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -170,7 +174,8 @@ class AuthController extends Controller
             $validator = Validator::make($request->all(), [
                 'login' => ['required', 'email:rfc,dns'],
                 'password' => ['required','min:8'],
-                'confirm' => ['required','min:8','same:password']
+                'confirm' => ['required','min:8','same:password'],
+                'captcha' => ['required','captcha'],
             ]);
 
 //            dd($validator->validated());

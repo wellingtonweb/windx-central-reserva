@@ -202,7 +202,7 @@ $('#form_reset_password').submit(async function (e){
     e.preventDefault();
     let formData = $(this).serializeArray()
     console.log(formData)
-    let url = "/assinante/send-mail-reset";
+    let url = "/assinante/send-new-password";
     $('#btn-save').text('Enviando...')
 
     await fetch(url, {

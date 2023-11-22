@@ -48,7 +48,7 @@
 
     @yield('content')
 
-    <footer id="footer" class="mastfoot mt-auto pt-3 d-none ">
+    <footer id="footer" class="mastfoot mt-auto pt-3 d-none " style="z-index: -1;">
         <small class=" d-block">&copy; {{date('Y')}} {{ getenv('APP_NAME') }}<br>
             0800 028 2309 | (28) 3532-2309
         </small>

@@ -31,7 +31,7 @@
                                            aria-label="E-mail"
                                            aria-describedby="email">
                                 </div>
-                                <small class="text-danger mt-3 login_reset_error"></small>
+                                <small class="text-danger mt-1 login_reset_error"></small>
                                 <div class="input-group mb-2 {{ $errors->has('password') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
-                                <small class="text-danger mt-3 password_reset_error"></small>
+                                <small class="text-danger mt-1 password_reset_error"></small>
                                 <div class="input-group {{ $errors->has('confirm') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -66,7 +66,7 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
-                                <small class="text-danger mt-3 confirm_reset_error"></small>
+                                <small class="text-danger mt-1 confirm_reset_error"></small>
                                 @include('include.captcha')
                                 <div class="form-group">
                                     <div id="popover-password">

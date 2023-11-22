@@ -220,11 +220,12 @@ $('#form_reset_password').submit(async function (e){
     })
         .then((response) => response.json())
         .then((data) => {
+            console.log('Data:', data);
             if(!data.error){
                 $('#btn-save').text('Enviar')
                 Swal.fire({
                     icon: 'success',
-                    title: 'Enviado com sucesso!',
+                    title: 'Senha alterada com sucesso!',
                     html: data.message,
                     timer: 4000,
                     timerProgressBar: false,
@@ -233,7 +234,15 @@ $('#form_reset_password').submit(async function (e){
                         $(this)[0].reset();
                     },
                     willClose: () => {
-                        $('.close_reset_password').click()
+                        // $('.close_reset_password').click()
+                            $('#container-logo').addClass('animate__animated animate__fadeOutUp');
+                            $('#btn-contact').addClass('animate__animated animate__fadeOutRight');
+                            $('#footer').addClass('animate__animated animate__fadeOutDown');
+                            $(this)[0].reset();
+                            $('#btn-login').text('Entrar')
+                            $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
+                            $('.loader').removeClass('d-none');
+                            location.href = `/assinante/home`;
                     }
                 })
             }else{
@@ -278,23 +287,25 @@ $('#form_reset_password').submit(async function (e){
             }
         })
         .catch((error) => {
-            $('#btn-send-mail').text('Enviar - Catch')
+            // $('#btn-send-mail').text('Enviar - Catch')
             shakeError('form-signin')
-            Swal.fire({
-                title: 'Ops, login não cadastrado!',
-                text: 'Solicite seu cadastro em nossa Central de Atendimento.',
-                icon: 'warning',
-                confirmButtonColor: '#208637',
-                confirmButtonText: 'Central de Atendimento',
-                showCloseButton: true,
-                willClose: () => {
-                    $(this)[0].reset();
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-                }
-            })
+            // console.log(error)
+
+            // Swal.fire({
+            //     title: 'Ops, login não cadastrado!',
+            //     text: 'Solicite seu cadastro em nossa Central de Atendimento.',
+            //     icon: 'warning',
+            //     confirmButtonColor: '#208637',
+            //     confirmButtonText: 'Central de Atendimento',
+            //     showCloseButton: true,
+            //     willClose: () => {
+            //         $(this)[0].reset();
+            //     }
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+            //     }
+            // })
         });
 })
 
@@ -306,9 +317,6 @@ function shakeError(elementClass)
     }, 1000);
 }
 
-function reloadCaptcha() {
-    $(".captcha img").click();
-}
 
 setTimeout(() => {
     $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')

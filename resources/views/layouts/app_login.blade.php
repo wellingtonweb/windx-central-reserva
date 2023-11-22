@@ -15,6 +15,18 @@
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <link href="{{ captcha_layout_stylesheet_url() }}" type="text/css" rel="stylesheet">
+    <style>
+        .btn-reload-captcha {
+            width: auto;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .rotated {
+            transform: rotate(360deg);
+        }
+    </style>
 </head>
 
 <body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
@@ -31,7 +43,6 @@
         </h2>
     </div>
 </div>
-@if (!Route::currentRouteName() == 'central.new.password')
 <div class="full-screen-splash">
     <section>
         <article>
@@ -40,7 +51,6 @@
         </article>
     </section>
 </div>
-@endif
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
     <div id="container-logo" class="mt-3">
         <img class="logo-windx d-none" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
@@ -66,10 +76,19 @@
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
 
-{{--<script>--}}
-{{--    --}}{{--var teste = {{gettype(session('error'))}}--}}
-{{--    --}}{{--console.log(teste)--}}
-{{--</script>--}}
+<script>
+
+    // var rotated = false;
+
+    function reloadCaptcha() {
+        $(".captcha img").click();
+
+        $('.btn-reload-captcha').addClass('rotate');
+
+        var icon = document.querySelector('.btn-reload-captcha');
+        icon.classList.toggle('rotated');
+    }
+</script>
 
 @if(session('message') || session('error') || session('error_checkout') )
     @if (session('error'))
@@ -80,7 +99,8 @@
                 icon: 'error',
                 title: 'Erro '+400+'!',
                 text: session,
-                timer: 7000
+                timer: 7000,
+                showConfirmButton: false,
             });
         </script>
     @else(session('success'))

@@ -22,7 +22,7 @@
                                        placeholder="Seu login"
                                        aria-label="Login" aria-describedby="login">
                             </div>
-                            <small class="text-danger mt-3 login_error"></small>
+                            <small class="text-danger mt-2 login_error"></small>
                             <div class="input-group mt-2">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
                                 <input id="inputPassword" type="password" value="Wdx@1234567890" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
                                        aria-describedby="password">
                             </div>
-                            <small class="text-danger mt-3 password_error"></small>
+                            <small class="text-danger mt-2 password_error"></small>
                             @include('include.captcha')
                             <div class="text-right my-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
@@ -84,7 +84,8 @@
                 icon: 'error',
                 title: 'Erro!',
                 text: `{{$errors->first('document')}}`,
-                timer: 7000
+                timer: 5000,
+                showConfirmButton: false,
             });
         </script>
     @elseif(session('error'))
@@ -94,7 +95,8 @@
                 icon: 'error',
                 title: 'Ops!',
                 text: `{{session('error')}}`,
-                timer: 7000
+                timer: 5000,
+                showConfirmButton: false,
             });
         </script>
     @elseif(session('success'))

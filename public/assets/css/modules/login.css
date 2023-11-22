@@ -46,6 +46,8 @@ article img {
     width: 75%;
 }
 
+
+
 /* Small devices (landscape phones, 576px and up) */
 @media (max-width: 575.98px) {
     .container-all {
@@ -71,6 +73,10 @@ article img {
     .card-logon h3 {
         font-size: 1.2rem !important;
         color: #002046;
+    }
+
+    .card-logon .card-header {
+        padding: 0.1rem 1.25rem;
     }
 
     #captcha {

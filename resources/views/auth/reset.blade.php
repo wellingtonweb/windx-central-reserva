@@ -5,7 +5,7 @@
         <section>
             <div id="main" class="container-logon">
                 <div class="card-logon p-2">
-                    <div class="card form-signin p-4" style="border-radius: 1rem">
+                    <div class="card form-signin d-none p-4" style="border-radius: 1rem">
                         <form id="form_reset_password" method="POST" action="{{ Route('central.reset.password') }}">
                             <div class="card-header font-weight-bold" style="padding-top: 0">
                                 <h2>Central do Assinante</h2>
@@ -13,11 +13,7 @@
                             </div>
                             <div class="card-body" style="padding: 0 !important;">
                                 @csrf
-
-                                @if ($errors->has('email') || $errors->has('password') || $errors->has('confirm') || session('error'))
-                                    <p class="card-text text-danger pb-1">Verifique os dados informados!</p>
-                                @endif
-                                <div class="input-group mb-2 {{ $errors->has('email') ? 'is-error' : '' }}">
+                                <div class="input-group mt-2 {{ $errors->has('email') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-user {{ $errors->has('email') ? 'text-danger' : '' }} " aria-hidden="true"></i>
                                     </div>
@@ -31,8 +27,8 @@
                                            aria-label="E-mail"
                                            aria-describedby="email">
                                 </div>
-                                <small class="text-danger mt-1 login_reset_error"></small>
-                                <div class="input-group mb-2 {{ $errors->has('password') ? 'is-error' : '' }}">
+                                <small class="text-danger mt-2 login_reset_error"></small>
+                                <div class="input-group mt-2 {{ $errors->has('password') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
@@ -49,8 +45,8 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
-                                <small class="text-danger mt-1 password_reset_error"></small>
-                                <div class="input-group {{ $errors->has('confirm') ? 'is-error' : '' }}">
+                                <small class="text-danger mt-2 password_reset_error"></small>
+                                <div class="input-group mt-2 {{ $errors->has('confirm') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
@@ -66,7 +62,7 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
-                                <small class="text-danger mt-1 confirm_reset_error"></small>
+                                <small class="text-danger mt-2 confirm_reset_error"></small>
                                 @include('include.captcha')
                                 <div class="form-group">
                                     <div id="popover-password">

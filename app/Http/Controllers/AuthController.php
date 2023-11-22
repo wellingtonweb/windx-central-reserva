@@ -164,16 +164,16 @@ class AuthController extends Controller
             return redirect()->route('central.login')->with('error','Token inválido!');
         }
 
-        if ($passwordReset && now()->diffInMinutes($passwordReset->created_at) > 15)
-        {
-            DB::table('password_resets')
-                ->where('token', $tokenUrl)
-                ->delete();
-
-            session()->forget('password_reset');
-
-            return redirect()->route('central.login')->with('error','Token expirado!');
-        }
+//        if ($passwordReset && now()->diffInMinutes($passwordReset->created_at) > 15)
+//        {
+//            DB::table('password_resets')
+//                ->where('token', $tokenUrl)
+//                ->delete();
+//
+//            session()->forget('password_reset');
+//
+//            return redirect()->route('central.login')->with('error','Token expirado!');
+//        }
 
         return view('auth.reset');
     }
@@ -184,7 +184,7 @@ class AuthController extends Controller
             'login' => ['required','bail','email:rfc,dns','exists:App\Models\PasswordResets,login'],
             'password' => ['required','bail','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/'],
             'confirm' => ['required','bail','min:8','same:password'],
-            'captcha' => ['required','bail', new Captcha],
+            'captcha' => ['required', new Captcha],
         ]);
 
         if ($validator->fails())
@@ -192,7 +192,8 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], 422);
         }
 
-//        $data = $validator->validated();
+        $data = $validator->validated();
+
 //
 //        $passwordReset = DB::table('password_resets')
 //            ->where('login', $data['login'])
@@ -207,6 +208,8 @@ class AuthController extends Controller
 
         $reset_session = session('password_reset');
 
+//        dd($data, $reset_session, $request['login']);
+
         $response = (new API)
             ->updatePasswordCustomer([
                 'customer_id' => $reset_session['customer_id'],
@@ -219,13 +222,28 @@ class AuthController extends Controller
             return redirect()->route('central.login')->with('error','Não foi possível redefinir a senha!');
         }
 
-        DB::table('password_resets')
-            ->where('login', $request['login'])
-            ->delete();
+//        DB::table('password_resets')
+//            ->where('login', $request['login'])
+//            ->delete();
 
-        session()->forget('password_reset');
+//        session()->forget('password_reset');
 
-        return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
+        $response = (new API())->customerLogon($validator->validate());
+
+        if($response->successful())
+        {
+            $customer = json_decode(json_encode($response->object()),true);
+
+            session()->put('customer',  $customer);
+
+            CustomerLog::create(UserInfo::get_customer_metadata());
+
+            return response()->json(200);
+//            return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
+        }
+
+        abort('500');
+
 
 
 //        if(session()->has('password_reset')){

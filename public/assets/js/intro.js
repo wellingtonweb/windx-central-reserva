@@ -227,22 +227,21 @@ $('#form_reset_password').submit(async function (e){
                     icon: 'success',
                     title: 'Senha alterada com sucesso!',
                     html: data.message,
-                    timer: 4000,
+                    timer: 3000,
                     timerProgressBar: false,
                     showConfirmButton: false,
                     didOpen: () => {
                         $(this)[0].reset();
                     },
                     willClose: () => {
-                        // $('.close_reset_password').click()
-                            $('#container-logo').addClass('animate__animated animate__fadeOutUp');
-                            $('#btn-contact').addClass('animate__animated animate__fadeOutRight');
-                            $('#footer').addClass('animate__animated animate__fadeOutDown');
-                            $(this)[0].reset();
-                            $('#btn-login').text('Entrar')
-                            $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
-                            $('.loader').removeClass('d-none');
-                            location.href = `/assinante/home`;
+                        $('#container-logo').addClass('animate__animated animate__fadeOutUp');
+                        $('#btn-contact').addClass('animate__animated animate__fadeOutRight');
+                        $('#footer').addClass('animate__animated animate__fadeOutDown');
+                        $(this)[0].reset();
+                        $('#btn-login').text('Entrar')
+                        $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
+                        $('.loader').removeClass('d-none');
+                        location.href = `/assinante/home`;
                     }
                 })
             }else{
@@ -317,6 +316,16 @@ function shakeError(elementClass)
     }, 1000);
 }
 
+function reloadCaptcha() {
+    $(".captcha img").click();
+    $("#captcha").val('');
+
+    $('.btn-reload-captcha').addClass('rotate');
+
+    var icon = document.querySelector('.btn-reload-captcha');
+    icon.classList.toggle('rotated');
+
+}
 
 setTimeout(() => {
     $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')

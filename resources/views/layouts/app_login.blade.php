@@ -80,14 +80,7 @@
 
     // var rotated = false;
 
-    function reloadCaptcha() {
-        $(".captcha img").click();
 
-        $('.btn-reload-captcha').addClass('rotate');
-
-        var icon = document.querySelector('.btn-reload-captcha');
-        icon.classList.toggle('rotated');
-    }
 </script>
 
 @if(session('message') || session('error') || session('error_checkout') )

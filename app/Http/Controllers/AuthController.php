@@ -164,16 +164,16 @@ class AuthController extends Controller
             return redirect()->route('central.login')->with('error','Token inválido!');
         }
 
-//        if ($passwordReset && now()->diffInMinutes($passwordReset->created_at) > 15)
-//        {
-//            DB::table('password_resets')
-//                ->where('token', $tokenUrl)
-//                ->delete();
-//
-//            session()->forget('password_reset');
-//
-//            return redirect()->route('central.login')->with('error','Token expirado!');
-//        }
+        if ($passwordReset && now()->diffInMinutes($passwordReset->created_at) > 15)
+        {
+            DB::table('password_resets')
+                ->where('token', $tokenUrl)
+                ->delete();
+
+            session()->forget('password_reset');
+
+            return redirect()->route('central.login')->with('error','Token expirado!');
+        }
 
         return view('auth.reset');
     }
@@ -195,20 +195,18 @@ class AuthController extends Controller
         $data = $validator->validated();
 
 //
-//        $passwordReset = DB::table('password_resets')
-//            ->where('login', $data['login'])
-//            ->first();
-//
-//        if($passwordReset === null)
-//        {
-//            session()->forget('password_reset');
-//
-//            return redirect()->route('central.login')->with('error','Login inválido!');
-//        }
+        $passwordReset = DB::table('password_resets')
+            ->where('login', $data['login'])
+            ->first();
+
+        if($passwordReset === null)
+        {
+            session()->forget('password_reset');
+
+            return redirect()->route('central.login')->with('error','Login inválido!');
+        }
 
         $reset_session = session('password_reset');
-
-//        dd($data, $reset_session, $request['login']);
 
         $response = (new API)
             ->updatePasswordCustomer([
@@ -222,11 +220,7 @@ class AuthController extends Controller
             return redirect()->route('central.login')->with('error','Não foi possível redefinir a senha!');
         }
 
-//        DB::table('password_resets')
-//            ->where('login', $request['login'])
-//            ->delete();
 
-//        session()->forget('password_reset');
 
         $response = (new API())->customerLogon($validator->validate());
 
@@ -236,7 +230,13 @@ class AuthController extends Controller
 
             session()->put('customer',  $customer);
 
-            CustomerLog::create(UserInfo::get_customer_metadata());
+            DB::table('password_resets')
+            ->where('login', $request['login'])
+            ->delete();
+
+            session()->forget('password_reset');
+
+//            CustomerLog::create(UserInfo::get_customer_metadata());
 
             return response()->json(200);
 //            return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
@@ -244,51 +244,6 @@ class AuthController extends Controller
 
         abort('500');
 
-
-
-//        if(session()->has('password_reset')){
-//            $reset_session = session('password_reset');
-
-//            if(empty($reset_session['customer_id'])){
-//                DB::table('password_resets')
-//                    ->where('token', $reset_session['token'])
-//                    ->delete();
-//
-//                abort(406);
-//            }
-//
-//            $validator = Validator::make($request->all(), [
-//                'login' => ['required', 'email:rfc,dns'],
-//                'password' => ['required','min:8'],
-//                'confirm' => ['required','min:8','same:password'],
-//                'captcha' => ['required', new Captcha],
-//            ]);
-//
-//            dd($validator->validated());
-
-//            $validated = $request->validated();
-
-//            if(!$validator->fails()){
-//                $response = (new API)
-//                    ->updatePasswordCustomer([
-//                        'customer_id' => $reset_session['customer_id'],
-//                        'customer_password' => base64_encode($request['password'])
-//                    ]);
-//
-//                if($response->successful()){
-//                    DB::table('password_resets')
-//                        ->where('token', $reset_session['token'])
-//                        ->delete();
-//
-//                    $request->session()->forget('password_reset');
-//
-//                    return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
-//
-//                }
-//            }
-//        }else{
-//            abort(406);
-//        }
     }
 
 

@@ -1674,6 +1674,7 @@ svg rect{
     /*.contents{*/
     /*    padding: .5rem !important;*/
     /*}*/
+
 }
 
 /* Medium devices (tablets, 768px and up)*/
@@ -1687,6 +1688,7 @@ svg rect{
     /*.contents{*/
     /*    padding: .5rem !important;*/
     /*}*/
+
 }
 
 /* Large devices (desktops, 992px and up)*/
@@ -1699,6 +1701,7 @@ svg rect{
     /*.container-fluid {*/
     /*    padding: 0 !important;*/
     /*}*/
+
 }
 
 .container-fluid, h1 h2 h3 h4 h5 h6 {

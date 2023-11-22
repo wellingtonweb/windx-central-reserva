@@ -387,9 +387,9 @@ class Functions
         return $status;
     }
 
-    public function generateTokenUrl($customerLogin)
+    public function generateTokenUrl()
     {
-        $token = Str::random(200) . '-' . base64_encode($customerLogin);
+        $token = Str::random(200);
 //        $url = env('app_base_url') . "nova-senha/" . Str::random($length) . '-' . base64_encode($customerLogin);
 
         return $token;

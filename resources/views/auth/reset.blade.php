@@ -8,8 +8,8 @@
                     <div class="card form-signin p-4" style="border-radius: 1rem">
                         <form id="form_reset_password" method="POST" action="{{ Route('central.reset.password') }}">
                             <div class="card-header font-weight-bold" style="padding-top: 0">
-                                <h2 style="font-size: 2rem; color: #002046;">Central do Assinante</h2>
-                                <h3 style="font-size: 1.5rem; color: #002046;">Nova senha</h3>
+                                <h2>Central do Assinante</h2>
+                                <h3>Nova senha</h3>
                             </div>
                             <div class="card-body" style="padding: 0 !important;">
                                 @csrf
@@ -21,16 +21,17 @@
                                     <div class="input-group-prepend">
                                         <i class="fa fa-user {{ $errors->has('email') ? 'text-danger' : '' }} " aria-hidden="true"></i>
                                     </div>
-                                    <input id="email"
+                                    <input id="login"
                                            type="text"
                                            value="{{ old('email') }}"
                                            class="form-control inputs-login
                                             @error('email') is-invalid @enderror"
-                                           name="email"
+                                           name="login"
                                            placeholder="{{ $errors->has('email') ? 'O e-mail é obrigatório' : 'Digite seu e-mail' }}"
                                            aria-label="E-mail"
                                            aria-describedby="email">
                                 </div>
+                                <small class="text-danger mt-3 login_reset_error"></small>
                                 <div class="input-group mb-2 {{ $errors->has('password') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -48,7 +49,8 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
-                                <div class="input-group mb-3 {{ $errors->has('confirm') ? 'is-error' : '' }}">
+                                <small class="text-danger mt-3 password_reset_error"></small>
+                                <div class="input-group {{ $errors->has('confirm') ? 'is-error' : '' }}">
                                     <div class="input-group-prepend">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </div>
@@ -64,6 +66,8 @@
                                         <i class="far fa-eye" onclick="showPassword(this)"></i>
                                     </span>
                                 </div>
+                                <small class="text-danger mt-3 confirm_reset_error"></small>
+                                @include('include.captcha')
                                 <div class="form-group">
                                     <div id="popover-password">
                                         <p><span id="result"></span></p>
@@ -79,7 +83,7 @@
                                             </div>
                                         </div>
 
-                                        <ul class="list-unstyled text-left pt-2 " style="font-size: 90%">
+                                        <ul class="list-unstyled text-left pt-2 " style="font-size: 80%">
                                             <li class="py-1">
                                                 <span class="text-muted">Sua senha deve ter:</span>
                                             </li>
@@ -121,7 +125,7 @@
                                 </div>
                             </div>
                             <div class="card-footer bg-white border-0">
-                                <button id="btn-save" type="submit" class="btn btn-primary btn-load_ btn-block" disabled
+                                <button id="btn-save" type="submit" class="btn btn-primary btn-load_ btn-block" disabled_
                                         style="font-size: 1rem; margin: 0">Salvar
                                 </button>
                             </div>
@@ -205,6 +209,8 @@
         .fa-check {
             color: #02b502;
         }
+
+
     </style>
 @endsection
 
@@ -286,6 +292,7 @@
                 lowUpperCase.classList.add('fa-circle');
                 lowUpperCase.classList.remove('fa-check');
                 checkLowUpperCase = false;
+                strength = -1;
             }
             //If it has numbers and characters
             if (password.match(/([0-9])/)) {
@@ -301,6 +308,7 @@
                 number.classList.add('fa-circle');
                 number.classList.remove('fa-check');
                 checkNumber = false;
+                strength = -1;
             }
             //If it has one special character
             if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
@@ -316,6 +324,7 @@
                 specialChar.classList.add('fa-circle');
                 specialChar.classList.remove('fa-check');
                 checkSpecialChar = false;
+                strength = -1;
             }
             //If password is greater than 7
             if (password.length > 7) {
@@ -331,6 +340,7 @@
                 eightChar.classList.add('fa-circle');
                 eightChar.classList.remove('fa-check');
                 checkEightChar = false;
+                strength = -1;
             }
             //If password is equals in inputs
             if((inputPassword.value == inputConfirmPassword.value) && (inputPassword.value != "") && (inputConfirmPassword.value != "")){
@@ -346,14 +356,15 @@
                 equalsChars.classList.add('fa-circle');
                 equalsChars.classList.remove('fa-check');
                 checkEqualsChars = false;
+                strength = -1;
             }
 
             //Check that all requirements have been met to enable the button
-            if(checkSpecialChar && checkLowUpperCase && checkNumber && checkEightChar && checkEqualsChars){
-                btnSave.disabled = false;
-            }else{
-                btnSave.disabled = true;
-            }
+            // if(checkSpecialChar && checkLowUpperCase && checkNumber && checkEightChar && checkEqualsChars){
+            //     btnSave.disabled = false;
+            // }else{
+            //     btnSave.disabled = true;
+            // }
 
             //Modified progress bar value with state
             if (strength == 1) {

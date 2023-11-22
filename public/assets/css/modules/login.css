@@ -64,11 +64,17 @@ article img {
     }
 
     .card-logon h2 {
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
+        color: #002046;
     }
 
     .card-logon h3 {
-        font-size: 1rem;
+        font-size: 1.2rem !important;
+        color: #002046;
+    }
+
+    #captcha {
+        width: 0 !important;
     }
 
     .input-group .input-group-prepend {
@@ -110,11 +116,17 @@ article img {
     }
 
     .card-logon h2 {
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
+        color: #002046;
     }
 
     .card-logon h3 {
-        font-size: 1rem;
+        font-size: 1.2rem !important;
+        color: #002046;
+    }
+
+    #captcha {
+        width: 0 !important;
     }
 
     .input-group .input-group-prepend {
@@ -144,6 +156,20 @@ article img {
     /*.container-fluid {*/
     /*    padding: 0 !important;*/
     /*}*/
+
+    .card-logon h2 {
+        font-size: 2rem;
+        color: #002046;
+    }
+
+    .card-logon h3 {
+        font-size: 1.5rem;
+        color: #002046;
+    }
+
+    #captcha {
+        width: 100px;
+    }
 }
 
 

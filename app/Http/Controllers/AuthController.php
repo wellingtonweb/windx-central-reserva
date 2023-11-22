@@ -29,7 +29,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
 use App\Models\PasswordResets;
 use App\Rules\Captcha;
-use App\Rules\CheckLogin;
+use App\Rules\CheckLoginForgotPassword;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -70,7 +71,7 @@ class AuthController extends Controller
         }else{
 
             $validator = Validator::make($request->all(), [
-                'login' => ['required', 'email:rfc,dns', new CheckLogin],
+                'login' => ['required', 'email:rfc,dns', new CheckLoginForgotPassword],
                 'password' => ['required','min:8'],
                 'captcha' => ['required', new Captcha],
             ]);
@@ -114,59 +115,46 @@ class AuthController extends Controller
     public function forgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login' => ['required', 'email:rfc,dns', new CheckLogin],
-//            'captcha' => ['required', new Captcha],
+            'login' => ['required','bail','email:rfc,dns', new CheckLoginForgotPassword],
+            'captcha' => ['required','bail', new Captcha],
         ]);
 
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-
-            return response()->json(['error' => $errors->first('login')], 422);
-        }else{
-//            $customer = (new API)->checkMailCustomer($request->login);
-
-//            if($customer != null){
-                //Gerar o token + login do cliente
-
-
-                $customer_reset = session('password_reset');
-
-                $token = (new Functions())->generateTokenUrl($customer_reset['customer_login']);
-
-//                $request->session()->put('password_reset.customer_id', $customer[0]->id);
-
-                //Gravar no banco de dados o token e o login do cliente
-                DB::table('password_resets')->insert([
-                    'email' => $customer_reset['customer_login'],
-                    'token' => $token,
-                    'created_at' => date("Y-m-d H:i:s")
-                ]);
-
-                $customerData = [
-                    'customer_id' => $customer_reset['customer_id'],
-                    'customer_name' => $customer_reset['customer_fullname'],
-                    'customer_login' => $customer_reset['customer_login'],
-                    'url' => env('app_base_url') . "nova-senha/" . $token
-                ];
-
-                //Fazer o disparo do e-mail com o link de recuperação
-                SendMailResetPasswordJob::dispatch($customerData);
-
-                return response()->json([
-                    'status' => 200,
-                    'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
-                ], 200);
-//            }else{
-//                return response()->json([
-//                    'error' => "Login não cadastrado!",
-//                    'message' => "Solicite seu cadastro em nossa Central de Atendimento.",
-//                ], 404);
-//            }
+        if ($validator->fails())
+        {
+            return response()->json(['error' => $validator->errors()], 422);
         }
+
+        $customer_reset = session('password_reset');
+        $token = Str::random(200);
+
+        DB::table('password_resets')->insert([
+            'login' => $customer_reset['customer_login'],
+            'token' => $token,
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
+
+        $customerData = [
+            'customer_id' => $customer_reset['customer_id'],
+            'customer_name' => $customer_reset['customer_fullname'],
+            'customer_login' => $customer_reset['customer_login'],
+            'url' => env('app_base_url') . "nova-senha/" . $token
+        ];
+
+        SendMailResetPasswordJob::dispatch($customerData);
+
+        session()->forget('password_reset');
+
+        return response()->json([
+            'status' => 200,
+            'message' => "Enviamos um link de redefinição de senha para seu e-mail de cadastro!",
+        ], 200);
+
     }
 
-    public function resetPassword(Request $request)
+    public function sendMailReset(Request $request)
     {
+        dd($request->all());
+
         if(session()->has('password_reset')){
             $reset_session = session('password_reset');
 
@@ -219,29 +207,24 @@ class AuthController extends Controller
 
         $tokenUrl = basename(url()->current());
 
-//        dd($tokenUrl);
-
-//        $response = (new Functions())->checkTokenReset($tokenUrl);
-
-        $validatedToken = DB::table('password_resets')
+        $passwordReset = DB::table('password_resets')
             ->where('token', $tokenUrl)
-            ->exists();
+            ->first();
 
-        if(!$validatedToken){
+        if($passwordReset === null){
+            return redirect()->route('central.login')->with('error','Token inválido!');
+        }
+
+        if ($passwordReset && now()->diffInMinutes($passwordReset->created_at) > 15) {
             DB::table('password_resets')
                 ->where('token', $tokenUrl)
                 ->delete();
 
-            abort(406);
+            return redirect()->route('central.login')->with('error','Token expirado!');
         }
 
-        session()->put('password_reset.token', $tokenUrl);
+//        session()->put('password_reset.token', $tokenUrl);
 
-//        DB::table('password_resets')
-//            ->where('token', $tokenUrl)
-//            ->delete();
-
-        //Se token for válido no BD
         return view('auth.reset');
     }
 

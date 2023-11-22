@@ -14,8 +14,7 @@
                         <div class="card-body" style="padding: 0 !important;">
                             @csrf
                             <p class="card-text subtitle-login text-black-50 pb-1">Preencha seus dados de acesso!</p>
-
-                            <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
+                            <div class="input-group mt-2 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
@@ -24,7 +23,7 @@
                                        aria-label="Login" aria-describedby="login">
                             </div>
                             <small class="text-danger mt-3 login_error"></small>
-                            <div class="input-group mt-3">
+                            <div class="input-group mt-2">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
@@ -32,21 +31,7 @@
                                        aria-describedby="password">
                             </div>
                             <small class="text-danger mt-3 password_error"></small>
-                            <div class="input-group mt-3 d-flex">
-                                <div class="input-group-prepend">
-                                    <i class="fas fa-asterisk text-windx" aria-hidden="true"></i>
-                                </div>
-                                <input style="width: 100px" type="text" id="captcha" placeholder="Captcha"
-                                       class="form-control inputs-login" name="captcha" aria-describedby="captcha"
-                                       autocomplete="off">
-                                    <div class="captcha">
-                                        @captcha
-                                        <span class="m-2" onclick="reloadCaptcha()">
-                                            <i class="fa fa-sync text-windx-80" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                            </div>
-                            <small class="text-danger mt-3 captcha_error"></small>
+                            @include('include.captcha')
                             <div class="text-right my-3">
                                 <a href="#" class="card-link text-primary open_reset_password">Esqueceu a senha?</a>
                             </div>
@@ -64,17 +49,19 @@
                         <div class="card-body" style="padding: 0 !important;">
                             @csrf
                             <p class="card-text text-black-50 pb-1">
-                                Preencha seu e-mail de cadastro<br>
-                                e lhe enviaremos um link <br>para gerar sua nova senha!
+                                Preencha seu login (e-mail)<br>
+                                e lhe enviaremos um link <br>
+                                para gerar sua nova senha!
                             </p>
-                            <div class="input-group mt-3 {{ $errors->has('login') ? 'is-error' : '' }}">
+                            <div class="input-group mt-2 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
                                 <input id="inputLoginReset" type="text" class="form-control inputs-login"
-                                       name="login" placeholder="Seu login" aria-label="Login" aria-describedby="login">
+                                       name="login" placeholder="Login" aria-label="Login" aria-describedby="login">
                             </div>
                             <small class="text-danger mt-3 login_reset_error"></small>
+                            @include('include.captcha')
                             <div class="text-right my-3">
                                 <a href="#" class="card-link text-primary close_reset_password">Voltar ao login?</a>
                             </div>
@@ -90,51 +77,35 @@
 </main>
 @endsection
 @section('js')
-    <script>
-        function reloadCaptcha() {
-            {{--const response = await fetch("{{ route('central.reload.captcha') }}");--}}
-            {{--const data = await response.json();--}}
-            $(".captcha img").click();
-            $(".captcha span i").addClass('text-danger');
-        }
-
-        var capt = `{{session('bone_captcha')}}`;
-        console.log(capt)
-    </script>
-
-
-{{--    @if ($errors->has('document'))--}}
-{{--        <script>--}}
-{{--            $('.full-screen-splash').addClass('d-none')--}}
-{{--            let message = `{{$errors->first('document')}}`;--}}
-{{--            Swal.fire({--}}
-{{--                icon: 'error',--}}
-{{--                title: 'Erro '+400+'!',--}}
-{{--                text: message,--}}
-{{--                timer: 7000--}}
-{{--            });--}}
-{{--        </script>--}}
-{{--    @elseif(session('error'))--}}
-{{--        <script>--}}
-{{--            $('.full-screen-splash').addClass('d-none')--}}
-{{--            let session = `{{session('error')}}`;--}}
-{{--            Swal.fire({--}}
-{{--                icon: 'error',--}}
-{{--                title: 'Erro '+400+'!',--}}
-{{--                text: session,--}}
-{{--                timer: 7000--}}
-{{--            });--}}
-{{--        </script>--}}
-{{--    @elseif(session('success'))--}}
-{{--        <script>--}}
-{{--            $('.full-screen-splash').addClass('d-none')--}}
-{{--            let session = `{{session('success')}}`;--}}
-{{--            Swal.fire({--}}
-{{--                icon: 'success',--}}
-{{--                title: session,--}}
-{{--                timer: 5000,--}}
-{{--                showConfirmButton: false,--}}
-{{--            });--}}
-{{--        </script>--}}
-{{--    @endif--}}
+    @if ($errors->has('document'))
+        <script>
+            $('.full-screen-splash').addClass('d-none')
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro!',
+                text: `{{$errors->first('document')}}`,
+                timer: 7000
+            });
+        </script>
+    @elseif(session('error'))
+        <script>
+            $('.full-screen-splash').addClass('d-none')
+            Swal.fire({
+                icon: 'error',
+                title: 'Ops!',
+                text: `{{session('error')}}`,
+                timer: 7000
+            });
+        </script>
+    @elseif(session('success'))
+        <script>
+            $('.full-screen-splash').addClass('d-none')
+            Swal.fire({
+                icon: 'success',
+                title: `{{session('success')}}`,
+                timer: 5000,
+                showConfirmButton: false,
+            });
+        </script>
+    @endif
 @endsection

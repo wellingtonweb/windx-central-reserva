@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Services\API;
 use Illuminate\Contracts\Validation\Rule;
 
-class CheckLogin implements Rule
+class CheckLoginForgotPassword implements Rule
 {
     /**
      * Create a new rule instance.

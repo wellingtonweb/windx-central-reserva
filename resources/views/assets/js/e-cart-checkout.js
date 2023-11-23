@@ -90,10 +90,11 @@ $('#form_checkout').submit(function (e){
         'actionForm': $(this).attr('action'),
         'methodForm': $(this).attr('method'),
         'dataForm': $(this).serialize(),
-        'methodCheckout': dataForm['9'].value,
+        'methodCheckout': dataForm['8'].value,
     }
     if(payment != null){
         sessionStorage.setItem('payment', JSON.stringify(payment));
+        console.log('Payment: ', payment);
         sendPayment(payment)
     }else{
         clearAllSections()

@@ -90,7 +90,7 @@ return [
     | Spacing between letters in pixels.
     |
     */
-    'letterSpacing' => 4,
+    'letterSpacing' => 5,
 
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ return [
     | You can specify an array or integer.
     |
     */
-    'length' => [4, 5],
+    'length' => [4, 4],
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
     | Enter the different characters.
     |
     */
-    'chars' => 'QSFHTRPAJKLMZXCVBNabdefhxktyzj23456789',
+    'chars' => 'QSFHTRDPAJKLMZXCVBNabdefhxktwyzj23456789',
 
     /*
     |--------------------------------------------------------------------------

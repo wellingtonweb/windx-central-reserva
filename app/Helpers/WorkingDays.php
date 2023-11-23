@@ -17,7 +17,7 @@ class WorkingDays
 
         $holidays = [
             $currentYear.'-01-01', $currentYear.'-04-07', $currentYear.'-04-21',
-            $currentYear.'-05-01', $currentYear.'-09-07', $currentYear.'-10-12',
+            $currentYear.'-05-01', $currentYear.'-09-07', $currentYear.'-09-15', $currentYear.'-10-12',
             $currentYear.'-11-02', $currentYear.'-11-15', $currentYear.'-12-25'];
 
         $dateInput = date('Y-m-d', strtotime($dateInput));
@@ -32,20 +32,45 @@ class WorkingDays
     public static function hasFees($dueDate)
     {
         $pay = Carbon::parse($dueDate);
-        $today = Carbon::now()->startOfDay();
-//        $today = Carbon::parse('2023-12-19T00:00:00');
+//        $today = Carbon::now()->startOfDay();
+        $today = Carbon::parse('2023-09-19T00:00:00');
 
-        if ($pay->isFriday() && $today >= $pay->addDays(4)) {
+        if ($pay->isFriday() && $today > $pay && $today <= $pay->addDays(3)) {
             return true;
         }
 
         $isHoliday = self::isHoliday($dueDate);
 
-        if ($isHoliday && ($pay->isWeekend() || $today > $pay->addDay())) {
+        if ($isHoliday && $pay->isFriday() && $today <= $pay->addDays(3)) {
             return true;
         }
 
-        if ($pay->isWeekend() && ($today >= $pay->next(Carbon::THURSDAY) || $today > $pay->addDay())) {
+        if ($isHoliday && $pay->isSaturday() && $today <= $pay->addDays(2)) {
+            return true;
+        }
+
+        if ($isHoliday && $pay->isSunday() && $today <= $pay->addDay()) {
+            return true;
+        }
+
+//        if ($isHoliday && ($pay->isFriday() || $pay->isWeekend() || $today <= $pay->addDay())) {
+//            return true;
+//        }
+
+
+        if ($isHoliday && ($pay->isWeekend() || $today <= $pay->addDay())) {
+            return true;
+        }
+
+        if (
+            $pay->isWeekend()
+            &&
+            (
+                $today >= $pay->next(Carbon::THURSDAY)
+                ||
+                $today > $pay->addDay()
+            )
+        ) {
             return true;
         }
 

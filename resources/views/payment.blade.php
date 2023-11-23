@@ -6,15 +6,12 @@
             <div class="container-fluid container-payment">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
                             </ol>
                         </nav>
-
-
                         <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="checkout-box" class="d-flex flex-wrap">
@@ -78,8 +75,6 @@
                             </div>
                         </div>
                         <div id="buttonsCheckout" class="d-none col-12 pl-0 pr-0">
-
-
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div class="row">
                                     <div class="col-lg-10 col-md-12 col-sm-12">
@@ -118,7 +113,6 @@
                             </div>
                         </div>
                     </div>
-
                 </main>
             </div>
         </section>
@@ -160,11 +154,8 @@
                                 <div class="row">
                                     <div id="inputs-hidden" class="form-row d-none">
                                         <input id="customer" name="customer"
-                                               value="{{session('customer.id')}}"
-                                               type="text" hidden>
+                                               value="{{session('customer.id')}}" type="text" hidden>
                                         <input id="cartBillets" name="billets" type="text" hidden>
-                                        <input id="ip_address" value="1.1.1.1" name="ip_address"
-                                               type="text" hidden>
                                         <input id="full_name" name="full_name" type="text"
                                                value="{{session('customer.full_name')}}" hidden>
                                         <input id="email" name="email" type="text"
@@ -173,15 +164,11 @@
                                                value="{{session('customer.document')}}" hidden>
                                         <input id="phone" name="phone" type="text"
                                                value="{{session('customer.phone')}}" hidden>
-                                        <input id="payment_type" name="payment_type" type="text"
-                                               hidden>
-{{--                                        <input id="cpf_cnpj_type" name="cpf_cnpj_type" type="text" value=" " hidden>--}}
-                                        <input id="token" type="hidden" name="_token"
-                                               value="{{ csrf_token() }}"/>
+                                        <input id="payment_type" name="payment_type" type="text" hidden>
+                                        <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
                                         <input id="method" name="method" type="text" hidden>
                                         <input id="installment" name="installment" type="text" hidden>
-                                        <input id="company" name="company" type="text" hidden>
-                                        <input id="terminal_id" name="terminal_id" type="text" value="{{Cookie::get('terminal_id')}}" hidden>
+                                        <input id="company" name="company" type="text" value="{{session('customer')['company_id']}}" hidden>
                                     </div>
                                     <div class="col-12">
                                         <div class="col-12 w-100 alert alert-danger text-display-error text-center justify-content-center font-weight-bold d-none"

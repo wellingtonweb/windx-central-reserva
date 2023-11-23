@@ -7,8 +7,8 @@
            autocomplete="off">
     <div class="captcha d-flex">
         @captcha
-        <div class="btn-reload-captcha m-2" onclick="reloadCaptcha()">
-            <i class="fa fa-sync text-windx-80" aria-hidden="true"></i>
+        <div class="btn-reload-captcha m-2">
+            <span class="reload fa fa-fw fa-sync text-primary"></span>
         </div>
     </div>
 </div>

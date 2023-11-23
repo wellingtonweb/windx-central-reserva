@@ -12,6 +12,7 @@ use App\Services\API;
 use App\Helpers\WorkingDays;
 use App\Services\Functions;
 use App\Services\Validations;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -82,8 +83,8 @@ class PagesController extends Controller
         if(session()->has('customer'))
         {
 
-//            $isfees = (new WorkingDays)->hasFees("2023-12-15T00:00:00");
-//            dd($isfees);
+            $isfees = (new WorkingDays)->hasFees("2023-09-15T00:00:00");
+            dd("2023-09-15T00:00:00", Carbon::now()->startOfDay(), $isfees);
 
 //            $customer = (new API())->getCustomer(session('customer')->id);
 
@@ -136,7 +137,7 @@ class PagesController extends Controller
                         $price = 0;
                         $addition = 0;
 
-                        if(!$hasFees){
+                        if($hasFees === true){
                             $price = number_format((float)($data['Valor']), 2, '.', ',');;
 //                            $price = number_format($data['Valor'], 2, '.', '');
                             $addition = number_format((float)(0), 2, '.', '');

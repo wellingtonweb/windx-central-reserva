@@ -21,9 +21,11 @@ function addToCartBtn(data){
     var installment = Number(billet.installment);
     var installmentValue = 0;
     console.log('Empresa: '+ company_id)
+    console.log('Installment: '+ installment)
+    $('input[name="installment"]').val("1");
 
     if(installment == 1){
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
         addPaintItem(btnId)
         displayCart();
         console.log(billetsCart)
@@ -31,7 +33,10 @@ function addToCartBtn(data){
         installmentValue = (parseFloat(value) / parseInt(installment));
 
         if(installment <= maxInstallment){
-            if(installmentValue >= minInstallmentValue){
+            if(installmentValue >= minInstallmentValue)
+            {
+                $('input[name="installment"]').val(installment)
+
                 Swal.fire({
                     icon: "info",
                     title: 'Pagamento de acordo!',
@@ -57,7 +62,7 @@ function addToCartBtn(data){
                     if (result.isConfirmed) {
                         $('input#installment').val(installment);
                         clearAllSections();
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment, company_id);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
@@ -79,7 +84,7 @@ function addToCartBtn(data){
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                     }
@@ -100,7 +105,7 @@ function addToCartBtn(data){
                 cancelButtonText: `Cancelar`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
+                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                     console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();

@@ -36,8 +36,9 @@
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputPassword" type="password" value="Wdx@1234567890" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
+                                <input id="inputPassword" type="password" value="W1ndX@2835322309$" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
                                        aria-describedby="password">
+                                <span toggle="#inputPassword" class="fa fa-fw fa-eye field-icon toggle-password text-primary mr-2"></span>
                             </div>
                             <small class="text-danger mt-2 password_error"></small>
                             @include('include.captcha')

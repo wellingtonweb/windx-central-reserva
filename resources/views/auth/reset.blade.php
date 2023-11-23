@@ -41,9 +41,7 @@
                                            placeholder="{{ $errors->has('password') ? 'A senha é obrigatória' : 'Digite a nova senha' }}"
                                            aria-label="Password"
                                            aria-describedby="password">
-                                    <span class="show-pass text-danger pr-3" onclick="toggle1()">
-                                        <i class="far fa-eye" onclick="showPassword(this)"></i>
-                                    </span>
+                                    <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password text-primary mr-2"></span>
                                 </div>
                                 <small class="text-danger mt-2 password_reset_error"></small>
                                 <div class="input-group mt-2 {{ $errors->has('confirm') ? 'is-error' : '' }}">
@@ -58,9 +56,7 @@
                                            placeholder="{{ $errors->has('confirm') ? 'A confirmação da senha é obrigatória' : 'Confirme a nova senha' }}"
                                            aria-label="Confirm password"
                                            aria-describedby="confirm password">
-                                    <span class="show-pass text-danger pr-3" onclick="toggle2()">
-                                        <i class="far fa-eye" onclick="showPassword(this)"></i>
-                                    </span>
+                                    <span toggle="#confirm" class="fa fa-fw fa-eye field-icon toggle-password text-primary mr-2"></span>
                                 </div>
                                 <small class="text-danger mt-2 confirm_reset_error"></small>
                                 @include('include.captcha')
@@ -241,29 +237,29 @@
             checkStrength(confPass);
         });
 
-        function toggle1() {
-            if (statePassword) {
-                inputPassword.setAttribute("type", "password");
-                statePassword = false;
-            } else {
-                inputPassword.setAttribute("type", "text")
-                statePassword = true;
-            }
-        }
-
-        function toggle2() {
-            if (stateConfirmPassword) {
-                inputConfirmPassword.setAttribute("type", "password");
-                stateConfirmPassword = false;
-            } else {
-                inputConfirmPassword.setAttribute("type", "text")
-                stateConfirmPassword = true;
-            }
-        }
-
-        function showPassword(show) {
-            show.classList.toggle("fa-eye-slash");
-        }
+        // function toggle1() {
+        //     if (statePassword) {
+        //         inputPassword.setAttribute("type", "password");
+        //         statePassword = false;
+        //     } else {
+        //         inputPassword.setAttribute("type", "text")
+        //         statePassword = true;
+        //     }
+        // }
+        //
+        // function toggle2() {
+        //     if (stateConfirmPassword) {
+        //         inputConfirmPassword.setAttribute("type", "password");
+        //         stateConfirmPassword = false;
+        //     } else {
+        //         inputConfirmPassword.setAttribute("type", "text")
+        //         stateConfirmPassword = true;
+        //     }
+        // }
+        //
+        // function showPassword(show) {
+        //     show.classList.toggle("fa-eye-slash");
+        // }
 
         $('#btn-save').click(function (){
            $(this).text('Salvando...')

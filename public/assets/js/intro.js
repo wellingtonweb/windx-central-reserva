@@ -1,7 +1,5 @@
 $('.open_reset_password').click(function() {
     $('small.text-danger').text('');
-    // $('#form_login').prop("disabled", true).fadeOut().hide();
-    // $('#form_login')[0].reset();
     $('#form_forgot_password')[0].reset();
     $('#form_forgot_password').prop("disabled", false).fadeIn(300).show();
     $('input').removeClass('is-invalid');
@@ -9,8 +7,6 @@ $('.open_reset_password').click(function() {
 
 $('.close_reset_password').click(function() {
     $('small.text-danger').text('');
-    // $('#form_forgot_password').prop("disabled", true).fadeOut().hide();
-    // $('#form_forgot_password')[0].reset();
     $('#form_login')[0].reset();
     $('#form_login').prop("disabled", false).fadeIn(200).show();
     $('input').removeClass('is-invalid');
@@ -314,19 +310,23 @@ function shakeError(elementClass)
     }, 1000);
 }
 
-function reloadCaptcha() {
+$(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
+
+$(".reload").click(function () {
     $(".captcha img").click();
-    $("#captcha").val('');
-
-    $('.btn-reload-captcha').addClass('rotate');
-
-    var icon = document.querySelector('.btn-reload-captcha');
-    icon.classList.toggle('rotated');
-    $('small.captcha_error').text('');
-
-}
-
-
+    $(this).addClass("fa-spin");
+    setTimeout(() => {
+        $(this).removeClass("fa-spin")
+    }, 800);
+})
 
 setTimeout(() => {
     $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')

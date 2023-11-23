@@ -8,7 +8,7 @@ var billetsCart = (function() {
     cart = [];
 
     // Constructor
-    function Item(billet_id, reference, duedate, value, addition, discount, price, count, installment, company_id) {
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
         this.duedate = duedate;
@@ -17,7 +17,6 @@ var billetsCart = (function() {
         this.discount = discount;
         this.price = price;
         this.count = count;
-        this.installment = installment;
         this.company_id = company_id;
     }
 
@@ -41,8 +40,8 @@ var billetsCart = (function() {
     var obj = {};
 
     // Add to cart
-    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, installment, company_id) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, installment, company_id);
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id);
 
         // var itemCheck = cart.some(function(testItem) {
         //     return testItem.billet_id === item.billet_id;
@@ -149,9 +148,11 @@ function addToCartBtn(data){
     var installment = Number(billet.installment);
     var installmentValue = 0;
     console.log('Empresa: '+ company_id)
+    console.log('Installment: '+ installment)
+    $('input[name="installment"]').val("1");
 
     if(installment == 1){
-        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
         addPaintItem(btnId)
         displayCart();
         console.log(billetsCart)
@@ -159,7 +160,10 @@ function addToCartBtn(data){
         installmentValue = (parseFloat(value) / parseInt(installment));
 
         if(installment <= maxInstallment){
-            if(installmentValue >= minInstallmentValue){
+            if(installmentValue >= minInstallmentValue)
+            {
+                $('input[name="installment"]').val(installment)
+
                 Swal.fire({
                     icon: "info",
                     title: 'Pagamento de acordo!',
@@ -185,7 +189,7 @@ function addToCartBtn(data){
                     if (result.isConfirmed) {
                         $('input#installment').val(installment);
                         clearAllSections();
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, installment, company_id);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
@@ -207,7 +211,7 @@ function addToCartBtn(data){
                     cancelButtonText: `Cancelar`,
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                     }
@@ -228,7 +232,7 @@ function addToCartBtn(data){
                 cancelButtonText: `Cancelar`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, 1, company_id);
+                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                     console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
@@ -672,11 +676,12 @@ $('#form_checkout').submit(function (e){
         'actionForm': $(this).attr('action'),
         'methodForm': $(this).attr('method'),
         'dataForm': $(this).serialize(),
-        'methodCheckout': dataForm['9'].value,
+        'methodCheckout': dataForm['8'].value,
     }
     if(payment != null){
         sessionStorage.setItem('payment', JSON.stringify(payment));
-        sendPayment(payment)
+        console.log('Payment: ', payment);
+        // sendPayment(payment)
     }else{
         clearAllSections()
         displayMessageErrorPayment('Sessão de pagamento inválida!')

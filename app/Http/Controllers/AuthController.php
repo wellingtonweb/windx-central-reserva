@@ -41,14 +41,7 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
-            return view('auth.login', [
-                // Captcha configuration for example page
-                'ExampleCaptcha' => [
-                    'UserInputID' => 'CaptchaCode',
-                    'ImageWidth' => 250,
-                    'ImageHeight' => 50,
-                ]
-            ]);
+            return view('auth.login');
         }
     }
 
@@ -85,7 +78,7 @@ class AuthController extends Controller
                 $response = (new API())->customerLogon($validator->validate());
 
                 if($response == null){
-                    return response()->json(['error' => 'Ops, login não cadastrado!'], 404);
+                    return response()->json(['error' => 'Login ou senha inválidos!'], 404);
                 }
 
                 if($response->successful())
@@ -112,7 +105,17 @@ class AuthController extends Controller
         return redirect()->route('central.login');
     }
 
-    public function forgotPassword(Request $request)
+    public function forgotPassword()
+    {
+        if(session()->has('customer')){
+            return redirect()->route('central.home');
+        }
+        else {
+            return view('auth.forgot');
+        }
+    }
+
+    public function mailForgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'login' => ['required','bail','email:rfc,dns', new CheckLoginForgotPassword],
@@ -220,8 +223,6 @@ class AuthController extends Controller
             return redirect()->route('central.login')->with('error','Não foi possível redefinir a senha!');
         }
 
-
-
         $response = (new API())->customerLogon($validator->validate());
 
         if($response->successful())
@@ -239,7 +240,6 @@ class AuthController extends Controller
 //            CustomerLog::create(UserInfo::get_customer_metadata());
 
             return response()->json(200);
-//            return redirect()->route('central.login')->with('success', 'Senha alterada com sucesso!');
         }
 
         abort('500');

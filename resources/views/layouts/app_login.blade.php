@@ -15,18 +15,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
     <link href="{{ captcha_layout_stylesheet_url() }}" type="text/css" rel="stylesheet">
-    <style>
-        .btn-reload-captcha {
-            width: auto;
-            height: auto;
-            cursor: pointer;
-            transition: transform 0.5s ease;
-        }
-
-        .rotated {
-            transform: rotate(360deg);
-        }
-    </style>
 </head>
 
 <body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
@@ -42,14 +30,6 @@
             <span>X</span>
         </h2>
     </div>
-</div>
-<div class="full-screen-splash">
-    <section>
-        <article>
-            <img class="animate__animated animate__zoomIn" src="{{ asset('assets/img/logox.svg') }}" alt="{{ config('app.name') }}">
-            <h2 class="text-white mt-3 animate__animated animate__zoomIn animate__delay-1s">Windx <br> Telecomunicações</h2>
-        </article>
-    </section>
 </div>
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
     <div id="container-logo" class="mt-3">
@@ -68,21 +48,12 @@
         @include('include.card-contact')
     </div>
 </div>
-
 <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
-
-<script>
-
-    // var rotated = false;
-
-
-</script>
-
 @if(session('message') || session('error') || session('error_checkout') )
     @if (session('error'))
         <script>
@@ -90,7 +61,7 @@
             let session = `{{session('error')}}`;
             Swal.fire({
                 icon: 'error',
-                title: 'Erro '+400+'!',
+                title: 'Erro ' + 400 + '!',
                 text: session,
                 timer: 7000,
                 showConfirmButton: false,
@@ -109,31 +80,30 @@
         </script>
     @endif
 
-        <script>
-            {{--var teste = {{json_decode(session('error'))}}--}}
-            {{--console.log(teste)--}}
-            // alert('Array!')
+{{--    <script>--}}
+        {{--var teste = {{json_decode(session('error'))}}--}}
+        {{--console.log(teste)--}}
 
-            {{--Swal.fire({--}}
-            {{--    title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
-            {{--    icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
-            {{--    html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
-            {{--    timer: 5000,--}}
-            {{--    timerProgressBar: false,--}}
-            {{--    showConfirmButton: false,--}}
-            {{--})--}}
-        </script>
-{{--    @else--}}
-{{--        <script>--}}
-{{--            Swal.fire({--}}
-{{--                title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
-{{--                icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
-{{--                html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
-{{--                timer: 5000,--}}
-{{--                timerProgressBar: false,--}}
-{{--                showConfirmButton: false,--}}
-{{--            })--}}
-{{--        </script>--}}
+        {{--Swal.fire({--}}
+        {{--    title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
+        {{--    icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
+        {{--    html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
+        {{--    timer: 5000,--}}
+        {{--    timerProgressBar: false,--}}
+        {{--    showConfirmButton: false,--}}
+        {{--})--}}
+{{--    </script>--}}
+    {{--    @else--}}
+    {{--        <script>--}}
+    {{--            Swal.fire({--}}
+    {{--                title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
+    {{--                icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
+    {{--                html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
+    {{--                timer: 5000,--}}
+    {{--                timerProgressBar: false,--}}
+    {{--                showConfirmButton: false,--}}
+    {{--            })--}}
+    {{--        </script>--}}
 @endif
 @hasSection('js')
     @yield('js')

@@ -46,6 +46,16 @@ article img {
     width: 75%;
 }
 
+.btn-reload-captcha {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+}
+
+.rotated {
+    transform: rotate(360deg);
+}
 
 
 /* Small devices (landscape phones, 576px and up) */

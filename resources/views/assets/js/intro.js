@@ -1,7 +1,7 @@
 $('.open_reset_password').click(function() {
     $('small.text-danger').text('');
-    $('#form_login').prop("disabled", true).fadeOut().hide();
-    $('#form_login')[0].reset();
+    // $('#form_login').prop("disabled", true).fadeOut().hide();
+    // $('#form_login')[0].reset();
     $('#form_forgot_password')[0].reset();
     $('#form_forgot_password').prop("disabled", false).fadeIn(300).show();
     $('input').removeClass('is-invalid');
@@ -9,8 +9,8 @@ $('.open_reset_password').click(function() {
 
 $('.close_reset_password').click(function() {
     $('small.text-danger').text('');
-    $('#form_forgot_password').prop("disabled", true).fadeOut().hide();
-    $('#form_forgot_password')[0].reset();
+    // $('#form_forgot_password').prop("disabled", true).fadeOut().hide();
+    // $('#form_forgot_password')[0].reset();
     $('#form_login')[0].reset();
     $('#form_login').prop("disabled", false).fadeIn(200).show();
     $('input').removeClass('is-invalid');
@@ -64,6 +64,7 @@ $('#form_login').submit(async function (e){
         if(response.status > 200){
 
             $('#btn-login').text('Entrar')
+            shakeError('form-signin')
             if(data.error.login){
                 $('small.login_error').text(data.error.login)
             }
@@ -73,25 +74,22 @@ $('#form_login').submit(async function (e){
             if(data.error.captcha){
                 $('small.captcha_error').text(data.error.captcha)
             }
-            if(data.status > 422){
-                shakeError('form-signin')
-                if(response.status === 404){
-                    Swal.fire({
-                        title: data.error,
-                        text: 'Solicite seu cadastro em nossa Central de Atendimento.',
-                        icon: 'warning',
-                        confirmButtonColor: '#208637',
-                        confirmButtonText: 'Central de Atendimento',
-                        showCloseButton: true,
-                        willClose: () => {
-                            $(this)[0].reset();
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-                        }
-                    })
-                }
+            if(response.status != 422){
+                Swal.fire({
+                    title: data.error,
+                    text: 'Confirme seus dados de acesso em nossa Central de Atendimento.',
+                    icon: 'warning',
+                    confirmButtonColor: '#208637',
+                    confirmButtonText: 'Central de Atendimento',
+                    showCloseButton: true,
+                    willClose: () => {
+                        $(this)[0].reset();
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
+                    }
+                })
             }
         }
 
@@ -106,7 +104,7 @@ $('#form_login').submit(async function (e){
             location.href = `/assinante/home`;
         }
     }catch(error) {
-        console.log(error);
+        //console.log(error);
     }
 })
 
@@ -324,8 +322,11 @@ function reloadCaptcha() {
 
     var icon = document.querySelector('.btn-reload-captcha');
     icon.classList.toggle('rotated');
+    $('small.captcha_error').text('');
 
 }
+
+
 
 setTimeout(() => {
     $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')

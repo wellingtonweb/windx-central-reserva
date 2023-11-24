@@ -34,47 +34,60 @@ class WorkingDays
         $pay = Carbon::parse($dueDate);
 //        $today = Carbon::now()->startOfDay();
         $today = Carbon::parse('2023-09-19T00:00:00');
-
-        if ($pay->isFriday() && $today > $pay && $today <= $pay->addDays(3)) {
-            return true;
-        }
-
         $isHoliday = self::isHoliday($dueDate);
 
-        if ($isHoliday && $pay->isFriday() && $today <= $pay->addDays(3)) {
-            return true;
-        }
+        if($today > $pay){
+            if ($isHoliday && $pay->isFriday() && $today <= $pay->addDays(3)) {
+                return 'Feriado, sexta e hj menor que pay +3';
+//            return true;
+            }
 
-        if ($isHoliday && $pay->isSaturday() && $today <= $pay->addDays(2)) {
-            return true;
-        }
+            if ($isHoliday && $pay->isSaturday() && $today <= $pay->addDays(2)) {
+                return 'Feriado, sábado e hj menor que pay +2';
+//            return true;
+            }
 
-        if ($isHoliday && $pay->isSunday() && $today <= $pay->addDay()) {
-            return true;
-        }
+            if ($isHoliday && $pay->isSunday() && $today <= $pay->addDay()) {
+                return 'Feriado, domingo e hj menor que pay +1';
+//            return true;
+            }
+
+            if ($isHoliday && !$pay->isWeekend() && $today <= $pay->addDay()) {
+                return 'Feriado, dia de semana e hj menor ou igual ao dia do pagto +1';
+//                return true;
+            }
+
+//            if ($pay->isFriday() && $today > $pay && $today <= $pay->addDays(3)) {
+//                return 'Não é feriado e sexta';
+////            return true;
+//            }
 
 //        if ($isHoliday && ($pay->isFriday() || $pay->isWeekend() || $today <= $pay->addDay())) {
 //            return true;
 //        }
 
 
-        if ($isHoliday && ($pay->isWeekend() || $today <= $pay->addDay())) {
-            return true;
+//        if ($isHoliday && ($pay->isWeekend() || $today <= $pay->addDay())) {
+//            return 'Feriado e sexta';
+////            return true;
+//        }
+//
+//        if (
+//            $pay->isWeekend()
+//            &&
+//            (
+//                $today >= $pay->next(Carbon::THURSDAY)
+//                ||
+//                $today > $pay->addDay()
+//            )
+//        ) {
+//            return true;
+//        }
         }
 
-        if (
-            $pay->isWeekend()
-            &&
-            (
-                $today >= $pay->next(Carbon::THURSDAY)
-                ||
-                $today > $pay->addDay()
-            )
-        ) {
-            return true;
-        }
 
-        return false;
+        return 'Cobrar juros';
+//        return false;
     }
 
     //        if($today <= $pay)

@@ -33,6 +33,7 @@ class Functions
 
     public static function calcFees(String $date, string $val)
     {
+//        $now = date_create(date('Y-m-d', strtotime("2023-09-16T00:00:00")));
         $now = date_create(date('Y-m-d'));
         $dueDate = date_create(date('Y-m-d', strtotime($date)));
         $days = 0;

@@ -83,7 +83,27 @@ class PagesController extends Controller
         if(session()->has('customer'))
         {
 
+//            $today = Carbon::parse("2023-09-16T00:00:00");
+////            $today = Carbon::now()->startOfDay();
+//            $pay = Carbon::parse("2023-09-15T00:00:00");
+//
+//
+//            if($today > $pay){
+//                $isfees = (new WorkingDays)->hasFees("2023-09-15T00:00:00");
+//                if($isfees){
+//                    $fees = (new Functions)->calcFees("2023-09-15T00:00:00", 1.00);
+//                }else{
+//                    $fees = 0;
+//                }
+//
+//                dd('Calc juros', $isfees, $fees);
+//            }else{
+//                dd('Sem juros');
+//            }
+//
+//
             $isfees = (new WorkingDays)->hasFees("2023-09-15T00:00:00");
+
             dd("2023-09-15T00:00:00", Carbon::now()->startOfDay(), $isfees);
 
 //            $customer = (new API())->getCustomer(session('customer')->id);
@@ -132,22 +152,42 @@ class PagesController extends Controller
                         onclick="deleteItemCart('. $data['Id'] .')">REMOVER</a>';
                 })
                 ->addColumn('add', function($data){
-                        $hasFees = (new WorkingDays)->hasFees($data['Vencimento']);
-                        $fees = (new Functions)->calcFees($data['Vencimento'], $data['Valor']);
-                        $price = 0;
-                        $addition = 0;
+                    $price = 0;
+                    $addition = 0;
+                    $fees = 0;
+                    $today = Carbon::now()->startOfDay();
+                    $pay = Carbon::parse($data['Vencimento']);
 
-                        if($hasFees === true){
-                            $price = number_format((float)($data['Valor']), 2, '.', ',');;
-//                            $price = number_format($data['Valor'], 2, '.', '');
-                            $addition = number_format((float)(0), 2, '.', '');
-//                            $addition = number_format(0, 2, '.', '');
+                    if($today > $pay)
+                    {
+                        $hasFees = (new WorkingDays)->hasFees($data['Vencimento']);
+
+                        if($hasFees){
+                            $fees = 0;
                         }else{
-                            $price = number_format((float)($fees + $data['Valor']), 2, '.', ',');
-//                            $price = number_format($fees + $data['Valor'], 2, '.', '');
-                            $addition = number_format((float)($fees), 2, '.', '');
-//                            $addition = number_format($fees, 2, '.', '');
+                            $fees = (new Functions)->calcFees($data['Vencimento'], $data['Valor']);
                         }
+
+                        $price = number_format((float)($fees + $data['Valor']), 2, '.', ',');
+                        $addition = number_format((float)($fees), 2, '.', '');
+                    }
+                    else
+                    {
+                        $price = number_format((float)($data['Valor']), 2, '.', ',');;
+                        $addition = number_format((float)(0), 2, '.', '');
+                    }
+
+//                        if($hasFees === true){
+//                            $price = number_format((float)($data['Valor']), 2, '.', ',');;
+////                            $price = number_format($data['Valor'], 2, '.', '');
+//                            $addition = number_format((float)(0), 2, '.', '');
+////                            $addition = number_format(0, 2, '.', '');
+//                        }else{
+//                            $price = number_format((float)($fees + $data['Valor']), 2, '.', ',');
+////                            $price = number_format($fees + $data['Valor'], 2, '.', '');
+//                            $addition = number_format((float)($fees), 2, '.', '');
+////                            $addition = number_format($fees, 2, '.', '');
+//                        }
 
                         $billet = json_encode([
                             'id' => $data['Id'],

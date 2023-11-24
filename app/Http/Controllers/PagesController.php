@@ -84,8 +84,10 @@ class PagesController extends Controller
         {
 
 //            $today = Carbon::parse("2023-09-16T00:00:00");
-////            $today = Carbon::now()->startOfDay();
+//////            $today = Carbon::now()->startOfDay();
 //            $pay = Carbon::parse("2023-09-15T00:00:00");
+//
+//            dd($pay->isCurrentDay());
 //
 //
 //            if($today > $pay){
@@ -102,9 +104,9 @@ class PagesController extends Controller
 //            }
 //
 //
-            $isfees = (new WorkingDays)->hasFees("2023-09-15T00:00:00");
-
-            dd("2023-09-15T00:00:00", Carbon::now()->startOfDay(), $isfees);
+//            $isfees = (new WorkingDays)->hasFees("2023-09-07T00:00:00");
+//
+//            dd("2023-09-15T00:00:00", Carbon::now()->startOfDay(), $isfees);
 
 //            $customer = (new API())->getCustomer(session('customer')->id);
 
@@ -156,6 +158,7 @@ class PagesController extends Controller
                     $addition = 0;
                     $fees = 0;
                     $today = Carbon::now()->startOfDay();
+//                    $today = Carbon::parse('2023-09-14T00:00:00');
                     $pay = Carbon::parse($data['Vencimento']);
 
                     if($today > $pay)

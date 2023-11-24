@@ -32,30 +32,82 @@ class WorkingDays
     public static function hasFees($dueDate)
     {
         $pay = Carbon::parse($dueDate);
-//        $today = Carbon::now()->startOfDay();
-        $today = Carbon::parse('2023-09-19T00:00:00');
+        $today = Carbon::now()->startOfDay();
+//        $today = Carbon::parse('2023-09-14T00:00:00');
         $isHoliday = self::isHoliday($dueDate);
 
-        if($today > $pay){
-            if ($isHoliday && $pay->isFriday() && $today <= $pay->addDays(3)) {
-                return 'Feriado, sexta e hj menor que pay +3';
-//            return true;
+//        if($today > $pay)
+//        {
+            //Se pag é feriado e se é final de semana
+            if($isHoliday && $pay->isWeekend())
+            {
+                //Se é pag sáb, se dia é sab e dia menor ou igual pag+2
+                if ($pay->isSaturday() && $today->isSaturday() && $today <= $pay->addDays(2)) {
+//                    return 'Feriado, sábado e hj menor que pay +2';
+            return true;
+                }
+
+                if ($pay->isSunday() && $today <= $pay->addDay()) {
+//                    return 'Feriado, domingo e hj menor que pay +1';
+            return true;
+                }
             }
 
-            if ($isHoliday && $pay->isSaturday() && $today <= $pay->addDays(2)) {
-                return 'Feriado, sábado e hj menor que pay +2';
-//            return true;
+            if ($isHoliday && $pay->isFriday()) {
+                if($today <= $pay->addDays(3))
+                {
+                                    return true;
+//                    return 'Venc feriado, venc sexta e hj menor que pay +3';
+                }
             }
 
-            if ($isHoliday && $pay->isSunday() && $today <= $pay->addDay()) {
-                return 'Feriado, domingo e hj menor que pay +1';
-//            return true;
+
+            //Se é final de semana
+            if($pay->isWeekend())
+            {
+                //Se é pag sáb, se dia é sab e dia menor ou igual pag+2
+                if ($pay->isSaturday() && $today->isSaturday() && $today <= $pay->addDays(2)) {
+//                        return 'Feriado, sábado e hj menor que pay +2';
+                    return true;
+                }
+
+                if ($pay->isSunday() && $today <= $pay->addDay()) {
+//                        return 'Feriado, domingo e hj menor que pay +1';
+                    return true;
+                }
             }
 
-            if ($isHoliday && !$pay->isWeekend() && $today <= $pay->addDay()) {
-                return 'Feriado, dia de semana e hj menor ou igual ao dia do pagto +1';
-//                return true;
+            if ($pay->isFriday()) {
+                if($today <= $pay->addDays(3))
+                {
+                    return true;
+//                        return 'Venc feriado, venc sexta e hj menor que pay +3';
+                }
             }
+
+//            if ($pay->isFriday() && $today <= $pay->addDays(3)) {
+//                return 'Feriado, sexta e hj menor que pay +3';
+////            return true;
+//            }
+//
+//            if ($pay->isSaturday() && $today <= $pay->addDays(2)) {
+//                return 'Feriado, sábado e hj menor que pay +2';
+////            return true;
+//            }
+//
+//            if ($pay->isSunday() && $today <= $pay->addDay()) {
+//                return 'Feriado, domingo e hj menor que pay +1';
+////            return true;
+//            }
+//
+//            if (!$pay->isWeekend() && $today <= $pay->addDay()) {
+//                return 'Pag caiu feriado, hj dia de semana e hj menor ou igual ao dia do pagto +1';
+////                return true;
+//            }
+
+
+
+
 
 //            if ($pay->isFriday() && $today > $pay && $today <= $pay->addDays(3)) {
 //                return 'Não é feriado e sexta';
@@ -83,11 +135,11 @@ class WorkingDays
 //        ) {
 //            return true;
 //        }
-        }
+//        }
 
 
-        return 'Cobrar juros';
-//        return false;
+//        return 'Cobrar juros';
+        return false;
     }
 
     //        if($today <= $pay)

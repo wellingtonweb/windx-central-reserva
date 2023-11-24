@@ -158,7 +158,6 @@ class PagesController extends Controller
                     $addition = 0;
                     $fees = 0;
                     $today = Carbon::now()->startOfDay();
-//                    $today = Carbon::parse('2023-09-14T00:00:00');
                     $pay = Carbon::parse($data['Vencimento']);
 
                     if($today > $pay)
@@ -180,40 +179,20 @@ class PagesController extends Controller
                         $addition = number_format((float)(0), 2, '.', '');
                     }
 
-//                        if($hasFees === true){
-//                            $price = number_format((float)($data['Valor']), 2, '.', ',');;
-////                            $price = number_format($data['Valor'], 2, '.', '');
-//                            $addition = number_format((float)(0), 2, '.', '');
-////                            $addition = number_format(0, 2, '.', '');
-//                        }else{
-//                            $price = number_format((float)($fees + $data['Valor']), 2, '.', ',');
-////                            $price = number_format($fees + $data['Valor'], 2, '.', '');
-//                            $addition = number_format((float)($fees), 2, '.', '');
-////                            $addition = number_format($fees, 2, '.', '');
-//                        }
+                    $billet = json_encode([
+                        'id' => $data['Id'],
+                        'reference' => $data['NossoNumero'],
+                        'value' => $data['Valor'],
+                        'duedate' => date("d/m/Y", strtotime($data['Vencimento'])),
+                        'price' => $price,
+                        'discount' => 0,
+                        'addition' => $addition,
+                        'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
+                        'company_id' => $data['Id_Empresa']
+                    ]);
 
-                        $billet = json_encode([
-                            'id' => $data['Id'],
-                            'reference' => $data['NossoNumero'],
-                            'value' => $data['Valor'],
-                            'duedate' => date("d/m/Y", strtotime($data['Vencimento'])),
-                            'price' => $price,
-                            'discount' => 0,
-                            'addition' => $addition,
-                            'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
-                            'company_id' => $data['Id_Empresa']
-                        ]);
-
-//                        $button = '<button type="button" id="select-billet-'. $data['Id'] .'" class="add-to-cart btn btn-success btn-sm btn-block"
-//                                        data-reference="'. $data['NossoNumero'] .'" data-value="'. $data['Valor'] .'"
-//                                        data-duedate="'. date("d/m/Y", strtotime($data['Vencimento'])) .'" data-id="'. $data['Id'] .
-//                                    '" data-discount="'. 0 .'" data-price="'. $price .'" data-addition="'. $addition .'"
-//                                    data-installments="'. $data['Referencia'] .'">
-//                                        PAGAR
-//                                    </button>';
-
-                        $button = '<a href="#" id="select-billet-'. $data['Id'] .
-                            '" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn('. htmlspecialchars(json_encode($billet)) .')">PAGAR</button>';
+                    $button = '<a href="#" id="select-billet-'. $data['Id'] .
+                        '" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn('. htmlspecialchars(json_encode($billet)) .')">PAGAR</button>';
 
                     return $button;
                 })

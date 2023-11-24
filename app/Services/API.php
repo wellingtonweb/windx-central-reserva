@@ -54,6 +54,8 @@ class API
 
     public function customerLogon($validate)
     {
+
+//        dd($validate);
         if($validate){
             $response = Http::accept('application/json')
 //                ->retry(3, 100)
@@ -63,11 +65,13 @@ class API
                     'password' => base64_encode($validate['password'])
                 ]);
 
-            if($response->successful()){
+//            dd($response->object());
+//
+//            if($response->successful()){
                 return $response;
-            }else{
-                return null;
-            }
+//            }else{
+//                return null;
+//            }
         }
 
         return null;

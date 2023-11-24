@@ -46,7 +46,6 @@ class Functions
             $vj = ((($val * 0.2) / 100) * $days);
 //            $result = number_format(floatval($vm + $vj), 2, ',', '');
             $result = $vm + $vj;
-//            dd(get_debug_type($result));
 
             return $result;
         } else {

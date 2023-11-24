@@ -37,10 +37,26 @@ class AuthController extends Controller
 
     public function login()
     {
-        if(session()->has('customer')){
+        if(session()->has('customer'))
+        {
             return redirect()->route('central.home');
         }
         else {
+//            $response = (new API())->customerLogon([
+//                "login" => "mailtest@windx.com.br",
+//                "password" => "W1ndX@2835322309$",
+//                "captcha" => "Hxb7"
+//            ]);
+//
+//            $status = "Vazio";
+//            if($response->object() != "ERRO"){
+//                $status = "OK";
+//            }else{
+//                $status = $response->object();
+//            }
+//
+//            dd($status, $response->object(), session('password_reset'));
+
             return view('auth.login');
         }
     }
@@ -77,20 +93,17 @@ class AuthController extends Controller
             {
                 $response = (new API())->customerLogon($validator->validate());
 
-                if($response == null){
+                if($response->object() == "ERRO"){
                     return response()->json(['error' => 'Login ou senha inválidos!'], 404);
                 }
 
-                if($response->successful())
-                {
-                    $customer = json_decode(json_encode($response->object()),true);
+                $customer = json_decode(json_encode($response->object()),true);
 
-                    session()->put('customer',  $customer);
+                session()->put('customer',  $customer);
 
-                    CustomerLog::create(UserInfo::get_customer_metadata());
+                CustomerLog::create(UserInfo::get_customer_metadata());
 
-                    return response()->json(200);
-                }
+                return response()->json(200);
             }
         }
     }
@@ -217,7 +230,9 @@ class AuthController extends Controller
                 'customer_password' => base64_encode($request['password'])
             ]);
 
-        if($response->failed())
+//        return response()->json($response->status());
+
+        if(!$response)
         {
             session()->forget('password_reset');
             return redirect()->route('central.login')->with('error','Não foi possível redefinir a senha!');
@@ -225,9 +240,11 @@ class AuthController extends Controller
 
         $response = (new API())->customerLogon($validator->validate());
 
-        if($response->successful())
+//        dd($response->object());
+
+        if($response != null)
         {
-            $customer = json_decode(json_encode($response->object()),true);
+            $customer = json_decode(json_encode($response),true);
 
             session()->put('customer',  $customer);
 

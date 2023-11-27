@@ -83,32 +83,9 @@ class PagesController extends Controller
         if(session()->has('customer'))
         {
 
-//            $today = Carbon::parse("2023-09-16T00:00:00");
-//////            $today = Carbon::now()->startOfDay();
-//            $pay = Carbon::parse("2023-09-15T00:00:00");
 //
-//            dd($pay->isCurrentDay());
-//
-//
-//            if($today > $pay){
-//                $isfees = (new WorkingDays)->hasFees("2023-09-15T00:00:00");
-//                if($isfees){
-//                    $fees = (new Functions)->calcFees("2023-09-15T00:00:00", 1.00);
-//                }else{
-//                    $fees = 0;
-//                }
-//
-//                dd('Calc juros', $isfees, $fees);
-//            }else{
-//                dd('Sem juros');
-//            }
-//
-//
-//            $isfees = (new WorkingDays)->hasFees("2023-09-07T00:00:00");
-//
-//            dd("2023-09-15T00:00:00", Carbon::now()->startOfDay(), $isfees);
-
-//            $customer = (new API())->getCustomer(session('customer')->id);
+//            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
+//            dd(session('customer.company_id'));
 
             return view('payment', [
                 'header' => 'Pagamento',
@@ -183,12 +160,13 @@ class PagesController extends Controller
                         'id' => $data['Id'],
                         'reference' => $data['NossoNumero'],
                         'value' => $data['Valor'],
-                        'duedate' => date("d/m/Y", strtotime($data['Vencimento'])),
+                        'duedate' => $data['Vencimento'],
+//                        'duedate' => date("d/m/Y", strtotime($data['Vencimento'])),
                         'price' => $price,
                         'discount' => 0,
                         'addition' => $addition,
                         'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
-                        'company_id' => $data['Id_Empresa']
+                        'company_id' => session('customer.company_id')
                     ]);
 
                     $button = '<a href="#" id="select-billet-'. $data['Id'] .

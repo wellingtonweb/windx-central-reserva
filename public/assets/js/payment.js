@@ -484,6 +484,7 @@ async function getBillets(){
     const billets = await response.json();
     let sliderBillets = document.querySelector('.billetsSwiper');
     $('.billetsSwiper').addClass('billetsSwiperLoading');
+
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
     }else{
@@ -681,7 +682,7 @@ $('#form_checkout').submit(function (e){
     if(payment != null){
         sessionStorage.setItem('payment', JSON.stringify(payment));
         console.log('Payment: ', payment);
-        // sendPayment(payment)
+        sendPayment(payment)
     }else{
         clearAllSections()
         displayMessageErrorPayment('Sessão de pagamento inválida!')
@@ -769,50 +770,51 @@ function sendPayment(payment){
         },
         success: function(response, textStatus, xhr) {
             console.log('Resposta do servidor: ', response)
-            if(xhr.status === 404 || xhr.status === 500){
-                alert(response.data.message)
-                // msgStatusTransaction(response.data.status)
-                $('#modalCard').modal('hide')
-            }else if(xhr.status === 200){
-                if(typeof response.data != "undefined"){
-                    if(response.data.status === 'approved'){
-                        $('#modalCard').modal('hide')
-                        // refreshSliderCards()
-                        sessionStorage.setItem('transactionId', response.data.id)
-                        transactionId = sessionStorage.getItem("transactionId");
-                        msgStatusTransaction(response.data.status)
-                    }else{
-                        if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
-                            setQrcode(response.data)
-                        }else{
-                            if(response.status != 422){
-                                $('#modalCard').modal('hide')
-                                displayMessageWaitingPayment()
-                                console.log('Aguardando status do pagamento')
-                            }else{
-                                console.log('Verifique os campos em vermelho!')
-                            }
-                        }
+            console.log('Status da resposta: ', xhr.status, textStatus)
+            console.log('Status do pagamento: ', response.status)
+            console.log('Metodo do checkout: ', payment.methodCheckout)
 
-                        // responseObj = getResponseError(response.original)
-                        // displayMessageErrorPayment(responseObj)
-                        // msgStatusTransaction(response.data.status)
-                    }
+            if(xhr.status === 200){
+                if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
+                    sessionStorage.setItem('transactionId', response.id)
+                    transactionId = sessionStorage.getItem("transactionId");
+                    setQrcode(response)
                 }else{
-                    console.log('Erro')
-                    // if(typeof response.original != "undefined"){
-                        responseObj = getResponseError(response.original)
-                    // alert('Erro indefinido: '+ responseObj)
-                    displayMessageErrorPayment(responseObj)
-                        console.log(responseObj)
-                    // }else{
-                    //     console.log('Erro 500!')
-                    // }
+                    if(response.status === 'approved'){
+                        msgStatusTransaction(response.status)
+                    }else{
+                        $('#modalCard').modal('hide')
+                        displayMessageWaitingPayment()
+                    }
                 }
             }else{
                 alert('outro erro')
-                console.log(response.data)
+                msgStatusTransaction(response.status)
+                    $('#modalCard').modal('hide')
+                // console.log(response.data)
             }
+
+            // if(xhr.status === 404 || xhr.status === 500){
+            //     // alert(response.data.message)
+            //     msgStatusTransaction(response.status)
+            //     $('#modalCard').modal('hide')
+            // }else if(xhr.status === 200){
+            //     if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
+            //         sessionStorage.setItem('transactionId', response.id)
+            //         transactionId = sessionStorage.getItem("transactionId");
+            //         setQrcode(response.data)
+            //     }else{
+            //         if(response.status === 'approved'){
+            //             msgStatusTransaction(response.status)
+            //         }else{
+            //             $('#modalCard').modal('hide')
+            //             displayMessageWaitingPayment()
+            //         }
+            //     }
+            // }else{
+            //     alert('outro erro')
+            //     // console.log(response.data)
+            // }
 
             // if (response.data.id == undefined) {
             //     console.log(response.data.message)
@@ -877,15 +879,15 @@ function sendPayment(payment){
     });
 }
 
-function getResponseError(ObjData)
-{
-    var startIndex = ObjData.error.indexOf('{');
-    var endIndex = ObjData.error.lastIndexOf('}') + 1;
-    var jsonStr = ObjData.error.substring(startIndex, endIndex);
-    var jsonObj = JSON.parse(jsonStr);
-
-    return jsonObj.message
-}
+// function getResponseError(ObjData)
+// {
+//     var startIndex = ObjData.error.indexOf('{');
+//     var endIndex = ObjData.error.lastIndexOf('}') + 1;
+//     var jsonStr = ObjData.error.substring(startIndex, endIndex);
+//     var jsonObj = JSON.parse(jsonStr);
+//
+//     return jsonObj.message
+// }
 
 /* Display qrcode for payment */
 function setQrcode(payment){

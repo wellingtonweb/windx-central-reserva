@@ -53,6 +53,7 @@ class CheckoutRequest extends FormRequest
             'cpf_cnpj' =>           ['required_if:method,picpay','required_if:payment_type,pix'],
 //            'cpf_cnpj_type' =>      ['required_if:payment_type,pix','string'],
             'phone' =>              ['required_if:method,picpay','string'],
+            'installment' =>        ['required'],
 //            'terminal_id' =>        ['required_if:method,tef'],
 //            'reference' =>          ['required_if:method,tef'],
         ];

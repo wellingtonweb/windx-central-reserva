@@ -194,11 +194,11 @@ class API
                 ->retry(3, 100)
                 ->post($this->apiUrl . '/api/payments', $body);
 
-            $response->object()->data;
+            return $response;
 
-            return response()->json([
-                'data' => $response->object()->data
-            ], 200);
+//            return response()->json([
+//                'data' => $response->object()->data
+//            ], 200);
 
         } catch (\Exception $e) {
 

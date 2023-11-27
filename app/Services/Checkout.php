@@ -42,6 +42,7 @@ class Checkout
                     "cpf_cnpj" => $identity,
                 ],
                 'payment_type' => 'Pix',
+                'installment' => $valid["installment"],
                 'customer_origin' => json_encode([
                     'origin' => 'central'
                 ])
@@ -60,7 +61,7 @@ class Checkout
                 ],
                 'payment_type' => $valid["payment_type"],
                 'method' => $valid["method"],
-                'installment' => 1,
+                'installment' => $valid["installment"],
                 'customer_origin' => json_encode([
                     'origin' => 'central'
                 ])
@@ -86,6 +87,7 @@ class Checkout
             ],
 //            'customer_origin' => Functions::getCustomerOrigin(),
             'method' => $valid["payment_type"],
+            'installment' => $valid["installment"],
             'customer_origin' => json_encode([
                 'origin' => 'central'
             ])

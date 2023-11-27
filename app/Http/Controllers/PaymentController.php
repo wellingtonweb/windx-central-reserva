@@ -126,6 +126,7 @@ class PaymentController extends Controller implements ShouldQueue
             return redirect()->route('central.login')->with('info', 'Sessão expirada!');
         }
 
+//        $validated = $request->all();
         $validated = $request->validated();
 
         if(!$validated)
@@ -153,12 +154,14 @@ class PaymentController extends Controller implements ShouldQueue
 
             $response = (new API())->postPayment($body);
 
-            if($response->status() > 201)
-            {
-                return response()->json($response);
-            }
+//            dd($response);
 
-            return response()->json($response->original);
+//            if($response->status() === 200)
+//            {
+                return response()->json($response->object()->data, 200);
+//            }
+
+//            return response()->json($response->object(), 500);
         }
 
     }

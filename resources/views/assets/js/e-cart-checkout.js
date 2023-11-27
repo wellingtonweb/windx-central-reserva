@@ -196,6 +196,8 @@ function sendPayment(payment){
                     if(response.status === 'approved'){
                         msgStatusTransaction(response.status)
                     }else{
+                        sessionStorage.setItem('transactionId', response.id)
+                        transactionId = sessionStorage.getItem("transactionId");
                         $('#modalCard').modal('hide')
                         displayMessageWaitingPayment()
                     }

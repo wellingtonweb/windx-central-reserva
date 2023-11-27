@@ -189,16 +189,10 @@ class API
     public function postPayment($body)
     {
         try {
-            $response = Http::accept('application/json')
+            return Http::accept('application/json')
                 ->withToken($this->apiToken)
                 ->retry(3, 100)
                 ->post($this->apiUrl . '/api/payments', $body);
-
-            return $response;
-
-//            return response()->json([
-//                'data' => $response->object()->data
-//            ], 200);
 
         } catch (\Exception $e) {
 

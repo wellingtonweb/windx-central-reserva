@@ -143,10 +143,10 @@ class PaymentController extends Controller implements ShouldQueue
 
             if($response->status() > 201)
             {
-                return response()->json(false);
+                return response()->json($response->object(), $response->status());
             }
 
-            return response()->json($response->original);
+            return response()->json($response->object()->data, 200);
         }
         else
         {
@@ -154,14 +154,12 @@ class PaymentController extends Controller implements ShouldQueue
 
             $response = (new API())->postPayment($body);
 
-//            dd($response);
+            if($response->status() > 201)
+            {
+                return response()->json($response->object(), $response->status());
+            }
 
-//            if($response->status() === 200)
-//            {
-                return response()->json($response->object()->data, 200);
-//            }
-
-//            return response()->json($response->object(), 500);
+            return response()->json($response->object()->data, 200);
         }
 
     }

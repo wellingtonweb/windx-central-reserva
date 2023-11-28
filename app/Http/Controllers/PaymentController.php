@@ -164,6 +164,14 @@ class PaymentController extends Controller implements ShouldQueue
 
     }
 
+    public function callback($id)
+    {
+//        if(session()->has('customer') && !empty($id))
+//        {
+            return redirect()->route('central.payment')->with('success',"Pagamento {$id} realizado com sucesso!");
+//        }
+    }
+
     public function callbackCheckout($id)
     {
         if(!session()->has('customer'))

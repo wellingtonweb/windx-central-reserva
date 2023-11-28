@@ -30,6 +30,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
     Route::post('/send-new-password', [AuthController::class, 'sendNewPassword'])->name('reset.password');
     Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');
+    Route::get('/callback/{id}', [PaymentController::class, 'callback'])->name('callback');
 
 
     Route::middleware(['check.user'])->group(function () {
@@ -54,7 +55,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
 
         /* Payment Routes */
         Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
-        Route::get('/callback/{id}', [PaymentController::class, 'callbackCheckout'])->name('callback');
+//        Route::get('/callback/{id}', [PaymentController::class, 'callbackCheckout'])->name('callback');
 
         /* Services Routes */
         Route::get('/print-invoice/{id}', [PDFController::class, 'printInvoice'])->name('printInvoice');

@@ -1178,6 +1178,32 @@
         <script type="text/javascript" defer>
             // inactivitySession();
         </script>
+    @if(session('success'))
+        <script>
+            $('.full-screen-splash').addClass('d-none')
+            $('.loader').addClass('d-none')
+            Swal.fire({
+                icon: 'success',
+                title: `{{session('success')}}`,
+                timer: 5000,
+                showConfirmButton: false,
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+                willClose: () => {
+                    displayMessageQuestionFinish()
+                }
+            });
+        </script>
+    @endif
 @endsection
 
 

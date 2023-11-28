@@ -118,7 +118,7 @@ function addToCartBtn(data){
         }
     }
 
-    // checkBillet = getCheckBillet(billet_id)
+    checkBillet = getCheckBillet(billet_id)
 
     // if(checkBillet === true){
     //     // icon.removeClass('fas fa-spinner fa-pulse')

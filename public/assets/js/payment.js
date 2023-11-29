@@ -245,7 +245,7 @@ function addToCartBtn(data){
         }
     }
 
-    // checkBillet = getCheckBillet(billet_id)
+    checkBillet = getCheckBillet(billet_id)
 
     // if(checkBillet === true){
     //     // icon.removeClass('fas fa-spinner fa-pulse')
@@ -781,8 +781,11 @@ function sendPayment(payment){
                     setQrcode(response)
                 }else{
                     if(response.status === 'approved'){
-                        msgStatusTransaction(response.status)
+                        // msgStatusTransaction(response.status)
+                        console.log("Pagamento ID: "+response.id+" - "+response.status)
                     }else{
+                        sessionStorage.setItem('transactionId', response.id)
+                        transactionId = sessionStorage.getItem("transactionId");
                         $('#modalCard').modal('hide')
                         displayMessageWaitingPayment()
                     }
@@ -1113,9 +1116,9 @@ function displayMessageErrorPayment(title){
     // })
 }
 
-function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+function displayMessageStatusTransaction(dTitle, dIcon, dTimer, paymentId){
     var dButton =
-        `<a href="${base_url}comprovante/${transactionId}/download"
+        `<a href="${base_url}comprovante/${paymentId}/download"
         class="download-pdf btn btn-primary btn-sm" target="_blank">
             <i class="fa fa-download pr-1"></i>
             Baixar comprovante

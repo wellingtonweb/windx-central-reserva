@@ -192,9 +192,11 @@ function sendPayment(payment){
                     sessionStorage.setItem('transactionId', response.id)
                     transactionId = sessionStorage.getItem("transactionId");
                     setQrcode(response)
+
                 }else{
                     if(response.status === 'approved'){
                         msgStatusTransaction(response.status)
+                        // console.log("Pagamento ID: "+response.id+" - "+response.status)
                     }else{
                         sessionStorage.setItem('transactionId', response.id)
                         transactionId = sessionStorage.getItem("transactionId");
@@ -395,13 +397,13 @@ function setQrcode(payment){
 
 
 /* Functions Display Messages */
-function msgStatusTransaction(status){
+function msgStatusTransaction(paymentId, status){
     if(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
                 refreshSliderCards()
-                displayMessageStatusTransaction('Pagamento realizado com sucesso!','success', 10000)
+                displayMessageStatusTransaction('Pagamento '+paymentId+' confirmado com sucesso!','success', 10000)
                 return true;
                 break;
             case 'expired':
@@ -528,9 +530,9 @@ function displayMessageErrorPayment(title){
     // })
 }
 
-function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+function displayMessageStatusTransaction(dTitle, dIcon, dTimer, paymentId){
     var dButton =
-        `<a href="${base_url}comprovante/${transactionId}/download"
+        `<a href="${base_url}comprovante/${paymentId}/download"
         class="download-pdf btn btn-primary btn-sm" target="_blank">
             <i class="fa fa-download pr-1"></i>
             Baixar comprovante

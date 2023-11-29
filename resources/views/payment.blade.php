@@ -1172,38 +1172,64 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>--}}
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
 
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>--}}
 {{--    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>--}}
         <script type="text/javascript" defer>
             // inactivitySession();
         </script>
-    @if(session('success'))
+{{--    @if(session('success'))--}}
         <script>
-            $('.full-screen-splash').addClass('d-none')
-            $('.loader').addClass('d-none')
-            Swal.fire({
-                icon: 'success',
-                title: `{{session('success')}}`,
-                timer: 5000,
-                showConfirmButton: false,
-                allowOutsideClick: () => {
-                    const popup = Swal.getPopup()
-                    popup.classList.remove('swal2-show')
-                    setTimeout(() => {
-                        popup.classList.add('animate__animated', 'animate__headShake')
-                    })
-                    setTimeout(() => {
-                        popup.classList.remove('animate__animated', 'animate__headShake')
-                    }, 500)
-                    return false
-                },
-                willClose: () => {
-                    displayMessageQuestionFinish()
-                }
+
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('4bd24f7e804373fc8cbb', {
+                cluster: 'us2'
             });
+
+            var channel = pusher.subscribe('payments');
+            channel.bind('payment-approved', function(data) {
+                $('.full-screen-splash').addClass('d-none')
+                $('.loader').addClass('d-none')
+                var paymentId = JSON.stringify(data.id);
+                var status = JSON.stringify(data.status);
+
+                paymentApproved(paymentId+' '+status.replace(/["]/g, ''))
+
+                // displayMessageStatusTransaction('Pagamento '+paymentId+' '+message+' com sucesso!','success', 10000, paymentId)
+
+            });
+
+            function paymentApproved(message){
+                Swal.fire({
+                    icon: 'success',
+                    title: message,
+                    {{--title: `{{session('success')}}`,--}}
+                    timer: 5000,
+                    showConfirmButton: false,
+                    allowOutsideClick: () => {
+                        const popup = Swal.getPopup()
+                        popup.classList.remove('swal2-show')
+                        setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
+                        })
+                        setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                        }, 500)
+                        return false
+                    },
+                    willClose: () => {
+                        // displayMessageQuestionFinish()
+                    }
+                });
+            }
+
         </script>
-    @endif
+{{--    @endif--}}
 @endsection
 
 

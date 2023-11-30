@@ -1,14 +1,14 @@
 $('.open_reset_password').click(function() {
     $('small.text-danger').text('');
-    $('#form_forgot_password')[0].reset();
-    $('#form_forgot_password').prop("disabled", false).fadeIn(300).show();
+    // $('#form_forgot_password')[0].reset();
+    // $('#form_forgot_password').prop("disabled", false).fadeIn(300).show();
     $('input').removeClass('is-invalid');
 });
 
 $('.close_reset_password').click(function() {
     $('small.text-danger').text('');
-    $('#form_login')[0].reset();
-    $('#form_login').prop("disabled", false).fadeIn(200).show();
+    // $('#form_login')[0].reset();
+    // $('#form_login').prop("disabled", false).fadeIn(200).show();
     $('input').removeClass('is-invalid');
 });
 
@@ -134,7 +134,7 @@ $('#form_forgot_password').submit(async function (e){
                         $(this)[0].reset();
                     },
                     willClose: () => {
-                        $('.close_reset_password').click()
+                        location.href = `/assinante/login`;
                     }
                 })
             }else{

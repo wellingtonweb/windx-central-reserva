@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\URL;
 use App\Models\PasswordResets;
 use App\Rules\Captcha;
 use App\Rules\CheckLoginForgotPassword;
+use App\Rules\CheckTokenPasswordReset;
 use Carbon\Carbon;
 
 class AuthController extends Controller
@@ -54,8 +55,14 @@ class AuthController extends Controller
 //            }else{
 //                $status = $response->object();
 //            }
+
+//            $response = (new API())->checkMailCustomer('mailtest@windx.com.br');
 //
-//            dd($status, $response->object(), session('password_reset'));
+//            if(count($response) != 0){
+//                dd($response);
+//            }else{
+//                dd('Não encontrado!');
+//            }
 
             return view('auth.login');
         }
@@ -78,7 +85,6 @@ class AuthController extends Controller
                     ]
                 ], 423);
         }else{
-
             $validator = Validator::make($request->all(), [
                 'login' => ['required', 'email:rfc,dns', new CheckLoginForgotPassword],
                 'password' => ['required','min:8'],
@@ -110,10 +116,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-
-//        Logger::log(session('customer.login'),'info','Fez o logout.');
-
-        (new Functions())->destroySessions();
+        session()->flush();
 
         return redirect()->route('central.login');
     }
@@ -131,6 +134,7 @@ class AuthController extends Controller
     public function mailForgotPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
+//            'login' => ['required','bail','email:rfc,dns'],
             'login' => ['required','bail','email:rfc,dns', new CheckLoginForgotPassword],
             'captcha' => ['required','bail', new Captcha],
         ]);
@@ -142,6 +146,8 @@ class AuthController extends Controller
 
         $customer_reset = session('password_reset');
         $token = Str::random(200);
+
+//        session()->put('password_reset.token',$token);
 
         DB::table('password_resets')->insert([
             'login' => $customer_reset['customer_login'],
@@ -169,6 +175,11 @@ class AuthController extends Controller
 
     public function newPassword()
     {
+        $reset_session = session('password_reset');
+
+//        dd($reset_session);
+
+
         $tokenUrl = basename(url()->current());
 
         $passwordReset = DB::table('password_resets')
@@ -186,22 +197,33 @@ class AuthController extends Controller
                 ->where('token', $tokenUrl)
                 ->delete();
 
-            session()->forget('password_reset');
+//            session()->forget('password_reset');
 
             return redirect()->route('central.login')->with('error','Token expirado!');
         }
+
+        session()->put('password_reset.token',$tokenUrl);
+
+//        dd(session('password_reset'));
 
         return view('auth.reset');
     }
 
     public function sendNewPassword(Request $request)
     {
+        $reset_session = session('password_reset');
+
+//        dd($reset_session);
+
         $validator = Validator::make($request->all(), [
-            'login' => ['required','bail','email:rfc,dns','exists:App\Models\PasswordResets,login'],
+            'login' => ['required','bail','email:rfc,dns', new CheckTokenPasswordReset],
+//            'login' => ['required','bail','email:rfc,dns','exists:App\Models\PasswordResets,login'],
             'password' => ['required','bail','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/'],
             'confirm' => ['required','bail','min:8','same:password'],
             'captcha' => ['required', new Captcha],
         ]);
+
+
 
         if ($validator->fails())
         {
@@ -209,6 +231,8 @@ class AuthController extends Controller
         }
 
         $data = $validator->validated();
+
+//        dd($data);
 
 //
         $passwordReset = DB::table('password_resets')
@@ -222,7 +246,7 @@ class AuthController extends Controller
             return redirect()->route('central.login')->with('error','Login inválido!');
         }
 
-        $reset_session = session('password_reset');
+//                dd($reset_session);
 
         $response = (new API)
             ->updatePasswordCustomer([
@@ -244,15 +268,14 @@ class AuthController extends Controller
 
         if($response != null)
         {
-            $customer = json_decode(json_encode($response),true);
-
+            $customer = json_decode(json_encode($response->object()),true);
             session()->put('customer',  $customer);
 
-            DB::table('password_resets')
-            ->where('login', $request['login'])
-            ->delete();
+//            DB::table('password_resets')
+//            ->where('login', $request['login'])
+//            ->delete();
 
-            session()->forget('password_reset');
+//            session()->forget('password_reset');
 
 //            CustomerLog::create(UserInfo::get_customer_metadata());
 

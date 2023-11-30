@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+    {{dd(session('customer'))}}
     <main>
         <section>
             <div class="container-fluid container-payment">
@@ -1182,53 +1184,61 @@
             // inactivitySession();
         </script>
 {{--    @if(session('success'))--}}
-        <script>
+{{--        <script>--}}
 
-            // Enable pusher logging - don't include this in production
-            Pusher.logToConsole = true;
+{{--            // Enable pusher logging - don't include this in production--}}
+{{--            Pusher.logToConsole = true;--}}
 
-            var pusher = new Pusher('4bd24f7e804373fc8cbb', {
-                cluster: 'us2'
-            });
+{{--            var pusher = new Pusher('4bd24f7e804373fc8cbb', {--}}
+{{--                cluster: 'us2'--}}
+{{--            });--}}
 
-            var channel = pusher.subscribe('payments');
-            channel.bind('payment-approved', function(data) {
-                $('.full-screen-splash').addClass('d-none')
-                $('.loader').addClass('d-none')
-                var paymentId = JSON.stringify(data.id);
-                var status = JSON.stringify(data.status);
+{{--            var channel = pusher.subscribe('payments');--}}
+{{--            channel.bind('payment-approved', function(data) {--}}
+{{--                $('.full-screen-splash').addClass('d-none')--}}
+{{--                $('.loader').addClass('d-none')--}}
+{{--                console.log(transactionId);--}}
+{{--                console.log(JSON.stringify(data))--}}
+{{--                var paymentId = data.payment.id;--}}
+{{--                var status = JSON.stringify(data.payment.status);--}}
 
-                paymentApproved(paymentId+' '+status.replace(/["]/g, ''))
+{{--                // if(paymentId === transactionId){--}}
+{{--                    // paymentApproved(status.replace(/["]/g, ''))--}}
+{{--                    // msgStatusTransaction(paymentId, status)--}}
+{{--                    displayMessageStatusTransaction('Pagamento nº '+paymentId+' foi aprovado!','success', 10000, paymentId)--}}
+{{--                // }--}}
 
-                // displayMessageStatusTransaction('Pagamento '+paymentId+' '+message+' com sucesso!','success', 10000, paymentId)
+{{--                // paymentApproved(paymentId+' '+status.replace(/["]/g, ''))--}}
 
-            });
 
-            function paymentApproved(message){
-                Swal.fire({
-                    icon: 'success',
-                    title: message,
-                    {{--title: `{{session('success')}}`,--}}
-                    timer: 5000,
-                    showConfirmButton: false,
-                    allowOutsideClick: () => {
-                        const popup = Swal.getPopup()
-                        popup.classList.remove('swal2-show')
-                        setTimeout(() => {
-                            popup.classList.add('animate__animated', 'animate__headShake')
-                        })
-                        setTimeout(() => {
-                            popup.classList.remove('animate__animated', 'animate__headShake')
-                        }, 500)
-                        return false
-                    },
-                    willClose: () => {
-                        // displayMessageQuestionFinish()
-                    }
-                });
-            }
 
-        </script>
+{{--            });--}}
+
+{{--            function paymentApproved(message){--}}
+{{--                Swal.fire({--}}
+{{--                    icon: 'success',--}}
+{{--                    title: message,--}}
+{{--                    --}}{{--title: `{{session('success')}}`,--}}
+{{--                    timer: 5000,--}}
+{{--                    showConfirmButton: false,--}}
+{{--                    allowOutsideClick: () => {--}}
+{{--                        const popup = Swal.getPopup()--}}
+{{--                        popup.classList.remove('swal2-show')--}}
+{{--                        setTimeout(() => {--}}
+{{--                            popup.classList.add('animate__animated', 'animate__headShake')--}}
+{{--                        })--}}
+{{--                        setTimeout(() => {--}}
+{{--                            popup.classList.remove('animate__animated', 'animate__headShake')--}}
+{{--                        }, 500)--}}
+{{--                        return false--}}
+{{--                    },--}}
+{{--                    willClose: () => {--}}
+{{--                        displayMessageQuestionFinish()--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            }--}}
+
+{{--        </script>--}}
 {{--    @endif--}}
 @endsection
 

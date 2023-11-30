@@ -2,19 +2,23 @@
 
 namespace App\Rules;
 
-use App\Services\API;
 use Illuminate\Contracts\Validation\Rule;
+use App\Models\PasswordResets;
+use Illuminate\Support\Facades\Session;
 
-class CheckLoginForgotPassword implements Rule
+class CheckTokenPasswordReset implements Rule
 {
+    public $token;
+
     /**
      * Create a new rule instance.
      *
      * @return void
+     *
      */
     public function __construct()
     {
-        //
+        $this->token = session('password_reset.token');
     }
 
     /**
@@ -26,17 +30,11 @@ class CheckLoginForgotPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        $response = (new API())->checkMailCustomer($value);
+        $reset = PasswordResets::where('login', '=', $value)
+            ->where('token', '=', $this->token)
+            ->first();
 
-        if($response != null){
-            session()->put('password_reset.customer_id',$response[0]->id);
-            session()->put('password_reset.customer_fullname',$response[0]->nome);
-            session()->put('password_reset.customer_login',$response[0]->login);
-        }
-
-//        dd(session()->all());
-
-        return $response != null;
+        return $reset != null;
     }
 
     /**
@@ -46,6 +44,6 @@ class CheckLoginForgotPassword implements Rule
      */
     public function message()
     {
-        return 'Ops, login não cadastrado';
+        return 'Login inválido para esta sessão.';
     }
 }

@@ -136,7 +136,7 @@ function callbackTransaction(id){
             }
             msgStatusTransaction(data.status)
             resetTimer()
-            // console.log('Message: ', data)
+            console.log('Callback status: ', data.status)
         }
     })
 }
@@ -184,6 +184,7 @@ function sendPayment(payment){
         success: function(response, textStatus, xhr) {
             console.log('Resposta do servidor: ', response)
             console.log('Status da resposta: ', xhr.status, textStatus)
+            console.log('ID do pagamento: ', response.id)
             console.log('Status do pagamento: ', response.status)
             console.log('Metodo do checkout: ', payment.methodCheckout)
 
@@ -192,6 +193,9 @@ function sendPayment(payment){
                     sessionStorage.setItem('transactionId', response.id)
                     transactionId = sessionStorage.getItem("transactionId");
                     setQrcode(response)
+                    callback = setInterval(function () {
+                        callbackTransaction(response.id)
+                    }, 5000);
 
                 }else{
                     if(response.status === 'approved'){
@@ -397,13 +401,15 @@ function setQrcode(payment){
 
 
 /* Functions Display Messages */
-function msgStatusTransaction(paymentId, status){
+function msgStatusTransaction(status){
+// function msgStatusTransaction(paymentId, status){
     if(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
                 refreshSliderCards()
-                displayMessageStatusTransaction('Pagamento '+paymentId+' confirmado com sucesso!','success', 10000)
+                displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 10000)
+                // displayMessageStatusTransaction('Pagamento '+paymentId+' confirmado com sucesso!','success', 10000)
                 return true;
                 break;
             case 'expired':
@@ -530,7 +536,8 @@ function displayMessageErrorPayment(title){
     // })
 }
 
-function displayMessageStatusTransaction(dTitle, dIcon, dTimer, paymentId){
+function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+// function displayMessageStatusTransaction(dTitle, dIcon, dTimer, paymentId){
     var dButton =
         `<a href="${base_url}comprovante/${paymentId}/download"
         class="download-pdf btn btn-primary btn-sm" target="_blank">

@@ -64,6 +64,7 @@ class AuthController extends Controller
 //                dd('Não encontrado!');
 //            }
 
+
             return view('auth.login');
         }
     }
@@ -107,6 +108,8 @@ class AuthController extends Controller
 
                 session()->put('customer',  $customer);
 
+//                dd(session('customer'));
+
                 CustomerLog::create(UserInfo::get_customer_metadata());
 
                 return response()->json(200);
@@ -127,6 +130,10 @@ class AuthController extends Controller
             return redirect()->route('central.home');
         }
         else {
+            if(session()->has('password_reset')){
+                session()->forget('password_reset');
+            }
+
             return view('auth.forgot');
         }
     }
@@ -254,35 +261,37 @@ class AuthController extends Controller
                 'customer_password' => base64_encode($request['password'])
             ]);
 
-//        return response()->json($response->status());
-
         if(!$response)
         {
             session()->forget('password_reset');
-            return redirect()->route('central.login')->with('error','Não foi possível redefinir a senha!');
-        }
 
-        $response = (new API())->customerLogon($validator->validate());
+            return response()->json(['error' => 'Não foi possível redefinir a senha!'], 400);
+//            return redirect()->route('central.login')->with('error','');
+        }else{
+            //        dd($validator->validate());
 
-//        dd($response->object());
+            $response = (new API())->customerLogon($validator->validate());
 
-        if($response != null)
-        {
+//            dd($response->object());
+
+            if($response->object() == "ERRO"){
+                return response()->json(['error' => 'Login ou senha inválidos!'], 404);
+            }
+
             $customer = json_decode(json_encode($response->object()),true);
+
             session()->put('customer',  $customer);
 
-//            DB::table('password_resets')
-//            ->where('login', $request['login'])
-//            ->delete();
+            DB::table('password_resets')
+                ->where('login', $request['login'])
+                ->delete();
 
-//            session()->forget('password_reset');
+            session()->forget('password_reset');
 
 //            CustomerLog::create(UserInfo::get_customer_metadata());
 
             return response()->json(200);
         }
-
-        abort('500');
 
     }
 

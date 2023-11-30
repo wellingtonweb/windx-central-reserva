@@ -30,6 +30,11 @@ class PagesController extends Controller
         if ($hourBackup) {
             abort(423);
         }
+
+//        if(session()->has('customer') && session('customer')){
+//
+//        }
+
     }
 
     public function home()

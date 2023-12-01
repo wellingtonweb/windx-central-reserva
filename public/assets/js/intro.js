@@ -39,6 +39,7 @@ $('#form_login').submit(async function (e){
         let data = await response.json();
 
         if(data.error === undefined && response.status > 200){
+            $('#btn-login').text('Entrar')
             Swal.fire({
                 title: '403 - Serviço indisponível!',
                 html: "Informe em nossa<br> Central de Atendimento.",
@@ -60,10 +61,14 @@ $('#form_login').submit(async function (e){
         {
             $('#btn-login').text('Entrar')
             shakeError('form-signin')
-            if(data.error.login){
+            if(data.error.login)
+            {
+                $('#btn-login').text('Entrar')
                 $('small.login_error').text(data.error.login)
             }
-            if(data.error.password){
+            if(data.error.password)
+            {
+                $('#btn-login').text('Entrar')
                 $('small.password_error').text(data.error.password)
             }
             if(response.status != 422){

@@ -57,14 +57,10 @@
     <script>
         $( "#inputLogin" ).on( "click", function() {
             $("#smallErrorLogin").text('');
-            console.log('Login')
-            // alert( "Handler for `focus` called." );
-        } );
+        });
         $( "#inputPassword" ).on( "click", function() {
             $("#smallErrorPassword").text('');
-            console.log('Password')
-            // alert( "Handler for `focus` called." );
-        } );
+        });
     </script>
     @if ($errors->has('document'))
         <script>

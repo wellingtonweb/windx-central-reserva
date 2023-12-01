@@ -4,7 +4,7 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
-                <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
+                <div class="row contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
 {{--                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">--}}
 {{--                        <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">--}}
 {{--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">--}}
@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Comprovantes</li>
                         </ol>
                     </nav>
-                    <div class="col-12">
+                    <div class="container-list-payments col-12">
                         <table class="table table-bordered table-striped display list-payments text-uppercase">
                         </table>
                     </div>

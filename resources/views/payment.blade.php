@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    {{dd(session('customer'))}}
     <main>
         <section>
             <div class="container-fluid container-payment">

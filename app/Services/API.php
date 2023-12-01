@@ -64,6 +64,8 @@ class API
 //                    'password' => base64_encode($validate['password'])//Auth with mail
                 ]);
 
+            if($response->status() == 500) return null;
+
             return $response;
         }
 

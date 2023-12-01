@@ -61,10 +61,9 @@ class AuthController extends Controller
     public function logon(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'login' => ['required', 'bail', new CheckFormatLogin],
+            'login' => ['required'],
             'password' => ['required'],
         ]);
-
 
         if ($validator->fails())
         {
@@ -72,21 +71,21 @@ class AuthController extends Controller
         }
         else
         {
-            dd($validator->validated());
-
             $response = (new API())->customerLogon($validator->validate());
 
             if($response->object() == "ERRO"){
                 return response()->json(['error' => 'Login ou senha inválidos!'], 404);
             }
 
+            if($response->status() == 500){
+                return response()->json(['error' => 'Dados inválidos!'], 500);
+            }
+
             $customer = json_decode(json_encode($response->object()),true);
 
             session()->put('customer',  $customer);
 
-//                dd(session('customer'));
-
-            CustomerLog::create(UserInfo::get_customer_metadata());
+//            CustomerLog::create(UserInfo::get_customer_metadata());
 
             return response()->json(200);
         }

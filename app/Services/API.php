@@ -54,24 +54,17 @@ class API
 
     public function customerLogon($validate)
     {
-
-//        dd($validate);
         if($validate){
             $response = Http::accept('application/json')
 //                ->retry(3, 100)
                 ->withToken($this->apiToken)
                 ->post($this->apiUrl . '/api/customer/central/login', [
                     'login' => $validate['login'],
-                    'password' => base64_encode($validate['password'])
+                    'password' => $validate['password']
+//                    'password' => base64_encode($validate['password'])//Auth with mail
                 ]);
 
-//            dd($response->object());
-//
-//            if($response->successful()){
-                return $response;
-//            }else{
-//                return null;
-//            }
+            return $response;
         }
 
         return null;

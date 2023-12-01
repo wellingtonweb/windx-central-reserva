@@ -23,18 +23,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class PagesController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
 
         $hourBackup = Validations::checkHourBackupVigo($array);
-        if ($hourBackup) {
-            abort(423);
-        }
 
-//        if(session()->has('customer') && session('customer')){
-//
-//        }
-
+        if ($hourBackup) return abort(423);
     }
 
     public function home()

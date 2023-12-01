@@ -34,12 +34,12 @@ $('#form_login').submit(async function (e){
             body: JSON.stringify({
                 login: formData[1].value,
                 password: formData[2].value,
-                captcha: formData[3].value,
             }),
         });
         let data = await response.json();
 
         if(data.error === undefined && response.status > 200){
+            $('#btn-login').text('Entrar')
             Swal.fire({
                 title: '403 - Serviço indisponível!',
                 html: "Informe em nossa<br> Central de Atendimento.",
@@ -57,18 +57,19 @@ $('#form_login').submit(async function (e){
             })
         }
 
-        if(response.status > 200){
-
+        if(response.status > 200)
+        {
             $('#btn-login').text('Entrar')
             shakeError('form-signin')
-            if(data.error.login){
+            if(data.error.login)
+            {
+                $('#btn-login').text('Entrar')
                 $('small.login_error').text(data.error.login)
             }
-            if(data.error.password){
+            if(data.error.password)
+            {
+                $('#btn-login').text('Entrar')
                 $('small.password_error').text(data.error.password)
-            }
-            if(data.error.captcha){
-                $('small.captcha_error').text(data.error.captcha)
             }
             if(response.status != 422){
                 Swal.fire({
@@ -102,204 +103,6 @@ $('#form_login').submit(async function (e){
     }catch(error) {
         //console.log(error);
     }
-})
-
-$('#form_forgot_password').submit(async function (e){
-    e.preventDefault();
-    let formData = $(this).serializeArray()
-    console.log('Form forgot: ', formData)
-    let url = "/assinante/forgot-password";
-    $('#btn-send-mail').text('Enviando...')
-
-    await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": formData[0].value
-        },
-        body: JSON.stringify({login: formData[1].value, captcha: formData[2].value }),//captcha: formData[2].value
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            if(!data.error){
-                $('#btn-send-mail').text('Enviar')
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Enviado com sucesso!',
-                    html: data.message,
-                    timer: 4000,
-                    timerProgressBar: false,
-                    showConfirmButton: false,
-                    didOpen: () => {
-                        $(this)[0].reset();
-                    },
-                    willClose: () => {
-                        location.href = `/assinante/login`;
-                    }
-                })
-            }else{
-                $('#btn-send-mail').text('Enviar')
-                shakeError('form-signin')
-                // $('small.login_reset_error').text(data.error)
-                if(data.error.login){
-                    $('small.login_reset_error').text(data.error.login)
-                }
-
-                if(data.error.captcha){
-                    $('small.captcha_error').text(data.error.captcha)
-                }
-
-                if(data.error === "Ops, login não cadastrado"){
-                    Swal.fire({
-                        title: data.error+'!',
-                        text: 'Solicite seu cadastro em nossa Central de Atendimento.',
-                        icon: 'info',
-                        confirmButtonColor: '#208637',
-                        confirmButtonText: 'Central de Atendimento',
-                        showCloseButton: true,
-                        willClose: () => {
-                            // window.location.reload()
-                            $('input').removeClass('is-invalid');
-                            $('.close_reset_password').click();
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-
-                            window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-                        }
-                    })
-                }
-            }
-        })
-        .catch((error) => {
-            $('#btn-send-mail').text('Enviar')
-            shakeError('form-signin')
-            Swal.fire({
-                title: 'Ops, não foi possível continuar!',
-                text: 'Informe em nossa Central de Atendimento.',
-                icon: 'error',
-                confirmButtonColor: '#208637',
-                confirmButtonText: 'Central de Atendimento',
-                showCloseButton: true,
-                willClose: () => {
-                    $(this)[0].reset();
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20suporte%20Windx!");
-                }
-            })
-        });
-})
-
-$('#form_reset_password').submit(async function (e){
-    e.preventDefault();
-    let formData = $(this).serializeArray()
-    console.log(formData)
-    let url = "/assinante/send-new-password";
-    $('#btn-save').text('Enviando...')
-
-    await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": formData[0].value
-        },
-        body: JSON.stringify({
-            login: formData[1].value,
-            password: formData[2].value,
-            confirm: formData[3].value,
-            captcha: formData[4].value
-        }),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Data:', data);
-            if(!data.error){
-                $('#btn-save').text('Enviar')
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Senha alterada com sucesso!',
-                    html: data.message,
-                    timer: 3000,
-                    timerProgressBar: false,
-                    showConfirmButton: false,
-                    didOpen: () => {
-                        $(this)[0].reset();
-                    },
-                    willClose: () => {
-                        $('#container-logo').addClass('animate__animated animate__fadeOutUp');
-                        $('#btn-contact').addClass('animate__animated animate__fadeOutRight');
-                        $('#footer').addClass('animate__animated animate__fadeOutDown');
-                        $(this)[0].reset();
-                        $('#btn-login').text('Entrar')
-                        $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
-                        $('.loader').removeClass('d-none');
-                        location.href = `/assinante/home`;
-                    }
-                })
-            }else{
-                $('#btn-save').text('Enviar')
-                shakeError('form-signin')
-                // $('small.login_reset_error').text(data.error)
-                // $('#inputLoginReset').addClass('is-invalid');
-
-                if(data.error.login){
-                    $('small.login_reset_error').text(data.error.login)
-                }
-
-                if(data.error.password){
-                    $('small.password_reset_error').text(data.error.password)
-                }
-
-                if(data.error.confirm){
-                    $('small.confirm_reset_error').text(data.error.confirm)
-                }
-
-                if(data.error.captcha){
-                    $('small.captcha_error').text(data.error.captcha)
-                }
-
-                // if(data.message){
-                //     Swal.fire({
-                //         title: data.error,
-                //         text: data.message,
-                //         icon: 'warning',
-                //         confirmButtonColor: '#208637',
-                //         confirmButtonText: 'Central de Atendimento',
-                //         showCloseButton: true,
-                //         willClose: () => {
-                //             window.location.reload()
-                //         }
-                //     }).then((result) => {
-                //         if (result.isConfirmed) {
-                //             window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-                //         }
-                //     })
-                // }
-            }
-        })
-        .catch((error) => {
-            // $('#btn-send-mail').text('Enviar - Catch')
-            shakeError('form-signin')
-            // console.log(error)
-
-            // Swal.fire({
-            //     title: 'Ops, login não cadastrado!',
-            //     text: 'Solicite seu cadastro em nossa Central de Atendimento.',
-            //     icon: 'warning',
-            //     confirmButtonColor: '#208637',
-            //     confirmButtonText: 'Central de Atendimento',
-            //     showCloseButton: true,
-            //     willClose: () => {
-            //         $(this)[0].reset();
-            //     }
-            // }).then((result) => {
-            //     if (result.isConfirmed) {
-            //         window.open("https://api.whatsapp.com/send?phone=558000282309&text=Desejo%20falar%20com%20atendimento%20Windx!");
-            //     }
-            // })
-        });
 })
 
 function shakeError(elementClass)

@@ -4,27 +4,22 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
-                <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
-                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2 justify-content-between">
-{{--                        <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">--}}
-{{--                                <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>--}}
-{{--                            </svg>--}}
-{{--                            Voltar--}}
-{{--                        </a>--}}
+                <div class="row contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
+                    <div id="infoCustomerActive" class="d-flex col-lg-6 order-0 px-lg-0 px-md-1 mb-2 justify-content-between">
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Suporte</li>
                             </ol>
                         </nav>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-call-modal">
-                            <i class="fa fa-plus pr-2"></i>Novo atendimento
-                        </button>
-
                     </div>
-                    <div class="col-12">
-                        <table class="table table-bordered table-striped display list-calls text-uppercase">
+                    <div class="d-flex col-lg-6 col-md-12 col-sm-12 justify-content-end">
+                        <a href="#" class="link text-primary font-weight-bold" style="font-size: 90%" data-toggle="modal" data-target="#new-call-modal">
+                            <i class="fa fa-plus pr-2"></i>Novo atendimento
+                        </a>
+                    </div>
+                    <div class="container-list-table col-12">
+                        <table id="list-calls" class="table table-bordered table-striped display list-calls text-uppercase">
                         </table>
                     </div>
                 </div>
@@ -57,10 +52,9 @@
                                               id="texto" rows="5" name="texto"
                                               placeholder="DESCREVA SUA DÚVIDA OU SOLICITAÇÃO"></textarea>
                                     <small id="error_texto" class="text-danger"></small>
-{{--                                    <small id="error_descricao" class="text-danger">Erro na descrição</small>--}}
                                 </div>
                                 <div class="form-group d-flex justify-content-end">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times pr-2"></i>Fechar</button>
+                                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal"><i class="fa fa-times pr-2"></i>Fechar</button>
                                     <button id="new-call-btn-submit" type="submit" class="btn btn-success"><i class="fa fa-check"></i> Salvar</button>
                                 </div>
                             </form>
@@ -199,6 +193,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $(function () {
@@ -270,26 +265,48 @@
                     // }
                 });
 
-                $('.list-calls').on('click', '.call-viewer', function() {
-                    var rowData = table.row($(this).closest('tr')).data(); // Captura os dados da linha
-                    var data = $(this).closest('tr').data('call'); // Recupera os dados do atributo data-call
-                    var opening = new Date(rowData.dt_agendamento);
+                // $('.list-calls').on('click', '.call-viewer', function() {
+                //     var rowData = table.row($(this).closest('tr')).data(); // Captura os dados da linha
+                //     var data = $(this).closest('tr').data('call'); // Recupera os dados do atributo data-call
+                //     var opening = new Date(rowData.dt_agendamento);
+                //
+                //     $('#call_status').text(rowData.fechado_por === '' ? 'ABERTO' : 'FECHADO');
+                //     $('#call_numero_os').text(rowData.numero_os);
+                //     $('#call_desc_funcionario').text(rowData.desc_funcionario);
+                //     $('#call_created_at').text(opening.toLocaleString().substr(0, 10) +' - '+rowData.h_agendamento);
+                //     $('#call_descricao').text(rowData.descricao);
+                //     if(rowData.fechado_por != ''){
+                //         $('#li_call_operador').removeClass('d-none');
+                //         $('#call_fechado_por').text(rowData.fechado_por);
+                //     }
+                //     $('#call_historico').text(rowData.historico);
+                //
+                //     $('#call-details').modal('show');
+                // });
 
-                    $('#call_status').text(rowData.fechado_por === '' ? 'ABERTO' : 'FECHADO');
-                    $('#call_numero_os').text(rowData.numero_os);
-                    $('#call_desc_funcionario').text(rowData.desc_funcionario);
-                    $('#call_created_at').text(opening.toLocaleString().substr(0, 10) +' - '+rowData.h_agendamento);
-                    $('#call_descricao').text(rowData.descricao);
-                    if(rowData.fechado_por != ''){
-                        $('#li_call_operador').removeClass('d-none');
-                        $('#call_fechado_por').text(rowData.fechado_por);
-                    }
-                    $('#call_historico').text(rowData.historico);
+                // $('.list-calls').on('click', '.call-viewer', function () {//Button inside a cell
+                //     var current_row = $(this).parents('tr');//Get the current row
+                //     if (current_row.hasClass('child')) {//Check if the current row is a child row
+                //         current_row = current_row.prev();//If it is, then point to the row before it (its 'parent')
+                //     }
+                //     var data = products.row(current_row).data();//At this point, current_row refers to a valid row in the table, whether is a child row (collapsed by the DataTable's responsiveness) or a 'normal' row
+                //     console.log('Row data:'+data);
+                // });
 
-                    $('#call-details').modal('show');
-                });
+
             });
         });
+
+        $(".call-viewer").click(function(e) {
+            console.log('Clicou')
+            // var $tr = $(this).closest('tr');
+            // var rowData = $('.list-calls').DataTable().row($tr).data();
+            // console.log(rowData);
+        });
+
+        function getData(el){
+            console.log(JSON.parse(el))
+        }
 
         document.getElementById('form-new-call').onsubmit = function (event) {
             const form = event.target;

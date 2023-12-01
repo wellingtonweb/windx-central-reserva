@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item active" aria-current="page">Comprovantes</li>
                         </ol>
                     </nav>
-                    <div class="container-list-payments col-12">
+                    <div class="container-list-table col-12">
                         <table class="table table-bordered table-striped display list-payments text-uppercase">
                         </table>
                     </div>

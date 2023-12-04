@@ -210,33 +210,25 @@
                     pagingType: 'full_numbers',
                     processing: true,
                     serverSide: true,
-                    // ajax: "",
                     ajax: "{{ route('central.support.list') }}",
                     columnDefs: [
                         {
-                            // targets: [0],
                             visible: false,
                             searchable: false,
                             pageLength : 5,
                             lengthMenu: [[5, 10], [5, 10]],
                             className: 'dtr-control arrow-right',
                             orderable: false,
-                            // target: -1
                         }
                     ],
                     columns: [
                         {data: 'id', name: 'id', title: 'ID'},
-                        // {data: 'rsocial', name: 'rsocial', title: 'Nome / Razão Social'},
-
                         {data: 'numero_os', name: 'numero_os', title: 'Número', render: function(data, type, full, meta) {
                                 return parseInt(data, 10);
                             }},
                         {data: 'dt_abertura', name: 'dt_abertura', title: 'Data', render: function(data, type, full, meta) {
-                            // console.log(data)
                                 var opening = new Date(data);
                                 return opening.toLocaleString().substr(0, 10);
-                                // return opening;
-                                // return data;
                             }},
                         {data: 'h_abertura', name: 'h_abertura', title: 'Hora'},
                         {data: 'id_tatendimento', name: 'id_tatendimento', title: 'Tipo', render: function(data, type, full, meta) {
@@ -248,10 +240,6 @@
                         {data: 'fechado_por', name: 'fechado_por', title: 'Situação', render: function(data, type, full, meta) {
                                     return data === '' ? 'ABERTO' : 'FECHADO';
                             }},
-                        // {data: 'valor_total', name: 'valor_total', title: 'Valor', render: function(data, type, full, meta) {
-                        //         let valor = parseFloat(data) / 100;
-                        //         return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-                        //     }},
                         {data: 'action', name: 'action', title: 'Detalhes', orderable: false, searchable: false},
                     ],
                     language: {
@@ -261,55 +249,10 @@
                     searchable: false,
                     sortable: false,
                     responsive: true,
-                    order: [2, 'desc']                    // rowCallback: function(row, data, index) {,
-                    //     var statusCell = table.cell(index, 'status:name');
-                    //     var statusText = statusCell.data();
-                    //     if (statusText === 'approved') {
-                    //         $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
-                    //     } else {
-                    //         $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
-                    //     }
-                    // }
+                    order: [2, 'desc']
                 });
-
-                // $('.list-calls').on('click', '.call-viewer', function() {
-                //     var rowData = table.row($(this).closest('tr')).data(); // Captura os dados da linha
-                //     var data = $(this).closest('tr').data('call'); // Recupera os dados do atributo data-call
-                //     var opening = new Date(rowData.dt_agendamento);
-                //
-                //     $('#call_status').text(rowData.fechado_por === '' ? 'ABERTO' : 'FECHADO');
-                //     $('#call_numero_os').text(rowData.numero_os);
-                //     $('#call_desc_funcionario').text(rowData.desc_funcionario);
-                //     $('#call_created_at').text(opening.toLocaleString().substr(0, 10) +' - '+rowData.h_agendamento);
-                //     $('#call_descricao').text(rowData.descricao);
-                //     if(rowData.fechado_por != ''){
-                //         $('#li_call_operador').removeClass('d-none');
-                //         $('#call_fechado_por').text(rowData.fechado_por);
-                //     }
-                //     $('#call_historico').text(rowData.historico);
-                //
-                //     $('#call-details').modal('show');
-                // });
-
-                // $('.list-calls').on('click', '.call-viewer', function () {//Button inside a cell
-                //     var current_row = $(this).parents('tr');//Get the current row
-                //     if (current_row.hasClass('child')) {//Check if the current row is a child row
-                //         current_row = current_row.prev();//If it is, then point to the row before it (its 'parent')
-                //     }
-                //     var data = products.row(current_row).data();//At this point, current_row refers to a valid row in the table, whether is a child row (collapsed by the DataTable's responsiveness) or a 'normal' row
-                //     console.log('Row data:'+data);
-                // });
-
-
             });
         });
-
-        // $(".call-viewer").click(function(e) {
-        //     console.log('Clicou')
-        //     // var $tr = $(this).closest('tr');
-        //     // var rowData = $('.list-calls').DataTable().row($tr).data();
-        //     // console.log(rowData);
-        // });
 
         function getData(el){
             // $(el).data('call')
@@ -327,19 +270,7 @@
             }
             $("#call_historico").text(call.historico)
             $("#call_numero_os").text(call.numero_os)
-
-
-
-                $('#call-details').modal('show');
-            //
-            // call_status
-            // call_desc_funcionario
-            // call_created_at
-            // call_descricao
-            // call_fechado_por
-            // call_historico
-
-            console.log("Atendimento: ", call)
+            $('#call-details').modal('show');
         }
 
         document.getElementById('form-new-call').onsubmit = function (event) {

@@ -30,8 +30,8 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        console.log('Cart: ', cart)
     }
+
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
     }
@@ -42,20 +42,8 @@ var billetsCart = (function() {
     // Add to cart
     obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
         var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id);
-
-        // var itemCheck = cart.some(function(testItem) {
-        //     return testItem.billet_id === item.billet_id;
-        // });
-
-
-
-        // if (!itemCheck && !check) {
-            cart.push(item);
-            saveCart();
-        // }else{
-
-            // console.log('A fatura de nº '+item.reference+' já foi paga!')
-        // }
+        cart.push(item);
+        saveCart();
     }
 
     // Remove item from cart
@@ -93,7 +81,6 @@ var billetsCart = (function() {
         for(var item in cart) {
             totalCart += cart[item].price * cart[item].count;
         }
-        // console.log(totalCart.toFixed(2))
         return Number(totalCart.toFixed(2));
     }
 
@@ -105,7 +92,6 @@ var billetsCart = (function() {
                 totalFees += parseFloat(cart[item].addition);
             }
         }
-        console.log(totalFees)
         return Number(totalFees.toFixed(2));
     }
 
@@ -118,7 +104,6 @@ var billetsCart = (function() {
                 totalSum += cart[item].value;
             }
         }
-        // console.log(totalCart.toFixed(2))
         return Number(totalSum.toFixed(2));
     }
 

@@ -30,8 +30,8 @@ var billetsCart = (function() {
     // Load cart
     function loadCart() {
         cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        console.log('Cart: ', cart)
     }
+
     if (sessionStorage.getItem("billetsCart") != null) {
         loadCart();
     }
@@ -42,20 +42,8 @@ var billetsCart = (function() {
     // Add to cart
     obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
         var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id);
-
-        // var itemCheck = cart.some(function(testItem) {
-        //     return testItem.billet_id === item.billet_id;
-        // });
-
-
-
-        // if (!itemCheck && !check) {
-            cart.push(item);
-            saveCart();
-        // }else{
-
-            // console.log('A fatura de nº '+item.reference+' já foi paga!')
-        // }
+        cart.push(item);
+        saveCart();
     }
 
     // Remove item from cart
@@ -93,7 +81,6 @@ var billetsCart = (function() {
         for(var item in cart) {
             totalCart += cart[item].price * cart[item].count;
         }
-        // console.log(totalCart.toFixed(2))
         return Number(totalCart.toFixed(2));
     }
 
@@ -105,7 +92,6 @@ var billetsCart = (function() {
                 totalFees += parseFloat(cart[item].addition);
             }
         }
-        console.log(totalFees)
         return Number(totalFees.toFixed(2));
     }
 
@@ -118,7 +104,6 @@ var billetsCart = (function() {
                 totalSum += cart[item].value;
             }
         }
-        // console.log(totalCart.toFixed(2))
         return Number(totalSum.toFixed(2));
     }
 
@@ -147,16 +132,17 @@ function addToCartBtn(data){
     var company_id = Number(billet.company_id);
     var installment = Number(billet.installment);
     var installmentValue = 0;
-    console.log('Empresa: '+ company_id)
-    console.log('Installment: '+ installment)
+
     $('input[name="installment"]').val("1");
 
-    if(installment == 1){
+    if(installment == 1)
+    {
         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
         addPaintItem(btnId)
         displayCart();
-        console.log(billetsCart)
-    }else if(installment > 1){
+    }
+    else if(installment > 1)
+    {
         installmentValue = (parseFloat(value) / parseInt(installment));
 
         if(installment <= maxInstallment){
@@ -233,62 +219,12 @@ function addToCartBtn(data){
             }).then((result) => {
                 if (result.isConfirmed) {
                     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
-                    console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
-                    console.log(cart);
                 }
-                // else {
-                //     clearAllSections();
-                // }
             })
         }
     }
-
-    // checkBillet = getCheckBillet(billet_id)
-
-    // if(checkBillet === true){
-    //     // icon.removeClass('fas fa-spinner fa-pulse')
-    //     //     .addClass('d-none')
-    //     //     .addClass('fa fa-check')
-    //     //     .removeClass('d-none')
-    //
-    //     // Swal.fire({
-    //     //     icon: "error",
-    //     //     title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-    //     //     html: 'Confira na lista pagamentos',
-    //     //     timer: 5000,
-    //     //     willClose() {
-    //     //         location.href = base_url + 'comprovantes/' + idCustomer
-    //     //     }
-    //     // })
-    //
-    //     Swal.fire({
-    //         icon: "warning",
-    //         title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-    //         html: 'Deseja conferir ou realizar uma nova tentativa?',
-    //         // timer: 5000,
-    //         confirmButtonColor: '#38c172',
-    //         denyButtonColor: '#007bff',
-    //         showDenyButton: true,
-    //         showCancelButton: false,
-    //         confirmButtonText: 'Pagar',
-    //         denyButtonText: `Conferir`,
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
-    //             addPaintItem(btnId)
-    //             displayCart();
-    //             Swal.close();
-    //         } else if (result.isDenied) {
-    //             location.href = base_url + 'comprovantes/' + idCustomer
-    //         }
-    //     })
-    // }else {
-    //     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
-    //     addPaintItem(btnId)
-    //     displayCart();
-    // }
 }
 
 function deleteItemCart(id){
@@ -619,7 +555,6 @@ $('#modalCard').on('show.bs.modal', function (event) {
 $('#modalCard').on('hidden.bs.modal', function (event) {
     resetCardFields();
     clearAllSections()
-    // msgStatusTransaction('canceled')
     refreshSliderCards()
 })
 
@@ -644,21 +579,15 @@ $('button.btn-payment-type').click(function (){
     switch (this.id){
         case 'btn-picpay':
         case 'btn-pix':
-            // $('.payment_type_label').text((this.id == 'btn-picpay'?'Picpay':'Pix'));
             $('#payment_type').val((this.id == 'btn-picpay'?'picpay':'pix'));
             $('#method').val((this.id == 'btn-picpay'?'picpay':'ecommerce'));
             resetCardFields();
             $('#form_checkout').submit();
             break
         default:
-            // $('.payment_type_label').text((this.id == 'btn-credit'?'Crédito':'Débito'));
             $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
             $('#method').val('ecommerce');
-            //$('#terminal_id').val('2');
-            // $('#reference').val();
             $('#modalCard').modal('show');
-            // Swal.fire('Aguardando aprovação do pagamento!')
-            // $('#form_checkout').submit();
             break
     }
 });
@@ -667,9 +596,7 @@ $('button.btn-payment-type').click(function (){
 $('#form_checkout').submit(function (e){
     e.preventDefault();
     let dataForm = $(this).serializeArray();
-    console.log('Dataform', dataForm)
     if(dataForm['1'].value == ''){
-        // swal.fire('Erro: carrinho sem boletos!')
         displayMessageErrorPayment('Erro: 422 - Dados inválidos')
     }
     let payment = {
@@ -681,7 +608,6 @@ $('#form_checkout').submit(function (e){
     }
     if(payment != null){
         sessionStorage.setItem('payment', JSON.stringify(payment));
-        console.log('Payment: ', payment);
         sendPayment(payment)
     }else{
         clearAllSections()
@@ -719,25 +645,18 @@ function callbackTransaction(id){
         dataType: "JSON",
         data: JSON.stringify({}),
         success:function (data){
-            // msgStatusTransaction(JSON.stringify(data.status))
-
             if(data.status === 'approved'){
                 resetCardFields();
-                // alert('Mostrar alert com link para download do comprovante PDF')
-                // callbackPrintCoupon(id)
             }
             msgStatusTransaction(data.status)
             resetTimer()
-            console.log('Callback status: ', data.status)
         }
     })
 }
 
 /* Send payment */
 function sendPayment(payment){
-// function sendPayment(actionForm, methodForm, payment_type, methodCheckout){
     $(document).find('small.error-text').text('');
-    // var pay = JSON.parse(sessionStorage.getItem('payment'))
 
     $.ajax({
         type: payment.methodForm,
@@ -748,7 +667,6 @@ function sendPayment(payment){
                 title: 'Pagamento com '+getPaymentText(payment.paymentType),
                 html: (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') ? 'Gerando qrcode...':'Validando dados...',
                 timer: 60000,
-                // timerProgressBar: true,
                 showConfirmButton: false,
                 didOpen: () => {
                     Swal.showLoading()
@@ -764,9 +682,6 @@ function sendPayment(payment){
                     }, 500)
                     return false
                 },
-                willClose: () => {
-                    // clearInterval(timerInterval)
-                },
             }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
                     displayMessageErrorPayment('Servidor indisponível')
@@ -774,13 +689,6 @@ function sendPayment(payment){
             })
         },
         success: function(response, textStatus, xhr) {
-            // console.log('Resposta do servidor: ', response)
-            // console.log('Status da resposta: ', xhr.status, textStatus)
-            // console.log('ID do pagamento: ', response.id)
-            // console.log('Status do pagamento: ', response.status)
-            // console.log('Metodo do checkout: ', payment.methodCheckout)
-            // console.log('Type do checkout: ', payment.paymentType)
-
             if(xhr.status === 200 || xhr.status === 201){
                 if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
                     sessionStorage.setItem('transactionId', response.id)
@@ -793,7 +701,6 @@ function sendPayment(payment){
                 }else{
                     if(response.status === 'approved'){
                         msgStatusTransaction(response.status)
-                        // console.log("Pagamento ID: "+response.id+" - "+response.status)
                     }else{
                         sessionStorage.setItem('transactionId', response.id)
                         transactionId = sessionStorage.getItem("transactionId");
@@ -802,62 +709,9 @@ function sendPayment(payment){
                     }
                 }
             }else{
-                alert('outro erro')
                 msgStatusTransaction(response.status)
-                    $('#modalCard').modal('hide')
-                // console.log(response.data)
+                $('#modalCard').modal('hide')
             }
-
-            // if(xhr.status === 404 || xhr.status === 500){
-            //     // alert(response.data.message)
-            //     msgStatusTransaction(response.status)
-            //     $('#modalCard').modal('hide')
-            // }else if(xhr.status === 200){
-            //     if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
-            //         sessionStorage.setItem('transactionId', response.id)
-            //         transactionId = sessionStorage.getItem("transactionId");
-            //         setQrcode(response.data)
-            //     }else{
-            //         if(response.status === 'approved'){
-            //             msgStatusTransaction(response.status)
-            //         }else{
-            //             $('#modalCard').modal('hide')
-            //             displayMessageWaitingPayment()
-            //         }
-            //     }
-            // }else{
-            //     alert('outro erro')
-            //     // console.log(response.data)
-            // }
-
-            // if (response.data.id == undefined) {
-            //     console.log(response.data.message)
-            //     displayMessageErrorPayment(response.data.message)
-            //     return;
-            // } else {
-            //     if(response.status === 200){
-            //         msgStatusTransaction(response.data.status)
-            //     }else{
-            //         sessionStorage.setItem('transactionId', response.data.id)
-            //         transactionId = sessionStorage.getItem("transactionId");
-            //
-            //         callback = setInterval(function () {
-            //             callbackTransaction(response.data.id)
-            //         }, 5000);
-            //
-            //         if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
-            //             setQrcode(response.data)
-            //         }else{
-            //             if(response.status != 422){
-            //                 $('#modalCard').modal('hide')
-            //                 displayMessageWaitingPayment()
-            //                 console.log('Aguardando status do pagamento')
-            //             }else{
-            //                 console.log('Verifique os campos em vermelho!')
-            //             }
-            //         }
-            //     }
-            // }
         },
         error: function(data) {
             console.log('Data error: ',data);
@@ -871,16 +725,9 @@ function sendPayment(payment){
                     console.log(data)
                     notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
                 } else {
-                    console.log('Mais de um erro!')
                     $.each(data.responseJSON.errors, function (key, value) {
-                        // $('#err').append(key+": "+value+"<br>");
                         if($('input[name='+key+']').is( ":hidden" )){
-                            //$('div.text-display-error').html('Erro: 422 - Favor informar ao administrador!').removeClass('d-none');
-                            //Criar rotina de notificação por e-mail
                             console.log(key, value[0])
-                            // alert('Erro: 422 - Dados inválidos')
-                            // displayMessageErrorPayment('Erro: 422 - Dados inválidos')
-                            //notifySystem('422', 'error', 'Dados inválidos!')
                         } else {
                             $('small.'+key+'_error').text(value[0]);
                             $('div.text-display-error').html('Verifique os dados informados!').removeClass('d-none');
@@ -893,19 +740,8 @@ function sendPayment(payment){
     });
 }
 
-// function getResponseError(ObjData)
-// {
-//     var startIndex = ObjData.error.indexOf('{');
-//     var endIndex = ObjData.error.lastIndexOf('}') + 1;
-//     var jsonStr = ObjData.error.substring(startIndex, endIndex);
-//     var jsonObj = JSON.parse(jsonStr);
-//
-//     return jsonObj.message
-// }
-
 /* Display qrcode for payment */
 function setQrcode(payment){
-    // console.log('Pagando com QRCODE: ', payment, payment.qrCode);
     let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 
     Swal.fire({
@@ -984,26 +820,21 @@ function setQrcode(payment){
         if (result.dismiss === Swal.DismissReason.timer) {
             clearAllSections()
             msgStatusTransaction('expired')
-            // refreshSliderCards()
         } else if(result.isDenied || result.isDismissed) {
             clearAllSections()
             msgStatusTransaction('canceled')
-            // refreshSliderCards()
         }
     })
 }
 
-
 /* Functions Display Messages */
 function msgStatusTransaction(status){
-// function msgStatusTransaction(paymentId, status){
     if(status){
         switch (status){
             case 'approved':
                 clearInterval(callback)
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 10000)
-                // displayMessageStatusTransaction('Pagamento '+paymentId+' confirmado com sucesso!','success', 10000)
                 return true;
                 break;
             case 'expired':
@@ -1025,12 +856,10 @@ function msgStatusTransaction(status){
                 return false;
                 break;
             case 'created':
-                // console.log('Status: ', status)
                 return false;
                 break;
             default:
                 return false;
-            // break;
         }
     }else{
         displayMessageStatusTransaction('Não houve nenhum pagamento criado!','error', 5000)
@@ -1046,7 +875,6 @@ function displayMessageWaitingPayment(){
         showConfirmButton: false,
         didOpen: () => {
             Swal.showLoading()
-            // clearInterval(callback)
         },
         willClose: () => {
             clearInterval(timerInterval)
@@ -1072,7 +900,6 @@ function displayMessageErrorPayment(title){
         html: '<h4>Não foi possível concluir o pagamento!</h4>',
         timer: 5000,
         timerProgressBar: false,
-        // showConfirmButton: false,
         confirmButtonText: 'Ok',
         showDenyButton: false,
         didOpen: () => {
@@ -1084,54 +911,9 @@ function displayMessageErrorPayment(title){
             displayMessageQuestionFinish()
         }
     })
-    //     .then((result) => {
-    //     if (result.dismiss) {
-    //         Swal.fire({
-    //             title: 'Deseja realizar um novo pagamento?',
-    //             showDenyButton: true,
-    //             showCancelButton: true,
-    //             confirmButtonText: 'Sim',
-    //             denyButtonText: `Não`,
-    //         }).then((result) => {
-    //             /* Read more about isConfirmed, isDenied below */
-    //             if (result.isConfirmed) {
-    //                 //Swal.fire('Saved!', '', 'success')
-    //                 clearAllSections()
-    //                 window.location.reload()
-    //             } else if (result.dismiss || result.isDenied) {
-    //                 // Swal.fire('Changes are not saved', '', 'info')
-    //                 logout()
-    //             }
-    //         })
-    //     }
-    // })
-
-    // Swal.fire({
-    //     title: 'Deseja realizar um novo pagamento?',
-    //     showDenyButton: true,
-    //     showCancelButton: false,
-    //     confirmButtonText: 'Sim',
-    //     denyButtonText: 'Não',
-    //     timer: 15000,
-    //     customClass: {
-    //         actions: 'my-actions',
-    //         cancelButton: 'order-1 right-gap',
-    //         confirmButton: 'order-2',
-    //         denyButton: 'order-3',
-    //     }
-    // }).then((result) => {
-    //     if (result.isConfirmed) {
-    //         clearAllSections()
-    //         location.reload();
-    //         //setTimeout(() => { callbackTransaction() }, 15000);
-    //     } else if (result.dismiss || result.isDenied) {
-    //         logout()
-    //     }
-    // })
 }
 
 function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
-// function displayMessageStatusTransaction(dTitle, dIcon, dTimer, paymentId){
     var dButton =
         `<a href="${base_url}comprovante/${transactionId}/download"
         class="download-pdf btn btn-primary btn-sm" target="_blank">
@@ -1146,7 +928,6 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
         html: dIcon === 'success' ? dButton : '',
         didOpen: () => {
             Swal.hideLoading()
-            // clearInterval(callback)
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -1163,18 +944,11 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
             displayMessageQuestionFinish()
         }
     })
-    //     .then(function (result) {
-    //     // clearInterval(timerInterval)
-    //     clearAllSections()
-    //     // callbackTransaction()
-    //     // displayMessageQuestionFinish()
-    // })
 }
 
 
 
 var tempo = 120;
-// var tempo = 60;
 
 function countdown() {
     if ((tempo - 1) >= -1) {
@@ -1192,7 +966,6 @@ function countdown() {
         $("#timerPaymentQrCode").text(min + ':' + seg);
             setTimeout('countdown(tempo)', 1000);
         tempo--;
-        // console.log('Tempo de pagamento: ', tempo)
     }
     else {
         $("#timerPaymentQrCode").fadeOut(1000)
@@ -1200,7 +973,6 @@ function countdown() {
         $('#methodTitle').text('').fadeOut(1000)
         $('#modalCard').modal('hide')
         tempo = 120;
-        // displayMessageStatusTransaction('Tempo expirado!', 'error', 10000)
         msgStatusTransaction('expired')
     }
 }

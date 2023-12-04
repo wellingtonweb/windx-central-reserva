@@ -69,7 +69,7 @@
             #content{
                 display: block;
                 text-align: center;
-                font-size: 11px !important;
+                font-size: 10px !important;
                 background-color: darkgrey !important;
             }
 

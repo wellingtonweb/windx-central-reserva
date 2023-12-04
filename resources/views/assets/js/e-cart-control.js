@@ -20,16 +20,17 @@ function addToCartBtn(data){
     var company_id = Number(billet.company_id);
     var installment = Number(billet.installment);
     var installmentValue = 0;
-    console.log('Empresa: '+ company_id)
-    console.log('Installment: '+ installment)
+
     $('input[name="installment"]').val("1");
 
-    if(installment == 1){
+    if(installment == 1)
+    {
         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
         addPaintItem(btnId)
         displayCart();
-        console.log(billetsCart)
-    }else if(installment > 1){
+    }
+    else if(installment > 1)
+    {
         installmentValue = (parseFloat(value) / parseInt(installment));
 
         if(installment <= maxInstallment){
@@ -106,62 +107,12 @@ function addToCartBtn(data){
             }).then((result) => {
                 if (result.isConfirmed) {
                     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
-                    console.log(btnId)
                     addPaintItem(btnId)
                     displayCart();
-                    console.log(cart);
                 }
-                // else {
-                //     clearAllSections();
-                // }
             })
         }
     }
-
-    // checkBillet = getCheckBillet(billet_id)
-
-    // if(checkBillet === true){
-    //     // icon.removeClass('fas fa-spinner fa-pulse')
-    //     //     .addClass('d-none')
-    //     //     .addClass('fa fa-check')
-    //     //     .removeClass('d-none')
-    //
-    //     // Swal.fire({
-    //     //     icon: "error",
-    //     //     title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-    //     //     html: 'Confira na lista pagamentos',
-    //     //     timer: 5000,
-    //     //     willClose() {
-    //     //         location.href = base_url + 'comprovantes/' + idCustomer
-    //     //     }
-    //     // })
-    //
-    //     Swal.fire({
-    //         icon: "warning",
-    //         title: 'Exite uma tentativa de pagamento para a fatura (nº '+ reference +')!',
-    //         html: 'Deseja conferir ou realizar uma nova tentativa?',
-    //         // timer: 5000,
-    //         confirmButtonColor: '#38c172',
-    //         denyButtonColor: '#007bff',
-    //         showDenyButton: true,
-    //         showCancelButton: false,
-    //         confirmButtonText: 'Pagar',
-    //         denyButtonText: `Conferir`,
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
-    //             addPaintItem(btnId)
-    //             displayCart();
-    //             Swal.close();
-    //         } else if (result.isDenied) {
-    //             location.href = base_url + 'comprovantes/' + idCustomer
-    //         }
-    //     })
-    // }else {
-    //     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1);
-    //     addPaintItem(btnId)
-    //     displayCart();
-    // }
 }
 
 function deleteItemCart(id){

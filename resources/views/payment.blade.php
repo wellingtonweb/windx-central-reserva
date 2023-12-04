@@ -50,7 +50,6 @@
                                         <button type="button" data-controls="prev"
                                                  class="btn btn-primary btn-sm px-2 slider-button-prev" aria-controls="tns1">
                                             Anterior
-{{--                                            Fatura anterior--}}
                                         </button>
                                     </div>
                                     <div class="px-4">
@@ -60,7 +59,6 @@
                                         <button type="button" data-controls="next"
                                                 class="btn btn-primary btn-sm px-2 slider-button-next" aria-controls="tns1">
                                             Próxima
-{{--                                            Próxima fatura--}}
                                         </button>
                                     </div>
                                 </div>
@@ -90,16 +88,9 @@
                                                 PICPAY
                                             </button>
                                             <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-credit"
-{{--                                                    data-toggle="modal" data-target="#modalCard" --}}
                                                     type="button">
                                                 CRÉDITO
                                             </button>
-                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"
-                                                    data-toggle="pill" data-target="#v-pills-card" type="button"
-                                                    role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                                                DÉBITO
-                                            </button>
-
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-12 col-sm-12">
@@ -108,8 +99,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -129,7 +118,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="modalCard" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -175,7 +163,6 @@
                                              role="alert">
                                         </div>
                                     </div>
-
                                     <div class="col-12 mb-3 px-3 text-left">
                                         <label for="cc-nome">Nome no cartão</label>
                                         <input type="text" class="form-control text-uppercase"
@@ -237,9 +224,6 @@
                                     </div>
                                 </div>
                                 <div class="p-2">
-{{--                                    <button class="btn btn-secondary" data-dismiss="modal"--}}
-{{--                                            type="reset">Cancelar--}}
-{{--                                    </button>--}}
                                     <button class="btn btn-success btn-block"
                                             type="submit">Finalizar pagamento
                                     </button>
@@ -248,7 +232,6 @@
                         </div>
                         <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -319,18 +302,11 @@
         .form-control, .form-control:focus {
             background-color: aliceblue;
             border: 1px solid rgba(128, 128, 128, .3) !important;
-
         }
 
         div:where(.swal2-container) h2:where(.swal2-title) {
             font-size: 1.33em !important;
         }
-
-        /*#timerPaymentQrCode {*/
-        /*    position: absolute;*/
-        /*    top: 1.5rem;*/
-        /*    left: 2rem;*/
-        /*}*/
 
         .box-price-qrcode-card {
             background-color: whitesmoke;
@@ -410,9 +386,7 @@
             font-size: .6rem !important;
         }
 
-
         /* --------  */
-
         .card-header {
             text-align: center;
             font-size: .8em;
@@ -510,12 +484,10 @@
             }
         }
 
-
         @keyframes round {
             0% { transform: rotate(0deg) }
             100% { transform: rotate(360deg) }
         }
-
 
         .tns-controls {
             z-index: 999 !important;
@@ -535,17 +507,13 @@
             border-bottom-left-radius: 0;
         }
 
-        @media (max-width: 991.98px) {}
         @media (max-width: 767.98px) {
             #infoCustomerActive {
                 display: none !important;
             }
         }
-        @media (max-width: 575.98px) {
-            /*.my-slider .card {*/
-            /*    height: 17.5rem;*/
-            /*    max-height: 17.5rem;*/
-            /*}*/
+        @media (max-width: 575.98px)
+        {
 
             .btn {
                 font-size: .6rem !important;
@@ -561,10 +529,6 @@
                 font-size: 80%;
                 font-weight: 400;
             }
-
-            /*.content-box {*/
-            /*    padding: .5rem !important;*/
-            /*}*/
 
             #infoCustomerActive {
                 display: none !important;
@@ -639,8 +603,7 @@
         }
 
         .table thead th {
-            padding: .3rem;
-        !important;
+            padding: .3rem !important;
         }
 
         #infoCustomerActive {
@@ -672,7 +635,6 @@
                 display: block;
                 width: 100%;
             }
-
         }
 
         @media (max-width: 850px) {
@@ -699,9 +661,6 @@
                 padding: 0.5rem 1.25rem;
             }
 
-            /*.checkout-controls .btn {*/
-            /*    padding: .5rem;*/
-            /*}*/
             .col-12 {
                 padding-bottom: 0 !important;
             }
@@ -761,8 +720,6 @@
                 text-align: left;
                 padding: .2rem .4rem;
             }
-
-
         }
 
         .flex-container {
@@ -782,7 +739,6 @@
             padding: 0.5rem;
             margin: 0.5rem;
             flex: 1 1 auto;
-
         }
 
         .flex-item .btn {
@@ -793,8 +749,6 @@
             .flex-item {
                 width: 100%
             }
-
-
         }
 
         @media screen and (min-width: 640px) {
@@ -809,10 +763,7 @@
             }
         }
 
-
-
         .payment-container {
-            /*display: block;*/
             margin: 0 auto;
             padding: 40px 20px;
             width: 100%;
@@ -834,12 +785,7 @@
         }
 
         .payment-container .payment-item {
-            /*background: linear-gradient(#fbfbfb 0%, #f0f0f0 100%);*/
-            /*border: 1px solid #dcdcdc;*/
-            /*border-radius: 5px;*/
             display: block;
-            /*margin: 0 0 20px;*/
-            /*padding: 40px;*/
             width: 100%;
         }
 
@@ -944,16 +890,6 @@
             color: #fff;
         }
 
-        /*@media (max-width: 600px) {*/
-        /*    .payment-container .payment-item .item-title,*/
-        /*    .payment-container .payment-item .item-options {*/
-        /*        display: block;*/
-        /*        width: 100%;*/
-        /*    }*/
-        /*    */
-        /*}*/
-
-
         .checkout-controls {
             width: 100%;
             display: block;
@@ -1034,10 +970,6 @@
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";
         var checkoutForm = $('#form_checkout')[0];
-        console.log(checkoutForm)
-
-        // var paymentId = 12345;
-        //
         var modalQrCode = `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
                 <small id="timerPaymentQrCode" class="text-danger">00:00</small>
@@ -1082,162 +1014,13 @@
                 <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
             </div>
             `;
-
-        // Swal.fire({
-        //     title: 'Pagamento nº '+ paymentId +' com CRÉDITO',
-        //     html: modalCard,
-        //     showConfirmButton: false,
-        //     showDenyButton: false,
-        //     denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
-        //     denyButtonColor: '#d33',
-        //     // footer: '<a href="">Cancelar</a>'
-        // })
-
-        $('.checkoutBtn').on('click', function () {
-            const paymentType = $(this).attr('id')
-            // console.log(paymentType)
-
-            switch (paymentType) {
-                case 'btn-pix':
-                    console.log('Deu pix')
-                    break;
-                case 'btn-picpay':
-                    console.log('Deu picpay')
-                    break;
-                case 'btn-credit':
-                    console.log('Deu credito')
-                    break;
-                default:
-                    console.log('Deu debito')
-                    break;
-            }
-
-            $('#methodTitle').text($(this).text())
-
-            $('#v-pills-tab').addClass('d-none')
-            $('#v-pills-tabContent').removeClass('d-none')
-        });
-
-        // $('a.add-to-cart').on('click', function () {
-        //     // $(this).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
-        //     // Swal.fire('Verificando boleto')
-        //
-        //     setTimeout(() => {
-        //         alert('Verificando fatura!')
-        //         // $(this).children('i').removeClass('fa-spinner fa-spin').addClass('fa-check')
-        //     }, 5000)
-        // })
-        //
-        // function loadingAddInvoice(thisBtn){
-        //     cart = JSON.parse(sessionStorage.getItem('billetsCart'));
-        //     console.log(cart)
-        //     // $(thisBtn).children('i').removeClass('fa-check').addClass('fa-spinner fa-spin')
-        //     // console.log('Clicou!')
-        // }
-
-
-        var ObjData = {
-            "data": {
-                "customer": "34258",
-                "billets": [
-                    {
-                        "billet_id": "1246934",
-                        "reference": "0088874-4",
-                        "duedate": "15/05/2023",
-                        "value": 5.9,
-                        "addition": "2.11",
-                        "discount": 0,
-                        "price": 8.01,
-                        "count": 1,
-                        "installment": 1,
-                        "total": 8.01
-                    }
-                ],
-                "installment": 1,
-                "method": "ecommerce",
-                "payment_type": "credit",
-                "amount": 8.01,
-                "reference": "d3924e99-be88-41ed-8853-05cede4fb75e",
-                "updated_at": "2023-10-31T13:19:13.000000Z",
-                "created_at": "2023-10-31T13:19:13.000000Z",
-                "id": 1418,
-                "status": "refused",
-                "terminal": null
-            }
-        }
-
-
-
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-{{--    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>--}}
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-
-
-{{--    <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>--}}
-{{--    <script defer type="text/javascript" src="{{ asset('assets/js/contract.custom.min.js') }}"></script>--}}
-        <script type="text/javascript" defer>
-            // inactivitySession();
-        </script>
-{{--    @if(session('success'))--}}
-{{--        <script>--}}
-
-{{--            // Enable pusher logging - don't include this in production--}}
-{{--            Pusher.logToConsole = true;--}}
-
-{{--            var pusher = new Pusher('4bd24f7e804373fc8cbb', {--}}
-{{--                cluster: 'us2'--}}
-{{--            });--}}
-
-{{--            var channel = pusher.subscribe('payments');--}}
-{{--            channel.bind('payment-approved', function(data) {--}}
-{{--                $('.full-screen-splash').addClass('d-none')--}}
-{{--                $('.loader').addClass('d-none')--}}
-{{--                console.log(transactionId);--}}
-{{--                console.log(JSON.stringify(data))--}}
-{{--                var paymentId = data.payment.id;--}}
-{{--                var status = JSON.stringify(data.payment.status);--}}
-
-{{--                // if(paymentId === transactionId){--}}
-{{--                    // paymentApproved(status.replace(/["]/g, ''))--}}
-{{--                    // msgStatusTransaction(paymentId, status)--}}
-{{--                    displayMessageStatusTransaction('Pagamento nº '+paymentId+' foi aprovado!','success', 10000, paymentId)--}}
-{{--                // }--}}
-
-{{--                // paymentApproved(paymentId+' '+status.replace(/["]/g, ''))--}}
-
-
-
-{{--            });--}}
-
-{{--            function paymentApproved(message){--}}
-{{--                Swal.fire({--}}
-{{--                    icon: 'success',--}}
-{{--                    title: message,--}}
-{{--                    --}}{{--title: `{{session('success')}}`,--}}
-{{--                    timer: 5000,--}}
-{{--                    showConfirmButton: false,--}}
-{{--                    allowOutsideClick: () => {--}}
-{{--                        const popup = Swal.getPopup()--}}
-{{--                        popup.classList.remove('swal2-show')--}}
-{{--                        setTimeout(() => {--}}
-{{--                            popup.classList.add('animate__animated', 'animate__headShake')--}}
-{{--                        })--}}
-{{--                        setTimeout(() => {--}}
-{{--                            popup.classList.remove('animate__animated', 'animate__headShake')--}}
-{{--                        }, 500)--}}
-{{--                        return false--}}
-{{--                    },--}}
-{{--                    willClose: () => {--}}
-{{--                        displayMessageQuestionFinish()--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            }--}}
-
-{{--        </script>--}}
-{{--    @endif--}}
+    <script type="text/javascript" defer>
+        inactivitySession();
+    </script>
 @endsection
 
 

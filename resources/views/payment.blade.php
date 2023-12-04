@@ -1036,7 +1036,7 @@
         var checkoutForm = $('#form_checkout')[0];
         console.log(checkoutForm)
 
-        var paymentId = 12345;
+        // var paymentId = 12345;
         //
         var modalQrCode = `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">

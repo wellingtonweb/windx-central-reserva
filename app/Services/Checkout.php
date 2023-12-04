@@ -41,7 +41,7 @@ class Checkout
                     "last_name" => str_replace($chars, "", $name[1]),
                     "cpf_cnpj" => $identity,
                 ],
-                'payment_type' => 'Pix',
+                'payment_type' => $valid["payment_type"],
                 'installment' => $valid["installment"],
                 'customer_origin' => json_encode([
                     'origin' => 'central'
@@ -88,6 +88,7 @@ class Checkout
 //            'customer_origin' => Functions::getCustomerOrigin(),
             'method' => $valid["payment_type"],
             'installment' => $valid["installment"],
+//            'company_id' => session('customer.company_id'),
             'customer_origin' => json_encode([
                 'origin' => 'central'
             ])

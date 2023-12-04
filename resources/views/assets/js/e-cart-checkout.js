@@ -120,7 +120,12 @@ function callbackPrintCoupon(id){
 }
 
 function callbackTransaction(id){
-    console.log(base_url + 'callback/' + id)
+    if(typeof id != undefined){
+        console.log(base_url + 'callback/' + id)
+    }else{
+        console.log("ID indefinido :(")
+    }
+
     $.ajax({
         url: base_url + 'callback/' + id,
         type: "GET",
@@ -182,13 +187,14 @@ function sendPayment(payment){
             })
         },
         success: function(response, textStatus, xhr) {
-            console.log('Resposta do servidor: ', response)
-            console.log('Status da resposta: ', xhr.status, textStatus)
-            console.log('ID do pagamento: ', response.id)
-            console.log('Status do pagamento: ', response.status)
-            console.log('Metodo do checkout: ', payment.methodCheckout)
+            // console.log('Resposta do servidor: ', response)
+            // console.log('Status da resposta: ', xhr.status, textStatus)
+            // console.log('ID do pagamento: ', response.id)
+            // console.log('Status do pagamento: ', response.status)
+            // console.log('Metodo do checkout: ', payment.methodCheckout)
+            // console.log('Type do checkout: ', payment.paymentType)
 
-            if(xhr.status === 200){
+            if(xhr.status === 200 || xhr.status === 201){
                 if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
                     sessionStorage.setItem('transactionId', response.id)
                     transactionId = sessionStorage.getItem("transactionId");
@@ -312,10 +318,11 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(payment){
+    // console.log('Pagando com QRCODE: ', payment, payment.qrCode);
     let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 
     Swal.fire({
-        title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'Pix' ? 'PIX' : 'PICPAY')}`,
+        title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'pix' ? 'PIX' : 'PICPAY')}`,
         html: `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
                 <div class="box-price-qrcode-card pb-1">
@@ -355,7 +362,7 @@ function setQrcode(payment){
         didOpen: () => {
             displayCart()
             Swal.hideLoading()
-            if(payment.payment_type == 'Pix'){
+            if(payment.payment_type == 'pix'){
                 $('#btnPixCopyCode').removeClass('d-none');
                 $('.group-pix-copy-paste').removeClass('d-none');
             }
@@ -398,7 +405,6 @@ function setQrcode(payment){
         }
     })
 }
-
 
 /* Functions Display Messages */
 function msgStatusTransaction(status){
@@ -539,7 +545,7 @@ function displayMessageErrorPayment(title){
 function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
 // function displayMessageStatusTransaction(dTitle, dIcon, dTimer, paymentId){
     var dButton =
-        `<a href="${base_url}comprovante/${paymentId}/download"
+        `<a href="${base_url}comprovante/${transactionId}/download"
         class="download-pdf btn btn-primary btn-sm" target="_blank">
             <i class="fa fa-download pr-1"></i>
             Baixar comprovante

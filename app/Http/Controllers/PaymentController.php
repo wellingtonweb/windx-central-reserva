@@ -129,14 +129,16 @@ class PaymentController extends Controller implements ShouldQueue
 //        $validated = $request->all();
         $validated = $request->validated();
 
-        if(!$validated)
-        {
-            //Logger::log(session('customer.login'),'error','Erro no pagamento ');
-            return response()->json(false);
-        }
+//        if(!$validated)
+//        {
+//            //Logger::log(session('customer.login'),'error','Erro no pagamento ');
+//            return response()->json(false);
+//        }
 
+//        if($request['method'] == 'picpay')
         if($validated['method'] == 'picpay')
         {
+//            $body = Checkout::getBodyPaymentPicpay($request);
             $body = Checkout::getBodyPaymentPicpay($validated);
 
             $response = (new API())->postPayment($body);
@@ -150,6 +152,7 @@ class PaymentController extends Controller implements ShouldQueue
         }
         else
         {
+//            $body = Checkout::getBodyPaymentEcommerce($request);
             $body = Checkout::getBodyPaymentEcommerce($validated);
 
             $response = (new API())->postPayment($body);
@@ -158,6 +161,8 @@ class PaymentController extends Controller implements ShouldQueue
             {
                 return response()->json($response->object(), $response->status());
             }
+
+//            dd($response->object()->data);
 
             return response()->json($response->object()->data, 200);
         }

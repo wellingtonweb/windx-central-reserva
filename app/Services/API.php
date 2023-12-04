@@ -225,12 +225,8 @@ class API
     {
         $payment = (array)($payment);
         $customer = session('customer');
-
-//        $this->payment = Payment::where('id', '=', $payment_id)->firstOrFail();
-//        $this->customer = (new VigoClient())->getCustomer($customer['full_name']);
         $pay = date("d/m/Y", strtotime($payment['created_at']));
         $customerFirstName = explode(" ", $customer['full_name']);
-        $billets = $payment['billets'];
         $couponContent = [
             "full_name" => $customer['full_name'],
             "first_name" => $customerFirstName[0],
@@ -245,8 +241,6 @@ class API
             "date_full" => ucfirst((new Functions)->getDateFull()),
             "date_time_full" => ucfirst((new Functions)->getDateTimeFull())
         ];
-
-//        dd($payment, session('customer'), $couponContent);
 
         $paper = array(0,0,215,460);
 //        $paper = array(0,0,280,600);

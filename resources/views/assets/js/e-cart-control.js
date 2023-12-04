@@ -17,7 +17,7 @@ function addToCartBtn(data){
     var addition = billet.addition;
     var discount = billet.discount;
     var price = Number(billet.price);
-    var company_id = Number(billet.company);
+    var company_id = Number(billet.company_id);
     var installment = Number(billet.installment);
     var installmentValue = 0;
     console.log('Empresa: '+ company_id)

@@ -93,7 +93,9 @@
                                 </li>
                                 <li class="list-group-item">
                                     <h6>Histórico: </h6>
-                                    <span id="call_historico" class="text-uppercase"></span>
+                                    <div class="w-100">
+                                        <span id="call_historico" class="text-uppercase"></span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -175,6 +177,11 @@
         @media (max-width: 575.98px) {
             .header-page {
                 display: none !important;
+            }
+
+            .list-group-item {
+                display: block !important;
+                padding: 0.25rem 0 !important;
             }
         }
 
@@ -297,15 +304,42 @@
             });
         });
 
-        $(".call-viewer").click(function(e) {
-            console.log('Clicou')
-            // var $tr = $(this).closest('tr');
-            // var rowData = $('.list-calls').DataTable().row($tr).data();
-            // console.log(rowData);
-        });
+        // $(".call-viewer").click(function(e) {
+        //     console.log('Clicou')
+        //     // var $tr = $(this).closest('tr');
+        //     // var rowData = $('.list-calls').DataTable().row($tr).data();
+        //     // console.log(rowData);
+        // });
 
         function getData(el){
-            console.log(JSON.parse(el))
+            // $(el).data('call')
+            let call = $(el).data('call');
+            var opening = new Date(call.dt_agendamento);
+
+            $('#call_status').text(call.fechado_por === '' ? 'ABERTO' : 'FECHADO');
+            $("#call_desc_funcionario").text(call.desc_funcionario)
+            $('#call_created_at').text(opening.toLocaleString().substr(0, 10) +' - '+call.h_agendamento);
+            // $("#call_created_at").text(call.created_at)
+            $("#call_descricao").text(call.descricao)
+            if(call.fechado_por != ''){
+                $('#li_call_operador').removeClass('d-none');
+                $('#call_fechado_por').text(call.fechado_por);
+            }
+            $("#call_historico").text(call.historico)
+            $("#call_numero_os").text(call.numero_os)
+
+
+
+                $('#call-details').modal('show');
+            //
+            // call_status
+            // call_desc_funcionario
+            // call_created_at
+            // call_descricao
+            // call_fechado_por
+            // call_historico
+
+            console.log("Atendimento: ", call)
         }
 
         document.getElementById('form-new-call').onsubmit = function (event) {

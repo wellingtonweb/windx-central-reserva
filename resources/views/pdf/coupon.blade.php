@@ -20,7 +20,7 @@
             font-family: Courier, Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
             margin: 0;
             width: 68mm;
-            font-size: .5rem !important;
+            font-size: .55rem !important;
             text-align: center;
             padding: .33rem;
         }
@@ -69,7 +69,7 @@
             #content{
                 display: block;
                 text-align: center;
-                font-size: 10px !important;
+                font-size: 11px !important;
                 background-color: darkgrey !important;
             }
 
@@ -138,10 +138,10 @@
                             </td>
                             <td id="coupon_billets" class="left">
                                 @foreach($billets as $info)
-                                    @if(count($billets)) > 1)
-                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.$info->duedate.'), ' : ', ' }}<br>
+                                    @if(count($billets) > 1)
+                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.date("d/m/Y", strtotime($info->duedate)).'), ' : ', ' }}<br>
                                     @else
-                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.$info->duedate.')' : '' }}
+                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.date("d/m/Y", strtotime($info->duedate)).')' : '' }}
                                     @endif
                                 @endforeach
                             </td>
@@ -247,7 +247,15 @@
                                 </td>
                             </tr>
                         @endif
-                        <tr><td colspan="4"class="line-1"></td></tr>
+                        @if($payment['payment_type'] == 'pix' || $payment['method'] == 'picpay')
+                            <tr class="ttu b-top text-center ">
+                                <td colspan="4" style="text-align: center; letter-spacing: 1px">
+                                    <p style="margin-top: 1rem">FAVOR CONFERIR EM SEU <br>APLICATIVO DE PAGAMENTO</p>
+                                </td>
+                            </tr>
+                        @else
+                            <tr><td colspan="4"class="line-1"></td></tr>
+                        @endif
                         </tbody>
                         <tfoot>
                         <tr class="sup b-top pt-2 font-weight-bold">

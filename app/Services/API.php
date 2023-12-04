@@ -224,13 +224,34 @@ class API
     public function getCouponPDF($payment)
     {
         $payment = (array)($payment);
+        $customer = session('customer');
 
-//        dd($payment);
+//        $this->payment = Payment::where('id', '=', $payment_id)->firstOrFail();
+//        $this->customer = (new VigoClient())->getCustomer($customer['full_name']);
+        $pay = date("d/m/Y", strtotime($payment['created_at']));
+        $customerFirstName = explode(" ", $customer['full_name']);
+        $billets = $payment['billets'];
+        $couponContent = [
+            "full_name" => $customer['full_name'],
+            "first_name" => $customerFirstName[0],
+            "email" => "sup.windx@gmail.com",
+//            "email" => $customer['email'],
+            "title" => "Comprovante de pagamento nº ".$payment['id']." - Pago em ".$pay,
+            "payment_id" => $payment['id'],
+            "payment_created" => $pay,
+            "billets" => (array)$payment['billets'],
+            "value" => number_format($payment['amount'], 2, ',', ''),
+            "payment" => $payment,
+            "date_full" => ucfirst((new Functions)->getDateFull()),
+            "date_time_full" => ucfirst((new Functions)->getDateTimeFull())
+        ];
+
+//        dd($payment, session('customer'), $couponContent);
 
         $paper = array(0,0,215,460);
 //        $paper = array(0,0,280,600);
 
-        $pdf = Pdf::loadView('pdf.coupon', $payment)->setPaper( $paper, 'portrait');
+        $pdf = Pdf::loadView('pdf.coupon', $couponContent)->setPaper( $paper, 'portrait');
 
         return $pdf->download('Comprovante_'.$payment['id'].'-'.Functions::dateToPt($payment['created_at']).'.pdf');
     }

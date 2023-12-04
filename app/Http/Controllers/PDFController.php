@@ -88,8 +88,12 @@ class PDFController extends Controller
 
             $payment = (new API())->getPayment($id);
 
-            return (new API())->getCouponPDF($payment->data);
-//            return view('pdf.coupon', ['payment' => $payment->data]);
+            if($payment->data->status === 'approved'){
+                return (new API())->getCouponPDF($payment->data);
+            }
+
+            return redirect()->route('central.payments')
+                ->with('error','O pagamento nº '.$id.' não foi aprovado!');
 
         } else {
             throw new CheckUserException();

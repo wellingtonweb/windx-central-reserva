@@ -310,4 +310,9 @@ class forDates
         return false;
     }
 
+    public function convertDateTime($date)
+    {
+        return date("d/m/Y H:i:s", strtotime($date) - 3 * 60 * 60);
+    }
+
 }

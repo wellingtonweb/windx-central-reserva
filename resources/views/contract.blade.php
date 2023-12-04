@@ -129,10 +129,6 @@
         }
 
         @media (max-width: 575.98px) {
-            /*.header-page {*/
-            /*    display: none !important;*/
-            /*}*/
-
             .col {
                 padding-right: 5px !important;
                 padding-left: 5px !important;
@@ -155,6 +151,5 @@
 @endsection
 
 @section('js')
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
-
+    <script type="text/javascript" defer>inactivitySession();</script>
 @endsection

@@ -277,11 +277,8 @@ class PagesController extends Controller
 
     public function support()
     {
-        if(session()->has('customer')){
-
-
-
-//            dd(session('customer')->calls);
+        if(session()->has('customer'))
+        {
             return view('support', [
                 'header' => 'Suporte',
             ]);

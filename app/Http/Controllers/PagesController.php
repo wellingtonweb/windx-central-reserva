@@ -293,16 +293,11 @@ class PagesController extends Controller
     public function supportList()
     {
         if(session()->has('customer')){
-//            $calls = json_decode(json_encode((new API())->getCalls(session('customer.id'))),true);
             $calls = (new API())->getCalls(session('customer.id'));
-
-//            dd($calls);
-//            $invoices = array_reverse(json_decode(json_encode(session('customer')->invoices,true)));
 
             return Datatables::of($calls)
                 ->addColumn('action', function($data){
                     $button = "<button type='button' onclick='getData(this)' data-call='".json_encode($data)."' data-toggle='tooltip' data-original-title='Download' class='call-viewer btn btn-info btn-sm'><i class='fa fa-info pr-1'></i></button>";
-//                    $button = '<button type="button" onclick="getData('.json_encode($data).')" data-call="'.json_encode($data).'" data-toggle="tooltip" data-original-title="Download" class="call-viewer btn btn-info btn-sm"><i class="fa fa-info pr-1"></i></button>';
                     return $button;
                 })
                 ->rawColumns(['action'])

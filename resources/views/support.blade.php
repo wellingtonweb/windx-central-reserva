@@ -196,11 +196,10 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script type="text/javascript" defer>inactivitySession();</script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $(function () {
@@ -255,14 +254,11 @@
         });
 
         function getData(el){
-            // $(el).data('call')
             let call = $(el).data('call');
             var opening = new Date(call.dt_agendamento);
-
             $('#call_status').text(call.fechado_por === '' ? 'ABERTO' : 'FECHADO');
             $("#call_desc_funcionario").text(call.desc_funcionario)
             $('#call_created_at').text(opening.toLocaleString().substr(0, 10) +' - '+call.h_agendamento);
-            // $("#call_created_at").text(call.created_at)
             $("#call_descricao").text(call.descricao)
             if(call.fechado_por != ''){
                 $('#li_call_operador').removeClass('d-none');

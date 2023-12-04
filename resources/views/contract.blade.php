@@ -4,54 +4,16 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
-{{--                <div class="box rounded text-white" style="position: absolute; top: 0; left: 0; top: 0; bottom: 0; width: 100vw; height: 100vh; background-color: rgb(0 32 70 / 0.5); backdrop-filter: blur(10px); z-index: 9998">--}}
-{{--                    <div class="loader animate__animated animate__fadeInUp">--}}
-{{--                        <h2>--}}
-{{--                            <span>W</span>--}}
-{{--                            <span>I</span>--}}
-{{--                            <span>N</span>--}}
-{{--                            <span>D</span>--}}
-{{--                            <span>X</span>--}}
-{{--                        </h2>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-                <div class="row contents p-1 inner animate__animated animate__fadeInUpBig animate__delay-1s">
-{{--                    <div id="infoCustomerActive" class="d-flex col-12 order-0 px-lg-0 px-md-1 mb-2">--}}
-{{--                        <a href="{{route('central.home')}}" class="btn btn-secondary btn-sm">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"  class="bi bi-arrow-left" viewBox="0 0 16 16">--}}
-{{--                                <path style="fill:white !important;" fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>--}}
-{{--                            </svg>--}}
-{{--                            Voltar--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
+                <div class="row contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
                     <nav id="infoCustomerActive" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Contrato</li>
                         </ol>
                     </nav>
-{{--                    {{dd($customer)}}--}}
                     <div class="col-12">
-                        <div class="row d-none" style="gap: 10px">
-                            <div class="card-info col-md-4 style="backdrop-filter: blur(10px)">
-                                <h2>Heading</h2>
-                                <p>Will you do the same for me? It's time to face the music I'm no longer your muse. Heard it's beautiful, be the judge and my girls gonna take a vote. I can feel a phoenix inside of me. Heaven is jealous of our love, angels are crying from up above. Yeah, you take me to utopia.</p>
-                                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-                            </div>
-                            <div class="card-info col-md-4">
-                                <h2>Heading</h2>
-                                <p>Standing on the frontline when the bombs start to fall. Heaven is jealous of our love, angels are crying from up above. Can't replace you with a million rings. Boy, when you're with me I'll give you a taste. There’s no going back. Before you met me I was alright but things were kinda heavy. Heavy is the head that wears the crown.</p>
-                                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-                            </div>
-                            <div class="card-info col-md-4">
-                                <h2>Heading</h2>
-                                <p>Playing ping pong all night long, everything's all neon and hazy. Yeah, she's so in demand. She's sweet as pie but if you break her heart. But down to earth. It's time to face the music I'm no longer your muse. I guess that I forgot I had a choice.</p>
-                                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-                            </div>
-                        </div>
                         <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mt-3 pr-sm-0 pl-sm-0 ">
+                            <div class="col mt-3">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Dados Pessoais</h4>
@@ -83,7 +45,7 @@
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Referência:
-                                                <span class="text-black-50 text-right">{{ $customer['reference'] }}</span>
+                                                <span class="text-black-50 text-right">{{ trim($customer['reference']) == '' ? 'SEM REFERÊNCIAS' : $customer['reference']}}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Cidade:
@@ -164,6 +126,29 @@
             background-color: white;
             border-radius: .5rem;
             gap: 5px;
+        }
+
+        @media (max-width: 575.98px) {
+            /*.header-page {*/
+            /*    display: none !important;*/
+            /*}*/
+
+            .col {
+                padding-right: 5px !important;
+                padding-left: 5px !important;
+            }
+
+            .card-body {
+                padding: .5rem !important;
+            }
+
+            .list-group-item {
+                padding: .5rem !important;
+            }
+
+            .contents {
+                padding: .5rem !important;
+            }
         }
     </style>
 

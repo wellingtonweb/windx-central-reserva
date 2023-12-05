@@ -12,6 +12,7 @@
                                 <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
                             </ol>
                         </nav>
+
                         <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="checkout-box" class="d-flex flex-wrap">

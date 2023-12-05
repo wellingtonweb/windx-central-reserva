@@ -11,6 +11,9 @@
                             <li class="breadcrumb-item active" aria-current="page">Contrato</li>
                         </ol>
                     </nav>
+                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
+                        {{$header}}
+                    </div>
                     <div class="col-12">
                         <div class="row row-cols-1 row-cols-md-3">
                             <div class="col mt-3">

@@ -11,6 +11,9 @@
                             <li class="breadcrumb-item active" aria-current="page">Notas fiscais</li>
                         </ol>
                     </nav>
+                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
+                        {{$header}}
+                    </div>
                     <div class="container-list-table col-12">
                         <table class="table table-bordered table-striped display list-payments text-uppercase">
                         </table>

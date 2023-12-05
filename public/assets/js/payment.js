@@ -915,7 +915,7 @@ function displayMessageErrorPayment(title){
 
 function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
     var dButton =
-        `<a href="${base_url}comprovante/${transactionId}/download"
+        `<a href="${base_url}comprovante/${transactionId}/download" onclick="downloadClick()"
         class="download-pdf btn btn-primary btn-sm" target="_blank">
             <i class="fa fa-download pr-1"></i>
             Baixar comprovante

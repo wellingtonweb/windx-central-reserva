@@ -223,7 +223,7 @@ class PagesController extends Controller
 //                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
                 }, ARRAY_FILTER_USE_BOTH);
             }
-//                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
+
             return Datatables::of($paymentCustomer)
                 ->addColumn('action', function($data){
                     if($data['status'] === 'approved'){
@@ -263,7 +263,7 @@ class PagesController extends Controller
             return Datatables::of($invoices)
                 ->addColumn('action', function($data){
                     $button = '<a href="'. $data->link .
-                        '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                        '" data-toggle="tooltip" data-original-title="Download" target="_blank" class="download-pdf badge badge-pill badge-primary my-1 px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>';
                     return $button;
                 })
                 ->rawColumns(['action'])
@@ -291,9 +291,11 @@ class PagesController extends Controller
         if(session()->has('customer')){
             $calls = (new API())->getCalls(session('customer.id'));
 
+            //class="download-pdf badge badge-pill badge-primary my-1 px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>
             return Datatables::of($calls)
                 ->addColumn('action', function($data){
-                    $button = "<button type='button' onclick='getData(this)' data-call='".json_encode($data)."' data-toggle='tooltip' data-original-title='Download' class='call-viewer btn btn-info btn-sm'><i class='fa fa-info pr-1'></i></button>";
+                    $button = "<a href='#' onclick='getData(this)' data-call='".json_encode($data).
+                        "' data-toggle='tooltip' data-original-title='Download' class='call-viewer badge badge-pill badge-info my-1 px-3 py-2'><i class='fa fa-info pr-1'></i>INFO</a>";
                     return $button;
                 })
                 ->rawColumns(['action'])

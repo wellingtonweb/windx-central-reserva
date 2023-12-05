@@ -1800,9 +1800,15 @@ svg rect{
         display: none !important;
     }
 
+    .header-app {
+        display: flex !important;
+        font-size: large;
+    }
+
     .container-list-table.col-12 {
         padding-right: 0 !important;
         padding-left: 0 !important;
+        padding-top: 2rem !important;
     }
 }
 /* CSS Inline app */

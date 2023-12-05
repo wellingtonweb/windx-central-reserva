@@ -25,13 +25,12 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/lembrar-senha', [AuthController::class, 'forgotPassword'])->name('forgot.password');
-    Route::post('/forgot-password', [AuthController::class, 'mailForgotPassword'])->name('mail.forgot.password');
-    Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
-    Route::post('/send-new-password', [AuthController::class, 'sendNewPassword'])->name('reset.password');
-    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');
+//    Route::get('/lembrar-senha', [AuthController::class, 'forgotPassword'])->name('forgot.password');
+//    Route::post('/forgot-password', [AuthController::class, 'mailForgotPassword'])->name('mail.forgot.password');
+//    Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
+//    Route::post('/send-new-password', [AuthController::class, 'sendNewPassword'])->name('reset.password');
+//    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');
     Route::get('/callback/{id}', [PaymentController::class, 'callback'])->name('callback');
-
 
     Route::middleware(['check.user'])->group(function () {
 

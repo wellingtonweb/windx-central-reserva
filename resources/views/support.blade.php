@@ -5,7 +5,7 @@
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
                 <div class="row contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
-                    <div id="infoCustomerActive" class="d-flex col-lg-6 order-0 px-lg-0 px-md-1 mb-2 justify-content-between">
+                    <div id="infoCustomerActive" class="d-flex col-12 px-lg-0 px-md-1 mb-2 justify-content-between">
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
@@ -13,10 +13,13 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="d-flex col-lg-6 col-md-12 col-sm-12 justify-content-end">
-                        <a href="#" class="link text-primary font-weight-bold" style="font-size: 90%" data-toggle="modal" data-target="#new-call-modal">
-                            <i class="fa fa-plus pr-2"></i>Novo atendimento
-                        </a>
+{{--                    <div class="d-flex col-lg-6 col-md-12 col-sm-12 justify-content-end">--}}
+                        <a href="#" id="btnNewCall" class="badge badge-pill badge-primary px-3 py-2"
+                           data-toggle="modal" data-target="#new-call-modal">
+                            <i class="fa fa-plus pr-1"></i>Novo atendimento</a>
+{{--                    </div>--}}
+                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
+                        {{$header}}
                     </div>
                     <div class="container-list-table col-12">
                         <table id="list-calls" class="table table-bordered table-striped display list-calls text-uppercase">
@@ -143,6 +146,15 @@
         #infoCustomerActive p {
             font-size: 80%;
             margin: 0 auto
+        }
+
+        #btnNewCall {
+            font-size: 90%;
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            z-index: 99;
+
         }
 
         .bottom, .top {

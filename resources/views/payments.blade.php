@@ -11,6 +11,9 @@
                             <li class="breadcrumb-item active" aria-current="page">Comprovantes</li>
                         </ol>
                     </nav>
+                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
+                        {{$header}}
+                    </div>
                     <div class="container-list-table col-12">
                         <table class="table table-bordered table-striped display list-payments text-uppercase">
                         </table>
@@ -189,33 +192,5 @@
                 });
             });
         });
-
-        function downloadClick() {
-            Swal.fire({
-                title: 'Aguarde!',
-                html: 'Gerando comprovante...',
-                timer: 5000,
-                timerProgressBar: true,
-                showConfirmButton: false,
-                didOpen: () => {
-                    Swal.showLoading()
-                },
-                allowOutsideClick: () => {
-                    const popup = Swal.getPopup()
-                    popup.classList.remove('swal2-show')
-                    setTimeout(() => {
-                        popup.classList.add('animate__animated', 'animate__headShake')
-                    })
-                    setTimeout(() => {
-                        popup.classList.remove('animate__animated', 'animate__headShake')
-                    }, 500)
-                    return false
-                }
-            })
-        };
-
-        // $('.download-pdf').on('click', function (){
-        //     alert('Gerando seu comprovante!');
-        // })
     </script>
 @endsection

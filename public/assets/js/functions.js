@@ -81,6 +81,45 @@ function displayMessageQuestionFinish(){
     })
 }
 
+function displayMessageQuestionLogout(){
+    Swal.fire({
+        title: 'Deseja permanecer logado?',
+        icon: 'question',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Sim',
+        denyButtonText: 'Não',
+        timer: 10000,
+        customClass: {
+            actions: 'my-actions',
+            cancelButton: 'order-1 right-gap',
+            confirmButton: 'order-2',
+            denyButton: 'order-3',
+        },
+        didOpen: () => {
+            Swal.hideLoading()
+            clearInterval(callback)
+        },
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log('Sessão mantida!')
+        } else if (result.dismiss || result.isDenied) {
+            logout()
+        }
+    })
+}
+
 function getIp(callback)
 {
     function response(s)
@@ -328,7 +367,7 @@ let inactivitySession = function () {
     document.onmousedown = resetTimer; // touchscreen presses
     document.ontouchstart = resetTimer;
     document.onclick = resetTimer;     // touchpad clicks
-    // window.onload = resetTimer;
+    window.onload = resetTimer;
 };
 
 function resetTimer() {
@@ -340,12 +379,14 @@ function resetTimer() {
             $('.progress-bar-system').css('width', i + '%');
         } else {
             clearInterval(time);
-            logout()
+            // logout()
+            displayMessageQuestionLogout()
         }
     }, 1000);
 }
 
 $('.container-fluid').trigger('click');
+// $('body').trigger('click')
 
 function setPaymentType(payment_type){
     switch (payment_type){
@@ -377,6 +418,30 @@ function setPaymentMethod(method){
             break;
     }
 }
+
+function downloadClick() {
+    Swal.fire({
+        title: 'Aguarde!',
+        html: 'Gerando comprovante...',
+        timer: 5000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        didOpen: () => {
+            Swal.showLoading()
+        },
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        }
+    })
+};
 
 // $("#table-coupons-list tbody tr").on('click', function(){
 //     $(this).find("a.btn-payment-details")[0].click();

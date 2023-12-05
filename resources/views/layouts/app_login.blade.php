@@ -79,31 +79,6 @@
             });
         </script>
     @endif
-
-{{--    <script>--}}
-        {{--var teste = {{json_decode(session('error'))}}--}}
-        {{--console.log(teste)--}}
-
-        {{--Swal.fire({--}}
-        {{--    title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
-        {{--    icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
-        {{--    html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
-        {{--    timer: 5000,--}}
-        {{--    timerProgressBar: false,--}}
-        {{--    showConfirmButton: false,--}}
-        {{--})--}}
-{{--    </script>--}}
-    {{--    @else--}}
-    {{--        <script>--}}
-    {{--            Swal.fire({--}}
-    {{--                title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',--}}
-    {{--                icon: '{{ (session('message') ? 'warning': 'error') }}',--}}
-    {{--                html: '{{ (session('message') ? session('message') : (session('error') ? session('error'): session('error_checkout'))) }}',--}}
-    {{--                timer: 5000,--}}
-    {{--                timerProgressBar: false,--}}
-    {{--                showConfirmButton: false,--}}
-    {{--            })--}}
-    {{--        </script>--}}
 @endif
 @hasSection('js')
     @yield('js')

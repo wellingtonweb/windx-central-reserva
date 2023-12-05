@@ -89,10 +89,6 @@
                                                 Dia de Vencimento:
                                                 <span class="text-black-50 text-right">15</span>
                                             </li>
-{{--                                            <li class="list-group-item d-flex justify-content-between align-items-center">--}}
-{{--                                                Cliente Desde:--}}
-{{--                                                <span class="text-black-50 text-right">01/05/2004</span>--}}
-{{--                                            </li>--}}
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Status:
                                                 @switch($customer['status'])
@@ -150,7 +146,6 @@
             }
         }
     </style>
-
 @endsection
 
 @section('js')

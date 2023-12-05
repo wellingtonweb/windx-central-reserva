@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="credits">
-                    <a href="javascript:void(0)">
+                    <a href="https://dewelloper.dev.br" target="_blank">
                         <smalL>dewelloper.dev.br</smalL>
                     </a>
                 </div>

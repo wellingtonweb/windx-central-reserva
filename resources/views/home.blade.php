@@ -441,7 +441,6 @@
 
 @section('css')
     <style>
-        /* Dispositivos extra small (telefones em modo retrato, com menos de 576px) */
         @media (max-width: 575.98px) {
             .action-button {
                 /*min-width: calc(25% - .75rem);*/
@@ -471,28 +470,24 @@
 
         }
 
-        /* Dispositivos small (telefones em modo paisagem, com 576px ou mais) */
         @media (min-width: 576px) and (max-width: 767.98px) {
             .action-button {
                 max-width: calc(50% - 30px) !important;
             }
         }
 
-        /* Dispositivos médios (tablets com 768px ou mais) */
         @media (min-width: 768px) and (max-width: 991.98px) {
             .action-button {
                 max-width: calc(25% - 1.2rem) !important;
             }
         }
 
-        /* Dispositivos large (desktops com 992px ou mais) */
         @media (min-width: 992px) and (max-width: 1199.98px) {
             .action-button {
                 max-width: calc(25% - 1.2rem) !important;
             }
         }
 
-        /* Dispositivos extra large (desktops grandes com 1200px ou mais) */
         @media (min-width: 1200px) {
             .action-button {
                 max-width: calc(25% - 1.2rem) !important;

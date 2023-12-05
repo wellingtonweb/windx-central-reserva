@@ -13,11 +13,9 @@
                             </ol>
                         </nav>
                     </div>
-{{--                    <div class="d-flex col-lg-6 col-md-12 col-sm-12 justify-content-end">--}}
-                        <a href="#" id="btnNewCall" class="badge badge-pill badge-primary px-3 py-2"
-                           data-toggle="modal" data-target="#new-call-modal">
-                            <i class="fa fa-plus pr-1"></i>Novo atendimento</a>
-{{--                    </div>--}}
+                    <a href="#" id="btnNewCall" class="badge badge-pill badge-primary px-3 py-2"
+                       data-toggle="modal" data-target="#new-call-modal">
+                        <i class="fa fa-plus pr-1"></i>Novo atendimento</a>
                     <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
                         {{$header}}
                     </div>

@@ -99,14 +99,12 @@
                     ajax: "{{ route('central.coupons') }}",
                     columnDefs: [
                         {
-                            // targets: [0],
                             visible: false,
                             searchable: false,
                             pageLength : 5,
                             lengthMenu: [[5, 10], [5, 10]],
                             className: 'dtr-control arrow-right',
                             orderable: false,
-                            // target: -1
                         }
                     ],
                     columns: [

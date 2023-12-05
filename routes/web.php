@@ -22,7 +22,7 @@ Route::prefix('assinante')->name('central.')->group(function(){
         return redirect()->route('central.login');
     });
 
-    Route::get('login', [AuthController::class, 'login'])->name('login');
+    Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 //    Route::get('/lembrar-senha', [AuthController::class, 'forgotPassword'])->name('forgot.password');
@@ -35,9 +35,9 @@ Route::prefix('assinante')->name('central.')->group(function(){
     Route::middleware(['check.user'])->group(function () {
 
         /* Simple Routes */
-        Route::get('/', function () {
-            return redirect()->route('central.home');
-        });
+//        Route::get('/', function () {
+//            return redirect()->route('central.home');
+//        });
         Route::get('/home', [PagesController::class, 'home'])->name('home');
         Route::get('/contrato', [PagesController::class, 'contract'])->name('contract');
         Route::get('/notasfiscais', [PagesController::class, 'invoices'])->name('invoices');

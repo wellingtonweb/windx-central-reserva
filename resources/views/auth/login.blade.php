@@ -15,35 +15,36 @@
     <section>
         <div id="main" class="container-logon">
             <div class="card-logon p-2">
-                <div class="card form-signin p-4 d-none" style="border-radius: .5rem">
+                <div class="card form-signin py-4 d-none" style="border-radius: .5rem">
                     <form id="form_login" method="POST" class="panel" action="{{ Route('central.logon') }}">
-                        <div class="card-header font-weight-bold" style="padding-top: 0">
-                            <h2 style="color: #002046;">Central do Assinante</h2>
+                        <div class="card-header" style="padding-top: 0; ">
+                            <h2>Central do Assinante</h2>
+                            <h5 class="py-1">Aqui você pode fazer pagamentos, obter segunda via de faturas, notas fiscais e suporte técnico.</h5>
                         </div>
                         <div class="card-body">
                             @csrf
-                            <p class="card-text subtitle-login text-black-50 pb-1">Preencha seus dados de acesso!</p>
+                            <p class="card-text subtitle-login pb-1" style="">Preencha seus dados de acesso!</p>
                             <div class="input-group mt-2 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputLogin" type="text" value="123wdf" class="form-control inputs-login" name="login"
-                                       placeholder="Seu login"
+                                <input id="inputLogin" type="text" class="form-control inputs-login" name="login"
+                                       placeholder="Seu login" autocomplete="off"
                                        aria-label="Login" aria-describedby="login">
                             </div>
                             <small id="smallErrorLogin" class="text-danger mt-2 login_error"></small>
-                            <div class="input-group mt-2">
+                            <div class="input-group mt-3">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
                                 </div>
-                                <input id="inputPassword" type="password" value="1234" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
-                                       aria-describedby="password">
+                                <input id="inputPassword" type="password" class="form-control inputs-login" name="password"  placeholder="Sua senha" aria-label="Password"
+                                       aria-describedby="password" autocomplete="off">
                                 <span toggle="#inputPassword" class="fa fa-fw fa-eye field-icon toggle-password text-primary mr-2"></span>
                             </div>
                             <small id="smallErrorPassword" class="text-danger mt-2 password_error"></small>
 
                         </div>
-                        <div class="card-footer bg-white border-0">
+                        <div class="card-footer border-0 px-4 py-2">
                             <button id="btn-login" type="submit" class="btn btn-primary btn-block" >Entrar</button>
                         </div>
                     </form>
@@ -53,6 +54,11 @@
     </section>
 </main>
 @endsection
+
+@section('css')
+
+@endsection
+
 @section('js')
     <script>
         $( "#inputLogin" ).on( "click", function() {

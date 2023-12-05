@@ -84,7 +84,7 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script type="text/javascript" defer>inactivitySession();</script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script>
@@ -108,14 +108,12 @@
                     },
                     columnDefs: [
                         {
-                            // targets: [0],
                             visible: false,
                             searchable: false,
                             pageLength : 5,
                             lengthMenu: [[5, 10], [5, 10]],
                             className: 'dtr-control arrow-right',
                             orderable: false,
-                            // target: -1
                         }
                     ],
                     columns: [
@@ -148,15 +146,7 @@
                     searchable: false,
                     sortable: false,
                     responsive: true,
-                    order: [2, 'desc']                    // rowCallback: function(row, data, index) {,
-                    //     var statusCell = table.cell(index, 'status:name');
-                    //     var statusText = statusCell.data();
-                    //     if (statusText === 'approved') {
-                    //         $(row).find('td.status').css('color', 'green'); // Altere a cor desejada
-                    //     } else {
-                    //         $(row).find('td.status').css('color', 'gray'); // Altere a cor desejada
-                    //     }
-                    // }
+                    order: [2, 'desc']
                 });
             });
         });

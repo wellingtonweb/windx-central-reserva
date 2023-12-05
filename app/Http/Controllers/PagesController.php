@@ -223,15 +223,14 @@ class PagesController extends Controller
 //                    return $v['customer'] == session('customer')->id && $v['terminal_id'] == null && $v['method'] == 'ecommerce' && $v['status'] == 'approved';
                 }, ARRAY_FILTER_USE_BOTH);
             }
-
+//                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
             return Datatables::of($paymentCustomer)
                 ->addColumn('action', function($data){
                     if($data['status'] === 'approved'){
                         $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
-                            '" data-toggle="tooltip"  data-original-title="Download" class="download-pdf btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i></a>';
+                            '" data-toggle="tooltip" onclick="downloadClick()" data-original-title="Download" class="download-pdf badge badge-pill badge-primary px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>';
                     }else{
                         $button = '---';
-//                        $button = '<a href="javascript:void(0)" data-original-title="None" class="btn btn-secondary btn-sm" style="pointer-events:none;"><i class="fa fa-times pr-1"></i></a>';
                     }
                     return $button;
                 })

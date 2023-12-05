@@ -81,7 +81,7 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script type="text/javascript" defer>inactivitySession();</script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script>
@@ -189,5 +189,33 @@
                 });
             });
         });
+
+        function downloadClick() {
+            Swal.fire({
+                title: 'Aguarde!',
+                html: 'Gerando comprovante...',
+                timer: 5000,
+                timerProgressBar: true,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                }
+            })
+        };
+
+        // $('.download-pdf').on('click', function (){
+        //     alert('Gerando seu comprovante!');
+        // })
     </script>
 @endsection

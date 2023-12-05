@@ -109,10 +109,6 @@
                                 <div class="container-icon w-100  d-flex justify-content-center">
                                     <div class="icon text-center text-custom h1 shadow rounded">
                                         <span class="uim-svg">
-    {{--                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 18 18" width="1.2em">--}}
-                                                    {{--                                          <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>--}}
-                                                    {{--                                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>--}}
-                                                    {{--                                        </svg>--}}
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-medical" viewBox="0 0 18 18" width="1.2em">
                                               <path d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
                                               <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
@@ -192,7 +188,6 @@
                     </div>
                     @endif
                 </div>
-
                 <div class="row mt-3 d-none">
                     <div class="d-none card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
@@ -261,7 +256,6 @@
                             </div>
                         </a>
                     </div><!--end col-->
-
                     <div class="card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-1 pt-2 pl-0 pr-0 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.payment')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
@@ -294,7 +288,6 @@
                             </div>
                         </a>
                     </div><!--end col-->
-
                     <div class="d-none card-button col-lg-3 col-md-6 col-6 mt-lg-4 mt-md-4 mt-sm-0 pt-2 animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.payment')}}" class="text-custom">
                             <div class="card service-wrapper rounded border-0 shadow p-4">
@@ -362,10 +355,6 @@
                                 <div class="d-flex flex-lg-column flex-row">
                                     <div class="icon text-center text-custom h1 shadow rounded" style="width: 33.33%">
                                     <span class="uim-svg">
-{{--                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 18 18" width="1.2em">--}}
-{{--                                          <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>--}}
-{{--                                          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>--}}
-{{--                                        </svg>--}}
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-medical" viewBox="0 0 18 18" width="1.2em">
                                           <path d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
                                           <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
@@ -765,7 +754,8 @@
 @endsection
 
 @section('js')
-    <script>
-
+    <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
+    <script type="text/javascript" defer>
+        inactivitySession();
     </script>
 @endsection

@@ -28,13 +28,8 @@ class CheckoutRequest extends FormRequest
     public function rules()
     {
         return [
-
             'bandeira' =>           ['required_if:payment_type,credit,debit'],
             'billets' =>            ['required'],
-//            'card_number' =>        ['required_if:payment_type,credit,debit'],
-//            'expiration_year' =>    ['required_if:payment_type,credit,debit'],
-//            'expiration_month' =>   ['required_if:payment_type,credit,debit'],
-//            'cvv' =>                ['required_if:payment_type,credit,debit'],
             'card_number' =>        ['required_if:payment_type,credit,debit',
                 $this->get('card_number') != null ? new CardNumber : ''],
             'expiration_year' =>    ['required_if:payment_type,credit,debit',
@@ -45,20 +40,16 @@ class CheckoutRequest extends FormRequest
                 $this->get('cvv') != null ? new CardCvc($this->get('card_number')) : ''],
             'customer' =>           ['required'],
             'holder_name' =>        ['required_if:payment_type,credit,debit'],
-//            'ip_address' =>         ['required_if:payment_type,credit,debit'],
             'method' =>             ['required'],
             'payment_type' =>       ['required_if:method,ecommerce,tef'],
             'full_name' =>          ['required_if:method,picpay','string'],
             'email' =>              ['required_if:method,picpay','string'],
             'cpf_cnpj' =>           ['required_if:method,picpay','required_if:payment_type,pix'],
-//            'cpf_cnpj_type' =>      ['required_if:payment_type,pix','string'],
             'phone' =>              ['required_if:method,picpay','string'],
             'installment' =>        ['required'],
-//            'terminal_id' =>        ['required_if:method,tef'],
-//            'reference' =>          ['required_if:method,tef'],
         ];
     }
-//
+
     public function messages()
     {
         return [

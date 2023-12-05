@@ -114,7 +114,7 @@
                                     billetsHTML = '<ul style="list-style: none">';
                                     data.forEach(function(billet) {
                                         billetsHTML += '<li>' + billet.reference
-                                            +' | '+ billet.duedate
+                                            +' | '+ moment(billet.duedate).utc().format('DD/MM/YYYY')
                                             +' | R$ '+ billet.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
                                             +' | R$ '+billet.addition.toLocaleString('pt-br', {minimumFractionDigits: 2})
                                              +'</li>';
@@ -133,7 +133,7 @@
                                     case 'pix':
                                         paymentType = "pix";
                                         break;
-                                    case 'picpay':
+                                    case null:
                                         paymentType = "picpay";
                                         break;
                                     case 'debit':
@@ -176,6 +176,7 @@
                     searchable: false,
                     sortable: false,
                     responsive: true,
+                    order: [0, 'desc'],
                     rowCallback: function(row, data, index) {
                         var statusCell = table.cell(index, 'status:name');
                         var statusText = statusCell.data();

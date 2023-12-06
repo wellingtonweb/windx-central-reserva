@@ -242,7 +242,7 @@ class API
             "date_time_full" => ucfirst((new Functions)->getDateTimeFull())
         ];
 
-        $paper = array(0,0,215,460);
+        $paper = array(0,0,200,460);
 //        $paper = array(0,0,280,600);
 
         $pdf = Pdf::loadView('pdf.coupon', $couponContent)->setPaper( $paper, 'portrait');

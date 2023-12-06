@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthController2;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
@@ -25,8 +26,8 @@ Route::name('central.')->group(function(){
     Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('logon', [AuthController::class, 'logon'])->name('logon');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-//    Route::get('/lembrar-senha', [AuthController::class, 'forgotPassword'])->name('forgot.password');
-//    Route::post('/forgot-password', [AuthController::class, 'mailForgotPassword'])->name('mail.forgot.password');
+//    Route::get('/lembrar-senha', [AuthController2::class, 'forgotPassword'])->name('forgot.password');
+//    Route::post('/forgot-password', [AuthController2::class, 'mailForgotPassword'])->name('mail.forgot.password');
 //    Route::get('/nova-senha/{token}', [AuthController::class, 'newPassword'])->name('new.password');
 //    Route::post('/send-new-password', [AuthController::class, 'sendNewPassword'])->name('reset.password');
 //    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');

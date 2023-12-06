@@ -130,6 +130,16 @@ class AuthController2 extends Controller
             return redirect()->route('central.home');
         }
         else {
+            $customerData = [
+                'customer_id' => 123,
+                'customer_name' => 'Wellington',
+                'customer_login' => '123wdf',
+                'url' => env('app_base_url') . "nova-senha/" . '12344asdas'
+            ];
+
+            SendMailResetPasswordJob::dispatch($customerData);
+            dd('ok');
+
             if(session()->has('password_reset')){
                 session()->forget('password_reset');
             }

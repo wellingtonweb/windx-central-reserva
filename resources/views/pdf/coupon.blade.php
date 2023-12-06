@@ -90,7 +90,8 @@
                         <thead>
                         <tr>
                             <th class="text-center" colspan="2">
-                                <img style="width: 20mm !important; margin-top: 1rem" src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">
+                                <img style="width: 20mm !important; margin-top: 1rem" src="{{ asset('assets/img/logo2.png') }}" class="logo pt-2">
+{{--                                <img style="width: 20mm !important; margin-top: 1rem" src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">--}}
                             </th>
                         </tr>
                         <tr class="b-top" >
@@ -99,6 +100,7 @@
                                 <span style="letter-spacing: 1px; padding-top: 1rem; padding-bottom: 1rem;">(Cupom não fiscal)</span><br>
                                 <p>
                                     <small style="color: #5b5b5b; padding-top: 1rem; padding-bottom: 1rem;">
+{{--                                    <small style="color: #5b5b5b; padding-top: 1rem; padding-bottom: 1rem;">--}}
                                         {{ $date_time_full }}
                                     </small>
                                 </p>

@@ -15,6 +15,8 @@
                         {{$header}}
                     </div>
                     <div class="col-12">
+
+{{--                        {{ dd($customer) }}--}}
                         <div class="row row-cols-1 row-cols-md-3">
                             <div class="col mt-3">
                                 <div class="card h-100">
@@ -82,7 +84,7 @@
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Plano contratado:
                                                 @foreach($customer['plans'] as $plan)
-                                                <span class="text-black-50 text-right">{{ $plan['descricao'] }}</span>
+                                                <span class="text-black-50 text-right">{{ $plan['descricao'] }} (R$ {{ number_format($plan['valor'],2,",",".")}})</span>
                                                 @endforeach
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">

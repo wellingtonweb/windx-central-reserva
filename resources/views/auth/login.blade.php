@@ -4,7 +4,7 @@
 <div class="full-screen-splash">
     <section>
         <article>
-            <img class="animate__animated animate__zoomIn" src="{{ asset('assets/img/logox.svg') }}"
+            <img class="animate__animated animate__zoomIn" src="{{ asset('assets/img/logox2.svg') }}"
                  alt="{{ config('app.name') }}">
             <h2 class="text-white mt-3 animate__animated animate__zoomIn animate__delay-1s">Windx <br> Telecomunicações
             </h2>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="card-body">
                             @csrf
-                            <p class="card-text subtitle-login pb-1" style="">Preencha seus dados de acesso!</p>
+                            <p class="card-text subtitle-login pb-1">Preencha seus dados de acesso!</p>
                             <div class="input-group mt-2 {{ $errors->has('login') ? 'is-error' : '' }}">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
                                        placeholder="Seu login" autocomplete="off"
                                        aria-label="Login" aria-describedby="login">
                             </div>
-                            <small id="smallErrorLogin" class="text-danger mt-2 login_error"></small>
+                            <small id="smallErrorLogin" class="text-warning mt-2 login_error"></small>
                             <div class="input-group mt-3">
                                 <div class="input-group-prepend">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
@@ -41,8 +41,12 @@
                                        aria-describedby="password" autocomplete="off">
                                 <span toggle="#inputPassword" class="fa fa-fw fa-eye field-icon toggle-password text-primary mr-2"></span>
                             </div>
-                            <small id="smallErrorPassword" class="text-danger mt-2 password_error"></small>
-
+                            <small id="smallErrorPassword" class="text-warning mt-2 password_error"></small>
+                            <div class="text-right mt-3">
+                                <a href="https://api.whatsapp.com/send?phone=558000282309&amp;text=Desejo%20falar%20com%20atendimento%20Windx!"
+                                   target="_blank" class="card-link text-primary-light close_reset_password pr-1 letter-1x">
+                                    Não tem os dados de acesso?</a>
+                            </div>
                         </div>
                         <div class="card-footer border-0 px-4 py-2">
                             <button id="btn-login" type="submit" class="btn btn-primary btn-block" >Entrar</button>
@@ -53,10 +57,6 @@
         </div>
     </section>
 </main>
-@endsection
-
-@section('css')
-
 @endsection
 
 @section('js')

@@ -29,7 +29,8 @@
     />
 </head>
 
-<body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">
+{{--<body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">--}}
+<body class="body" style="background: #020f26 url(/assets/img/bg001.jpg) no-repeat center center fixed; background-size: cover; padding: 0 !important; margin: 0 !important;">
 <div class="bg-body-backdrop"></div>
 <div class="progress progress-system {{ (Route::currentRouteName() === 'central.login' ? 'd-none' : '') }} animate__animated animate__fadeIn">
     <div class="progress-bar progress-bar-system" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -84,9 +85,7 @@
     const route_logout = '{{route('central.logout')}}';
     const app_url = '{{env('APP_URL')}}';
     const base_url = '{{env('APP_BASE_URL')}}';
-    {{--const contracts = '{{route('central.contracts')}}';--}}
     const release_url = `{{route('central.release')}}`;
-    // alert('Corrigir a verificação da cobrança de juros para o fim de semana');
 
     $('.loading').removeClass('d-none');
 </script>

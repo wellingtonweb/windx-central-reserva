@@ -26,7 +26,7 @@
   --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #083768;
-  --bg-windx: #002046;
+  --bg-windx: #020f26;
   --bg-success-windx: rgba(56, 193, 114, 0.50);
   --txt-windx-primary: #002046;
   --txt-windx-secondary: #083768;
@@ -69,7 +69,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   /*margin: 0;*/
-  background-color: #002046 !important;
+  background-color: #020f26 !important;
   /*  background-color: rgba(0,32,70);*/
   font-family: "Nunito", sans-serif;
   color: whitesmoke;

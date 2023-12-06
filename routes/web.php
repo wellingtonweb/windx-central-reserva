@@ -11,7 +11,7 @@ use App\Http\Controllers\CaptchaController;
 
 
 
-Route::prefix('assinante')->name('central.')->group(function(){
+Route::name('central.')->group(function(){
 
     Route::get('clear', function() {
         $clearCache = Artisan::call('cache:clear');

@@ -15,14 +15,11 @@ $('.close_reset_password').click(function() {
 $('#form_login').submit(async function (e){
     e.preventDefault();
     $('.loading').removeClass('d-none')
+    $('small.text-warning').text('');
 
     let formData = $(this).serializeArray()
-    let url = "/assinante/logon";
-    $('#btn-login').fadeIn().text('Entrando...')
-
-    setTimeout(() => {
-        $('#btn-login').fadeIn().text('Validando...')
-    }, 1000)
+    let url = "/logon";
+    $('#btn-login').fadeIn().html("Validando<i class='fas fa-spinner fa-pulse pl-1'></i>")
 
     try {
         let response = await fetch(url, {
@@ -59,16 +56,13 @@ $('#form_login').submit(async function (e){
 
         if(response.status > 200)
         {
-            $('#btn-login').text('Entrar')
             shakeError('form-signin')
             if(data.error.login)
             {
-                $('#btn-login').text('Entrar')
                 $('small.login_error').text(data.error.login)
             }
             if(data.error.password)
             {
-                $('#btn-login').text('Entrar')
                 $('small.password_error').text(data.error.password)
             }
             if(response.status != 422){
@@ -98,7 +92,7 @@ $('#form_login').submit(async function (e){
             $('#btn-login').text('Entrar')
             $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
             $('.loader').removeClass('d-none');
-            location.href = `/assinante/home`;
+            location.href = `/home`;
         }
     }catch(error) {
         //console.log(error);
@@ -107,6 +101,7 @@ $('#form_login').submit(async function (e){
 
 function shakeError(elementClass)
 {
+    $('#btn-login').fadeIn().text('Entrar')
     $('.'+elementClass).removeClass('animate__fadeInUp').addClass('animate__shakeX')
     setTimeout(() => {
         $('.'+elementClass).removeClass('animate__shakeX')

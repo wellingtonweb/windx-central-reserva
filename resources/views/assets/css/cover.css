@@ -583,7 +583,7 @@ header {
 
 html,
 body {
-    height: 99%;
+    /*height: 99%;*/
     /*background-color: #333;*/
 }
 
@@ -1010,25 +1010,25 @@ svg rect{
 
 /*@-webkit-keyframes glowing {*/
 /*    0% { background-color: #33416d; -webkit-box-shadow: 0 0 3px #33416d; }*/
-/*    50% { background-color: #002046; -webkit-box-shadow: 0 0 3px #002046; }*/
+/*    50% { background-color: #020f26; -webkit-box-shadow: 0 0 3px #020f26; }*/
 /*    100% { background-color: #33416d; -webkit-box-shadow: 0 0 3px #33416d; }*/
 /*}*/
 
 /*@-moz-keyframes glowing {*/
 /*    0% { background-color: #33416d; -moz-box-shadow: 0 0 3px #33416d; }*/
-/*    50% { background-color: #002046; -moz-box-shadow: 0 0 3px #002046; }*/
+/*    50% { background-color: #020f26; -moz-box-shadow: 0 0 3px #020f26; }*/
 /*    100% { background-color: #33416d; -moz-box-shadow: 0 0 3px #33416d; }*/
 /*}*/
 
 /*@-o-keyframes glowing {*/
 /*    0% { background-color: #33416d; box-shadow: 0 0 3px #33416d; }*/
-/*    50% { background-color: #002046; box-shadow: 0 0 3px #002046; }*/
+/*    50% { background-color: #020f26; box-shadow: 0 0 3px #020f26; }*/
 /*    100% { background-color: #33416d; box-shadow: 0 0 3px #33416d; }*/
 /*}*/
 
 /*@keyframes glowing {*/
 /*    0% { background-color: #33416d; box-shadow: 0 0 3px #33416d; }*/
-/*    50% { background-color: #002046; box-shadow: 0 0 3px #002046; }*/
+/*    50% { background-color: #020f26; box-shadow: 0 0 3px #020f26; }*/
 /*    100% { background-color: #33416d; box-shadow: 0 0 3px #33416d; }*/
 /*}*/
 
@@ -1056,14 +1056,14 @@ svg rect{
 /*    margin: 7px;*/
 /*    height: 50px;*/
 /*    font-size: 22px;*/
-/*    color: #002046;*/
+/*    color: #020f26;*/
 /*    border-radius: .5rem;*/
 /*    border: 2px solid rgba(0, 32, 70);*/
 /*}*/
 
 /*#container-card-logon .input-document:read-only {*/
 /*    background-color: #ffffff;*/
-/*    color: #002046;*/
+/*    color: #020f26;*/
 /*}*/
 
 /*.numpad {*/
@@ -1165,7 +1165,7 @@ svg rect{
 /*#input-document {*/
 /*    width: 100%;*/
 /*    font-size: 26px;*/
-/*    border: 3px solid #002046;*/
+/*    border: 3px solid #020f26;*/
 /*    border-radius: .5rem;*/
 /*    padding: 2px 10px;*/
 /*    background-color: #e8f1ff;*/

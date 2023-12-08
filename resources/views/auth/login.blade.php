@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="card-footer border-0 px-4 py-2">
-                            <button id="btn-login" type="submit" class="btn btn-primary btn-block" >Entrar</button>
+                            <button id="btn-login" type="submit" class="btn btn-primary btn-block pr-2">Entrar</button>
                         </div>
                     </form>
                 </div>

@@ -25,11 +25,11 @@ function getPaymentText(payment_type){
 }
 
 $('#cc-numero').blur(function (){
-    $(this).val($(this).val().replace(/[^\d,]/g,''))
+    $(this).val($(this).val().replace(/\D/g, ''))
 })
 
 $('#cc-cvv').blur(function (){
-    $(this).val($(this).val().replace(/[^\d,]/g,''))
+    $(this).val($(this).val().replace(/\D/g, ''))
 });
 
 $('#modalCard').on('show.bs.modal', function (event) {
@@ -201,7 +201,10 @@ function sendPayment(payment){
             $('#payment-form-dialog').removeClass('d-none')
             if(!data.responseJSON){
                 console.log(data);
-                $('div.text-display-error').html(data.responseText).removeClass('d-none');
+                displayMessageError('Verifique os dados informados!');
+
+
+                // $('div.text-display-error').html(data.responseText).removeClass('d-none');
             }else{
                 swal.close()
                 if(data.responseJSON.error) {
@@ -213,7 +216,8 @@ function sendPayment(payment){
                             console.log(key, value[0])
                         } else {
                             $('small.'+key+'_error').text(value[0]);
-                            $('div.text-display-error').html('Verifique os dados informados!').removeClass('d-none');
+                            displayMessageError('Verifique os dados informados!');
+                            // $('div.text-display-error').html('Verifique os dados informados!').removeClass('d-none');
                             $('input[name='+key+']').addClass('is-invalid');
                         }
                     });
@@ -393,6 +397,21 @@ function displayMessageErrorPayment(title){
             $('#modalCard').modal('hide')
             displayMessageQuestionFinish()
         }
+    })
+}
+
+function displayMessageError(title){
+    Swal.fire({
+        icon: 'error',
+        title: title,
+        timer: 5000,
+        timerProgressBar: false,
+        confirmButtonText: 'Ok',
+        showDenyButton: false,
+        didOpen: () => {
+            Swal.hideLoading()
+            clearInterval(callback)
+        },
     })
 }
 

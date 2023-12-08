@@ -19,7 +19,7 @@ $('#form_login').submit(async function (e){
 
     let formData = $(this).serializeArray()
     let url = "/logon";
-    $('#btn-login').fadeIn().html("Validando<i class='fas fa-spinner fa-pulse pl-1'></i>")
+    $('#btn-login').fadeIn().html("Validando<i class='fas fa-spinner fa-pulse'></i>")
 
     try {
         let response = await fetch(url, {

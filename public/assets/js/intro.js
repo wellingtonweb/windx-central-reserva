@@ -35,6 +35,22 @@ $('#form_login').submit(async function (e){
         });
         let data = await response.json();
 
+        console.log('Status: ', response.status);
+
+        shakeError('form-signin')
+        if(response.status == 419)
+        {
+            // Swal.fire({
+            //     title: 'Sessão expirada!',
+            //     icon: 'info',
+            //     timer: 60000,
+            //     showConfirmButton: false,
+            //     willClose: () => {
+            //         location.reload();
+            //     }
+            // })
+        }
+
         if(data.error === undefined && response.status > 200){
             $('#btn-login').text('Entrar')
             Swal.fire({
@@ -54,9 +70,12 @@ $('#form_login').submit(async function (e){
             })
         }
 
+
+
         if(response.status > 200)
         {
-            shakeError('form-signin')
+
+
             if(data.error.login)
             {
                 $('small.login_error').text(data.error.login)

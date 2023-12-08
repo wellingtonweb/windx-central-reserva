@@ -547,8 +547,16 @@ function getPaymentText(payment_type){
     }
 }
 
+$('#cc-numero').blur(function (){
+    $(this).val($(this).val().replace(/[^\d,]/g,''))
+})
+
+$('#cc-cvv').blur(function (){
+    $(this).val($(this).val().replace(/[^\d,]/g,''))
+});
+
 $('#modalCard').on('show.bs.modal', function (event) {
-    resetCardFields();
+    // resetCardFields();
     countdown();
 })
 
@@ -556,6 +564,7 @@ $('#modalCard').on('hidden.bs.modal', function (event) {
     resetCardFields();
     clearAllSections()
     refreshSliderCards()
+    clearInterval(callback)
 })
 
 $('#btnCloseModalCard').click(function (){
@@ -563,19 +572,20 @@ $('#btnCloseModalCard').click(function (){
 });
 
 function resetCardFields() {
-    $('#cc-numero').val('');
-    $('#cc-nome').val('');
-    $('#expiration_month').val('');
-    $('#expiration_year').val('');
-    $('#cc-cvv').val('');
+    $('#form_checkout')[0].reset();
+    $('#form_checkout').find('small').text('')
+    $('#form_checkout').find('input').removeClass('is-invalid')
+    $('.text-display-error').addClass('d-none').html('')
+
+    // $('#cc-numero').val('');
+    // $('#cc-nome').val('');
+    // $('#expiration_month').val('');
+    // $('#expiration_year').val('');
+    // $('#cc-cvv').val('');
 }
 
 /* Button payment type */
 $('button.btn-payment-type').click(function (){
-    $('#methodTitle').text($(this).text())
-    $('#v-pills-tab').addClass('d-none')
-    $('#v-pills-tabContent').removeClass('d-none')
-
     switch (this.id){
         case 'btn-picpay':
         case 'btn-pix':
@@ -699,7 +709,9 @@ function sendPayment(payment){
                     }, 5000);
 
                 }else{
-                    if(response.status === 'approved'){
+                    if(response.status === 'approved')
+                    {
+                        $('#modalCard').modal('hide')
                         msgStatusTransaction(response.status)
                     }else{
                         sessionStorage.setItem('transactionId', response.id)
@@ -973,6 +985,6 @@ function countdown() {
         $('#methodTitle').text('').fadeOut(1000)
         $('#modalCard').modal('hide')
         tempo = 120;
-        msgStatusTransaction('expired')
+        // msgStatusTransaction('expired')
     }
 }

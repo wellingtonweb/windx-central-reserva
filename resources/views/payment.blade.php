@@ -13,6 +13,8 @@
                             </ol>
                         </nav>
 
+{{--                        {{ dd((new Date())-) }}--}}
+
                         <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="checkout-box" class="d-flex flex-wrap">
@@ -123,7 +125,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header text-center" style="border-bottom: none; display: ruby">
-                    <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Pagamento nº 12345 com CRÉDITO</h5>
+                    <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Pagamento via CRÉDITO</h5>
                     <button id="btnCloseModalCard" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -183,18 +185,44 @@
                                     </div>
 
                                     <div class="col-6 mb-3 px-3 text-left">
-                                        <label for="cc-expiracao">Validade (Mês)</label>
-                                        <input type="text" class="form-control" value="12"
-                                               id="expiration_month" name="expiration_month"
-                                               placeholder="Ex: 12">
+                                        <label for="expiration_month">Validade (Mês)</label>
+{{--                                        <input type="text" class="form-control" value="12"--}}
+{{--                                               id="expiration_month" name="expiration_month"--}}
+{{--                                               placeholder="Ex: 12">--}}
+                                        <select id="expiration_month" name="expiration_month"
+                                                class="form-control">
+                                            <option value="" disabled selected>Ex: 12</option>
+                                            <option value="01">01</option>
+                                            <option value="02">02</option>
+                                            <option value="03">03</option>
+                                            <option value="04">04</option>
+                                            <option value="05">05</option>
+                                            <option value="06">06</option>
+                                            <option value="07">07</option>
+                                            <option value="08">08</option>
+                                            <option value="09">09</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                        </select>
                                         <small
                                             class="text-danger error-text expiration_month_error"></small>
                                     </div>
                                     <div class="col-6 mb-3 px-3 text-left">
-                                        <label for="cc-expiracao">Validade (Ano)</label>
-                                        <input type="text" class="form-control" value="2023"
-                                               id="expiration_year" name="expiration_year"
-                                               placeholder="Ex: 2028">
+                                        <label for="expiration_year">Validade (Ano)</label>
+{{--                                        <input type="text" class="form-control" value="2023"--}}
+{{--                                               id="expiration_year" name="expiration_year"--}}
+{{--                                               placeholder="Ex: 2028">--}}
+                                        <select id="expiration_year" name="expiration_year"
+                                                class="form-control" placeholder="Ex: 2028">
+                                            <option value="" disabled selected>Ex: 2028</option>
+                                            @for ($i = 0; $i < 10; $i++)
+                                                @php
+                                                    $ano = now()->year + $i;
+                                                @endphp
+                                                <option value="{{ $ano }}">{{ $ano }}</option>
+                                            @endfor
+                                        </select>
                                         <small
                                             class="text-danger error-text expiration_year_error"></small>
                                     </div>
@@ -202,20 +230,18 @@
                                         <label for="cc-bandeira">Bandeira do cartão</label>
                                         <select id="cc-bandeira" name="bandeira"
                                                 class="form-control">
-                                            <option disabled>Selecionar</option>
-                                            <option value="American Express">American Express
-                                            </option>
+                                            <option value="" disabled selected>Escolher</option>
+                                            <option value="American Express">American Express</option>
                                             <option value="Aura">Aura</option>
                                             <option value="Banescard">Banescard</option>
                                             <option value="Cabal">Cabal</option>
                                             <option value="Dinners">Dinners</option>
                                             <option value="Elo">Elo</option>
                                             <option value="Hipercard">Hipercard</option>
-                                            <option selected value="Master">Master</option>
+                                            <option value="Master">Master</option>
                                             <option value="Visa">Visa</option>
                                         </select>
-                                        <small
-                                            class="text-danger error-text bandeira_error"></small>
+                                        <small class="text-danger error-text bandeira_error"></small>
                                     </div>
                                     <div class="col-6 mb-3 px-3 text-left">
                                         <label for="cc-cvv">Cód. de segurança</label>

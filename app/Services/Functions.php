@@ -85,13 +85,13 @@ class Functions
         return date("d/m/Y H:i", strtotime($date));
     }
 
-    public static function moneyFormatter($date)
-    {
-        $fmt = new NumberFormatter( 'de_DE', NumberFormatter::CURRENCY );
-        echo $fmt->formatCurrency(1234567.891234567890000, "EUR")
-
-        return date("d/m/Y H:i", strtotime($date));
-    }
+//    public static function moneyFormatter($date)
+//    {
+//        $fmt = new NumberFormatter( 'de_DE', NumberFormatter::CURRENCY );
+//        echo $fmt->formatCurrency(1234567.891234567890000, "EUR")
+//
+//        return date("d/m/Y H:i", strtotime($date));
+//    }
 
 //    public function dateBirth(String $date)
 //    {

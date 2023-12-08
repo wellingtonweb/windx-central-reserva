@@ -60,6 +60,10 @@ class AuthController extends Controller
 
     public function logon(Request $request)
     {
+//        if($request->all())
+
+//        dd($request);
+
         $validator = Validator::make($request->all(), [
             'login' => ['required'],
             'password' => ['required'],

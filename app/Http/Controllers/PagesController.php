@@ -34,10 +34,8 @@ class PagesController extends Controller
 
     public function home()
     {
-        if(session()->has('customer')){
-//            session()->put('customer', 'X');
-
-//            dd(session('customer'));
+        if(session()->has('customer'))
+        {
             return view('home', ['header' => 'Home']);
         } else {
             throw new CheckUserException();
@@ -82,16 +80,7 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
-
-//
-//            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
-//            dd(session('customer.company_id'));
-
-            return view('payment', [
-                'header' => 'Pagamento',
-//                'customer' => $customer
-            ]);
-
+            return view('payment', ['header' => 'Pagamento']);
         } else {
             throw new CheckUserException();
         }
@@ -244,11 +233,9 @@ class PagesController extends Controller
 
     public function invoices()
     {
-        if(session()->has('customer')){
-
-            return view('invoices', [
-                'header' => 'Notas fiscais',
-            ]);
+        if(session()->has('customer'))
+        {
+            return view('invoices', ['header' => 'Notas fiscais']);
         } else {
             throw new CheckUserException();
         }

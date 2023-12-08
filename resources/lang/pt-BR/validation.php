@@ -201,11 +201,11 @@ return [
         'terminal_id' => 'id do terminal',
         'terminal_key' => 'chave do terminal',
         'texto' => 'descrição',
-        'login' => 'login'
-//        'card_number' =>   'número do cartão',
-//        'expiration_year' => 'ano de expiração',
-//        'expiration_month' => 'mês de expiração',
-//        'cvv' =>  'código de segurança',
+        'login' => 'login',
+        'card_number' =>   'número do cartão',
+        'expiration_year' => 'validade (ano)',
+        'expiration_month' => 'validade (mês)',
+        'cvv' =>  'código de segurança',
 
 
     ],

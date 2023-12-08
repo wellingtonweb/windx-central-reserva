@@ -1,30 +1,3 @@
-// import {refreshSliderCards} from "./e-cart-control";
-
-/* Slider OLW Contracts JS  */
-// $("#contracts-slider").owlCarousel({
-//     items : 3,
-//     itemsDesktop:[1199,3],
-//     itemsDesktopSmall:[980,2],
-//     itemsMobile : [600,1],
-//     navigation:true,
-//     navigationText:["Contrato anterior","Próximo contrato"],
-//     pagination:false,
-//     autoPlay:false
-// });
-//
-// /* Slider OLW Invoice JS  */
-// // $(".owl-carousel").owlCarousel({
-// $("#news-slider").owlCarousel({
-//     items : 3,
-//     itemsDesktop:[1199,3],
-//     itemsDesktopSmall:[980,2],
-//     itemsMobile : [600,1],
-//     navigation:false,
-//     navigationText:["Fatura anterior","Próxima fatura"],
-//     pagination:false,
-//     autoPlay:false
-// });
-
 async function copyBarcode3(btnThis){
     let code = btnThis.getAttribute("data-code")
     // console.log(code);
@@ -112,6 +85,7 @@ function displayMessageQuestionLogout(){
         },
     }).then((result) => {
         if (result.isConfirmed) {
+            resetTimer()
             console.log('Sessão mantida!')
         } else if (result.dismiss || result.isDenied) {
             logout()

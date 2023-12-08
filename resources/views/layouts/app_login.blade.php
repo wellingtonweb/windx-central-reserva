@@ -5,6 +5,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html charset=utf-8"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
     <title>{{ config('app.name', 'Central de Pagamentos') }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logox.ico') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">

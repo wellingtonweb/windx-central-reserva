@@ -18,7 +18,7 @@ class CheckUser
     public function handle(Request $request, Closure $next)
     {
         if(session()->has('customer')){
-            return redirect()->route('central.contract');
+            return redirect()->route('central.home');
         }
 //        if(!session()->has('customer')){
 //            return redirect()->route('central.login');

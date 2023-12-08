@@ -20,8 +20,8 @@
 
             body {
                 margin: 0;
-                /*background-color: #050421;*/
-                background-color: rgba(0, 32, 70, 0.85);
+                background-color: #020f26;
+                /*background-color: rgba(0, 32, 70, 0.85);*/
                 /*background: var(--bg-windx)*/
             }
 
@@ -235,7 +235,7 @@
             }
 
             .bg-windx {
-                background-color: #002046;
+                background-color: #020f26;
                 /*background-color: #050421;*/
             }
 

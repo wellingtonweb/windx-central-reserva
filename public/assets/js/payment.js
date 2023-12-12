@@ -525,10 +525,10 @@ displayCart();
 let tries = 0;
 let paymentType = '';
 var callback = '';
-let transactionId  = '';
+let transactionId  = null;
 let responseObj = null;
 
-clearAllSections();
+// clearAllSections();
 
 function getPaymentText(payment_type){
     switch (payment_type){
@@ -572,7 +572,13 @@ $('#btnCloseModalCard').click(function (){
 });
 
 function resetCardFields() {
-    $('#form_checkout')[0].reset();
+    // $('#form_checkout')[0].reset();
+    $('#cc-nome').val('');
+    $('#cc-numero').val('');
+    $('#expiration_month option:first').prop('selected',true).trigger("change");
+    $('#expiration_year option:first').prop('selected',true).trigger("change");
+    $('#cc-bandeira option:first').prop('selected',true).trigger("change");
+    $('#cc-cvv').val('');
     $('#form_checkout').find('small').text('')
     $('#form_checkout').find('input').removeClass('is-invalid')
     $('.text-display-error').addClass('d-none').html('')
@@ -695,12 +701,15 @@ function sendPayment(payment){
         success: function(response, textStatus, xhr) {
             if(xhr.status === 200 || xhr.status === 201){
                 if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
-                    sessionStorage.setItem('transactionId', response.id)
-                    transactionId = sessionStorage.getItem("transactionId");
+                    localStorage.setItem('transactionId', response.id)
+                    // sessionStorage.setItem('transactionId', response.id)
+                    transactionId = localStorage.getItem("transactionId");
+                    // transactionId = sessionStorage.getItem("transactionId");
                     setQrcode(response)
-                    callback = setInterval(function () {
-                        callbackTransaction(response.id)
-                    }, 5000);
+                    runCallBack();
+                    // callback = setInterval(function () {
+                    //     callbackTransaction(response.id)
+                    // }, 5000);
 
                 }else{
                     if(response.status === 'approved')
@@ -711,7 +720,7 @@ function sendPayment(payment){
                         sessionStorage.setItem('transactionId', response.id)
                         transactionId = sessionStorage.getItem("transactionId");
                         $('#modalCard').modal('hide')
-                        displayMessageWaitingPayment()
+                        waitingPayment()
                     }
                 }
             }else{
@@ -720,16 +729,17 @@ function sendPayment(payment){
             }
         },
         error: function(data) {
-            console.log('Data error: ',data);
-            $('#payment-form-dialog').removeClass('d-none')
+            if(data.status === 422){
+                console.log('Data error: ',data);
+                displayMessageError('Erro nos dados de pagamento!');
+            }
+
+            // $('#payment-form-dialog').removeClass('d-none')
             if(!data.responseJSON){
-                console.log(data);
                 displayMessageError('Verifique os dados informados!');
-
-
                 // $('div.text-display-error').html(data.responseText).removeClass('d-none');
             }else{
-                swal.close()
+                // swal.close()
                 if(data.responseJSON.error) {
                     console.log(data)
                     notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
@@ -825,16 +835,22 @@ function setQrcode(payment){
                 popup.classList.remove('animate__animated', 'animate__headShake')
             }, 500)
             return false
-        }
-    }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.timer) {
-            clearAllSections()
-            msgStatusTransaction('expired')
-        } else if(result.isDenied || result.isDismissed) {
-            clearAllSections()
-            msgStatusTransaction('canceled')
-        }
+        },
+        willClose: () => {
+            // clearAllSections()
+            // msgStatusTransaction('expired')
+            waitingPayment()
+        },
     })
+    //     .then((result) => {
+    //     // if (result.dismiss === Swal.DismissReason.timer) {
+    //     //
+    //     // } else
+    //     if(result.isDenied || result.isDismissed) {
+    //         clearAllSections()
+    //         msgStatusTransaction('canceled')
+    //     }
+    // })
 }
 
 /* Functions Display Messages */
@@ -876,18 +892,37 @@ function msgStatusTransaction(status){
     }
 }
 
-function displayMessageWaitingPayment(){
+function runCallBack()
+{
+    callback = setInterval(function () {
+        callbackTransaction(transactionId)
+    }, 5000);
+}
+
+transactionId = localStorage.getItem("transactionId");
+
+if (transactionId != null) {
+    waitingPayment()
+}
+
+function waitingPayment(){
     Swal.fire({
-        title: 'Aguarde!',
-        html: 'Processando pagamento...',
-        timer: 120000,
+        title: 'Pagamento Nº '+transactionId,
+        text: 'Aguardando a confirmação...',
+        icon: 'info',
+        timer: 90000,
         timerProgressBar: true,
         showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
+        cancelButtonColor: '#d33',
         didOpen: () => {
-            Swal.showLoading()
+            runCallBack()
         },
         willClose: () => {
-            clearInterval(timerInterval)
+            transactionId = null;
+            clearInterval(callback)
+            clearAllSections()
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -899,6 +934,12 @@ function displayMessageWaitingPayment(){
                 popup.classList.remove('animate__animated', 'animate__headShake')
             }, 500)
             return false
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            msgStatusTransaction('expired')
+        } else if(result.isDenied || result.isDismissed) {
+            msgStatusTransaction('canceled')
         }
     })
 }
@@ -927,7 +968,7 @@ function displayMessageError(title){
     Swal.fire({
         icon: 'error',
         title: title,
-        timer: 5000,
+        timer: 15000,
         timerProgressBar: false,
         confirmButtonText: 'Ok',
         showDenyButton: false,
@@ -935,6 +976,9 @@ function displayMessageError(title){
             Swal.hideLoading()
             clearInterval(callback)
         },
+        willClose: () => {
+            displayMessageQuestionFinish()
+        }
     })
 }
 

@@ -86,7 +86,6 @@ function displayMessageQuestionLogout(){
     }).then((result) => {
         if (result.isConfirmed) {
             resetTimer()
-            console.log('Sessão mantida!')
         } else if (result.dismiss || result.isDenied) {
             logout()
         }

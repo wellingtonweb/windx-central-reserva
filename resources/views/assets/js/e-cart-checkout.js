@@ -337,7 +337,7 @@ function msgStatusTransaction(status){
             case 'approved':
                 clearInterval(callback)
                 refreshSliderCards()
-                displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 10000)
+                displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 15000)
                 return true;
                 break;
             case 'expired':
@@ -471,7 +471,7 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
         title: dTitle,
         icon: dIcon,
         timer: dTimer,
-        html: dIcon === 'success' ? dButton : '',
+        // html: dIcon === 'success' ? dButton : '',
         didOpen: () => {
             Swal.hideLoading()
         },
@@ -487,7 +487,32 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
             return false
         },
         willClose: () => {
-            displayMessageQuestionFinish()
+            refreshSliderCards()
+            if(dIcon === 'success'){
+                Swal.fire({
+                    title: 'Download do comprovante',
+                    icon: 'info',
+                    timer: 60000,
+                    html: "Baixe seu comprovante ou acesse em Comprovantes para obter a 2ª via.<br><br>"+dButton,
+                    didOpen: () => {
+                        Swal.hideLoading()
+                    },
+                    allowOutsideClick: () => {
+                        const popup = Swal.getPopup()
+                        popup.classList.remove('swal2-show')
+                        setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
+                        })
+                        setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                        }, 500)
+                        return false
+                    },
+                    willClose: () => {
+                        displayMessageQuestionFinish()
+                    }
+                })
+            }
         }
     })
 }

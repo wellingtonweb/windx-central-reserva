@@ -990,11 +990,7 @@
 @endsection
 
 @section('js')
-
-
     <script>
-
-
         var idCustomer = {{session('customer.id')}};
         var customerActive = @json(session('customer'));
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
@@ -1049,22 +1045,6 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script>
-
-        // console.log(sessionStorage.getItem("transactionId"))
-
-
-            // document.addEventListener('DOMContentLoaded', function () {
-            // window.onload = function() {
-
-
-            // }
-
-                // Exibir o SweetAlert ao recarregar a página
-
-            // });
-
-    </script>
     <script type="text/javascript" defer>
         inactivitySession();
     </script>

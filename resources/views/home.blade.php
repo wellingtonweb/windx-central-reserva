@@ -188,16 +188,6 @@
                     </div>
                     @endif
                 </div>
-                <div class="row mt-3">
-                    <select id="baba">
-                        <option>select something</option>
-                        <option value="1">something 1</option>
-                        <option value=2">something 2</option>
-                    </select>
-
-                    <input type="button" id="but" value="click">
-
-                </div>
             </div>
         </section>
     </main>
@@ -514,16 +504,5 @@
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script>
-        $(document).ready(function(){
-            $('#but').click(function(){
-                // $('#baba').val(false);
-                $('#baba option:first').prop('selected',true).trigger("change");
-                // $("#baba option:first-child").attr("selected", "selected");
-            })
-        });
-    </script>
-    <script type="text/javascript" defer>
-        inactivitySession();
-    </script>
+    <script type="text/javascript" defer>inactivitySession();</script>
 @endsection

@@ -27,7 +27,10 @@
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 CPF/CNPJ:
-                                                <span class="text-black-50 text-right">{{ $customer['document'] }}</span>
+                                                <div>
+                                                <span id="cpf" class="text-black-50 text-right" onclick="toggleCPF()">{{ $customer['document'] }}</span>
+                                                <i id="toggleBtn" class="fa fa-eye text-primary" ></i>
+                                                </div>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 Data de nascimento:
@@ -109,6 +112,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <p>CPF: <span >123.456.789-01</span></p>
+                        <button >Toggle CPF</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -149,5 +156,27 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer>inactivitySession();</script>
+    <script>
+        $(document).ready(function() {
+            var isHidden = true;
+            var toggleBtn = $('#toggleBtn');
+            var cpfElement = $('#cpf');
+
+            toggleCPF(isHidden);
+
+            toggleBtn.click(function() {
+                isHidden = !isHidden;
+                toggleBtn.toggleClass('fa-eye fa-eye-slash');
+                toggleCPF(isHidden);
+            });
+
+            function toggleCPF(hidden) {
+                var cpf = '{{ session('customer.document') }}';
+                cpfElement.text(hidden ? cpf.substring(0, 5) + '...' : cpf);
+            }
+        });
+    </script>
+
 @endsection

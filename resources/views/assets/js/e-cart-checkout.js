@@ -280,6 +280,7 @@ function setQrcode(payment){
         denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
         denyButtonColor: '#d33',
         didOpen: () => {
+            resetTimer()
             displayCart()
             Swal.hideLoading()
             if(payment.payment_type == 'pix'){
@@ -316,18 +317,19 @@ function setQrcode(payment){
         willClose: () => {
             // clearAllSections()
             // msgStatusTransaction('expired')
-            waitingPayment()
         },
     })
-    //     .then((result) => {
-    //     // if (result.dismiss === Swal.DismissReason.timer) {
-    //     //
-    //     // } else
-    //     if(result.isDenied || result.isDismissed) {
-    //         clearAllSections()
-    //         msgStatusTransaction('canceled')
-    //     }
-    // })
+        .then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            waitingPayment()
+        } else
+        if(result.isDenied) {
+            clearAllSections()
+            transactionId = null;
+            clearInterval(callback)
+            msgStatusTransaction('canceled')
+        }
+    })
 }
 
 /* Functions Display Messages */
@@ -512,6 +514,8 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
                         displayMessageQuestionFinish()
                     }
                 })
+            }else{
+                displayMessageQuestionFinish()
             }
         }
     })

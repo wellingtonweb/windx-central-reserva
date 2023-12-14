@@ -28,8 +28,8 @@
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                                 CPF/CNPJ:
                                                 <div>
-                                                <span id="cpf" class="text-black-50 text-right" onclick="toggleCPF()">{{ $customer['document'] }}</span>
-                                                <i id="toggleBtn" class="fa fa-eye text-primary" ></i>
+                                                    <span id="cpf" class="text-black-50 text-right" onclick="toggleCPF()">{{ $customer['document'] }}</span>
+                                                    <i id="toggleBtn" class="fa fa-eye text-primary" ></i>
                                                 </div>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center">

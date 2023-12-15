@@ -984,7 +984,9 @@
             color: rgba(0,0,0, .4) !important;
         }
 
-
+        #modalMessage {
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 @endsection
@@ -1041,12 +1043,13 @@
                 <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
             </div>
             `;
+
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer>
-        alert('Corrigir o bug do btn cancelar o aguardando pagamento')
         inactivitySession();
     </script>
 @endsection

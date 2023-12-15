@@ -1,9 +1,7 @@
 async function copyBarcode3(btnThis){
     let code = btnThis.getAttribute("data-code")
-    // console.log(code);
     await navigator.clipboard.writeText(code)
         .then(() => {
-            // notify('Copiado para área de transferência!')
             notify5('Copiado para área de transferência!')
         })
         .catch((err) => {
@@ -117,7 +115,6 @@ function getIp(callback)
 
         s.src = "https://l2.io/ip.js?var=userip";
         document.body.appendChild(s);
-        console.log(document.body)
     }
 
     if (/^(interactive|complete)$/i.test(document.readyState)) {
@@ -149,6 +146,8 @@ function getCookie(chave){
     return "";
 }
 
+
+
 function notify(message){
     Swal.fire({
         position: 'top',
@@ -166,13 +165,10 @@ function notify(message){
 }
 
 function notifySystem(code, status, error){
-    // notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
-
     Swal.fire({
         icon: status,
         title: 'Erro '+code+'!',
         html: '<p>'+error+'</p>',
-        // footer: 'Favor informar ao administrador!',
         timer: 7000,
         showConfirmButton: false
     }).then((result) => {
@@ -233,41 +229,8 @@ function checkFavored(id){
 
 function dateNow(){
     const date = new Date();
-    console.log(date);
     const today = String((date.getDay()-1)).padStart(2, '0')+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
     return today;
-}
-
-function genCouponPdf(id, payment){
-    let container = $('#container-coupon');
-    renderDataCoupon(payment)
-    container.removeClass('d-none');
-    html2canvas(document.querySelector("#container-coupon"))
-        .then(canvas => {
-            var imgData = canvas.toDataURL('image/jpeg');
-            // var doc = new jsPDF('p','mm','a4');
-            var doc = new jsPDF('p','mm',[80.41, 235.65]);
-            doc.addImage(imgData, 'jpeg', 2, 2);
-            doc.save('comprovante_'+id+'.pdf');
-        });
-    container.addClass('d-none');
-};
-
-function renderDataCoupon(payment)
-{
-    const date = convertDateTime(payment.created_at);
-    const billets = []
-    $.each(payment.billets, function (key, value) {
-        billets.push(' '+ value.reference)
-    })
-
-    $('#coupon_reference').html(payment.reference)
-    $('#coupon_id').html(payment.id)
-    $('#coupon_created_at').html(date)
-    $('#coupon_billets').html(billets)
-    $('#coupon_payment_type').html(payment.payment_type == 'credit'? 'Crédito': 'Débito')
-    $('#coupon_value').html(payment.amount)
-    $('#coupon_amount').html(payment.amount)
 }
 
 function date_to_utc(date) {
@@ -327,18 +290,12 @@ function calculaJuros(vencimento, valor) {
 
 }
 
-// function clearAllSections(){
-//     sessionStorage.clear()
-// }
-
-//logout
-
 let time;
 let inactivitySession = function () {
     document.onkeypress = resetTimer;
-    document.onmousedown = resetTimer; // touchscreen presses
+    document.onmousedown = resetTimer;
     document.ontouchstart = resetTimer;
-    document.onclick = resetTimer;     // touchpad clicks
+    document.onclick = resetTimer;
     window.onload = resetTimer;
 };
 
@@ -351,14 +308,12 @@ function resetTimer() {
             $('.progress-bar-system').css('width', i + '%');
         } else {
             clearInterval(time);
-            // logout()
             displayMessageQuestionLogout()
         }
     }, 1000);
 }
 
 $('.container-fluid').trigger('click');
-// $('body').trigger('click')
 
 function setPaymentType(payment_type){
     switch (payment_type){
@@ -414,10 +369,6 @@ function downloadClick() {
         }
     })
 };
-
-// $("#table-coupons-list tbody tr").on('click', function(){
-//     $(this).find("a.btn-payment-details")[0].click();
-// });
 
 $('.coupon-pdf').click(function (){
     const id = $(this).attr('id')

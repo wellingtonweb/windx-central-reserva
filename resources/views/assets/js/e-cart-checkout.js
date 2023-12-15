@@ -98,22 +98,6 @@ $('#form_checkout').submit(function (e){
 
 });
 
-function callbackPrintCoupon(id){
-    console.log(base_url + 'coupon/' + id)
-    window.location = base_url + 'coupon/'+ id;
-    displayMessageStatusTransaction('Imprimindo cupom', 'info', 30000)
-    // $.ajax({
-    //     url: base_url + 'coupon/' + id,
-    //     type: "GET",
-    //     dataType: "JSON",
-    //     data: JSON.stringify({}),
-    //     success:function (data){
-    //         // msgStatusTransaction(JSON.stringify(data.status))
-    //         console.log('Finalizou!')
-    //     }
-    // })
-}
-
 function callbackTransaction(id)
 {
     if (id != null && transactionId != null) {
@@ -173,15 +157,9 @@ function sendPayment(payment){
             if(xhr.status === 200 || xhr.status === 201){
                 if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
                     localStorage.setItem('transactionId', response.id)
-                    // sessionStorage.setItem('transactionId', response.id)
                     transactionId = localStorage.getItem("transactionId");
-                    // transactionId = sessionStorage.getItem("transactionId");
                     setQrcode(response)
                     runCallBack();
-                    // callback = setInterval(function () {
-                    //     callbackTransaction(response.id)
-                    // }, 5000);
-
                 }else{
                     if(response.status === 'approved')
                     {
@@ -201,27 +179,18 @@ function sendPayment(payment){
         },
         error: function(data) {
             if(data.status === 422){
-                console.log('Data error: ',data);
                 displayMessageError('Erro nos dados de pagamento!');
             }
-
-            // $('#payment-form-dialog').removeClass('d-none')
             if(!data.responseJSON){
                 displayMessageError('Verifique os dados informados!');
-                // $('div.text-display-error').html(data.responseText).removeClass('d-none');
             }else{
-                // swal.close()
                 if(data.responseJSON.error) {
-                    console.log(data)
                     notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
                 } else {
                     $.each(data.responseJSON.errors, function (key, value) {
-                        if($('input[name='+key+']').is( ":hidden" )){
-                            console.log(key, value[0])
-                        } else {
+                        if(!$('input[name='+key+']').is( ":hidden" )){
                             $('small.'+key+'_error').text(value[0]);
                             displayMessageError('Verifique os dados informados!');
-                            // $('div.text-display-error').html('Verifique os dados informados!').removeClass('d-none');
                             $('input[name='+key+']').addClass('is-invalid');
                         }
                     });
@@ -471,7 +440,6 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
         title: dTitle,
         icon: dIcon,
         timer: dTimer,
-        // html: dIcon === 'success' ? dButton : '',
         didOpen: () => {
             Swal.hideLoading()
         },
@@ -548,6 +516,5 @@ function countdown() {
         $('#methodTitle').text('').fadeOut(1000)
         $('#modalCard').modal('hide')
         tempo = 120;
-        // msgStatusTransaction('expired')
     }
 }

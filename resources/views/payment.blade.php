@@ -1046,6 +1046,7 @@
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer>
+        alert('Corrigir o bug do btn cancelar o aguardando pagamento')
         inactivitySession();
     </script>
 @endsection

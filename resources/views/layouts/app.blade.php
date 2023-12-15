@@ -4,6 +4,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html charset=utf-8"/>
+    <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>{{ config('app.name', 'Terminal de Pagamentos') }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logox.ico') }}">

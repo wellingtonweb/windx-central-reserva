@@ -1,11 +1,8 @@
-/* Tries reload callback = 5 */
 let tries = 0;
 let paymentType = '';
 var callback = '';
 let transactionId  = null;
 let responseObj = null;
-
-// clearAllSections();
 
 function getPaymentText(payment_type){
     switch (payment_type){
@@ -33,7 +30,6 @@ $('#cc-cvv').blur(function (){
 });
 
 $('#modalCard').on('show.bs.modal', function (event) {
-    // resetCardFields();
     countdown();
 })
 
@@ -49,7 +45,6 @@ $('#btnCloseModalCard').click(function (){
 });
 
 function resetCardFields() {
-    // $('#form_checkout')[0].reset();
     $('#cc-nome').val('');
     $('#cc-numero').val('');
     $('#expiration_month option:first').prop('selected',true).trigger("change");
@@ -119,26 +114,25 @@ function callbackPrintCoupon(id){
     // })
 }
 
-function callbackTransaction(id){
-    if(typeof id != undefined){
-        console.log(base_url + 'callback/' + id)
-    }else{
-        console.log("ID indefinido :(")
-    }
-
-    $.ajax({
-        url: base_url + 'callback/' + id,
-        type: "GET",
-        dataType: "JSON",
-        data: JSON.stringify({}),
-        success:function (data){
-            if(data.status === 'approved'){
-                resetCardFields();
+function callbackTransaction(id)
+{
+    if (id != null && transactionId != null) {
+        $.ajax({
+            url: base_url + 'callback/' + id,
+            type: "GET",
+            dataType: "JSON",
+            data: JSON.stringify({}),
+            success:function (data){
+                if(data.status === 'approved'){
+                    resetCardFields();
+                }
+                msgStatusTransaction(data.status)
+                resetTimer()
             }
-            msgStatusTransaction(data.status)
-            resetTimer()
-        }
-    })
+        })
+    }else{
+        return;
+    }
 }
 
 /* Send payment */
@@ -314,10 +308,6 @@ function setQrcode(payment){
             }, 500)
             return false
         },
-        willClose: () => {
-            // clearAllSections()
-            // msgStatusTransaction('expired')
-        },
     })
         .then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
@@ -374,7 +364,13 @@ function msgStatusTransaction(status){
 function runCallBack()
 {
     callback = setInterval(function () {
-        callbackTransaction(transactionId)
+        if (transactionId != null) {
+            callbackTransaction(transactionId)
+        }else{
+            clearAllSections()
+            clearInterval(callback)
+            return;
+        }
     }, 5000);
 }
 
@@ -399,9 +395,9 @@ function waitingPayment(){
             runCallBack()
         },
         willClose: () => {
+            clearAllSections()
             transactionId = null;
             clearInterval(callback)
-            clearAllSections()
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -435,6 +431,7 @@ function displayMessageErrorPayment(title){
         didOpen: () => {
             Swal.hideLoading()
             clearInterval(callback)
+            clearAllSections()
         },
         willClose: () => {
             $('#modalCard').modal('hide')
@@ -454,6 +451,7 @@ function displayMessageError(title){
         didOpen: () => {
             Swal.hideLoading()
             clearInterval(callback)
+            clearAllSections()
         },
         willClose: () => {
             displayMessageQuestionFinish()
@@ -511,10 +509,12 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
                         return false
                     },
                     willClose: () => {
+                        clearAllSections()
                         displayMessageQuestionFinish()
                     }
                 })
             }else{
+                clearAllSections()
                 displayMessageQuestionFinish()
             }
         }

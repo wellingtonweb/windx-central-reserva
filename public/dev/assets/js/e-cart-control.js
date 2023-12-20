@@ -27,6 +27,9 @@ $('.clear-cart').click(function() {
 function clearAllSections() {
     sessionStorage.clear();
     localStorage.clear();
+    if(typeof transactionId != "undefined"){
+        transactionId = null;
+    }
 }
 
 // Remove paint all

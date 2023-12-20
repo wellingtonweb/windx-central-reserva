@@ -429,6 +429,7 @@ function displayMessageError(title){
 }
 
 function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+    // var idPayment =
     var dButton =
         `<a href="${base_url}comprovante/${transactionId}/download" onclick="downloadClick()"
         class="download-pdf btn btn-primary btn-sm" target="_blank">
@@ -442,6 +443,7 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
         timer: dTimer,
         didOpen: () => {
             Swal.hideLoading()
+            transactionId = null;
         },
         allowOutsideClick: () => {
             const popup = Swal.getPopup()
@@ -456,7 +458,9 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
         },
         willClose: () => {
             refreshSliderCards()
+            clearAllSections()
             if(dIcon === 'success'){
+                console.log('Botão', dButton);
                 Swal.fire({
                     title: 'Download do comprovante',
                     icon: 'info',
@@ -464,6 +468,7 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
                     html: "Baixe seu comprovante ou acesse em Comprovantes para obter a 2ª via.<br><br>"+dButton,
                     didOpen: () => {
                         Swal.hideLoading()
+                        clearInterval(callback)
                     },
                     allowOutsideClick: () => {
                         const popup = Swal.getPopup()
@@ -477,12 +482,10 @@ function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
                         return false
                     },
                     willClose: () => {
-                        clearAllSections()
                         displayMessageQuestionFinish()
                     }
                 })
             }else{
-                clearAllSections()
                 displayMessageQuestionFinish()
             }
         }

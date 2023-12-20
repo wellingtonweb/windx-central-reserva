@@ -151,7 +151,8 @@
                         <tr class="ttu b-top">
                             <td class="right">Pago via: </td>
                             <td id="coupon_method" class="left">
-                                @if($payment['method'] == 'ecommerce' && $payment['terminal_id'] == null)
+                                @if(($payment['method'] == 'ecommerce' && $payment['terminal_id'] == null) ||
+                                    ($payment['method'] == 'picpay' && $payment['terminal_id'] == null))
                                     Central do Assinante
                                 @else
                                     Auto-atendimento

@@ -95,8 +95,6 @@ $('#btn-logout').on('click', function() {
     $('#footer').addClass('animate__animated animate__fadeOutDown');
 });
 
-
-
 $('#btn-contact').click(function (){
     $('#card-contact').removeClass('animate__bounceOutDown')
     $('#card-contact').addClass('animate__bounceInUp')

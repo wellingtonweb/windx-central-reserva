@@ -55,6 +55,7 @@
 <script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
 
 @if(session('message') || session('error') || session('error_checkout') )
     @if (session('error'))

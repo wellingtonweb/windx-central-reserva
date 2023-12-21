@@ -86,13 +86,13 @@ class PDFController extends Controller
     {
         if(session()->has('customer')) {
 
-            if(session()->has('payment')) {
-                $payment = session('payment');
-                session()->forget('payment');
-            }else{
+//            if(session()->has('payment')) {
+//                $payment = session('payment');
+//                session()->forget('payment');
+//            }else{
                 $payment = json_decode(json_encode((new API())->getPayment($id)->data),true);
                 $payment['terminal'] = $payment['terminal_id'];
-            }
+//            }
 
             if($payment['id'] == $id && $payment['status'] == 'approved'){
                 return (new API())->getCouponPDF($payment);

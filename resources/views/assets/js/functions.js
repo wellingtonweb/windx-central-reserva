@@ -310,7 +310,7 @@ function resetTimer() {
             clearInterval(time);
             displayMessageQuestionLogout()
         }
-    }, 1000);
+    }, 500);
 }
 
 $('.container-fluid').trigger('click');

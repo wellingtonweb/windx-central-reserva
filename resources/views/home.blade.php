@@ -863,7 +863,7 @@
         }
 
         .container-actions-buttons {
-            padding: 1rem;
+            padding-left: 1rem;
             gap: 1.5rem;
         }
 

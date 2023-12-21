@@ -43,8 +43,7 @@
                             </div>
                             <small id="smallErrorPassword" class="text-warning mt-2 password_error"></small>
                             <div class="text-right mt-3">
-                                <a href="https://api.whatsapp.com/send?phone=558000282309&amp;text=Desejo%20falar%20com%20atendimento%20Windx!"
-                                   target="_blank" class="card-link text-primary-light close_reset_password pr-1 letter-1x">
+                                <a href="#" onclick="help()" class="card-link text-primary-light pr-1 letter-1x">
                                     Não tem os dados de acesso?</a>
                             </div>
                         </div>
@@ -60,14 +59,6 @@
 @endsection
 
 @section('js')
-    <script>
-        $( "#inputLogin" ).on( "click", function() {
-            $("#smallErrorLogin").text('');
-        });
-        $( "#inputPassword" ).on( "click", function() {
-            $("#smallErrorPassword").text('');
-        });
-    </script>
     @if ($errors->has('document'))
         <script>
             $('.full-screen-splash').addClass('d-none')

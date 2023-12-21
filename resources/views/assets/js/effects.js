@@ -65,6 +65,25 @@ function press(){
     }, 90)
 };
 
+$( "#inputLogin" ).on( "click", function() {
+    $("#smallErrorLogin").text('');
+});
+$( "#inputPassword" ).on( "click", function() {
+    $("#smallErrorPassword").text('');
+});
+
+function help(){
+    Swal.fire({
+        icon: "info",
+        title: "Estamos redirecionando você<br> para falar com nossa <br>Central de Atendimento",
+        showConfirmButton: false,
+        timer: 4000,
+        willClose: () => {
+            location.href = "https://api.whatsapp.com/send?phone=558000282309&amp;text=Desejo%20falar%20com%20atendimento%20Windx!"
+        }
+    });
+}
+
 $('a.nav-click').click(function (){
     $('.loading').removeClass('d-none');
 });

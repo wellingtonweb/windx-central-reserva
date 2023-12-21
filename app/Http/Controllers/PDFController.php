@@ -95,9 +95,7 @@ class PDFController extends Controller
             }
 
             if($payment['id'] == $id && $payment['status'] == 'approved'){
-//            if($payment->data->status === 'approved'){
                 return (new API())->getCouponPDF($payment);
-//                return (new API())->getCouponPDF($payment->data);
             }
 
             return redirect()->route('central.payments')

@@ -81,7 +81,6 @@
     const release_url = `{{route('central.release')}}`;
 
     $('.loading').removeClass('d-none');
-    swal.fire('Corrigir bug do comprovante PDF download!');
 </script>
 
 @if(session('message') || session('error') || session('error_checkout') )

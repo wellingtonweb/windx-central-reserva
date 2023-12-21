@@ -14,25 +14,25 @@
                     <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
                         {{$header}}
                     </div>
-                    <div class="col-12">
+                    <div class="contract-info col-12">
                         <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mt-3">
+                            <div class="col mt-3 pl-0 pr-0">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Dados Pessoais</h4>
                                         <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Nome:
                                                 <span class="text-black-50 text-right">{{ $customer['full_name'] }}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 CPF/CNPJ:
                                                 <div>
                                                     <span id="cpf" class="text-black-50 text-right" onclick="toggleCPF()">{{ $customer['document'] }}</span>
                                                     <i id="toggleBtn" class="fa fa-eye text-primary" ></i>
                                                 </div>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Data de nascimento:
                                                 <span class="text-black-50 text-right">{{ date("d/m/Y", strtotime($customer['dt_trust'])) }}</span>
                                             </li>
@@ -40,36 +40,36 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mt-3">
+                            <div class="col mt-3 ">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Endereço e Contato</h4>
                                         <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Endereço:
                                                 <span class="text-black-50 text-right">{{ $customer['street'] }}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Referência:
                                                 <span class="text-black-50 text-right">{{ trim($customer['reference']) == '' ? 'SEM REFERÊNCIAS' : $customer['reference']}}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Cidade:
                                                 <span class="text-black-50 text-right">{{ $customer['city'] }}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 CEP:
                                                 <span class="text-black-50 text-right">{{ $customer['cep'] }}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Telefone:
                                                 <span class="text-black-50 text-right">{{ $customer['phone'] }}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Celular:
                                                 <span class="text-black-50 text-right">{{ $customer['cell'] }}</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 E-mail:
                                                 <span class="text-black-50 text-right">{{ $customer['email'] }}</span>
                                             </li>
@@ -77,22 +77,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mt-3">
+                            <div class="col mt-3 pl-0 pr-0">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <h4 class="card-title font-weight-bold">Dados da Conta</h4>
                                         <ul class="list-group">
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Plano contratado:
                                                 @foreach($customer['plans'] as $plan)
                                                 <span class="text-black-50 text-right">{{ $plan['descricao'] }} (R$ {{ number_format($plan['valor'],2,",",".")}})</span>
                                                 @endforeach
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Dia de Vencimento:
                                                 <span class="text-black-50 text-right">15</span>
                                             </li>
-                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Status:
                                                 @switch($customer['status'])
                                                     @case('B')
@@ -112,10 +112,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <p>CPF: <span >123.456.789-01</span></p>
-                        <button >Toggle CPF</button>
-                    </div>
                 </div>
             </div>
         </section>
@@ -124,6 +120,10 @@
 
 @section('css')
     <style>
+        .card {
+            border-radius: .30rem;
+        }
+
         h2 {
             color: #002046;
         }

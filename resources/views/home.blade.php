@@ -13,7 +13,6 @@
                         </h5>
                     </div>
                 </div>
-{{--                                        {{ dd(session()->all()) }}--}}
                 <div class="container-actions-buttons d-flex justify-content-start mb-3 flex-wrap">
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">

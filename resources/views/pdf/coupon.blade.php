@@ -93,8 +93,9 @@
                         <thead>
                         <tr>
                             <th class="text-center" colspan="2">
-                                <h2 style="text-transform: uppercase; letter-spacing: 1px "><strong>Windx Telecomunicações</strong></h2>
-                                {{--                                <img style="width: 20mm !important; margin-top: 1rem" src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">--}}
+{{--                                <h2 style="text-transform: uppercase; letter-spacing: 1px "><strong>Windx Telecomunicações</strong></h2>--}}
+                                <img style="width: 20mm !important; margin-top: 1rem"
+                                     src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">
                             </th>
                         </tr>
                         <tr class="b-top" >

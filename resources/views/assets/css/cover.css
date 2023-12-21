@@ -2591,12 +2591,27 @@ svg rect{
 }
 
 .card-body {
-    padding: .5rem 1.5rem !important;
+    /*padding: .5rem !important;*/
+    padding: .5rem 1.5rem;
 }
 
 .card-body p {
     /*margin-bottom: 0 !important;*/
     line-height: 15px;
+}
+
+.contract-info .card-body {
+    padding: .5rem !important;
+    /*padding: .5rem 1.5rem !important;*/
+}
+
+.contract.list-group-item {
+    padding: .75rem !important;
+}
+
+.contract span.text-right {
+    /*max-width: 68%;*/
+    padding-left: .8rem;
 }
 
 .swal2-popup{

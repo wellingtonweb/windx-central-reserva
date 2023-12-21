@@ -249,7 +249,7 @@ class API
 
         $pdf = Pdf::loadView('pdf.coupon', $couponContent)->setPaper( $paper, 'portrait');
 
-        return $pdf->download('Comprovante_'.$payment['id'].'-'.Functions::dateToPt($payment['created_at']).'.pdf');
+        return $pdf->download('comprovante_'.$payment['id'].'-'.Functions::dateToPt($payment['created_at']).'.pdf');
     }
 
     public function getTerminal($id)

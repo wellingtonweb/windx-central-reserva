@@ -67,6 +67,7 @@ $('button.btn-payment-type').click(function (){
             $('#form_checkout').submit();
             break
         default:
+            paymentType = (this.id == 'btn-credit'?'credit':'debit');
             $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
             $('#method').val('ecommerce');
             $('#modalCard').modal('show');
@@ -155,22 +156,22 @@ function sendPayment(payment){
         },
         success: function(response, textStatus, xhr) {
             if(xhr.status === 200 || xhr.status === 201){
+                localStorage.setItem('transactionId', response.id)
+                transactionId = localStorage.getItem("transactionId");
                 if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
-                    localStorage.setItem('transactionId', response.id)
-                    transactionId = localStorage.getItem("transactionId");
                     setQrcode(response)
                     runCallBack();
                 }else{
-                    if(response.status === 'approved')
-                    {
+                    // if(response.status === 'approved')
+                    // {
+                    //     $('#modalCard').modal('hide')
+                    //     msgStatusTransaction(response.status)
+                    // }else{
                         $('#modalCard').modal('hide')
+                        // transactionId = null
+                        clearAllSections()
                         msgStatusTransaction(response.status)
-                    }else{
-                        sessionStorage.setItem('transactionId', response.id)
-                        transactionId = sessionStorage.getItem("transactionId");
-                        $('#modalCard').modal('hide')
-                        waitingPayment()
-                    }
+                    // }
                 }
             }else{
                 msgStatusTransaction(response.status)
@@ -345,7 +346,7 @@ function runCallBack()
 
 transactionId = localStorage.getItem("transactionId");
 
-if (transactionId != null) {
+if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit')) {
     waitingPayment()
 }
 

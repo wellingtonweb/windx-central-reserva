@@ -32,6 +32,8 @@ class PaymentController extends Controller implements ShouldQueue
 
     public function checkout(CheckoutRequest $request)
     {
+        $status = 'created';
+
         if(!session()->has('customer'))
         {
             return redirect()->route('central.login')->with('info', 'Sessão expirada!');
@@ -55,10 +57,18 @@ class PaymentController extends Controller implements ShouldQueue
 
         $response = (new API())->postPayment($body);
 
-        if($response->status() > 201)
+//        dd($response->status(), $response->object(), ($response->object())->data->status);
+
+//        $status =
+
+        if($response->status() > 201 && ($response->object())->data->status != 'approved')
         {
-            return response()->json($response->object(), $response->status());
+            return response()->json('Pagamento recusado!', $response->status());
         }
+
+        $payment = json_decode(json_encode($response->object()->data),true);
+
+        session()->put("payment", $payment);
 
         return response()->json($response->object()->data, 200);
 

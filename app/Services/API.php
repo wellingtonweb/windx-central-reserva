@@ -183,26 +183,26 @@ class API
 
     public function postPayment($body)
     {
-        try {
+//        try {
             return Http::accept('application/json')
                 ->withToken($this->apiToken)
                 ->retry(3, 100)
                 ->post($this->apiUrl . '/api/payments', $body);
 
-        } catch (\Exception $e) {
-
-//            AppLog::create([
-//                'customer_id' => session('customer.id'),
-//                'content' => $e->getMessage(),
-//                'operation' => 'checkout',
-//                'status' => 'error'
-//            ]);
-
-            return response()->json([
-                'status' => 'error',
-                'error' => $e->getMessage(),
-            ], 400);
-        }
+//        } catch (\Exception $e) {
+//
+////            AppLog::create([
+////                'customer_id' => session('customer.id'),
+////                'content' => $e->getMessage(),
+////                'operation' => 'checkout',
+////                'status' => 'error'
+////            ]);
+//
+//            return response()->json([
+//                'status' => 'error',
+//                'error' => $e->getMessage(),
+//            ], 400);
+//        }
     }
 
     public function callback($id_transaction){
@@ -223,7 +223,7 @@ class API
 
     public function getCouponPDF($payment)
     {
-        $payment = (array)($payment);
+//        $payment = (array)($payment);
         $customer = session('customer');
         $pay = date("d/m/Y", strtotime($payment['created_at']));
         $customerFirstName = explode(" ", $customer['full_name']);
@@ -244,6 +244,8 @@ class API
 
         $paper = array(0,0,200,460);
 //        $paper = array(0,0,280,600);
+
+//        dd($payment, $customer, $pay, $customerFirstName, $couponContent);
 
         $pdf = Pdf::loadView('pdf.coupon', $couponContent)->setPaper( $paper, 'portrait');
 

@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html charset=utf-8"/>
     <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <title>{{ config('app.name', 'Terminal de Pagamentos') }}</title>
+    <title>{{ config('app.name', 'Central do Assinante') }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logox.ico') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" href="{{ asset('assets/css/fawesome.min.css') }}">
@@ -17,7 +17,6 @@
     @hasSection('css')
         @yield('css')
     @endif
-{{--    <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">--}}
 
     <style>
         .container-all {
@@ -48,8 +47,6 @@
         </h2>
     </div>
 </div>
-
-
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
     @if (Route::currentRouteName() == 'central.login' ||Route::currentRouteName() == 'central.login2' || Route::currentRouteName() == 'central.locked')
         <div class="mt-3">
@@ -70,17 +67,12 @@
 
 </div>
 
-{{--<script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.js') }}"></script>
-{{--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">--}}
-{{--<script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript" src="{{ asset('assets/js/effects.js') }}"></script>
-{{--<script type="text/javascript" src="{{ asset('assets/js/libs.js') }}"></script>--}}
 <script defer type="text/javascript" src="{{ asset('assets/js/pdf.js') }}"></script>
 <script defer type="text/javascript" src="{{ asset('assets/js/customer.release.min.js') }}"></script>
-{{--<script type="text/javascript" src="{{ asset('assets/js/js.jsbarcode2.js') }}"></script>--}}
 <script>
     const route_login = '{{route('central.login')}}';
     const route_logout = '{{route('central.logout')}}';
@@ -89,10 +81,10 @@
     const release_url = `{{route('central.release')}}`;
 
     $('.loading').removeClass('d-none');
+    swal.fire('Corrigir bug do comprovante PDF download!');
 </script>
 
 @if(session('message') || session('error') || session('error_checkout') )
-
 <script>
     Swal.fire({
         title: '{{ (session('message') ? 'Atenção!': (session('error') ? 'Erro!': 'Erro de pagamento!')) }}',
@@ -107,6 +99,5 @@
 @hasSection('js')
     @yield('js')
 @endif
-{{--<script defer> inactivitySession(); </script>--}}
 </body>
 </html>

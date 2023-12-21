@@ -7,7 +7,7 @@
     <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
-    <title>{{ config('app.name', 'Central de Pagamentos') }}</title>
+    <title>{{ config('app.name', 'Central do Assinante') }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logox.ico') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" href="{{ asset('assets/css/fawesome.min.css') }}">

@@ -13,7 +13,7 @@
                         </h5>
                     </div>
                 </div>
-
+{{--                                        {{ dd(session()->all()) }}--}}
                 <div class="container-actions-buttons d-flex justify-content-start mb-3 flex-wrap">
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
@@ -243,7 +243,7 @@
         <div class="modal-dialog modal-lg modal-dialog-scrollable" style="z-index: 99999 !important;">
             <div class="modal-content">
                 <div class="modal-header" style="border: 0">
-                    <h6 class="modal-title font-weight-bold" style="color: #002046;" id="staticBackdropLabel">Windx - Termos de Uso e Privacidade</h6>
+                    <h6 class="modal-title font-weight-bold" style="color: #002046;">Windx - Termos de Uso e Privacidade</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -1123,58 +1123,4 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer>inactivitySession();</script>
-    <script>
-        $('#terms-modal').on('shown.bs.modal', function () {
-            Swal.close();
-        })
-
-        function checkTerms() {
-            var terms = getCookie('terms')
-            if (!terms) {
-                Swal.fire({
-                    title: 'Cookies 🍪',
-                    html: `
-                        <small>Utilizamos cookies para proporcionar uma melhor experiência a você! Consulte nossos,
-                         <a href="javascript:void(0);" class="help-link" data-toggle="modal" data-target="#terms-modal">
-                        Termos de uso e Privacidade
-                    </a>.</small>`,
-                    position: 'bottom',
-                    confirmButtonText: 'Aceitar',
-                    showDenyButton: false,
-                    showCancelButton: true,
-                    cancelButtonText: `Fechar`,
-                    reverseButtons: true,
-                    showClass: {
-                        popup: `
-                  animate__animated
-                  animate__fadeInUp
-                  animate__faster
-                `,
-                    },
-                    hideClass: {
-                        popup: `
-                  animate__animated
-                  animate__fadeOutDown
-                  animate__faster
-                `,
-                    },
-                    grow: 'row',
-                    showConfirmButton: true,
-                    showCloseButton: true,
-                }).then((result) => {
-                    result.isConfirmed ? acceptTerms() : ''
-                });
-            }
-        }
-
-        function acceptTerms() {
-            setCookie('terms', 'ok', 30)
-            $('#terms-modal').fadeOut(300);
-        }
-
-        setTimeout(function() {
-            checkTerms()
-        }, 3000);
-    </script>
-
 @endsection

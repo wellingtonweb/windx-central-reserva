@@ -9,6 +9,7 @@
         body{
             background-color: #fff9f2 !important;
             color: #0a1520;
+            /*margin-left: 20px;*/
         }
 
         #content{
@@ -23,12 +24,14 @@
             font-size: .55rem !important;
             text-align: center;
             padding: .33rem;
+
         }
 
         .comprovante p{
             line-height: 12px;
         }
         .comprovante .table-coupon {
+            padding-left: 10px;
             text-align: center !important;
             line-height: 15px !important;
         }
@@ -90,8 +93,8 @@
                         <thead>
                         <tr>
                             <th class="text-center" colspan="2">
-                                <img style="width: 20mm !important; margin-top: 1rem" src="{{ asset('assets/img/logo2.png') }}" class="logo pt-2">
-{{--                                <img style="width: 20mm !important; margin-top: 1rem" src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">--}}
+                                <h2 style="text-transform: uppercase; letter-spacing: 1px "><strong>Windx Telecomunicações</strong></h2>
+                                {{--                                <img style="width: 20mm !important; margin-top: 1rem" src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">--}}
                             </th>
                         </tr>
                         <tr class="b-top" >
@@ -99,10 +102,9 @@
                                 <h3 style="text-transform: uppercase; letter-spacing: 1px "><strong>Comprovante de pagamento</strong></h3>
                                 <span style="letter-spacing: 1px; padding-top: 1rem; padding-bottom: 1rem;">(Cupom não fiscal)</span><br>
                                 <p>
-                                    <small style="color: #5b5b5b; padding-top: 1rem; padding-bottom: 1rem;">
-{{--                                    <small style="color: #5b5b5b; padding-top: 1rem; padding-bottom: 1rem;">--}}
+                                    <span style="color: #5b5b5b; padding-top: 1rem; padding-bottom: 1rem; font-size: 90% !important;">
                                         {{ $date_time_full }}
-                                    </small>
+                                    </span>
                                 </p>
                             </th>
                         </tr>
@@ -141,9 +143,9 @@
                             <td id="coupon_billets" class="left">
                                 @foreach($billets as $info)
                                     @if(count($billets) > 1)
-                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.date("d/m/Y", strtotime($info->duedate)).'), ' : ', ' }}<br>
+                                        {{ $info['reference'] }} {{!empty($info['duedate']) ? '('.date("d/m/Y", strtotime($info['duedate'])).'), ' : ', ' }}<br>
                                     @else
-                                        {{ $info->reference }} {{!empty($info->duedate) ? '('.date("d/m/Y", strtotime($info->duedate)).')' : '' }}
+                                        {{ $info['reference'] }} {{!empty($info['duedate']) ? '('.date("d/m/Y", strtotime($info['duedate'])).')' : '' }}
                                     @endif
                                 @endforeach
                             </td>
@@ -151,8 +153,8 @@
                         <tr class="ttu b-top">
                             <td class="right">Pago via: </td>
                             <td id="coupon_method" class="left">
-                                @if(($payment['method'] == 'ecommerce' && $payment['terminal_id'] == null) ||
-                                    ($payment['method'] == 'picpay' && $payment['terminal_id'] == null))
+                                @if(($payment['method'] == 'ecommerce' && $payment['terminal'] == null) ||
+                                    ($payment['method'] == 'picpay' && $payment['terminal'] == null))
                                     Central do Assinante
                                 @else
                                     Auto-atendimento
@@ -174,35 +176,35 @@
                             </td>
                         </tr>
                         @if($payment['payment_type'] == 'credit' || $payment['payment_type'] == 'debit')
-                            @if(isset($payment['receipt']->card_number))
+                            @if(isset($payment['receipt']['card_number']))
                                 <tr class="ttu b-top">
                                     <td class="right">Cartão: </td>
                                     <td id="coupon_card_number" class="left" style="max-width: 74mm">
-                                        {{ $payment['receipt']->card_number }}
+                                        {{ $payment['receipt']['card_number'] }}
                                     </td>
                                 </tr>
                             @endif
-                            @if(isset($payment['receipt']->flag))
+                            @if(isset($payment['receipt']['flag']))
                                 <tr class="ttu b-top">
                                     <td class="right">Bandeira: </td>
                                     <td id="coupon_flag" class="left" style="max-width: 74mm">
-                                        {{ $payment['receipt']->flag }}
+                                        {{ $payment['receipt']['flag'] }}
                                     </td>
                                 </tr>
                             @endif
-                            @if(isset($payment['receipt']->payer))
+                            @if(isset($payment['receipt']['payer']))
                                 <tr class="ttu b-top">
                                     <td class="right">Titular: </td>
                                     <td id="coupon_payer" class="left" style="max-width: 74mm">
-                                        {{ $payment['receipt']->payer }}
+                                        {{ $payment['receipt']['payer'] }}
                                     </td>
                                 </tr>
                             @endif
-                            @if(isset($payment['receipt']->in_installments) && $payment['receipt']->in_installments > 1)
+                            @if(isset($payment['receipt']['in_installments']) && $payment['receipt']['in_installments'] > 1)
                                 <tr class="ttu b-top">
                                     <td class="right">Acordo: </td>
                                     <td id="coupon_flag" class="left" style="max-width: 74mm">
-                                        Parcelado em {{ $payment['receipt']->in_installments }}x
+                                        Parcelado em {{ $payment['receipt']['in_installments'] }}x
                                     </td>
                                 </tr>
                             @endif
@@ -214,7 +216,7 @@
                                     $total = 0;
                                     foreach ($billets as $billet)
                                     {
-                                        $total += $billet->value;
+                                        $total += $billet['value'];
                                     }
                                 @endphp
                                     {{number_format($total, 2, ',', '.') }}
@@ -228,7 +230,7 @@
                                     $totalAdition = 0;
                                     foreach ($billets as $billet)
                                     {
-                                        $totalAdition += $billet->addition;
+                                        $totalAdition += $billet['addition'];
                                     }
                                 @endphp
                                     {{number_format($totalAdition, 2, ',', '.') }}
@@ -243,10 +245,10 @@
                                    </span>
                             </td>
                         </tr>
-                        @if(isset($payment['receipt']->card_ent_mode))
+                        @if(isset($payment['receipt']['card_ent_mode']))
                             <tr class="ttu b-top text-center ">
                                 <td colspan="4" style="text-align: center; letter-spacing: 1px">
-                                    <p>{{ $payment['receipt']->card_ent_mode }}</p>
+                                    <p>{{ $payment['receipt']['card_ent_mode'] }}</p>
                                 </td>
                             </tr>
                         @endif

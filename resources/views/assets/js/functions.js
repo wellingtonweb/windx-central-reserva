@@ -401,3 +401,54 @@ $('.coupon-pdf').click(function (){
     }
 });
 
+$('#terms-modal').on('shown.bs.modal', function () {
+    Swal.close();
+})
+
+function checkTerms() {
+    var terms = getCookie('terms')
+    if (!terms) {
+        Swal.fire({
+            title: 'Cookies 🍪',
+            html: `
+                        <small>Utilizamos cookies para proporcionar uma melhor experiência a você! Consulte nossos,
+                         <a href="javascript:void(0);" class="help-link" data-toggle="modal" data-target="#terms-modal">
+                        Termos de uso e Privacidade
+                    </a>.</small>`,
+            position: 'bottom',
+            confirmButtonText: 'Aceitar',
+            showDenyButton: false,
+            showCancelButton: true,
+            cancelButtonText: `Fechar`,
+            reverseButtons: true,
+            showClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeInUp
+                  animate__faster
+                `,
+            },
+            hideClass: {
+                popup: `
+                  animate__animated
+                  animate__fadeOutDown
+                  animate__faster
+                `,
+            },
+            grow: 'row',
+            showConfirmButton: true,
+            showCloseButton: true,
+        }).then((result) => {
+            result.isConfirmed ? acceptTerms() : ''
+        });
+    }
+}
+
+function acceptTerms() {
+    setCookie('terms', 'ok', 30)
+    $('#terms-modal').fadeOut(300);
+}
+
+setTimeout(function() {
+    checkTerms()
+}, 3000);

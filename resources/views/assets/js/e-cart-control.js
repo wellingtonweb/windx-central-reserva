@@ -113,7 +113,66 @@ function addToCartBtn(data){
             })
         }
     }
+
+    Swal.fire({
+        icon: "question",
+        title: 'Deseja prosseguir com o pagamento ou adicionar outra fatura?',
+        confirmButtonColor: '#38c172',
+        cancelButtonColor: '#007bff',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Prosseguir',
+        cancelButtonText: `Adicionar`,
+        reverseButtons: true,
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: `Selecione a forma <br>de pagamento`,
+                html: checkoutButtons,
+                confirmButtonColor: '#38c172',
+                denyButtonColor: '#c82333',
+                showDenyButton: true,
+                // showCancelButton: false,
+                showConfirmButton: false,
+                confirmButtonText: 'Sim',
+                denyButtonText: `CANCELAR`,
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+            }).then((result) => {
+                if (result.isDenied) {
+                    clearAllSections();
+                    refreshSliderCards()
+                }
+            })
+        }else{
+            Swal.close();
+        }
+    })
 }
+
+$('.btn-payment-type').click(function (){
+    Swal.close();
+})
 
 function deleteItemCart(id){
     billetsCart.removeItemFromCart(id);
@@ -216,7 +275,9 @@ function displayCart() {
     var fees = billetsCart.totalFees();
     var totalSum = billetsCart.totalSum();
 
+
     $('.total-cart').html(total.toFixed(2).replace(".",","));
+    $('input.bpmpi_totalamount').val(Math.round(total.toFixed(2) * 100));
     $('.total-count').html(count);
     $('.display-text').html(count > 1 ? ' faturas via ':' fatura via ');
     $('.total-fees').html(fees.toFixed(2).replace(".",","));

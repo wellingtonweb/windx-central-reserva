@@ -88,6 +88,13 @@ class AuthController extends Controller
             $customer = json_decode(json_encode($response->object()),true);
 
             session()->put('customer',  $customer);
+            UserInfo::get_customer_metadata();
+
+//            dd(session('customer'));
+
+
+
+//            session()->put('customer.ip_address', \Request::getClientIp(true));
 
 //            CustomerLog::create(UserInfo::get_customer_metadata());
 

@@ -30,6 +30,7 @@ $('#cc-cvv').blur(function (){
 });
 
 $('#modalCard').on('show.bs.modal', function (event) {
+    Swal.close();
     countdown();
 })
 
@@ -57,23 +58,42 @@ function resetCardFields() {
 }
 
 /* Button payment type */
-$('button.btn-payment-type').click(function (){
-    switch (this.id){
+// $('button.btn-payment-type').click(function (){
+//     switch (this.id){
+//         case 'btn-picpay':
+//         case 'btn-pix':
+//             $('#payment_type').val((this.id == 'btn-picpay'?'picpay':'pix'));
+//             $('#method').val((this.id == 'btn-picpay'?'picpay':'ecommerce'));
+//             resetCardFields();
+//             $('#form_checkout').submit();
+//             break
+//         default:
+//             paymentType = (this.id == 'btn-credit'?'credit':'debit');
+//             $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
+//             $('#method').val('ecommerce');
+//             $('#modalCard').modal('show');
+//             break
+//     }
+// });
+
+function getPaymentType(e){
+    switch (e.id){
         case 'btn-picpay':
         case 'btn-pix':
-            $('#payment_type').val((this.id == 'btn-picpay'?'picpay':'pix'));
-            $('#method').val((this.id == 'btn-picpay'?'picpay':'ecommerce'));
+            $('#payment_type').val((e.id == 'btn-picpay'?'picpay':'pix'));
+            $('#method').val((e.id == 'btn-picpay'?'picpay':'ecommerce'));
             resetCardFields();
             $('#form_checkout').submit();
             break
         default:
-            paymentType = (this.id == 'btn-credit'?'credit':'debit');
-            $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
+            e.id == 'btn-debit'? getAccessToken() : '';
+            paymentType = (e.id == 'btn-credit'?'credit':'debit');
+            $('#payment_type').val((e.id == 'btn-credit'?'credit':'debit'));
             $('#method').val('ecommerce');
             $('#modalCard').modal('show');
             break
     }
-});
+}
 
 /* Submit form checkout */
 $('#form_checkout').submit(function (e){

@@ -5,6 +5,7 @@ namespace App\Helpers;
 
 
 use App\Models\CustomerLog;
+use Illuminate\Support\Facades\Log;
 
 class UserInfo
 {
@@ -189,14 +190,13 @@ class UserInfo
 //            $customerLog->browser = self::get_browser();
 //            $customerLog->device = self::get_device();
 //            $customerLog->save();
+            Log::info(session('customer.id').' '. self::get_device() .' '. self::get_ip() .' '. self::get_os() .' '. self::get_browser());
+            session()->put('customer.device', self::get_device());
+            session()->put('customer.ip_address', self::get_ip());
+            session()->put('customer.os', self::get_os());
+            session()->put('customer.browser', self::get_browser());
 
-            return [
-                'customer_id' => session('customer.id'),
-                'ip' => self::get_ip(),
-                'os' => self::get_os(),
-                'browser' => self::get_browser(),
-                'device' => self::get_device()
-            ];
+            return;
         }
     }
 }

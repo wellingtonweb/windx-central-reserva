@@ -191,12 +191,12 @@ class PagesController extends Controller
 
     public function tokencielo()
     {
-        if(session()->has('customer')){
+//        if(session()->has('customer')){
             return view('tkcielo', ['header' => 'tokencielo']);
 //            return view('tokencielo', ['header' => 'tokencielo']);
-        } else {
-            throw new CheckUserException();
-        }
+//        } else {
+//            throw new CheckUserException();
+//        }
     }
 
     public function coupons()

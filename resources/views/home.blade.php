@@ -6,6 +6,8 @@
             <div class="container">
                 <div class="row mt-4">
                     <div class="col-12">
+{{--                        {{ dd(session('customer')) }}--}}
+
                         <h5 class="justify-content-center animate__animated animate__zoomIn animate__delay-1s"
                             style="color: lightsalmon">
                             Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}

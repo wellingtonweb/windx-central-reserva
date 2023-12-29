@@ -32,6 +32,7 @@ Route::name('central.')->group(function(){
 //    Route::post('/send-new-password', [AuthController::class, 'sendNewPassword'])->name('reset.password');
 //    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');
     Route::get('/callback/{id}', [PaymentController::class, 'callback'])->name('callback');
+    Route::get('/tokencielo', [PagesController::class, 'tokencielo'])->name('tkcielo');
 
     Route::middleware(['check.user'])->group(function () {
 
@@ -51,7 +52,7 @@ Route::name('central.')->group(function(){
         Route::get('/getbillets2', [PagesController::class, 'getbillets2'])->name('get.billets2');
         Route::get('/comprovantes', [PagesController::class, 'payments'])->name('payments');
         Route::get('/coupons', [PagesController::class, 'coupons'])->name('coupons');
-        Route::get('/tokencielo', [PagesController::class, 'tokencielo'])->name('tkcielo');
+
 
         /* Payment Routes */
         Route::post('/checkout', [PaymentController::class, 'checkout'])->name('checkout');

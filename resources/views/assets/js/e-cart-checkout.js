@@ -58,24 +58,6 @@ function resetCardFields() {
 }
 
 /* Button payment type */
-// $('button.btn-payment-type').click(function (){
-//     switch (this.id){
-//         case 'btn-picpay':
-//         case 'btn-pix':
-//             $('#payment_type').val((this.id == 'btn-picpay'?'picpay':'pix'));
-//             $('#method').val((this.id == 'btn-picpay'?'picpay':'ecommerce'));
-//             resetCardFields();
-//             $('#form_checkout').submit();
-//             break
-//         default:
-//             paymentType = (this.id == 'btn-credit'?'credit':'debit');
-//             $('#payment_type').val((this.id == 'btn-credit'?'credit':'debit'));
-//             $('#method').val('ecommerce');
-//             $('#modalCard').modal('show');
-//             break
-//     }
-// });
-
 function getPaymentType(e){
     switch (e.id){
         case 'btn-picpay':

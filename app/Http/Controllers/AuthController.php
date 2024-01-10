@@ -88,6 +88,7 @@ class AuthController extends Controller
             $customer = json_decode(json_encode($response->object()),true);
 
             session()->put('customer',  $customer);
+            session()->put('customer.login',  $validator->validate()['login']);
             UserInfo::get_customer_metadata();
 
 //            dd(session('customer'));

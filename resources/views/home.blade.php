@@ -15,7 +15,7 @@
                         </h5>
                     </div>
                 </div>
-                <div class="container-actions-buttons d-flex justify-content-start mb-3 flex-wrap">
+                <div class="container-actions-buttons d-flex justify-content-start mb-3 flex-wrap ">
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
@@ -187,6 +187,39 @@
                                     <h4 class="title">Suporte</h4>
                                     <p class="text-muted mt-3 mb-0 pl-2">Acompanhar atendimentos ou abrir um novo para o
                                         suporte técnico.</p>
+                                </div>
+                                <div class="big-icon h1 text-custom">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                         class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
+                                        <path
+                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                        <path
+                                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <i class="mdi mdi-chevron-right"></i>
+                        </a>
+                    </div>
+                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
+                        <a href="{{route('central.traffic.average')}}" class="text-custom">
+                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
+                                <div class="container-icon w-100  d-flex justify-content-center">
+                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                        <span class="uim-svg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
+                                                <path
+                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                                <path
+                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="content mt-lg-4 mt-0">
+                                    <h4 class="title">Gráficos</h4>
+                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período desejado.</p>
                                 </div>
                                 <div class="big-icon h1 text-custom">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"

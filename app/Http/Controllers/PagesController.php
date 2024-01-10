@@ -11,6 +11,7 @@ use App\Services\ApiConnect;
 use App\Services\API;
 use App\Helpers\WorkingDays;
 use App\Services\Functions;
+use App\Services\Made4Graph;
 use App\Services\Validations;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
+
+
             return view('home', ['header' => 'Home']);
         } else {
             throw new CheckUserException();
@@ -47,6 +50,30 @@ class PagesController extends Controller
         if(session()->has('customer')){
             return view('contract', [
                 'header' => 'Contrato',
+                'customer' => session('customer')
+            ]);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function graphics()
+    {
+        if(session()->has('customer')){
+            return view('graphics', [
+                'header' => 'Gráficos',
+                'customer' => session('customer')
+            ]);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
+    public function trafficAverage()
+    {
+        if(session()->has('customer')){
+            return view('graphics', [
+                'header' => 'Gráficos',
                 'customer' => session('customer')
             ]);
         } else {

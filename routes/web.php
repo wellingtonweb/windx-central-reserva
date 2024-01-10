@@ -42,6 +42,8 @@ Route::name('central.')->group(function(){
 //        });
         Route::get('/home', [PagesController::class, 'home'])->name('home');
         Route::get('/contrato', [PagesController::class, 'contract'])->name('contract');
+        Route::get('/graficos', [PagesController::class, 'graphics'])->name('graphics');
+        Route::post('/graficos', [PagesController::class, 'trafficAverage'])->name('traffic.average');
         Route::get('/notasfiscais', [PagesController::class, 'invoices'])->name('invoices');
         Route::get('/invoices', [PagesController::class, 'invoicesList'])->name('invoices.list');
         Route::get('/suporte', [PagesController::class, 'support'])->name('support');

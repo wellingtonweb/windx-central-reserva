@@ -75,34 +75,14 @@
                         <div id="buttonsCheckout" class="d-none col-12 ">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-12 col-sm-12 order-lg-0 order-md-0 order-sm-1">
-                                        <div class="checkout-controls">
-                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block">CANCELAR</button>
+                                    <div class="col-lg-2 col-md-4 col-sm-12 order-lg-1 order-md-1 order-sm-1 px-2">
+                                        <div class="checkout-controls w-auto d-flex">
+                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block m-0">CANCELAR</button>
                                         </div>
                                     </div>
-                                    <div class="col-lg-10 col-md-12 col-sm-12 order-lg-1 order-md-1 order-sm-0">
+                                    <div class="col-lg-10 col-md-8 col-sm-12 order-lg-0 order-md-0 order-sm-0 px-2">
                                         <h4>Formas de pagamento: <br>Débito, Crédito, Pix e Picpay</h4>
-                                        <small>Escolha sua forma de pagamento após selecionar a fatura desejada.</small>
-{{--                                        <div id="v-pills-tab" class="checkout-controls d-flex_ d-none flex-wrap">--}}
-{{--                                            <button class="btn btn-windx mb-1 btn-payment-type m-md-2" id="btn-pix"--}}
-{{--                                                    data-toggle="pill" data-target="#v-pills-qrcode" type="button"--}}
-{{--                                                    role="tab" aria-controls="v-pills-qrcode" aria-selected="false">--}}
-{{--                                                PIX--}}
-{{--                                            </button>--}}
-{{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-picpay"--}}
-{{--                                                    data-toggle="pill" data-target="#v-pills-qrcode" type="button"--}}
-{{--                                                    role="tab" aria-controls="v-pills-qrcode" aria-selected="false">--}}
-{{--                                                PICPAY--}}
-{{--                                            </button>--}}
-{{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-credit"--}}
-{{--                                                    type="button">--}}
-{{--                                                CRÉDITO--}}
-{{--                                            </button>--}}
-{{--                                            <button class="btn btn-windx mb-1 btn-payment-type mx-md-2" id="btn-debit"--}}
-{{--                                                    onclick="getAccessToken()" type="button">--}}
-{{--                                                DÉBITO--}}
-{{--                                            </button>--}}
-{{--                                        </div>--}}
+                                        <small>Selecione a fatura desejada e escolha a forma de pagamento.</small>
                                     </div>
                                 </div>
                             </div>
@@ -1296,7 +1276,10 @@
                 `;
         // $('#form_checkout').prop( "disabled", true );
 
-        Swal.fire('Selecione uma ou mais faturas para pagamento!')
+        Swal.fire({
+            title: "Selecione uma ou mais faturas para pagamento!",
+            icon: "info"
+        });
 
         // Swal.fire({
         //     title: `Selecione a forma <br>de depagamento`,
@@ -1373,9 +1356,6 @@
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer>
-        // inactivitySession();
+        inactivitySession();
     </script>
 @endsection
-
-
-

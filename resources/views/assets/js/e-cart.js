@@ -20,6 +20,16 @@ var billetsCart = (function() {
         this.company_id = company_id;
     }
 
+    function formatDueDate(duedate)
+    {
+        const data = new Date(duedate);
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        const formatPtBr = new Intl.DateTimeFormat('pt-BR', options);
+
+        return formatPtBr.format(data);
+    }
+
+
     // Save cart
     function saveCart() {
         sessionStorage.setItem('billetsCart', JSON.stringify(cart));
@@ -41,7 +51,8 @@ var billetsCart = (function() {
 
     // Add to cart
     obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
-        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id);
+        var duedateFormat = formatDueDate(duedate)
+        var item = new Item(billet_id, reference, duedateFormat, value, addition, discount, price, count, company_id);
         cart.push(item);
         saveCart();
     }

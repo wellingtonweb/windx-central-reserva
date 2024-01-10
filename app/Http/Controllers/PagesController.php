@@ -73,7 +73,7 @@ class PagesController extends Controller
     {
         if(session()->has('customer')){
             return view('graphics', [
-                'header' => 'Gráficos',
+                'header' => 'Consumo',
                 'customer' => session('customer')
             ]);
         } else {

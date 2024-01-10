@@ -215,7 +215,12 @@ function setQrcode(payment){
                     <h4 class="text-danger pt-2 font-weight-bold">Valor total: <span>${amount}</span></h4>
                     <p>Faturas selecionadas: <span class="font-weight-bold total-count"></span></p>
                 </div>
-                <small class="pt-2 text-black-50">Use seu app de pagamento e leia o qrcode</small>
+                <small class="pt-2 text-black-50 ${(payment.payment_type == 'pix' ? '' : 'd-none')}">
+                Utilize seu app de pagamento para ler o qrcode <br> ou a código pix copia e cola abaixo
+                </small>
+                <small class="pt-2 text-black-50 ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
+                Utilize seu Picpay para ler o qrcode <br>ou o link de pagamento abaixo
+                </small>
                 <div id="container-qrcode">
                     <small id="timerPaymentQrCode" class="text-danger"><b></b></small>
                     <div class="body-popup-qrcode">
@@ -233,6 +238,13 @@ function setQrcode(payment){
                         class="mt-2 animate__animated text-primary d-none"
                         onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
                         Copiar código do PIX
+                        </a>
+                    </div>
+                    <div class="py-1">
+                        <a href="${payment.paymentUrl}" target="_blank"
+                        id="btnPicpayLink"
+                        class="mt-2 animate__animated text-primary ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
+                        Quero pagar com link de pagamento!
                         </a>
                     </div>
                 </div>

@@ -53,8 +53,8 @@ class Made4Graph
             ->post($this->apiUrl . '/api/v1/trafficAverage.php',
                 [
                     'login' => [$this->login_pppoe],
-                    'dateFrom' => "2024-01-01 00:00:00",
-                    'dateTo' => "2024-01-09 23:59:00",
+                    'dateFrom' => $period['dtStart'] . " 00:00:00",
+                    'dateTo' => $period['dtEnd'] . " 23:59:00",
                     '11.201/2020' => true,
                 ]);
 

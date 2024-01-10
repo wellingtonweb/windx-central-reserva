@@ -115,6 +115,13 @@ class Functions
         return date("Y-m-d", strtotime($date));
     }
 
+    public function convertDate(String $date)
+    {
+        $dataObjeto = DateTime::createFromFormat('d/m/Y', $date);
+
+        return $dataObjeto->format('Y-m-d');
+    }
+
     public function infoDate()
     {
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');

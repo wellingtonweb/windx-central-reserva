@@ -16,6 +16,7 @@
                     </div>
                     <div class="contract-info col-12">
                         <form id="formFilterGraphics">
+                            <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <div class="row card-info row-cols-1 row-cols-sm-2 row-cols-md-4">
                                 <div class="col pt-4">
                                     <div class="form-group">
@@ -74,6 +75,8 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
     <style>
+
+
         .card {
             border-radius: .30rem;
         }
@@ -89,6 +92,15 @@
         }
 
         @media (max-width: 575.98px) {
+            .datepicker {
+                background-color: white;
+                width: 80% !important;
+            }
+
+            .datepicker table {
+                width: 100% !important;
+            }
+
             /*.col {*/
             /*    padding-right: 5px !important;*/
             /*    padding-left: 5px !important;*/
@@ -119,12 +131,19 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+{{--    <script src="https://momentjs.com/downloads/moment.min.js"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+
+
+    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.br.min.js"></script>--}}
     <script>
         $(document).ready(function() {
             //Teste graphics
             const ctx = document.getElementById('myChart');
+            const dt = [];
 
             new Chart(ctx, {
                 type: 'bar',
@@ -151,29 +170,85 @@
                 endDate: "date",
                 todayHighlight: true,
                 autoclose: true,
-            });
+                locale: 'pt-br'
+            })
+                // .on('changeDate', function(ev){
+                //     // dt['start'] = ev.date.toLocaleDateString();
+                //     dt['start'] = $("#dtInicial").val()
+                //
+                //     console.log(ev.date.toLocaleDateString(), dt['start'])
+                // });
+
+            // $('#dtPkrStart').datepicker({
+            //     closeText: 'Fechar',
+            //     prevText: '<Anterior',
+            //     nextText: 'Próximo>',
+            //     currentText: 'Hoje',
+            //     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+            //         'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            //     monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
+            //         'Jul','Ago','Set','Out','Nov','Dez'],
+            //     dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
+            //     dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            //     dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            //     weekHeader: 'Sm',
+            //     dateFormat: 'dd/mm/yy',
+            //     firstDay: 0,
+            //     isRTL: false,
+            //     showMonthAfterYear: false,
+            //     yearSuffix: ''
+            // });
+        // } );
 
             $('#dtPkrStart').datepicker("setDate", new Date());
 
+            async function postJSON(data) {
+                try {
+                    const response = await fetch("{{ route('central.traffic.average') }}", {
+                        method: "POST", // or 'PUT'
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": $('meta[name="_token"]').attr('content')
+                        },
+                        body: JSON.stringify(data),
+                    });
+
+                    const result = await response.json();
+                    console.log("Success:", result);
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
 
             $('#formFilterGraphics').submit(function (e){
                 e.preventDefault();
-                var data = $(this).serializeArray()
-                var timeInMs = Date.now();
-                console.log(data, timeInMs)
+                postJSON({'_token': $(this).serializeArray()[0].value,'dtStart': $(this).serializeArray()[1].value,'dtEnd': $(this).serializeArray()[2].value});
             })
 
+            function getData(days){
+                const dataAtual = new Date();
+                const dataAtual2 = new Date();
+
+                dataAtual.setDate(dataAtual.getDate() - days);
+
+                document.getElementById("dtInicial").value = formatDate(dataAtual);
+                document.getElementById('dtFinal').value = formatDate(dataAtual2);
+            }
+
+            function formatDate(dtInput){
+                return `${dtInput.getDate().toString().padStart(2, '0')}/${(dtInput.getMonth() + 1).toString().padStart(2, '0')}/${dtInput.getFullYear()}`
+            }
+
             $('#fastFilter7').on('change', function (){
-                $('.dtInicial').datepicker("setDate", new Date());
-                alert($(this).val())
+                getData($(this).val())
             })
 
             $('#fastFilter15').on('change', function (){
-                alert($(this).val())
+                getData($(this).val())
             })
 
             $('#fastFilter30').on('change', function (){
-                alert($(this).val())
+                getData($(this).val())
             })
         });
     </script>

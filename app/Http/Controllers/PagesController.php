@@ -69,13 +69,20 @@ class PagesController extends Controller
         }
     }
 
-    public function trafficAverage()
+    public function trafficAverage(Request $request)
     {
         if(session()->has('customer')){
-            return view('graphics', [
-                'header' => 'Consumo',
-                'customer' => session('customer')
-            ]);
+
+            $dtStart = (new Functions())->convertDate($request->dtStart);
+            $dtEnd = (new Functions())->convertDate($request->dtEnd);
+
+            $response = (new Made4Graph())->trafficAverage(['dtStart' => $dtStart, 'dtEnd' => $dtEnd ]);
+
+            return response()->json($response);
+//            return view('graphics', [
+//                'header' => 'Consumo',
+//                'customer' => session('customer')
+//            ]);
         } else {
             throw new CheckUserException();
         }

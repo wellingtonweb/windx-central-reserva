@@ -135,6 +135,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="https://cdn.skypack.dev/date-fns"></script>
 
 
 
@@ -142,27 +143,9 @@
     <script>
         $(document).ready(function() {
             //Teste graphics
-            const ctx = document.getElementById('myChart');
+            const ctx = document.getElementById('myChart').getContext('2d');
             const dt = [];
-
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
+            const graphics = []
 
             $('.datepicker').datepicker({
                 language: "pt-BR",
@@ -202,6 +185,8 @@
 
             $('#dtPkrStart').datepicker("setDate", new Date());
 
+            var login = "097wdf";
+
             async function postJSON(data) {
                 try {
                     const response = await fetch("{{ route('central.traffic.average') }}", {
@@ -214,7 +199,14 @@
                     });
 
                     const result = await response.json();
-                    console.log("Success:", result);
+                    console.log("Success:", result.obj);
+
+                    const graphics = Object.entries(result.obj).map(([chave, valor]) => valor);
+
+                    getDataGraphics(graphics)
+                    console.log(graphics);
+
+
                 } catch (error) {
                     console.error("Error:", error);
                 }
@@ -250,6 +242,71 @@
             $('#fastFilter30').on('change', function (){
                 getData($(this).val())
             })
+
+            // new Chart(ctx, {
+            //     type: 'bar',
+            //     data: {
+            //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            //         datasets: [{
+            //             label: '# of Votes',
+            //             data: [12, 19, 3, 5, 2, 3],
+            //             borderWidth: 1
+            //         }],
+            //
+            //     },
+            //     options: {
+            //         scales: {
+            //             y: {
+            //                 beginAtZero: true
+            //             }
+            //         }
+            //     }
+            // });
+
+            // Extrair datas, downloads e uploads
+            function getDataGraphics(graphics){
+                const labels = Object.keys(graphics[0]);
+                const labels2 = Object.keys(graphics[0]).map(date => {
+                    // return date
+                    var dates = new Date(date)
+                    return dates.toLocaleDateString("pt-BR");
+                    // return format(new Date(date), 'dd/MM/yyyy', { locale: ptBR });
+                });
+                console.log(labels)
+                const downloads = labels.map(date => graphics[0][date].download);
+                const uploads = labels.map(date => graphics[0][date].upload);
+
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels2,
+                        datasets: [
+                            {
+                                label: 'Download',
+                                data: downloads,
+                                backgroundColor: 'rgba(2, 15, 38, 0.8)',
+                                borderColor: 'rgba(2, 15, 38, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Upload',
+                                data: uploads,
+                                backgroundColor: 'rgba(220, 53, 69, 0.8)',
+                                borderColor: 'rgba(220, 53, 69, 1)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
         });
     </script>
 

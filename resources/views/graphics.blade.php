@@ -61,8 +61,8 @@
                             </div>
                             <div class="row card-info mt-2">
                                 <div class="col-12 ">
-                                    <div id="loadingCharts" class="alert alert-primary">
-                                        <i class="fas fa-spinner fa-spin"></i>
+                                    <div id="loadingCharts" class="w-100">
+                                        <i class="fas fa-spinner fa-2x fa-spin"></i>
                                     </div>
                                     <canvas id="myChart"></canvas>
                                 </div>
@@ -78,7 +78,13 @@
 @section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
     <style>
-
+        #loadingCharts {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #002046;
+        }
 
         .card {
             border-radius: .30rem;
@@ -151,6 +157,8 @@
             const ctx = document.getElementById('myChart').getContext('2d');
             const dt = [];
             const graphics = []
+            var myChart = {};
+
 
             // $('#fastFilter7').trigger("click");
 
@@ -215,6 +223,12 @@
 
             $('#formFilterGraphics').submit(function (e){
                 e.preventDefault();
+                let chartStatus = Chart.getChart("myChart"); // <canvas> id
+                if (chartStatus != undefined) {
+                    chartStatus.destroy();
+                    $("#loadingCharts").removeClass('d-none')
+                }
+
                 postJSON({'_token': $(this).serializeArray()[0].value,'dtStart': $(this).serializeArray()[1].value,'dtEnd': $(this).serializeArray()[2].value});
             })
 
@@ -251,42 +265,19 @@
                 getData($(this).val())
             })
 
-            // new Chart(ctx, {
-            //     type: 'bar',
-            //     data: {
-            //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            //         datasets: [{
-            //             label: '# of Votes',
-            //             data: [12, 19, 3, 5, 2, 3],
-            //             borderWidth: 1
-            //         }],
-            //
-            //     },
-            //     options: {
-            //         scales: {
-            //             y: {
-            //                 beginAtZero: true
-            //             }
-            //         }
-            //     }
-            // });
-
-            // Extrair datas, downloads e uploads
             function getDataGraphics(graphics){
+
+
+
                 const labels = Object.keys(graphics[0]);
                 const labels2 = Object.keys(graphics[0]).map(date => {
-                    // return date
                     var dates = new Date(date)
                     return dates.toLocaleDateString("pt-BR");
-                    // return format(new Date(date), 'dd/MM/yyyy', { locale: ptBR });
                 });
-                console.log(labels)
                 const downloads = labels.map(date => graphics[0][date].download);
                 const uploads = labels.map(date => graphics[0][date].upload);
 
-                $("#loadingCharts").addClass('d-none')
-
-                const myChart = new Chart(ctx, {
+                myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: labels2,
@@ -312,9 +303,39 @@
                             y: {
                                 beginAtZero: true
                             }
-                        }
+                        },
+                        animation: {
+                            duration: 2000,
+                            onProgress: function(context) {
+                                if (context.initial) {
+                                    initProgress.value = context.currentStep / context.numSteps;
+                                } else {
+                                    progress.value = context.currentStep / context.numSteps;
+                                }
+                            },
+                            onComplete: function(context) {
+                                if (context.initial) {
+                                    console.log('Initial animation finished');
+                                } else {
+                                    console.log('animation finished');
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Chart.js Line Chart - Animation Progress Bar'
+                            }
+                        },
                     }
                 });
+
+                $("#loadingCharts").addClass('d-none')
             }
 
         });

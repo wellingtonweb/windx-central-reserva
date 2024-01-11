@@ -88,6 +88,19 @@ class PagesController extends Controller
         }
     }
 
+
+    public function connection()
+    {
+        if(session()->has('customer')){
+            return view('connection', [
+                'header' => 'Minha conexão',
+                'customer' => session('customer')
+            ]);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
     public function release(Request $request)
     {
         $data = [

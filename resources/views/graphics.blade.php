@@ -61,6 +61,9 @@
                             </div>
                             <div class="row card-info mt-2">
                                 <div class="col-12 ">
+                                    <div id="loadingCharts" class="alert alert-primary">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    </div>
                                     <canvas id="myChart"></canvas>
                                 </div>
                             </div>
@@ -142,10 +145,14 @@
     {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.br.min.js"></script>--}}
     <script>
         $(document).ready(function() {
+
+
             //Teste graphics
             const ctx = document.getElementById('myChart').getContext('2d');
             const dt = [];
             const graphics = []
+
+            // $('#fastFilter7').trigger("click");
 
             $('.datepicker').datepicker({
                 language: "pt-BR",
@@ -185,8 +192,6 @@
 
             $('#dtPkrStart').datepicker("setDate", new Date());
 
-            var login = "097wdf";
-
             async function postJSON(data) {
                 try {
                     const response = await fetch("{{ route('central.traffic.average') }}", {
@@ -199,13 +204,9 @@
                     });
 
                     const result = await response.json();
-                    console.log("Success:", result.obj);
-
                     const graphics = Object.entries(result.obj).map(([chave, valor]) => valor);
 
                     getDataGraphics(graphics)
-                    console.log(graphics);
-
 
                 } catch (error) {
                     console.error("Error:", error);
@@ -231,9 +232,16 @@
                 return `${dtInput.getDate().toString().padStart(2, '0')}/${(dtInput.getMonth() + 1).toString().padStart(2, '0')}/${dtInput.getFullYear()}`
             }
 
+            (function startGraphics(){
+                $('#fastFilter7').on('change', function (){
+                    getData($(this).val())
+                }).trigger("click")
+                $('#formFilterGraphics').submit()
+            })()
+
             $('#fastFilter7').on('change', function (){
                 getData($(this).val())
-            })
+            }).trigger("click")
 
             $('#fastFilter15').on('change', function (){
                 getData($(this).val())
@@ -275,6 +283,8 @@
                 console.log(labels)
                 const downloads = labels.map(date => graphics[0][date].download);
                 const uploads = labels.map(date => graphics[0][date].upload);
+
+                $("#loadingCharts").addClass('d-none')
 
                 const myChart = new Chart(ctx, {
                     type: 'bar',

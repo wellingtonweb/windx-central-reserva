@@ -55,16 +55,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col p-3">
+                                <div class="col p-3 d-flex">
                                     <button class="btn btn-primary mt-2" type="submit">Pesquisar</button>
+                                    <button id="btnDownload" class="btn btn-secondary mt-2" type="button">Download</button>
                                 </div>
                             </div>
                             <div class="row card-info mt-2">
                                 <div class="col-12 ">
-                                    <div id="loadingCharts" class="w-100">
-                                        <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                    <div id="reportPage">
+                                        <div id="loadingCharts" class="w-100">
+                                            <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                        </div>
+                                        <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">
+                                            <canvas id="myChart"></canvas>
+                                        </div>
                                     </div>
-                                    <canvas id="myChart"></canvas>
+                                    <img id="canvas-img" src="">
                                 </div>
                             </div>
                         </form>
@@ -145,6 +151,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
     <script src="https://cdn.skypack.dev/date-fns"></script>
+    <!-- jspdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+
+    <!-- html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <!-- canvas.js -->
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
 
@@ -157,6 +170,7 @@
             const dt = [];
             const graphics = []
             var myChart = {};
+
 
 
             // $('#fastFilter7').trigger("click");
@@ -266,6 +280,78 @@
                 getData($(this).val())
             })
 
+            function bitsToMegabits(bits) {
+                return bits / 1000000;
+                // return bits / (8 * 1024 * 1024 * 1024);
+            }
+
+            function formatBytes(bytes) {
+                // if (!+bytes) return '0 Bytes'
+                //
+                // const k = 1024
+                // const dm = decimals < 0 ? 0 : decimals
+                // const sizes = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB']
+                //
+                // const i = Math.floor(Math.log(bytes) / Math.log(k))
+                //
+                // // return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))}`
+                // return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+
+
+                    var i = -1;
+                    var byteUnits = [' kbps', ' Mbps', ' Gbps', ' Tbps', 'Pbps', 'Ebps', 'Zbps', 'Ybps'];
+                    do {
+                        bytes = bytes / 1024;
+                        i++;
+                    } while (bytes > 1024);
+
+                    return Math.max(bytes, 0.1).toFixed(2);
+                    // return Math.max(bytes, 0.1).toFixed(2)+ byteUnits[i];
+            }
+
+            // $('#downloadPdf').click(function(event) {
+            //     // get size of report page
+            //     var reportPageHeight = $('#reportPage').innerHeight();
+            //     var reportPageWidth = $('#reportPage').innerWidth();
+            //
+            //     // create a new canvas object that we will populate with all other canvas objects
+            //     var pdfCanvas = $('<canvas />').attr({
+            //         id: "canvaspdf",
+            //         width: reportPageWidth,
+            //         height: reportPageHeight
+            //     });
+            //
+            //     // keep track canvas position
+            //     var pdfctx = $(pdfCanvas)[0].getContext('2d');
+            //     var pdfctxX = 0;
+            //     var pdfctxY = 0;
+            //     var buffer = 100;
+            //
+            //     // for each chart.js chart
+            //     $("canvas").each(function(index) {
+            //         // get the chart height/width
+            //         var canvasHeight = $(this).innerHeight();
+            //         var canvasWidth = $(this).innerWidth();
+            //
+            //         // draw the chart into the new canvas
+            //         pdfctx.drawImage($(this)[0], pdfctxX, pdfctxY, canvasWidth, canvasHeight);
+            //         pdfctxX += canvasWidth + buffer;
+            //
+            //         // our report page is in a grid pattern so replicate that in the new canvas
+            //         if (index % 2 === 1) {
+            //             pdfctxX = 0;
+            //             pdfctxY += canvasHeight + buffer;
+            //         }
+            //     });
+            //
+            //     // create new pdf and add our new canvas as an image
+            //     var pdf = new jsPDF('l', 'pt', [reportPageWidth, reportPageHeight]);
+            //     pdf.addImage($(pdfCanvas)[0], 'PNG', 0, 0);
+            //
+            //     // download the pdf
+            //     pdf.save('filename.pdf');
+            // });
+
             function getDataGraphics(graphics)
             {
                 const labels = Object.keys(graphics[0]);
@@ -274,12 +360,18 @@
                     dates.setDate(dates.getDate() + 1)
                     return dates.toLocaleDateString("pt-BR");
                 });
-                const downloads = labels.map(date => graphics[0][date].download);
-                const uploads = labels.map(date => graphics[0][date].upload);
+                const downloads = labels.map(date => formatBytes(parseInt(graphics[0][date].download)));
+                // const downloads = labels.map(date => graphics[0][date].download);
+                // const downloads = labels.map(date => graphics[0][date].download);
+                const uploads = labels.map(date => formatBytes(parseInt(graphics[0][date].upload)));
+                // const uploads = labels.map(date => graphics[0][date].upload);
+                // const uploads = labels.map(date => graphics[0][date].upload);
+                console.log(downloads, uploads)
 
                 myChart = new Chart(ctx, {
-                    type: 'bar',
-                    responsive: true,
+                    type: 'line',
+                    // type: 'bar',
+
                     data: {
                         labels: labels2,
                         datasets: [
@@ -300,13 +392,16 @@
                         ]
                     },
                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
                         scales: {
                             y: {
                                 beginAtZero: true,
                                 ticks: {
                                     // Include a dollar sign in the ticks
                                     callback: function(value, index, ticks) {
-                                        return Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]) + ' GB';
+                                        // return Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks])+ ' Mbps';
+                                        return value.toFixed(2)+ ' Mbps';
                                     }
                                 }
                             },
@@ -339,6 +434,9 @@
                                 display: true,
                                 text: 'Total de tráfego'
                             },
+                            customCanvasBackgroundColor: {
+                                color: 'white',
+                            }
                             // tooltip: {
                             //     callbacks: {
                             //         label: function(context) {
@@ -359,10 +457,70 @@
                     }
                 });
 
+//                 var a = document.createElement('a');
+//                 a.href = myChart.toBase64Image();
+//                 a.download = 'my_file_name.png';
+//
+// // Trigger the download
+//                 a.click();
+
+
+
+                // document.getElementById('some-image-tag').src = myChart.toBase64Image();
+
                 $("#loadingCharts").addClass('d-none')
             }
 
+            // var downloadChartJs = () => {
+            //     html2canvas(document.getElementById("chartContainer"), {
+            //         onrendered: function (canvas) {
+            //             var img = canvas.toDataURL(); //image data of canvas
+            //             var doc = new jsPDF();
+            //             doc.addImage(img, 10, 10);
+            //             doc.save('test2.pdf');
+            //         }
+            //     });
+            // }
+            //
+            // document.getElementById("btnDownload").addEventListener("click", downloadChartJs);
+
+            $('#btnDownload').on('click',function (){
+                // document.getElementById('canvas-img').src = myChart.toBase64Image();
+                //add event listener to button
+
+//donwload pdf from original canvas
+                    var canvas = document.querySelector('#myChart');
+                    //creates image
+                    var canvasImg = canvas.toDataURL("image/jpeg", 1.0);
+
+                    //creates PDF from img
+                    var doc = new jsPDF('landscape');
+                    doc.setFontSize(20);
+                    doc.text(15, 15, "Cool Chart");
+                    doc.addImage(canvasImg, 'JPEG', 10, 10, 280, 150 );
+                    doc.save('canvas.pdf');
+
+//add event listener to 2nd button
+//                 document.getElementById('download-pdf2').addEventListener("click", downloadPDF2);
+
+//download pdf form hidden canvas
+//                 function downloadPDF2() {
+//                     var newCanvas = document.querySelector('#supercool-canvas');
+//
+//                     //create image from dummy canvas
+//                     var newCanvasImg = newCanvas.toDataURL("image/jpeg", 1.0);
+//
+//                     //creates PDF from img
+//                     var doc = new jsPDF('landscape');
+//                     doc.setFontSize(20);
+//                     doc.text(15, 15, "Super Cool Chart");
+//                     doc.addImage(newCanvasImg, 'JPEG', 10, 10, 280, 150 );
+//                     doc.save('new-canvas.pdf');
+//                 }
+            })
         });
+
+
     </script>
 
 @endsection

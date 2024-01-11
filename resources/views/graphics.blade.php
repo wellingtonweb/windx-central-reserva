@@ -21,7 +21,7 @@
                                 <div class="col pt-4">
                                     <div class="form-group">
                                         <div id="dtPkrStart" class="datepicker date dtInicial input-group">
-                                            <input type="text" placeholder="Data inicial" class="form-control" name="dtInicial" id="dtInicial">
+                                            <input type="text" placeholder="Data inicial" class="form-control dtpkr" name="dtInicial" id="dtInicial">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                             </div>
@@ -31,7 +31,7 @@
                                 <div class="col pt-4">
                                     <div class="form-group">
                                         <div id="dtPkrEnd" class="datepicker date dtFinal input-group">
-                                            <input type="text" placeholder="Data final" class="form-control" name="dtFinal" id="dtFinal">
+                                            <input type="text" placeholder="Data final" class="form-control dtpkr" name="dtFinal" id="dtFinal">
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                             </div>
@@ -152,7 +152,6 @@
     <script>
         $(document).ready(function() {
 
-
             //Teste graphics
             const ctx = document.getElementById('myChart').getContext('2d');
             const dt = [];
@@ -198,7 +197,9 @@
             // });
         // } );
 
-            $('#dtPkrStart').datepicker("setDate", new Date());
+            $('.dtpkr').on('change', function (){
+                $(".form-check-input").prop('checked', false);
+            });
 
             async function postJSON(data) {
                 try {
@@ -265,13 +266,12 @@
                 getData($(this).val())
             })
 
-            function getDataGraphics(graphics){
-
-
-
+            function getDataGraphics(graphics)
+            {
                 const labels = Object.keys(graphics[0]);
                 const labels2 = Object.keys(graphics[0]).map(date => {
                     var dates = new Date(date)
+                    dates.setDate(dates.getDate() + 1)
                     return dates.toLocaleDateString("pt-BR");
                 });
                 const downloads = labels.map(date => graphics[0][date].download);
@@ -279,20 +279,21 @@
 
                 myChart = new Chart(ctx, {
                     type: 'bar',
+                    responsive: true,
                     data: {
                         labels: labels2,
                         datasets: [
                             {
                                 label: 'Download',
                                 data: downloads,
-                                backgroundColor: 'rgba(2, 15, 38, 0.8)',
+                                backgroundColor: 'rgba(2, 15, 38, 0.7)',
                                 borderColor: 'rgba(2, 15, 38, 1)',
                                 borderWidth: 1
                             },
                             {
                                 label: 'Upload',
                                 data: uploads,
-                                backgroundColor: 'rgba(220, 53, 69, 0.8)',
+                                backgroundColor: 'rgba(220, 53, 69, 0.7)',
                                 borderColor: 'rgba(220, 53, 69, 1)',
                                 borderWidth: 1
                             }
@@ -301,16 +302,23 @@
                     options: {
                         scales: {
                             y: {
-                                beginAtZero: true
-                            }
+                                beginAtZero: true,
+                                ticks: {
+                                    // Include a dollar sign in the ticks
+                                    callback: function(value, index, ticks) {
+                                        return Chart.Ticks.formatters.numeric.apply(this, [value, index, ticks]) + ' GB';
+                                    }
+                                }
+                            },
+
                         },
                         animation: {
                             duration: 2000,
                             onProgress: function(context) {
                                 if (context.initial) {
-                                    initProgress.value = context.currentStep / context.numSteps;
+                                    console.log('animation inicial');
                                 } else {
-                                    progress.value = context.currentStep / context.numSteps;
+                                    console.log('animation inicial2');
                                 }
                             },
                             onComplete: function(context) {
@@ -329,9 +337,25 @@
                         plugins: {
                             title: {
                                 display: true,
-                                text: 'Chart.js Line Chart - Animation Progress Bar'
-                            }
+                                text: 'Total de tráfego'
+                            },
+                            // tooltip: {
+                            //     callbacks: {
+                            //         label: function(context) {
+                            //             let label = context.dataset.label || '';
+                            //
+                            //             // if (label) {
+                            //             //     label += ': ';
+                            //             // }
+                            //             // if (context.parsed.y !== null) {
+                            //             //     label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                            //             // }
+                            //             return label+' GB';
+                            //         }
+                            //     }
+                            // }
                         },
+
                     }
                 });
 

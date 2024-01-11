@@ -53,14 +53,18 @@ class Made4Graph
             ->post($this->apiUrl . '/api/v1/trafficAverage.php',
                 [
                     'login' => [$this->login_pppoe],
+//                    'dateFrom' => $period['dtStart'],
                     'dateFrom' => $period['dtStart'] . " 00:00:00",
+//                    'dateTo' => $period['dtEnd'],
                     'dateTo' => $period['dtEnd'] . " 23:59:00",
                     '11.201/2020' => true,
                 ]);
 
+//        dd($period, $response->object()->message);
 
         if($response->successful()){
             return ['obj'=> $response->object()->message, 'token' => $this->apiToken];
+//            return ['obj'=> $response->object()->message, 'token' => $this->apiToken];
         }else{
             return $response->throw();
         }

@@ -15,12 +15,18 @@
                         {{$header}}
                     </div>
                     <div class="contract-info col-12">
-                        <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mt-3 pl-0 pr-0">
-                                <div class="card h-100">
+                        <div id="accordion" class="row row-cols-1 row-cols-md-3 accordion">
+                            <div  class="col mt-3 pl-0 pr-0">
+                                <div class="card h-100 ">
                                     <div class="card-body">
-                                        <h4 class="card-title font-weight-bold">Dados Pessoais</h4>
-                                        <ul class="list-group">
+                                        <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapsePersonalData" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4 class="card-title font-weight-bold">Dados Pessoais</h4>
+                                            <span class="accordion-icon fa-stack fa-sm">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-minus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <ul id="collapsePersonalData" class="list-group collapse show" data-parent="#accordion">
                                             <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Nome:
                                                 <span class="text-black-50 text-right">{{ $customer['full_name'] }}</span>
@@ -43,8 +49,14 @@
                             <div class="col mt-3 ">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h4 class="card-title font-weight-bold">Endereço e Contato</h4>
-                                        <ul class="list-group">
+                                        <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapseAddress" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4 class="card-title font-weight-bold">Endereço e Contato</h4>
+                                            <span class="accordion-icon fa-stack fa-sm">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <ul id="collapseAddress" class="list-group collapse" data-parent="#accordion">
                                             <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Endereço:
                                                 <span class="text-black-50 text-right">{{ $customer['street'] }}</span>
@@ -80,8 +92,14 @@
                             <div class="col mt-3 pl-0 pr-0">
                                 <div class="card h-100">
                                     <div class="card-body">
-                                        <h4 class="card-title font-weight-bold">Dados da Conta</h4>
-                                        <ul class="list-group">
+                                        <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapseAccountData" aria-expanded="true" aria-controls="collapseOne">
+                                            <h4 class="card-title font-weight-bold">Dados da Conta</h4>
+                                            <span class="accordion-icon fa-stack fa-sm">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <ul id="collapseAccountData" class="list-group collapse" data-parent="#accordion">
                                             <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Plano contratado:
                                                 @foreach($customer['plans'] as $plan)
@@ -120,6 +138,10 @@
 
 @section('css')
     <style>
+        a.help-link:active, a.help-link:focus, a.help-link:hover {
+            color: #033c7b !important;
+        }
+
         .card {
             border-radius: .30rem;
         }
@@ -134,10 +156,27 @@
             gap: 5px;
         }
 
+        .card-body .help-link {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .accordion-icon {
+            display: none;
+        }
+
+        .help-link {
+            pointer-events: none;
+        }
+
         @media (max-width: 575.98px) {
             .col {
                 padding-right: 5px !important;
                 padding-left: 5px !important;
+            }
+
+            .card-title {
+                padding: .5rem 0 0 .5rem !important;
             }
 
             .card-body {
@@ -151,13 +190,31 @@
             .contents {
                 padding: .5rem !important;
             }
+
+            .card-body .help-link {
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .accordion-icon {
+                display: block;
+            }
+
+            .help-link {
+                pointer-events: auto !important;
+            }
+
+            #collapseAddress .show,
+            #collapseAccountData .show {
+                display: none;
+            }
         }
     </style>
 @endsection
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script>
         $(document).ready(function() {
             var isHidden = true;
@@ -176,6 +233,25 @@
                 var cpf = '{{ session('customer.document') }}';
                 cpfElement.text(hidden ? cpf.substring(0, 5) + '...' : cpf);
             }
+
+
+            $("#accordion").on("hide.bs.collapse show.bs.collapse", e => {
+                $(e.target)
+                    .prev()
+                    .find("i:last-child")
+                    .toggleClass("fa-plus fa-minus");
+            });
+
+            $('.no-collapsable').on('click', function (e) {
+                e.stopPropagation();
+            });
+
+            if (window.innerWidth <= 600) {
+                $('#collapseAddress, #collapseAccountData').removeClass('show')
+            } else {
+                $('#collapsePersonalData, #collapseAddress, #collapseAccountData').addClass('show')
+            }
+
         });
     </script>
 

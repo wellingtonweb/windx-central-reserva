@@ -381,7 +381,7 @@ header {
     }
 
     .navbar-brand img {
-        height: 40px;
+        height: 30px;
     }
 
     .card-header{
@@ -1217,6 +1217,7 @@ svg rect{
 @media (max-width: 575.98px) {
     .container {
         padding-left: 0 !important;
+        margin-bottom: 0 !important;
     }
 
     .header-page {
@@ -1234,6 +1235,11 @@ svg rect{
 
     .side-bar .menu .item a {
         line-height: 35px !important;
+    }
+
+    /* modification menu mobile */
+    .mastfoot {
+        display: none !important;
     }
 
 }
@@ -1810,6 +1816,18 @@ svg rect{
         padding-left: 0 !important;
         padding-top: 2rem !important;
     }
+
+    footer {
+        display: none !important;
+    }
+
+    .contact-client {
+        display: none !important;
+    }
+
+    .container {
+        margin-bottom: 0 !important;
+    }
 }
 /* CSS Inline app */
 
@@ -2052,6 +2070,10 @@ svg rect{
         max-width: 80% !important;
     }
 
+    /*.nav-mobile {*/
+    /*    display: none !important;*/
+    /*}*/
+
 }
 
 /* Large devices (desktops, less than 1200px) */
@@ -2067,6 +2089,9 @@ svg rect{
     /*    margin: .3rem;*/
     /*}*/
 
+    /*.nav-mobile {*/
+    /*    display: none !important;*/
+    /*}*/
 
 }
 
@@ -3131,4 +3156,52 @@ div.item-text h5{
 
 .popup-button {
     margin-top: 70px;
+}
+
+/* menu mobile */
+
+.nav-mobile .bottom-nav {
+    display: flex;
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.8rem 0;
+    background-color: rgba(0, 44, 96, .75);
+    backdrop-filter: blur(15px);
+    z-index: 998 !important;
+    will-change: transform;
+    transform: translateZ(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.24);
+
+    animation: fadeIn 3s;
+    -webkit-animation: fadeIn 3s;
+    -moz-animation: fadeIn 3s;
+    -o-animation: fadeIn 3s;
+    -ms-animation: fadeIn 3s;
+
+}
+.nav-mobile .bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #f1f5f8;
+}
+.nav-mobile .bottom-nav-link {
+    display: flex;
+    flex-direction: column;
+}
+.nav-mobile .bottom-nav .active {
+    /*color: lightsalmon;*/
+    color: #3490dc;
+}
+
+
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }

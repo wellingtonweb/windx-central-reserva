@@ -43,7 +43,7 @@ class AuthController extends Controller
 
         $hourBackup = Validations::checkHourBackupVigo($array);
 
-        if ($hourBackup) return abort(423);
+//        if ($hourBackup) return abort(423);
     }
 
     public function login()

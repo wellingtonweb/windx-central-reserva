@@ -8,7 +8,7 @@
                     <div class="col-12">
 {{--                        {{ dd(session('customer')) }}--}}
 
-                        <h5 class="justify-content-center animate__animated animate__zoomIn animate__delay-1s"
+                        <h5 class="d-flex justify-content-start pl-3 animate__animated animate__zoomIn animate__delay-1s"
                             style="color: lightsalmon">
                             Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}
                             {{ explode(' ', session('customer.full_name'))[0] }}!
@@ -899,12 +899,16 @@
             }
 
 
+            /*.container {*/
+            /*    margin-bottom: 0 !important;*/
+            /*}*/
         }
 
         @media (min-width: 576px) and (max-width: 767.98px) {
             .action-button {
                 max-width: calc(50% - 30px) !important;
             }
+
         }
 
         @media (min-width: 768px) and (max-width: 991.98px) {
@@ -1180,6 +1184,8 @@
             fill: var(--uim-color, currentColor);
         }
 
+
+
     </style>
 @endsection
 
@@ -1189,5 +1195,17 @@
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script>
+        var navItems = document.querySelectorAll(".bottom-nav-item");
+
+        navItems.forEach(function(e, i) {
+            e.addEventListener("click", function(e) {
+                navItems.forEach(function(e2, i2) {
+                    e2.classList.remove("active");
+                });
+                this.classList.add("active");
+            });
+        });
+    </script>
 @endsection

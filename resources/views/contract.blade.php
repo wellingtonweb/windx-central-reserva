@@ -4,7 +4,7 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
-                <div class="row contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
+                <div class="row mt-4 contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
                     <nav id="infoCustomerActive" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
@@ -234,16 +234,11 @@
                 cpfElement.text(hidden ? cpf.substring(0, 5) + '...' : cpf);
             }
 
-
             $("#accordion").on("hide.bs.collapse show.bs.collapse", e => {
                 $(e.target)
                     .prev()
                     .find("i:last-child")
                     .toggleClass("fa-plus fa-minus");
-            });
-
-            $('.no-collapsable').on('click', function (e) {
-                e.stopPropagation();
             });
 
             if (window.innerWidth <= 600) {

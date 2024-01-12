@@ -6,10 +6,8 @@
             <div class="container">
                 <div class="row mt-4">
                     <div class="col-12">
-{{--                        {{ dd(session('customer')) }}--}}
-
                         <h5 class="d-flex justify-content-start pl-3 animate__animated animate__zoomIn animate__delay-1s"
-                            style="color: lightsalmon">
+                            style="color: whitesmoke">
                             Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}
                             {{ explode(' ', session('customer.full_name'))[0] }}!
                         </h5>
@@ -20,14 +18,19 @@
                         <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
                                 <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
-                                        <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi bi-file-text" viewBox="0 0 18 18" width="1.2em">
-                                              <path
-                                                  d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
-                                              <path
-                                                  d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                                    <div class="icon text-center text-custom h1">
+                                        <span class="uim-svg pl-1">
+{{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
+{{--                                                 class="bi bi-file-text" viewBox="0 0 18 18" width="1.2em">--}}
+{{--                                              <path--}}
+{{--                                                  d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>--}}
+{{--                                              <path--}}
+{{--                                                  d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>--}}
+{{--                                            </svg>--}}
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                                              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                                              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
                                             </svg>
                                         </span>
                                     </div>
@@ -38,7 +41,7 @@
                                         endereço, plano e dados pessoais.</p>
                                 </div>
                                 <div class="big-icon h1 text-custom">
-                                    <span class="uim-svg">
+                                    <span class="uim-svg pl-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                              class="bi bi-file-text" viewBox="0 0 18 18" width="1.2em">
                                           <path
@@ -55,19 +58,29 @@
                         <a href="{{route('central.payment')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
                                 <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                    <div class="icon text-center text-custom">
+
                                     <span class="uim-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                             class="bi bi-cash-coin" viewBox="0 0 18 18" width="1.2em">
-                                          <path fill-rule="evenodd"
-                                                d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-                                          <path
-                                              d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-                                          <path
-                                              d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-                                          <path
-                                              d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-                                        </svg>
+                                        <span class="uim-svg">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                              <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+                                            </svg>
+
+
+
+
+
+{{--                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
+{{--                                             class="bi bi-cash-coin" viewBox="0 0 18 18" width="1.2em">--}}
+{{--                                          <path fill-rule="evenodd"--}}
+{{--                                                d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>--}}
+{{--                                          <path--}}
+{{--                                              d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>--}}
+{{--                                          <path--}}
+{{--                                              d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>--}}
+{{--                                          <path--}}
+{{--                                              d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>--}}
+{{--                                        </svg>--}}
                                     </span>
                                     </div>
                                 </div>
@@ -97,8 +110,8 @@
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.payments')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                <div class="container-icon w-100 d-flex justify-content-center">
+                                    <div class="icon text-center text-custom">
                                         <span class="uim-svg">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                  class="bi bi-file-earmark-arrow-down" viewBox="0 0 18 18"
@@ -134,8 +147,8 @@
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.invoices')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                <div class="container-icon w-100 d-flex justify-content-center">
+                                    <div class="icon text-center text-custom">
                                         <span class="uim-svg">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                  class="bi bi-file-earmark-medical" viewBox="0 0 18 18" width="1.2em">
@@ -170,15 +183,21 @@
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.support')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                <div class="container-icon w-100 d-flex justify-content-center">
+                                    <div class="icon text-center text-custom">
                                         <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
-                                                <path
-                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                <path
-                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+{{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em"--}}
+{{--                                                 fill="currentColor"--}}
+{{--                                                 class="bi bi-question-square" viewBox="0 0 18 18">--}}
+{{--                                                <path--}}
+{{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
+{{--                                                <path--}}
+{{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
+{{--                                            </svg>--}}
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
+                                              <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                              <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
                                             </svg>
                                         </span>
                                     </div>
@@ -204,15 +223,23 @@
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.traffic.average')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                <div class="container-icon w-100 d-flex justify-content-center">
+                                    <div class="icon text-center text-custom">
                                         <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
-                                                <path
-                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                <path
-                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+{{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
+{{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
+{{--                                                <path--}}
+{{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
+{{--                                                <path--}}
+{{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
+{{--                                            </svg>--}}
+
+{{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">--}}
+{{--                                              <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>--}}
+{{--                                            </svg>--}}
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"  fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
+                                              <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
                                             </svg>
                                         </span>
                                     </div>
@@ -237,15 +264,22 @@
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.connection')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100  d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1 shadow rounded">
+                                <div class="container-icon w-100 d-flex justify-content-center">
+                                    <div class="icon text-center text-custom">
                                         <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
-                                                <path
-                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                                <path
-                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+{{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
+{{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
+{{--                                                <path--}}
+{{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
+{{--                                                <path--}}
+{{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
+{{--                                            </svg>--}}
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor" class="bi bi-router" viewBox="0 0 16 16">
+                                              <path d="M5.525 3.025a3.5 3.5 0 0 1 4.95 0 .5.5 0 1 0 .707-.707 4.5 4.5 0 0 0-6.364 0 .5.5 0 0 0 .707.707"/>
+                                              <path d="M6.94 4.44a1.5 1.5 0 0 1 2.12 0 .5.5 0 0 0 .708-.708 2.5 2.5 0 0 0-3.536 0 .5.5 0 0 0 .707.707ZM2.5 11a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m4.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2.5.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m1.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0"/>
+                                              <path d="M2.974 2.342a.5.5 0 1 0-.948.316L3.806 8H1.5A1.5 1.5 0 0 0 0 9.5v2A1.5 1.5 0 0 0 1.5 13H2a.5.5 0 0 0 .5.5h2A.5.5 0 0 0 5 13h6a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5h.5a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14.5 8h-2.306l1.78-5.342a.5.5 0 1 0-.948-.316L11.14 8H4.86zM14.5 9a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5z"/>
+                                              <path d="M8.5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
                                             </svg>
                                         </span>
                                     </div>
@@ -271,7 +305,7 @@
                         <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                             <a id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)" class="text-custom">
                                 <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                    <div class="container-icon w-100  d-flex justify-content-center">
+                                    <div class="container-icon w-100 d-flex justify-content-center">
                                         <div class="icon text-center text-custom h1 shadow rounded">
                                     <span class="uim-svg">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-unlock"
@@ -859,6 +893,11 @@
 
 @section('css')
     <style>
+        .uim-svg svg {
+            width: 4rem;
+
+        }
+
         #terms-modal .modal-body {
             text-align: justify !important;
         }
@@ -1110,8 +1149,11 @@
         }
 
         .service-wrapper .icon {
-            background-color: #e96a70;
+            /*background-color: #e96a70;
             width: 60px;
+            height: 60px;
+            */
+            width: 100px;
             height: 60px;
             line-height: 45px;
             -webkit-transition: all 0.5s ease;
@@ -1147,8 +1189,8 @@
         }
 
         .service-wrapper:hover .icon {
-            background: #ED454C !important;
-            color: #ffffff !important;
+            /*background: blue !important;*/
+            color: #ED454C !important;
         }
 
         .service-wrapper:hover .big-icon {

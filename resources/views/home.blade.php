@@ -14,10 +14,10 @@
                     </div>
                 </div>
                 <div class="container">
-                    <div class="row mt-3">
+                    <div class="row mt-3 mb-5">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
-{{--                            <a href="#">--}}
-                            <a href="{{route('central.contract')}}">
+                            <a href="#">
+{{--                            <a href="{{route('central.contract')}}">--}}
                                 <div class="service_box">
                                     <div class="service_icon">
                                         <i class="fas fa-file-alt"></i>
@@ -802,7 +802,6 @@
             -o-transform: scale(0.98);
             transform: scale(0.98);
             transition: all 0.30s linear 0s;
-            /*transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;*/
             box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
         }
 
@@ -874,6 +873,40 @@
 
             .nav-web {
                 display: none !important;
+            }
+
+            /* Service buttons */
+            .service_box p {
+                display: none;
+            }
+
+            .service_box {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                vertical-align: middle;
+                height: 80px;
+                min-height: auto;
+                margin: 6px 0;
+            }
+
+            .service_box .service_icon {
+                width: 50px;
+                height: 50px;
+                margin: 0;
+                font-size: 25px;
+                background: #fff;
+                line-height: 51px;
+                border-radius: 50px;
+                transform: translateY(0);
+                transition: all 0.30s ease 0s;
+            }
+
+            .service_box h3 {
+                top: 0;
+                padding-left: 1rem;
+                font-size: 20px;
             }
         }
 

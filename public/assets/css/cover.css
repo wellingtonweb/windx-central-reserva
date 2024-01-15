@@ -578,6 +578,8 @@ header {
     /*.navbar-expand-md .navbar-toggler {*/
     /*    display: none;*/
     /*}*/
+
+
 }
 
 
@@ -1237,10 +1239,7 @@ svg rect{
         line-height: 35px !important;
     }
 
-    /* modification menu mobile */
-    .mastfoot {
-        display: none !important;
-    }
+
 
 }
 
@@ -3112,6 +3111,8 @@ div.item-text h5{
         font-size: 14px;
         padding: 0px 30px;
     }
+
+
 }
 
 
@@ -3199,7 +3200,13 @@ div.item-text h5{
     color: #3490dc;
 }
 
+.nav-mobile .bottom-nav-item i {
+    font-size: .85rem;
+}
 
+.nav-mobile .bottom-nav-item {
+    font-size: .75rem;
+}
 
 @keyframes fadeIn {
     0% { opacity: 0; }

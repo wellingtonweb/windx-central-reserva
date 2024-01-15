@@ -17,22 +17,23 @@
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-{{--                                <div class="container-icon w-100 d-flex justify-content-center">--}}
-{{--                                    <div class="icon text-center text-custom h1">--}}
-{{--                                        <span class="uim-svg pl-1">--}}
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">--}}
-{{--                                              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>--}}
-{{--                                              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>--}}
-{{--                                            </svg>--}}
-{{--                                        </span>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="content mt-lg-4 mt-0 ">--}}
-{{--                                    <h4 class="title">Contrato</h4>--}}
-{{--                                    <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como--}}
-{{--                                        endereço, plano e dados pessoais.</p>--}}
-{{--                                </div>--}}
-                                <div class="d-flex" style="width: 140px; justify-content: space-between; text-align: center; align-items: center; flex-direction: column">
+                                {{--                                <div class="container-icon w-100 d-flex justify-content-center">--}}
+                                {{--                                    <div class="icon text-center text-custom h1">--}}
+                                {{--                                        <span class="uim-svg pl-1">--}}
+                                {{--                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">--}}
+                                {{--                                              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>--}}
+                                {{--                                              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>--}}
+                                {{--                                            </svg>--}}
+                                {{--                                        </span>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+                                {{--                                <div class="content mt-lg-4 mt-0 ">--}}
+                                {{--                                    <h4 class="title">Contrato</h4>--}}
+                                {{--                                    <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como--}}
+                                {{--                                        endereço, plano e dados pessoais.</p>--}}
+                                {{--                                </div>--}}
+                                <div class="d-flex"
+                                     style="width: 140px; justify-content: space-between; text-align: center; align-items: center; flex-direction: column">
 
                                     <div>
                                                                             <span class="uim-svg" style="  height: 50%;
@@ -43,9 +44,12 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: 50%;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                                          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                          <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"
+                                             fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                                          <path
+                                              d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                                          <path
+                                              d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
                                         </svg>
                                     </span>
                                     </div>
@@ -75,8 +79,10 @@
                                 <div class="container-icon w-100 d-flex justify-content-center bg-primary">
                                     <div class="icon text-center text-custom">
                                         <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                                              <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="currentColor"
+                                                 class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                                              <path
+                                                  d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
                                             </svg>
                                         </span>
                                     </div>
@@ -184,17 +190,20 @@
                                     <div class="icon text-center text-custom">
                                         <span class="uim-svg">
 {{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em"--}}
-{{--                                                 fill="currentColor"--}}
-{{--                                                 class="bi bi-question-square" viewBox="0 0 18 18">--}}
-{{--                                                <path--}}
-{{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
-{{--                                                <path--}}
-{{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
-{{--                                            </svg>--}}
+                                            {{--                                                 fill="currentColor"--}}
+                                            {{--                                                 class="bi bi-question-square" viewBox="0 0 18 18">--}}
+                                            {{--                                                <path--}}
+                                            {{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
+                                            {{--                                                <path--}}
+                                            {{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
+                                            {{--                                            </svg>--}}
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
-                                              <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                              <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"
+                                                 fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
+                                              <path
+                                                  d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                              <path
+                                                  d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
                                             </svg>
                                         </span>
                                     </div>
@@ -224,26 +233,29 @@
                                     <div class="icon text-center text-custom">
                                         <span class="uim-svg">
 {{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
-{{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
-{{--                                                <path--}}
-{{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
-{{--                                                <path--}}
-{{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
-{{--                                            </svg>--}}
+                                            {{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
+                                            {{--                                                <path--}}
+                                            {{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
+                                            {{--                                                <path--}}
+                                            {{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
+                                            {{--                                            </svg>--}}
 
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">--}}
-{{--                                              <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>--}}
-{{--                                            </svg>--}}
+                                            {{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">--}}
+                                            {{--                                              <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>--}}
+                                            {{--                                            </svg>--}}
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"  fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
-                                              <path fill-rule="evenodd" d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"
+                                                 fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
+                                              <path fill-rule="evenodd"
+                                                    d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
                                             </svg>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="content mt-lg-4 mt-0">
                                     <h4 class="title">Gráficos</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período desejado.</p>
+                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período
+                                        desejado.</p>
                                 </div>
                                 <div class="big-icon h1 text-custom">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -265,17 +277,21 @@
                                     <div class="icon text-center text-custom">
                                         <span class="uim-svg">
 {{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
-{{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
-{{--                                                <path--}}
-{{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
-{{--                                                <path--}}
-{{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
-{{--                                            </svg>--}}
+                                            {{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
+                                            {{--                                                <path--}}
+                                            {{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
+                                            {{--                                                <path--}}
+                                            {{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
+                                            {{--                                            </svg>--}}
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor" class="bi bi-router" viewBox="0 0 16 16">
-                                              <path d="M5.525 3.025a3.5 3.5 0 0 1 4.95 0 .5.5 0 1 0 .707-.707 4.5 4.5 0 0 0-6.364 0 .5.5 0 0 0 .707.707"/>
-                                              <path d="M6.94 4.44a1.5 1.5 0 0 1 2.12 0 .5.5 0 0 0 .708-.708 2.5 2.5 0 0 0-3.536 0 .5.5 0 0 0 .707.707ZM2.5 11a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m4.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2.5.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m1.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0"/>
-                                              <path d="M2.974 2.342a.5.5 0 1 0-.948.316L3.806 8H1.5A1.5 1.5 0 0 0 0 9.5v2A1.5 1.5 0 0 0 1.5 13H2a.5.5 0 0 0 .5.5h2A.5.5 0 0 0 5 13h6a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5h.5a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14.5 8h-2.306l1.78-5.342a.5.5 0 1 0-.948-.316L11.14 8H4.86zM14.5 9a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5z"/>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor"
+                                                 class="bi bi-router" viewBox="0 0 16 16">
+                                              <path
+                                                  d="M5.525 3.025a3.5 3.5 0 0 1 4.95 0 .5.5 0 1 0 .707-.707 4.5 4.5 0 0 0-6.364 0 .5.5 0 0 0 .707.707"/>
+                                              <path
+                                                  d="M6.94 4.44a1.5 1.5 0 0 1 2.12 0 .5.5 0 0 0 .708-.708 2.5 2.5 0 0 0-3.536 0 .5.5 0 0 0 .707.707ZM2.5 11a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m4.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2.5.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m1.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0"/>
+                                              <path
+                                                  d="M2.974 2.342a.5.5 0 1 0-.948.316L3.806 8H1.5A1.5 1.5 0 0 0 0 9.5v2A1.5 1.5 0 0 0 1.5 13H2a.5.5 0 0 0 .5.5h2A.5.5 0 0 0 5 13h6a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5h.5a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14.5 8h-2.306l1.78-5.342a.5.5 0 1 0-.948-.316L11.14 8H4.86zM14.5 9a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5z"/>
                                               <path d="M8.5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
                                             </svg>
                                         </span>
@@ -283,7 +299,8 @@
                                 </div>
                                 <div class="content mt-lg-4 mt-0">
                                     <h4 class="title">Conexão</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período desejado.</p>
+                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período
+                                        desejado.</p>
                                 </div>
                                 <div class="big-icon h1 text-custom">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -332,7 +349,7 @@
                         </div>
                     @endif
                 </div>
-{{--                SERVICE BOX 01 --}}
+                {{--                SERVICE BOX 01 --}}
                 <div class="d-none container">
                     <div class="row">
                         <div class="col-md-3">
@@ -347,7 +364,7 @@
                         <div class="col-md-3">
                             <div class="square-service-block">
                                 <a href="#">
-                                    <div class="ssb-icon"> <i class="fa fa-globe" aria-hidden="true"></i> </div>
+                                    <div class="ssb-icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
                                     <h2 class="ssb-title">web service</h2>
                                 </a>
                             </div>
@@ -392,7 +409,7 @@
                         <div class="col-md-3">
                             <div class="square-service-block">
                                 <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-youtube" aria-hidden="true"></i> </div>
+                                    <div class="ssb-icon"><i class="fa fa-youtube" aria-hidden="true"></i></div>
                                     <h2 class="ssb-title">Video</h2>
                                 </a>
                             </div>
@@ -401,7 +418,7 @@
                         <div class="col-md-3">
                             <div class="square-service-block">
                                 <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-volume-up" aria-hidden="true"></i> </div>
+                                    <div class="ssb-icon"><i class="fa fa-volume-up" aria-hidden="true"></i></div>
                                     <h2 class="ssb-title">Audio</h2>
                                 </a>
                             </div>
@@ -411,43 +428,100 @@
                 </div>
 
                 <div class="container">
-                    <h1>Service Box Style</h1>
                     <div class="row">
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="service_box">
-                                <div class="service_icon">
-                                    <i class="fa fa-code"></i>
+                            <a href="{{route('central.contract')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <h3>Contrato</h3>
+                                    <p>Visualize as informações do contrato, como endereço, plano e dados pessoais.</p>
                                 </div>
-                                <h3>CONTRATO</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="service_box">
-                                <div class="service_icon">
-                                    <i class="fa fa-weibo"></i>
+                            <a href="{{route('central.payment')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <h3>Pagamento</h3>
+                                    <p>Pague suas faturas usando PIX, PICPAY, CRÉDITO ou baixe a 2ª via.</p>
                                 </div>
-                                <h3>PAGAMENTO</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="service_box">
-                                <div class="service_icon">
-                                    <i class="fa fa-apple"></i>
+                            <a href="{{route('central.payments')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-file-download"></i>
+                                    </div>
+                                    <h3>Comprovantes</h3>
+                                    <p>Acompanhe suas faturas pagas, visualize ou baixe
+                                        a 2ª via de seus comprovantes.</p>
                                 </div>
-                                <h3>Designer</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            <div class="service_box">
-                                <div class="service_icon">
-                                    <i class="fa fa-sort-alpha-desc"></i>
+                            <a href="{{route('central.invoices')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </div>
+                                    <h3>Notas Fiscais</h3>
+                                    <p>Acompanhe suas notas fiscais emitidas conforme as mensalidades pagas.</p>
                                 </div>
-                                <h3>UI Designer</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
-                            </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{route('central.support')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-life-ring"></i>
+                                    </div>
+                                    <h3>Suporte</h3>
+                                    <p>Acompanhe seus atendimentos ou abra um novo para falar com o
+                                        suporte técnico.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{route('central.traffic.average')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <h3>Gráficos</h3>
+                                    <p>Acompanhe o consumo de internet acordo com o período
+                                        desejado.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <a href="{{route('central.connection')}}">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <h3>Conexão</h3>
+                                    <p>Acompanhe o status de sua conexão e o consumo de internet em tempo real.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            @if(session('customer.status') === 'B')
+                            <a href="#" id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)">
+                                <div class="service_box">
+                                    <div class="service_icon">
+                                        <i class="fas fa-unlock-alt"></i>
+                                    </div>
+                                    <h3>Desbloqueio</h3>
+                                    <p>Desbloqueie seu cadastro por até 24h, a fim de
+                                        regularizar os débitos.</p>
+                                </div>
+                            </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -461,7 +535,8 @@
         <div class="modal-dialog modal-lg modal-dialog-scrollable" style="z-index: 99999 !important;">
             <div class="modal-content">
                 <div class="modal-header" style="border: 0">
-                    <h6 class="modal-title font-weight-bold" style="color: #002046;">Windx - Termos de Uso e Privacidade</h6>
+                    <h6 class="modal-title font-weight-bold" style="color: #002046;">Windx - Termos de Uso e
+                        Privacidade</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -489,7 +564,8 @@
                                     ou à&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;sob qualquer meio ou forma;
                                 </li>
                                 <li>Difundir programas ou vírus informáticos suscetíveis de causar danos de qualquer
-                                    natureza, inclusive em equipamentos e sistemas da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;ou de
+                                    natureza, inclusive em equipamentos e sistemas da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;ou
+                                    de
                                     terceiros;
                                 </li>
                                 <li>Utilizar mecanismos diversos daqueles expressamente habilitados ou recomendados no
@@ -508,12 +584,14 @@
                                     distribuir, usar ou, de outra maneira, dispor do Site ou das ferramentas e
                                     funcionalidades nele disponibilizadas sob qualquer meio ou forma, inclusive de modo
                                     a
-                                    violar direitos à&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;(inclusive em relação à Propriedade
+                                    violar direitos à&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;(inclusive em relação à
+                                    Propriedade
                                     Intelectual
                                     deste) e/ou de terceiros;
                                 </li>
                                 <li>Praticar ou participar de qualquer ato que constitua violação de qualquer direito
-                                    da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;(inclusive em relação à Propriedade Intelectual deste) ou
+                                    da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;(inclusive em relação à Propriedade Intelectual
+                                    deste) ou
                                     de
                                     terceiros, ou ainda de qualquer lei aplicável; ou mesmo agir sob qualquer meio, de
                                     forma
@@ -523,7 +601,8 @@
                                     recurso do sistema, rede ou serviço conectado ou que possa ser acessado por meio do
                                     Site, devendo acessá-lo apenas para fins lícitos e autorizados;&nbsp;
                                 </li>
-                                <li>Utilizar o domínio da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;para criar links ou atalhos a serem
+                                <li>Utilizar o domínio da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;para criar links ou atalhos a
+                                    serem
                                     disponibilizados em e-mails não solicitados (spam) ou em websites de terceiros ou do
                                     próprio Usuário ou, ainda, para realizar qualquer tipo de ação que possa vir a
                                     prejudicar a&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;ou terceiros;
@@ -541,9 +620,11 @@
                                 </li>
                                 <li>Criar um Usuário falso ou prestar informações falsas no cadastro;
                                 </li>
-                                <li>Acessar ao Site por meio de ferramentas automáticas (robôs,&nbsp;spiders, dentre outras);
+                                <li>Acessar ao Site por meio de ferramentas automáticas (robôs,&nbsp;spiders, dentre
+                                    outras);
                                 </li>
-                                <li>Utilizar a&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;como veículo de publicidade, sem que tenha havido
+                                <li>Utilizar a&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;como veículo de publicidade, sem que
+                                    tenha havido
                                     a
                                     contratação deste serviço específico.
                                 </li>
@@ -585,31 +666,38 @@
                         <ol class="roman">
                             <li>As informações pessoais dos clientes cadastrados no site&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;serão
                                 coletadas, transportadas e armazenadas de forma confidencial e segura, garantindo a
-                                privacidade dos clientes do serviço. A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;garante a integridade
+                                privacidade dos clientes do serviço. A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;garante a
+                                integridade
                                 desses dados;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;se compromete a não compartilhar, enviar, vender, publicar
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;se compromete a não compartilhar, enviar, vender,
+                                publicar
                                 ou liberar o acesso aos dados de seus clientes, a menos que obrigada por ações legais,
                                 judiciais ou governamentais, com fins de fiscalização e manutenção da lei, ou a menos
                                 que haja a expressa autorização do cliente;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode se valer do endereço IP ou de configurações anônimas do
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode se valer do endereço IP ou de configurações
+                                anônimas do
                                 computador do cliente, como informações sobre o modelo do browser utilizado, para fins
                                 estritos de correção de defeitos e problemas ou para a melhoria dos serviços prestados,
                                 sem compartilhar essas informações com terceiros;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;somente enviará e-mails para os seus clientes mediante a
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;somente enviará e-mails para os seus clientes
+                                mediante a
                                 concordância expressa dos mesmos. Este serviço pode ser cancelado a qualquer momento,
                                 conforme a vontade do cliente;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode exibir ou incluir links para sites de terceiros, e não se
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode exibir ou incluir links para sites de terceiros,
+                                e não se
                                 responsabiliza por quaisquer consequências decorrentes do acesso aos mesmos;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode exibir links patrocinados e/ou de publicidade, não se
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode exibir links patrocinados e/ou de publicidade,
+                                não se
                                 responsabilizando pelo conteúdo e pelas consequências decorrentes do acesso a estes
                                 links;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode se valer de dados dos clientes para fins estatísticos.
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;pode se valer de dados dos clientes para fins
+                                estatísticos.
                                 Porém, esses dados nunca serão usados individualmente ou de qualquer outra forma em que
                                 possam identificar unicamente um cliente do serviço. Estes dados somente serão usados de
                                 maneira agregada, a fim de gerar estatísticas e relatórios internos de uso dos serviços;
@@ -627,7 +715,8 @@
                                 sempre encerrar sua sessão no sistema de forma segura;
                             </li>
                             <li>Para dirimir quaisquer dúvidas em relação à política de privacidade ou qualquer outro
-                                assunto, disponibilizamos nosso canal de contato com a equipe&nbsp;WINDX TELECOMUNICAÇÕES.
+                                assunto, disponibilizamos nosso canal de contato com a equipe&nbsp;WINDX
+                                TELECOMUNICAÇÕES.
                                 Para nós, é muito gratificante responder às suas dúvidas.
                             </li>
                         </ol>
@@ -639,7 +728,8 @@
                                 destinação de tal uso, exceto quando autorizado pela&nbsp;WINDX TELECOMUNICAÇÕES.
                             </li>
                             <li>O Usuário compromete-se a não contestar a validade de qualquer Marca ou sinal distintivo
-                                depositado ou registrado pela&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;ou por qualquer empresa vinculada,
+                                depositado ou registrado pela&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;ou por qualquer empresa
+                                vinculada,
                                 sob qualquer forma, no Brasil ou no exterior.
                             </li>
                             <li>O Usuário compromete-se a abster-se do uso de qualquer das Marcas e suas variações
@@ -652,12 +742,14 @@
                             </li>
                             <li>Todo o conteúdo do Site - incluindo o nome de domínio, programas, bases de dados,
                                 arquivos, textos, fotos, layouts, cabeçalhos e demais elementos - foi criado,
-                                desenvolvido ou cedido à&nbsp;WINDX TELECOMUNICAÇÕES, sendo de propriedade desta ou a este
+                                desenvolvido ou cedido à&nbsp;WINDX TELECOMUNICAÇÕES, sendo de propriedade desta ou a
+                                este
                                 licenciado e encontra-se protegido pelas leis brasileiras e tratados internacionais que
                                 versam sobre direitos de propriedade intelectual.&nbsp;
                             </li>
                             <li>Ao acessar o Site, o Usuário compromete-se a respeitar a existência e extensão dos
-                                direitos de Propriedade Intelectual da&nbsp;WINDX TELECOMUNICAÇÕES,&nbsp;bem como de todos os
+                                direitos de Propriedade Intelectual da&nbsp;WINDX TELECOMUNICAÇÕES,&nbsp;bem como de
+                                todos os
                                 terceiros eventualmente utilizados/disponibilizados, a qualquer título, neste Site.
                             </li>
                             <li>O acesso ao Site e a sua regular utilização pelo Usuário não lhe confere qualquer
@@ -667,7 +759,8 @@
                             <li>É vedada a utilização, exploração, imitação, reprodução, integral ou parcial, de
                                 qualquer conteúdo sem a autorização prévia e por escrito da&nbsp;WINDX TELECOMUNICAÇÕES.
                                 Sendo igualmente vedada a criação de qualquer obra derivadas de qualquer Propriedade
-                                Intelectual da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;sem a autorização do mesmo, de forma prévia e por
+                                Intelectual da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;sem a autorização do mesmo, de forma
+                                prévia e por
                                 escrito.&nbsp;
                             </li>
                             <li>É expressamente proibido ao Usuário reproduzir, distribuir, modificar, exibir e criar
@@ -679,7 +772,8 @@
                                 infrações cometidas. Portanto, o Usuário assume toda e qualquer responsabilidade pela
                                 utilização indevida.
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;não concede nenhuma autorização relacionada ao conteúdo do Site
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;não concede nenhuma autorização relacionada ao
+                                conteúdo do Site
                                 para qualquer fim.
                             </li>
                             <li>As fotos e imagens eventualmente utilizadas no Site podem não refletir seu tamanho
@@ -687,7 +781,8 @@
                             </li>
                             <li>Ao enviar qualquer conteúdo ao Site, o Usuário retém a titularidade de seus direitos
                                 sobre dito conteúdo (textos, vídeos, imagens, áudio, entre outros), cedendo à&nbsp;WINDX
-                                TELECOMUNICAÇÕES&nbsp;uma licença de caráter gratuito, irrevogável, mundial e não exclusiva,
+                                TELECOMUNICAÇÕES&nbsp;uma licença de caráter gratuito, irrevogável, mundial e não
+                                exclusiva,
                                 para a reprodução, modificação, tradução e exibição, sob qualquer meio ou forma,
                                 inclusive através do Site, declarando, ainda, ser titular de todos os direitos e deveres
                                 relacionados ao referido conteúdo.
@@ -861,7 +956,8 @@
                                 adequação da qualidade do Site ou de seu conteúdo para um determinado fim; e (iv)
                                 correção de defeitos, erros ou falhas no Site ou em seu conteúdo.&nbsp;
                             </li>
-                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;se reserva o direito de, unilateralmente, modificar este Site,
+                            <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;se reserva o direito de, unilateralmente, modificar
+                                este Site,
                                 a qualquer momento e sem aviso prévio, bem como sua configuração, apresentação, desenho,
                                 conteúdo, funcionalidades, ferramentas e/ou qualquer outro elemento do Site, inclusive o
                                 seu cancelamento.&nbsp;
@@ -874,37 +970,52 @@
                                 diretores, representantes, agentes, empregados, sócios, parceiros e/ou prestadores de
                                 serviço serão responsabilizados por qualquer dano emergente, indireto, punitivo ou
                                 expiatório, lucros cessantes ou outros prejuízos monetários relacionados a qualquer
-                                reclamação, ação judicial ou outro procedimento tomado em relação à utilização do Site, seu
+                                reclamação, ação judicial ou outro procedimento tomado em relação à utilização do Site,
+                                seu
                                 conteúdo, funcionalidades e/ou ferramentas.
                             </li>
                             <li>Notadamente, fica excluída a responsabilidade da&nbsp;WINDX
-                                TELECOMUNICAÇÕES&nbsp;sobre as seguintes circunstâncias, entre outras: (i) danos e prejuízos que
-                                o Usuário possa experimentar pela indisponibilidade ou funcionamento parcial do Site e/ou de
-                                todos ou alguns de seus serviços, informações, conteúdos, funcionalidade e/ou ferramentas,
-                                bem como pela incorreção ou inexatidão de qualquer destes elementos; (ii) danos e prejuízos
+                                TELECOMUNICAÇÕES&nbsp;sobre as seguintes circunstâncias, entre outras: (i) danos e
+                                prejuízos que
+                                o Usuário possa experimentar pela indisponibilidade ou funcionamento parcial do Site
+                                e/ou de
+                                todos ou alguns de seus serviços, informações, conteúdos, funcionalidade e/ou
+                                ferramentas,
+                                bem como pela incorreção ou inexatidão de qualquer destes elementos; (ii) danos e
+                                prejuízos
                                 que o Usuário possa experimentar em Sites de internet acessíveis por links incluídos no
-                                Site; (iii) danos e prejuízos que o Usuário possa experimentar em decorrência do uso do Site
+                                Site; (iii) danos e prejuízos que o Usuário possa experimentar em decorrência do uso do
+                                Site
                                 em desconformidade com estes Termos e Condições de Uso ou com as Políticas; (iv) danos e
-                                prejuízos que o Usuário possa experimentar em decorrência do uso do Site em desconformidade
-                                com a lei, com os costumes ou com a ordem pública; (v) danos e prejuízos que o Usuário possa
-                                experimentar em decorrência de falhas no Site, inclusive decorrentes de falhas no sistema,
-                                no servidor ou na conexão de rede, ou ainda de interações maliciosas como vírus, softwares
+                                prejuízos que o Usuário possa experimentar em decorrência do uso do Site em
+                                desconformidade
+                                com a lei, com os costumes ou com a ordem pública; (v) danos e prejuízos que o Usuário
+                                possa
+                                experimentar em decorrência de falhas no Site, inclusive decorrentes de falhas no
+                                sistema,
+                                no servidor ou na conexão de rede, ou ainda de interações maliciosas como vírus,
+                                softwares
                                 que possam danificar o equipamento ou acessar informações do equipamento do Usuário.
                             </li>
                         </ol>
                         <h4>7. Links para outros websites</h4>
                         <ol class="alpha">
                             <li>Este Site pode conter links para Sites de terceiros, os quais são
-                                inseridos apenas para conveniência do Usuário. A inclusão de tais links não implica qualquer
-                                vínculo, monitoramento e/ou responsabilidade da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;sobre estes Sites,
-                                seus respectivos conteúdos e/ou titulares. O acesso aos Sites vinculados a tais links não é
-                                regido por esses Termos e Condições de Uso e não se encontra protegido por estas Políticas.
+                                inseridos apenas para conveniência do Usuário. A inclusão de tais links não implica
+                                qualquer
+                                vínculo, monitoramento e/ou responsabilidade da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;sobre
+                                estes Sites,
+                                seus respectivos conteúdos e/ou titulares. O acesso aos Sites vinculados a tais links
+                                não é
+                                regido por esses Termos e Condições de Uso e não se encontra protegido por estas
+                                Políticas.
                             </li>
                             <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;recomenda que o Usuário consulte os termos e
                                 condições de uso estabelecidos por cada Site vinculado aos links inseridos.
                             </li>
                             <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;não será responsável, direta ou indiretamente,
-                                por qualquer dano e/ou prejuízo causado ou relacionado à utilização de qualquer informação,
+                                por qualquer dano e/ou prejuízo causado ou relacionado à utilização de qualquer
+                                informação,
                                 conteúdo, bens e/ou serviços disponibilizados no Site ou em qualquer Site de terceiros
                                 acessado por meio dos links disponibilizados.
                             </li>
@@ -912,13 +1023,16 @@
                         <h4>8. Aplicações de Internet ou vírus de computador</h4>
                         <ol class="alpha">
                             <li>Em virtude de dificuldades técnicas, aplicações de Internet ou problemas
-                                de transmissão, é possível a ocorrência de cópias inexatas ou incompletas das informações
+                                de transmissão, é possível a ocorrência de cópias inexatas ou incompletas das
+                                informações
                                 contidas no Site. Vírus de computador ou outros programas danosos também poderão ser
                                 baixados inadvertidamente do Site.
                             </li>
                             <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;não será responsável por qualquer aplicação,
-                                vírus de computador e/ou arquivos danosos, invasivos, ou programas que possam prejudicar e
-                                afetar a utilização do computador ou outro bem dos Usuários devido ao acesso, utilização ou
+                                vírus de computador e/ou arquivos danosos, invasivos, ou programas que possam prejudicar
+                                e
+                                afetar a utilização do computador ou outro bem dos Usuários devido ao acesso, utilização
+                                ou
                                 navegação neste Site, ou ainda pelo download de qualquer material nele contido, sendo
                                 recomendada a instalação de aplicativos antivírus ou protetores adequados.
                             </li>
@@ -927,31 +1041,42 @@
                         <ol class="alpha">
                             <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;poderá, a seu exclusivo critério, bloquear,
                                 restringir, desabilitar ou impedir o acesso de qualquer Usuário ao Site, total ou
-                                parcialmente, sem qualquer aviso prévio, sempre que for detectada uma conduta inadequada do
+                                parcialmente, sem qualquer aviso prévio, sempre que for detectada uma conduta inadequada
+                                do
                                 Usuário, sem prejuízo das medidas administrativas, extrajudiciais e judiciais que julgar
                                 convenientes.
                             </li>
                             <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;poderá unilateralmente revisar, aprimorar,
-                                modificar e/ou atualizar, a qualquer momento, qualquer cláusula ou disposição contida nestes
-                                Termos e Condições de Uso. Reserva-se, ainda, o direito de suspender e/ou cancelar, de forma
-                                unilateral e a qualquer momento, o acesso ao Site ou a algumas de suas partes ou a alguns de
+                                modificar e/ou atualizar, a qualquer momento, qualquer cláusula ou disposição contida
+                                nestes
+                                Termos e Condições de Uso. Reserva-se, ainda, o direito de suspender e/ou cancelar, de
+                                forma
+                                unilateral e a qualquer momento, o acesso ao Site ou a algumas de suas partes ou a
+                                alguns de
                                 seus recursos, sem necessidade de aviso prévio.
                             </li>
                             <li>Este Site não possui garantia de continuidade, podendo ser extinto sem
                                 representar qualquer direito adquirido ao Usuário.
                             </li>
                             <li>O uso continuado após a mudança no Termo de uso será considerado como
-                                uma aceitação do mesmo. Se você não concordar ou não estiver satisfeito com as mudanças no
-                                Termo de uso, deverá cancelar sua conta.&nbsp;Esta rescisão não eximirá, no entanto, o Usuário de
+                                uma aceitação do mesmo. Se você não concordar ou não estiver satisfeito com as mudanças
+                                no
+                                Termo de uso, deverá cancelar sua conta.&nbsp;Esta rescisão não eximirá, no entanto, o
+                                Usuário de
                                 cumprir com todas as obrigações assumidas sob as versões precedentes das Políticas e dos
-                                Termos e Condições de Uso.&nbsp;&nbsp;Dessa forma, o Usuário concorda que periodicamente deve
-                                verificar as eventuais modificações do Termo de Uso, disponibilizadas no próprio aplicativo,
-                                e ler as eventuais mensagens que a&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;enviar em relação ao citado Termo
+                                Termos e Condições de Uso.&nbsp;&nbsp;Dessa forma, o Usuário concorda que periodicamente
+                                deve
+                                verificar as eventuais modificações do Termo de Uso, disponibilizadas no próprio
+                                aplicativo,
+                                e ler as eventuais mensagens que a&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;enviar em relação ao
+                                citado Termo
                                 de Uso.
                             </li>
                             <li>Os desenvolvedores da&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;trabalham para oferecer ao
-                                Usuário um sistema seguro, interativo e atrativo. Desta forma, poderão haver inclusões e/ou
-                                remoções de funcionalidades do aplicativo ou a criação de novos limites aos serviços, o que
+                                Usuário um sistema seguro, interativo e atrativo. Desta forma, poderão haver inclusões
+                                e/ou
+                                remoções de funcionalidades do aplicativo ou a criação de novos limites aos serviços, o
+                                que
                                 poderá modificar a forma de interação com o Usuário.&nbsp;
                             </li>
                             <li>Possível a ocorrência de situações em que o Serviço precisará ser
@@ -966,29 +1091,39 @@
                                 formato digital.
                             </li>
                             <li>A&nbsp;WINDX TELECOMUNICAÇÕES&nbsp;poderá unilateralmente revisar, aprimorar,
-                                modificar e/ou atualizar, a qualquer momento, qualquer cláusula ou disposição contida nestes
-                                Termos e Condições de Uso. Reserva-se, ainda, o direito de suspender e/ou cancelar, de forma
-                                unilateral e a qualquer momento, o acesso ao Site ou a algumas de suas partes ou a alguns de
+                                modificar e/ou atualizar, a qualquer momento, qualquer cláusula ou disposição contida
+                                nestes
+                                Termos e Condições de Uso. Reserva-se, ainda, o direito de suspender e/ou cancelar, de
+                                forma
+                                unilateral e a qualquer momento, o acesso ao Site ou a algumas de suas partes ou a
+                                alguns de
                                 seus recursos, sem necessidade de aviso prévio.
                             </li>
                             <li>Nas atualizações e informações repassadas através do Site, deverá sempre
-                                ser considerado o horário oficial de Brasília, inclusive nos períodos de horário de verão.
+                                ser considerado o horário oficial de Brasília, inclusive nos períodos de horário de
+                                verão.
                             </li>
                             <li>Nas atualizações e informações repassadas através do Site, deverá sempre
-                                ser considerado o horário oficial de Brasília, inclusive nos períodos de horário de verão.
+                                ser considerado o horário oficial de Brasília, inclusive nos períodos de horário de
+                                verão.
                             </li>
                             <li>Caso haja dificuldade em fazer valer ou cumprir qualquer cláusula ou
-                                condição contida nestes Termos e Condições de Uso ou nas Políticas, tal fato não configurará
-                                desistência, tolerância ou novação dessa cláusula ou condição destes Termos ou de qualquer
+                                condição contida nestes Termos e Condições de Uso ou nas Políticas, tal fato não
+                                configurará
+                                desistência, tolerância ou novação dessa cláusula ou condição destes Termos ou de
+                                qualquer
                                 Política. Se alguma cláusula ou condição contida nestes Termos e Condições de Uso ou nas
                                 Políticas for declarada inexequível, no todo ou parcialmente, tal inexequibilidade não
-                                afetará as demais cláusulas dos Termos e Condições de Uso e das Políticas. Neste caso, serão
-                                efetivadas as adaptações necessárias para que reflitam, da forma mais próxima possível, os
+                                afetará as demais cláusulas dos Termos e Condições de Uso e das Políticas. Neste caso,
+                                serão
+                                efetivadas as adaptações necessárias para que reflitam, da forma mais próxima possível,
+                                os
                                 termos da provisão declarada inexequível.
                             </li>
                             <li>Nenhuma das Partes será responsabilizada perante a outra quando o
                                 descumprimento ou o cumprimento extemporâneo de uma obrigação prevista nas Políticas ou
-                                nestes Termos e Condições de Uso for causado por casos fortuitos ou eventos de força maior,
+                                nestes Termos e Condições de Uso for causado por casos fortuitos ou eventos de força
+                                maior,
                                 enquanto perduraram as suas consequências.
                             </li>
                         </ol>
@@ -1010,67 +1145,85 @@
 
 @section('css')
     <style>
-        h1{
-            color:#002646 !important;
+        h1 {
+            color: #002646 !important;
             /*color:#fff;*/
-            font-size:35px;
+            font-size: 35px;
             text-align: center;
             text-transform: capitalize;
         }
-        .service_box{
-            margin:20px 0;
-            padding:40px 20px;
+
+        .service_box {
+            margin: 20px 0;
+            padding: 40px 20px;
             text-align: center;
-            border-radius:5px;
+            border-radius: 5px;
             /*background:rgba(59, 63, 66,0.7);*/
             background-color: rgba(255, 255, 255, 0.7);
+            min-height: 245px;
             transition: all 0.30s ease 0s;
         }
-        .service_box:hover{
-            background:#00BFF3;
+
+        .service_box:hover {
+            background: #ED454C;
+            /*background:#00BFF3;*/
+            color: #fff
         }
-        .service_box .service_icon{
-            width:70px;
-            height:70px;
+
+        .service_box .service_icon {
+            width: 70px;
+            height: 70px;
             margin: 0 auto;
-            font-size:35px;
+            font-size: 35px;
             background: #fff;
-            line-height:70px;
-            border-radius:50px;
+            line-height: 70px;
+            border-radius: 50px;
             transform: translateY(0);
             transition: all 0.30s ease 0s;
         }
-        .service_box:hover .service_icon{
+
+        .service_box:hover .service_icon {
             transform: translateY(-100%);
         }
-        .service_box .service_icon i{
-            color:#333;
+
+        .service_box .service_icon i {
+            color: #333;
         }
-        .service_box h3{
+
+        .service_box h3 {
             position: relative;
-            top:40px;
-            margin:0;
+            top: 40px;
+            margin: 0;
             /*color:#fff;*/
-            color:#002646 !important;
+            color: #002646;
             font-weight: bold;
-            font-size:23px;
-            text-transform:uppercase;
+            font-size: 23px;
+            text-transform: uppercase;
             transform: translateY(0%);
             transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
         }
-        .service_box:hover h3{
-            top:-40px;
-        }
-        .service_box  p{
-            color:#fff;
-            margin:0;
-            opacity:0;
-            transition: all 0.30s linear 0s;
-        }
-        .service_box:hover p{
-            opacity:1;
+
+        .service_box:hover h3 {
+            top: -40px;
+            color: white;
         }
 
+        a.service_box:active h3 {
+            color: white;
+            transform: scale(-2%);
+            transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+        }
+
+        .service_box p {
+            color: #fff;
+            margin: 0;
+            opacity: 0;
+            transition: all 0.30s linear 0s;
+        }
+
+        .service_box:hover p {
+            opacity: 1;
+        }
 
 
         .uim-svg svg {
@@ -1122,7 +1275,6 @@
             /*.container {*/
             /*    margin-bottom: 0 !important;*/
             /*}*/
-
             /* modification menu mobile */
             .mastfoot {
                 display: none !important;
@@ -1448,17 +1600,17 @@
         }
 
 
-
-
         a:hover, a:focus {
             color: #2a6496;
             text-decoration: none;
         }
-        .square-service-block{
-            position:relative;
-            overflow:hidden;
-            margin:15px auto;
+
+        .square-service-block {
+            position: relative;
+            overflow: hidden;
+            margin: 15px auto;
         }
+
         .square-service-block a {
             background-color: #ED454C;
             /*background-color: #e74c3c;*/
@@ -1468,7 +1620,8 @@
             text-align: center;
             width: 100%;
         }
-        .square-service-block a:hover{
+
+        .square-service-block a:hover {
             background-color: rgba(231, 76, 60, 0.8);
             border-radius: 5px;
         }
@@ -1484,8 +1637,8 @@
             color: #fff;
             font-size: 20px;
             font-weight: 200;
-            margin:0;
-            padding:0;
+            margin: 0;
+            padding: 0;
             text-transform: uppercase;
         }
     </style>
@@ -1497,13 +1650,13 @@
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script>
         var navItems = document.querySelectorAll(".bottom-nav-item");
 
-        navItems.forEach(function(e, i) {
-            e.addEventListener("click", function(e) {
-                navItems.forEach(function(e2, i2) {
+        navItems.forEach(function (e, i) {
+            e.addEventListener("click", function (e) {
+                navItems.forEach(function (e2, i2) {
                     e2.classList.remove("active");
                 });
                 this.classList.add("active");

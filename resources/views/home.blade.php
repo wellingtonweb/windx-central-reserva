@@ -9,427 +9,14 @@
                         <h5 class="d-flex justify-content-start pl-3 animate__animated animate__zoomIn animate__delay-1s"
                             style="color: whitesmoke">
                             Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}
-                            {{ explode(' ', session('customer.full_name'))[0] }}!
+                            <span class="pl-1" style="letter-spacing: 1px">{{ explode(' ', session('customer.full_name'))[0] }}</span>!
                         </h5>
                     </div>
                 </div>
-                <div class="d-none container-actions-buttons d-flex_ justify-content-start mb-5 flex-wrap ">
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.contract')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                {{--                                <div class="container-icon w-100 d-flex justify-content-center">--}}
-                                {{--                                    <div class="icon text-center text-custom h1">--}}
-                                {{--                                        <span class="uim-svg pl-1">--}}
-                                {{--                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">--}}
-                                {{--                                              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>--}}
-                                {{--                                              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>--}}
-                                {{--                                            </svg>--}}
-                                {{--                                        </span>--}}
-                                {{--                                    </div>--}}
-                                {{--                                </div>--}}
-                                {{--                                <div class="content mt-lg-4 mt-0 ">--}}
-                                {{--                                    <h4 class="title">Contrato</h4>--}}
-                                {{--                                    <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como--}}
-                                {{--                                        endereço, plano e dados pessoais.</p>--}}
-                                {{--                                </div>--}}
-                                <div class="d-flex"
-                                     style="width: 140px; justify-content: space-between; text-align: center; align-items: center; flex-direction: column">
-
-                                    <div>
-                                                                            <span class="uim-svg" style="  height: 50%;
-  left: 50%;
-  position: absolute;
-  stroke: currentColor;
-  stroke-width: 0;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"
-                                             fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                                          <path
-                                              d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                          <path
-                                              d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                                        </svg>
-                                    </span>
-                                    </div>
-                                    <div class="content mt-lg-4 mt-0 ">
-                                        <h4 class="title">Contrato</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como
-                                            endereço, plano e dados pessoais.</p>
-                                    </div>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <span class="uim-svg pl-1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                             class="bi bi-file-text" viewBox="0 0 18 18" width="1.2em">
-                                          <path
-                                              d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zM5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1H5zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1H5z"/>
-                                          <path
-                                              d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.payment')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4 ">
-                                <div class="container-icon w-100 d-flex justify-content-center bg-primary">
-                                    <div class="icon text-center text-custom">
-                                        <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="2em" fill="currentColor"
-                                                 class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                                              <path
-                                                  d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0 bg-secondary text-center">
-                                    <h4 class="title">Pagamento</h4>
-                                    <p class="text-muted mt-3 mb-0 ">Pagar faturas usando PIX, PICPAY, CRÉDITO,
-                                        DÉBITO ou baixar uma 2ª via.</p>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <span class="uim-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                             class="bi bi-cash-coin" viewBox="0 0 18 18" width="1.2em">
-                                          <path fill-rule="evenodd"
-                                                d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
-                                          <path
-                                              d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
-                                          <path
-                                              d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
-                                          <path
-                                              d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.payments')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100 d-flex justify-content-center">
-                                    <div class="icon text-center text-custom">
-                                        <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi bi-file-earmark-arrow-down" viewBox="0 0 18 18"
-                                                 width="1.2em">
-                                              <path
-                                                  d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
-                                              <path
-                                                  d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0">
-                                    <h4 class="title">Comprovantes</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar faturas pagas, visualizar ou baixar
-                                        uma 2ª via.</p>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <span class="uim-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                             class="bi bi-file-earmark-arrow-down" viewBox="0 0 18 18" width="1.2em">
-                                          <path
-                                              d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
-                                          <path
-                                              d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                            <i class="mdi mdi-chevron-right"></i>
-                        </a>
-                    </div>
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.invoices')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100 d-flex justify-content-center">
-                                    <div class="icon text-center text-custom">
-                                        <span class="uim-svg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                 class="bi bi-file-earmark-medical" viewBox="0 0 18 18" width="1.2em">
-                                              <path
-                                                  d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                                              <path
-                                                  d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0">
-                                    <h4 class="title">Notas Fiscais</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar notas fiscais emitidas conforme as
-                                        mensalidades pagas.</p>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <span class="uim-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                             class="bi bi-file-earmark-medical" viewBox="0 0 18 18" width="1.2em">
-                                          <path
-                                              d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317V5.5zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                                          <path
-                                              d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                            <i class="mdi mdi-chevron-right"></i>
-                        </a>
-                    </div>
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.support')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100 d-flex justify-content-center">
-                                    <div class="icon text-center text-custom">
-                                        <span class="uim-svg">
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em"--}}
-                                            {{--                                                 fill="currentColor"--}}
-                                            {{--                                                 class="bi bi-question-square" viewBox="0 0 18 18">--}}
-                                            {{--                                                <path--}}
-                                            {{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
-                                            {{--                                                <path--}}
-                                            {{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
-                                            {{--                                            </svg>--}}
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"
-                                                 fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
-                                              <path
-                                                  d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                                              <path
-                                                  d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0">
-                                    <h4 class="title">Suporte</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar atendimentos ou abrir um novo para o
-                                        suporte técnico.</p>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                         class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
-                                        <path
-                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path
-                                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <i class="mdi mdi-chevron-right"></i>
-                        </a>
-                    </div>
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.traffic.average')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100 d-flex justify-content-center">
-                                    <div class="icon text-center text-custom">
-                                        <span class="uim-svg">
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
-                                            {{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
-                                            {{--                                                <path--}}
-                                            {{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
-                                            {{--                                                <path--}}
-                                            {{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
-                                            {{--                                            </svg>--}}
-
-                                            {{--                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">--}}
-                                            {{--                                              <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>--}}
-                                            {{--                                            </svg>--}}
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem"
-                                                 fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
-                                              <path fill-rule="evenodd"
-                                                    d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0">
-                                    <h4 class="title">Gráficos</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período
-                                        desejado.</p>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                         class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
-                                        <path
-                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path
-                                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <i class="mdi mdi-chevron-right"></i>
-                        </a>
-                    </div>
-                    <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                        <a href="{{route('central.connection')}}" class="text-custom">
-                            <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100 d-flex justify-content-center">
-                                    <div class="icon text-center text-custom">
-                                        <span class="uim-svg">
-{{--                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"--}}
-                                            {{--                                                 class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">--}}
-                                            {{--                                                <path--}}
-                                            {{--                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>--}}
-                                            {{--                                                <path--}}
-                                            {{--                                                    d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>--}}
-                                            {{--                                            </svg>--}}
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" fill="currentColor"
-                                                 class="bi bi-router" viewBox="0 0 16 16">
-                                              <path
-                                                  d="M5.525 3.025a3.5 3.5 0 0 1 4.95 0 .5.5 0 1 0 .707-.707 4.5 4.5 0 0 0-6.364 0 .5.5 0 0 0 .707.707"/>
-                                              <path
-                                                  d="M6.94 4.44a1.5 1.5 0 0 1 2.12 0 .5.5 0 0 0 .708-.708 2.5 2.5 0 0 0-3.536 0 .5.5 0 0 0 .707.707ZM2.5 11a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m4.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2.5.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m1.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0"/>
-                                              <path
-                                                  d="M2.974 2.342a.5.5 0 1 0-.948.316L3.806 8H1.5A1.5 1.5 0 0 0 0 9.5v2A1.5 1.5 0 0 0 1.5 13H2a.5.5 0 0 0 .5.5h2A.5.5 0 0 0 5 13h6a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5h.5a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14.5 8h-2.306l1.78-5.342a.5.5 0 1 0-.948-.316L11.14 8H4.86zM14.5 9a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5z"/>
-                                              <path d="M8.5 5.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0">
-                                    <h4 class="title">Conexão</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Acompanhar o consumo de acordo com o período
-                                        desejado.</p>
-                                </div>
-                                <div class="big-icon h1 text-custom">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                         class="bi bi-question-square" viewBox="0 0 18 18" width="1.2em">
-                                        <path
-                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path
-                                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-                                    </svg>
-                                </div>
-                            </div>
-                            <i class="mdi mdi-chevron-right"></i>
-                        </a>
-                    </div>
-                    @if(session('customer.status') === 'B')
-                        <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
-                            <a id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)" class="text-custom">
-                                <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                    <div class="container-icon w-100 d-flex justify-content-center">
-                                        <div class="icon text-center text-custom h1 shadow rounded">
-                                    <span class="uim-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-unlock"
-                                             viewBox="0 0 18 18" width="1.2em">
-                                          <path
-                                              d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
-                                        </svg>
-                                    </span>
-                                        </div>
-                                    </div>
-                                    <div class="content mt-lg-4 mt-0">
-                                        <h4 class="title">Desbloqueio</h4>
-                                        <p class="text-muted mt-3 mb-0 pl-2">Desbloquear cadastro por até 48h, a fim de
-                                            regularizar os débitos.</p>
-                                    </div>
-                                    <div class="big-icon h1 text-custom">
-                                    <span class="uim-svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-unlock"
-                                             viewBox="0 0 18 18" width="1.2em">
-                                          <path
-                                              d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z"/>
-                                        </svg>
-                                    </span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endif
-                </div>
-                {{--                SERVICE BOX 01 --}}
-                <div class="d-none container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-paint-brush" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Graphics</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">web service</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-camera" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Photography</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-font" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Fonts</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-cubes" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Mockups</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-eyedropper" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Colours</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-youtube" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Video</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="square-service-block">
-                                <a href="#">
-                                    <div class="ssb-icon"><i class="fa fa-volume-up" aria-hidden="true"></i></div>
-                                    <h2 class="ssb-title">Audio</h2>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
                 <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="row mt-3">
+                        <div class="col-lg-3 col-md-6 col-sm-6 ">
+{{--                            <a href="#">--}}
                             <a href="{{route('central.contract')}}">
                                 <div class="service_box">
                                     <div class="service_icon">
@@ -447,7 +34,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                     </div>
                                     <h3>Pagamento</h3>
-                                    <p>Pague suas faturas usando PIX, PICPAY, CRÉDITO ou baixe a 2ª via.</p>
+                                    <p>Pague suas faturas usando PIX, PICPAY, CRÉDITO, baixe a 2ª via ou copie o código de barras.</p>
                                 </div>
                             </a>
                         </div>
@@ -525,7 +112,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
@@ -1208,10 +794,16 @@
             color: white;
         }
 
-        a.service_box:active h3 {
+        .service_box:active {
             color: white;
-            transform: scale(-2%);
-            transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+            -webkit-transform: scale(0.98);
+            -moz-transform: scale(0.98);
+            -ms-transform: scale(0.98);
+            -o-transform: scale(0.98);
+            transform: scale(0.98);
+            transition: all 0.30s linear 0s;
+            /*transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;*/
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
         }
 
         .service_box p {

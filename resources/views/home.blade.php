@@ -13,24 +13,47 @@
                         </h5>
                     </div>
                 </div>
-                <div class="container-actions-buttons d-flex justify-content-start mb-5 flex-wrap ">
+                <div class="d-none container-actions-buttons d-flex_ justify-content-start mb-5 flex-wrap ">
                     <div class="action-button animate__animated animate__fadeIn animate__delay-2s">
                         <a href="{{route('central.contract')}}" class="text-custom">
                             <div class="w-100 h-100 card service-wrapper rounded border-0 shadow p-4">
-                                <div class="container-icon w-100 d-flex justify-content-center">
-                                    <div class="icon text-center text-custom h1">
-                                        <span class="uim-svg pl-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-                                              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
-                                              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
-                                            </svg>
-                                        </span>
+{{--                                <div class="container-icon w-100 d-flex justify-content-center">--}}
+{{--                                    <div class="icon text-center text-custom h1">--}}
+{{--                                        <span class="uim-svg pl-1">--}}
+{{--                                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">--}}
+{{--                                              <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>--}}
+{{--                                              <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>--}}
+{{--                                            </svg>--}}
+{{--                                        </span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="content mt-lg-4 mt-0 ">--}}
+{{--                                    <h4 class="title">Contrato</h4>--}}
+{{--                                    <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como--}}
+{{--                                        endereço, plano e dados pessoais.</p>--}}
+{{--                                </div>--}}
+                                <div class="d-flex" style="width: 140px; justify-content: space-between; text-align: center; align-items: center; flex-direction: column">
+
+                                    <div>
+                                                                            <span class="uim-svg" style="  height: 50%;
+  left: 50%;
+  position: absolute;
+  stroke: currentColor;
+  stroke-width: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 3.4rem" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                                          <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                                          <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                                        </svg>
+                                    </span>
                                     </div>
-                                </div>
-                                <div class="content mt-lg-4 mt-0 ">
-                                    <h4 class="title">Contrato</h4>
-                                    <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como
-                                        endereço, plano e dados pessoais.</p>
+                                    <div class="content mt-lg-4 mt-0 ">
+                                        <h4 class="title">Contrato</h4>
+                                        <p class="text-muted mt-3 mb-0 pl-2">Visualizar informações do cadastro, como
+                                            endereço, plano e dados pessoais.</p>
+                                    </div>
                                 </div>
                                 <div class="big-icon h1 text-custom">
                                     <span class="uim-svg pl-1">
@@ -309,6 +332,126 @@
                         </div>
                     @endif
                 </div>
+{{--                SERVICE BOX 01 --}}
+                <div class="d-none container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-paint-brush" aria-hidden="true"></i></div>
+                                    <h2 class="ssb-title">Graphics</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"> <i class="fa fa-globe" aria-hidden="true"></i> </div>
+                                    <h2 class="ssb-title">web service</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-camera" aria-hidden="true"></i></div>
+                                    <h2 class="ssb-title">Photography</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-font" aria-hidden="true"></i></div>
+                                    <h2 class="ssb-title">Fonts</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-cubes" aria-hidden="true"></i></div>
+                                    <h2 class="ssb-title">Mockups</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-eyedropper" aria-hidden="true"></i></div>
+                                    <h2 class="ssb-title">Colours</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-youtube" aria-hidden="true"></i> </div>
+                                    <h2 class="ssb-title">Video</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="square-service-block">
+                                <a href="#">
+                                    <div class="ssb-icon"><i class="fa fa-volume-up" aria-hidden="true"></i> </div>
+                                    <h2 class="ssb-title">Audio</h2>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container">
+                    <h1>Service Box Style</h1>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="service_box">
+                                <div class="service_icon">
+                                    <i class="fa fa-code"></i>
+                                </div>
+                                <h3>CONTRATO</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="service_box">
+                                <div class="service_icon">
+                                    <i class="fa fa-weibo"></i>
+                                </div>
+                                <h3>PAGAMENTO</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="service_box">
+                                <div class="service_icon">
+                                    <i class="fa fa-apple"></i>
+                                </div>
+                                <h3>Designer</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="service_box">
+                                <div class="service_icon">
+                                    <i class="fa fa-sort-alpha-desc"></i>
+                                </div>
+                                <h3>UI Designer</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, ducimus Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
     </main>
@@ -867,6 +1010,69 @@
 
 @section('css')
     <style>
+        h1{
+            color:#002646 !important;
+            /*color:#fff;*/
+            font-size:35px;
+            text-align: center;
+            text-transform: capitalize;
+        }
+        .service_box{
+            margin:20px 0;
+            padding:40px 20px;
+            text-align: center;
+            border-radius:5px;
+            /*background:rgba(59, 63, 66,0.7);*/
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: all 0.30s ease 0s;
+        }
+        .service_box:hover{
+            background:#00BFF3;
+        }
+        .service_box .service_icon{
+            width:70px;
+            height:70px;
+            margin: 0 auto;
+            font-size:35px;
+            background: #fff;
+            line-height:70px;
+            border-radius:50px;
+            transform: translateY(0);
+            transition: all 0.30s ease 0s;
+        }
+        .service_box:hover .service_icon{
+            transform: translateY(-100%);
+        }
+        .service_box .service_icon i{
+            color:#333;
+        }
+        .service_box h3{
+            position: relative;
+            top:40px;
+            margin:0;
+            /*color:#fff;*/
+            color:#002646 !important;
+            font-weight: bold;
+            font-size:23px;
+            text-transform:uppercase;
+            transform: translateY(0%);
+            transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+        }
+        .service_box:hover h3{
+            top:-40px;
+        }
+        .service_box  p{
+            color:#fff;
+            margin:0;
+            opacity:0;
+            transition: all 0.30s linear 0s;
+        }
+        .service_box:hover p{
+            opacity:1;
+        }
+
+
+
         .uim-svg svg {
             width: 4rem;
 
@@ -1241,6 +1447,47 @@
             fill: var(--uim-color, currentColor);
         }
 
+
+
+
+        a:hover, a:focus {
+            color: #2a6496;
+            text-decoration: none;
+        }
+        .square-service-block{
+            position:relative;
+            overflow:hidden;
+            margin:15px auto;
+        }
+        .square-service-block a {
+            background-color: #ED454C;
+            /*background-color: #e74c3c;*/
+            border-radius: 5px;
+            display: block;
+            padding: 60px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .square-service-block a:hover{
+            background-color: rgba(231, 76, 60, 0.8);
+            border-radius: 5px;
+        }
+
+        .ssb-icon {
+            color: #fff;
+            display: inline-block;
+            font-size: 28px;
+            margin: 0 0 20px;
+        }
+
+        h2.ssb-title {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 200;
+            margin:0;
+            padding:0;
+            text-transform: uppercase;
+        }
     </style>
 @endsection
 

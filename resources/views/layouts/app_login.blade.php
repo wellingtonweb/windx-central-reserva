@@ -6,14 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html charset=utf-8"/>
     <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <meta http-equiv="refresh" content="{{ config('session.lifetime') * 60 }}">
     <title>{{ config('app.name', 'Central do Assinante') }}</title>
     <link rel="shortcut icon" href="{{ asset('assets/img/logox.ico') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" href="{{ asset('assets/css/fawesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="stylesheet" href="{{ url(mix('assets/css/modules/login.css')) }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/cover.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
 </head>
@@ -33,7 +31,7 @@
     </div>
 </div>
 <div class="full-screen-backdrop container-all d-flex mx-auto flex-column">
-    <div id="container-logo" class="mt-3">
+    <div id="container-logo" class="mt-2">
         <img class="logo-windx d-none" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
     </div>
 
@@ -45,8 +43,11 @@
         </small>
         <small class="mb-1 d-block w-100 pl-3 pr-3">{{ getenv('WINDX_STORES') }}</small>
     </footer>
-    <div class="mb-0 mr-0 button-card-contact d-none">
-        @include('include.card-contact')
+    <div class="mb-0 mr-0 contact-client button-card-contact d-none">
+        <a href="{{ env('WHATSAPP_SERVICE') }}"
+           target="_blank">
+            <img src="{{asset('assets/img/whatsapp.svg')}}" alt="WhatsApp Windx">
+        </a>
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>

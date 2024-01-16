@@ -1,6 +1,6 @@
 <div class="contact-client">
     <a href="#" id="btn-contact">
-        <img src="{{asset('assets/img/whatsapp.svg')}}" alt="">
+        <img src="{{asset('assets/img/whatsapp.svg')}}" alt="WhatsApp Windx">
     </a>
 </div>
 <div id="card-contact" class="card card-contact animate__animated d-none">
@@ -9,9 +9,7 @@
     </button>
     <div class="card-img">
         <img src="{{asset('assets/img/logox.svg')}}" class="logo" alt="...">
-{{--        <h6 class="font-weight-bold">WhatsApp Windx</h6>--}}
         <h6 class="font-weight-bold">Windx Telecomunicações</h6>
-{{--        <small>Contato do WhatsApp</small>--}}
         <img src="{{asset('assets/img/qrcontact2.jpg')}}" class="qrcode-img"  alt="">
     </div>
     <div class="card-body">

@@ -2176,6 +2176,7 @@ svg rect{
 }
 
 .side-bar {
+    font-family: "Nunito", "Courier New", monospace !important;
     /*background-color: rgba(255,255,255, .1);*/
     /*backdrop-filter: blur(15px);*/
     /*width: 30%;*/
@@ -2199,11 +2200,11 @@ svg rect{
 }
 
 .side-bar .menu .item a {
-    background-color: #62B6CB;
-    /*background-color: #00527c;*/
-    backdrop-filter: blur(15px);
+    /*background-color: #62B6CB;*/
+    background-color: rgba(255, 255, 255, 0.9);
+    /*backdrop-filter: blur(1px);*/
     border-radius: 7px;
-    color: #ffffff;
+    color: #15365f;
     font-size: 1.2em;
     text-decoration: none;
     display: block;
@@ -2214,31 +2215,38 @@ svg rect{
     font-weight: bold;
 }
 
-.side-bar .menu .item a:active,
-.side-bar .menu .item a:hover {
-    background-color: #CAE9FF;
+.side-bar .menu .item a:active {
+    background-color: #022DA3;
     /*background-color: #006db2 !important;*/
-    color: #002046;
+    color: white;
     /*border-radius: 7px;*/
     transition: .3s ease;
     transform: scale(.98) !important;
 }
 
-.btn-side-active {
-    background-color: #CAE9FF !important;
-    color: #002046 !important;
+.side-bar .menu .item a:hover {
+    background-color: #022DA3;
+    /*background-color: #006db2 !important;*/
+    color: white;
+    /*border-radius: 7px;*/
+    transition: .3s ease;
 }
-.btn-side-active svg path {
-    fill: #002046 !important;
-}
+/*.btn-side-active {*/
+/*    background-color: #CAE9FF !important;*/
+/*    color: #002046 !important;*/
+/*}*/
+
+/*.btn-side-active svg path {*/
+/*    fill: #002046 !important;*/
+/*}*/
 
 .side-bar .menu .item i {
     margin-right: 15px;
 }
 
-.side-bar .menu .item a:hover svg path {
-    fill: #002046;
-}
+/*.side-bar .menu .item a:hover svg path {*/
+/*    fill: #002046;*/
+/*}*/
 
 .side-bar .menu .item svg {
     margin-right: 15px;

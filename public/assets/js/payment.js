@@ -1,1 +1,1133 @@
-var cartCopy=[],billetsCart=function(){function e(e,t,a,n,i,o,s,l,r){this.billet_id=e.toString().trim(),this.reference=t,this.duedate=a,this.value=n,this.addition=i,this.discount=o,this.price=s,this.count=l,this.company_id=r}function t(){sessionStorage.setItem("billetsCart",JSON.stringify(cart)),$("#cartPayment").val(JSON.stringify(cart)),$("#cartBillets").val(JSON.stringify(cart))}cart=[],null!=sessionStorage.getItem("billetsCart")&&(cart=JSON.parse(sessionStorage.getItem("billetsCart")));var a={};return a.addItemToCart=function(a,n,i,o,s,l,r,d,c){var m=function(e){const t=new Date(e);return new Intl.DateTimeFormat("pt-BR",{year:"numeric",month:"numeric",day:"numeric"}).format(t)}(i),p=new e(a,n,m,o,s,l,r,d,c);cart.push(p),t()},a.removeItemFromCart=function(e){for(var a in cart)if(cart[a].billet_id==e){cart[a].count--,0===cart[a].count&&cart.splice(a,1);break}t()},a.clearCart=function(){cart=[],t()},a.totalCount=function(){var e=0;for(var t in cart)e+=cart[t].count;return e},a.totalCart=function(){var e=0;for(var t in cart)e+=cart[t].price*cart[t].count;return Number(e.toFixed(2))},a.totalFees=function(){var e=0;for(var t in cart)0!=cart[t].addition&&(e+=parseFloat(cart[t].addition));return Number(e.toFixed(2))},a.totalSum=function(){var e=0;for(var t in cart)0!=cart[t].value&&(e+=cart[t].value);return Number(e.toFixed(2))},a}(),total=0,count=0,checkBillet=!1;function addToCartBtn(e){var t=JSON.parse(e);checkBillet=!1;var a=t.id,n=t.id,i=t.reference,o=t.duedate,s=t.value,l=t.addition,r=t.discount,d=Number(t.price),c=Number(t.company_id),m=Number(t.installment),p=0;$('input[name="installment"]').val("1"),1==m?(billetsCart.addItemToCart(n,i,o,s,l,r,d,1,c),addPaintItem(a),displayCart()):m>1&&(p=parseFloat(s)/parseInt(m),m<=maxInstallment?p>=minInstallmentValue?($('input[name="installment"]').val(m),Swal.fire({icon:"info",title:"Pagamento de acordo!",html:"Deseja pagar o acordo em "+m+" vezes no cartão de crédito?",confirmButtonColor:"#38c172",denyButtonColor:"#6c757d",showDenyButton:!1,showCancelButton:!0,confirmButtonText:"Confirmar",cancelButtonText:"Cancelar",allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1}}).then((e=>{e.isConfirmed?($("input#installment").val(m),clearAllSections(),billetsCart.addItemToCart(n,i,o,s,l,r,d,1,c),addPaintItem(a),displayCart(),Swal.close(),$("button#btn-credit").click()):(deleteItemCart(a,i),Swal.close())}))):($("#select-billet-"+a).html("Pagar"),Swal.fire({icon:"error",title:"Acordo não autorizado!",text:"Deseja realizar o pagamento à vista?",showDenyButton:!1,showCancelButton:!0,confirmButtonText:"Confirmar",cancelButtonText:"Cancelar"}).then((e=>{e.isConfirmed&&(billetsCart.addItemToCart(n,i,o,s,l,r,d,1,c),addPaintItem(a),displayCart())}))):($("#select-billet-"+a).html("Pagar"),Swal.fire({icon:"error",title:"Parcelamento não autorizado!",text:"Deseja realizar o pagamento à vista?",showDenyButton:!1,showCancelButton:!0,confirmButtonText:"Confirmar",cancelButtonText:"Cancelar"}).then((e=>{e.isConfirmed&&(billetsCart.addItemToCart(n,i,o,s,l,r,d,1,c),addPaintItem(a),displayCart())})))),Swal.fire({icon:"question",title:"Deseja prosseguir com o pagamento ou adicionar outra fatura?",confirmButtonColor:"#38c172",cancelButtonColor:"#007bff",showDenyButton:!1,showCancelButton:!0,confirmButtonText:"Prosseguir",cancelButtonText:"Adicionar",reverseButtons:!0,allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1}}).then((e=>{e.isConfirmed?Swal.fire({title:"Selecione a forma <br>de pagamento",html:checkoutButtons,confirmButtonColor:"#38c172",denyButtonColor:"#c82333",showDenyButton:!0,showConfirmButton:!1,confirmButtonText:"Sim",denyButtonText:"CANCELAR",allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1}}).then((e=>{e.isDenied&&(clearAllSections(),refreshSliderCards())})):Swal.close()}))}function deleteItemCart(e){billetsCart.removeItemFromCart(e),removePaintItem(e),displayCart()}function getCheckBillet(e){return $.ajax({url:base_url+"check/"+e,type:"GET",async:!1,success:function(e){!0===e&&(checkBillet=!0)}}),checkBillet}function clearAllSections(){billetsCart.clearCart(),sessionStorage.clear(),localStorage.clear(),removePaintAll(),displayCart(),clearInterval(callback)}function removePaintAll(){$(".swiper-slide").each((function(e){$(this).removeClass("border-success text-windx-50"),$(".delete-item").addClass("d-none not-active"),$(".add-to-cart").removeClass("not-active d-none"),$(".btn-copy").removeClass("not-active"),$(".btn-print-billet").removeClass("not-active"),$(".invoice-title").removeClass("text-windx-50")}))}function changeTootip(e){$("#"+e).attr("title","Copiado!").tooltip("fixTitle").tooltip("show").attr("title","Copy to Clipboard").tooltip("fixTitle")}async function copyBarcode(e){let t=$("#"+e).attr("data-code");await navigator.clipboard.writeText(t).then((()=>{notify("Copiado com sucesso!")})).catch((e=>{notify("Falha ao copiar: "+e)}))}function addPaintItem(e){$("#billet_"+e).addClass("text-windx-50"),$("#title-"+e).addClass("text-windx-50"),$("#select-billet-"+e).addClass("d-none").addClass("not-active"),$("#remove-billet-"+e).removeClass("d-none not-active"),$("#copy-barcode-"+e).addClass("not-active"),$("#print-billet-"+e).addClass("not-active"),sessionStorage.setItem(e,"add")}function removePaintItem(e){$("#billet_"+e).removeClass("text-windx-50"),$("#title-"+e).removeClass("text-windx-50"),$("#select-billet-"+e).removeClass("d-none").removeClass("not-active"),$("#remove-billet-"+e).addClass("d-none not-active"),$("#copy-barcode-"+e).removeClass("not-active"),$("#print-billet-"+e).removeClass("not-active"),sessionStorage.removeItem(e)}$(".btn-payment-type").click((function(){Swal.close()})),$(".clear-cart").click((function(){clearAllSections(),$("#v-pills-tab").removeClass("d-none"),$("#v-pills-tabContent").addClass("d-none"),swiper.slideTo(0),notify("Todas as faturas foram removidas!")}));count=0;function displayCart(){var e=billetsCart.totalCart();count=billetsCart.totalCount();var t=billetsCart.totalFees(),a=billetsCart.totalSum();$(".total-cart").html(e.toFixed(2).replace(".",",")),$("input.bpmpi_totalamount").val(Math.round(100*e.toFixed(2))),$(".total-count").html(count),$(".display-text").html(count>1?" faturas via ":" fatura via "),$(".total-fees").html(t.toFixed(2).replace(".",",")),$(".total-sum").html(a.toFixed(2).replace(".",",")),0!=count?$(".checkout-controls button").each((function(){$(this).prop("disabled",!1),$("#methodTitle").removeClass("text-muted").addClass("text-dark")})):$(".checkout-controls button").each((function(){$(this).prop("disabled",!0),$("#methodTitle").removeClass("text-dark").addClass("text-muted")}))}async function pixCopyPaste(e){let t=$(e).data("code");null!=t?await navigator.clipboard.writeText(t).then((()=>{notify5("Copiado para área de transferência!")})).catch((e=>{notify5("Falha ao copiar chave pix: "+e),setTimeout((()=>{location.reload()}),1e3)})):notify5("Falha ao copiar chave pix")}function isDue(e){let t=new Date,a=e.split("/");return Date.parse(a[2]+"-"+a[1]+"-"+a[0])<t}var slider="",swiper=new Swiper(".billetsSwiper",{slidesPerView:1,initialized:!0,freeMode:!0,spaceBetween:10,pagination:{el:".swiper-pagination",type:"fraction",clickable:!0},breakpoints:{640:{slidesPerView:2,spaceBetween:10},768:{slidesPerView:3,spaceBetween:10},1024:{slidesPerView:4,spaceBetween:10}},navigation:{nextEl:".slider-button-next",prevEl:".slider-button-prev"},on:{init:function(){getBillets()}}});async function getBillets(){const e=await fetch(urlGetBillets),t=await e.json();let a=document.querySelector(".billetsSwiper");if($(".billetsSwiper").addClass("billetsSwiperLoading"),0===t.data.length)a.innerHTML='<h4 class="p-3">Não existem faturas à pagar!</h4>';else{$(".tns-controls").removeClass("d-none"),$("#infoCheckout").removeClass("d-none"),$("#buttonsCheckout").removeClass("d-none"),window.addEventListener("load",function(){swiper.removeAllSlides();for(let e in t.data)swiper.appendSlide(`\n                                <div id="billet_${t.data[e].Id}" class="card swiper-slide  `+(isDue(t.data[e].dtEmissao)?"card-overdue":"")+'">\n                                    <div class="card-header d-flex justify-content-center '+(isDue(t.data[e].dtEmissao)?"card-header-overdue":"")+`">\n                                        <div class="title font-weight-bold">${t.data[e].Referencia}</div>\n                                        <span class="pl-1 font-weight-bold">(${t.data[e].NossoNumero})</span>\n                                    </div>\n                                    <div class="card-body">\n                                        <div class="row letter-1 resume">\n                                            <div class="col-12 py-1 d-flex justify-content-between">\n                                                <small style="border-bottom: 2px solid #CCCCCC; width: 100%"\n                                                       class="card-text font-weight-bold text-muted text-left">\n                                                    RESUMO DA FATURA\n                                                </small>\n                                            </div>\n                                            <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">\n                                                <span class="card-text ">\n                                                    Total à pagar: </span>\n                                                <span class="card-text">${t.data[e].total}</span>\n                                            </div>\n                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">\n                                                <span class="card-text">Valor: </span>\n                                                <span class="card-text">${t.data[e].valor}</span>\n                                            </div>\n                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">\n                                                <span class="card-text">Juros + Multa:</span>\n                                                <span class="card-text">${t.data[e].fees}</span>\n                                            </div>\n                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">\n                                                <span class="card-text">Vencimento: </span>\n                                                <span class="card-text">${t.data[e].dtEmissao}</span>\n                                            </div>\n                                        </div>\n                                        <div class="row">\n                                            <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">\n                                                <div>\n                                                    <small class="card-text px-2 ">\n                                                    ${t.data[e].LinhaDigitavel}\n                                                    </small>\n                                                </div>\n                                                <div>\n                                                    ${t.data[e].copy}\n                                                </div>\n                                            </div>\n                                            <div class="col-12 py-2 d-flex justify-content-center">\n                                                ${t.data[e].download}\n                                            </div>\n                                            <div class="col-12" style="border-top: 2px solid #CCCCCC; width: 100%">\n                                                <small class="text-muted">\n                                                * Pagamento do boleto sujeito a compensação do banco (até 72h úteis)\n                                                </small>\n                                            </div>\n                                        </div>\n\n                                        <div class="d-flex_ d-none py-3" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">\n                                            <small class="card-text px-2">\n                                                ${t.data[e].LinhaDigitavel}\n                                            </small>\n                                            ${t.data[e].copy}\n                                        </div>\n                                        <div class="d-flex_ d-none justify-content-center">\n                                            ${t.data[e].download}\n                                        </div>\n                                        <div class="d-none pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">\n                                            <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>\n                                        </div>\n                                    </div>\n                                    <div class="card-footer">\n                                        ${t.data[e].add}\n                                        ${t.data[e].remove}\n                                    </div>\n                                </div>\n                    `);$(".lds-ellipsis").addClass("d-none"),$(".billetsSwiper").removeClass("billetsSwiperLoading")}())}}function refreshSliderCards(){swiper.removeAllSlides(),$(".lds-ellipsis").removeClass("d-none"),getBillets()}displayCart();let tries=0,paymentType="";var callback="";let transactionId=null,responseObj=null;function getPaymentText(e){switch(e){case"credit":return"cartão de crédito";case"debit":return"cartão de débito";case"picpay":return"Picpay";default:return"PIX"}}function resetCardFields(){$("#cc-nome").val(""),$("#cc-numero").val(""),$("#expiration_month option:first").prop("selected",!0).trigger("change"),$("#expiration_year option:first").prop("selected",!0).trigger("change"),$("#cc-bandeira option:first").prop("selected",!0).trigger("change"),$("#cc-cvv").val(""),$("#form_checkout").find("small").text(""),$("#form_checkout").find("input").removeClass("is-invalid"),$(".text-display-error").addClass("d-none").html("")}function getPaymentType(e){switch(e.id){case"btn-picpay":case"btn-pix":$("#payment_type").val("btn-picpay"==e.id?"picpay":"pix"),$("#method").val("btn-picpay"==e.id?"picpay":"ecommerce"),resetCardFields(),$("#form_checkout").submit();break;default:"btn-debit"==e.id&&getAccessToken(),paymentType="btn-credit"==e.id?"credit":"debit",$("#payment_type").val("btn-credit"==e.id?"credit":"debit"),$("#method").val("ecommerce"),$("#modalCard").modal("show")}}function callbackTransaction(e){null!=e&&null!=transactionId&&$.ajax({url:base_url+"callback/"+e,type:"GET",dataType:"JSON",data:JSON.stringify({}),success:function(e){"approved"===e.status&&resetCardFields(),msgStatusTransaction(e.status),resetTimer()}})}function sendPayment(e){$(document).find("small.error-text").text(""),$.ajax({type:e.methodForm,url:e.actionForm,data:e.dataForm,beforeSend:function(){Swal.fire({title:"Pagamento com "+getPaymentText(e.paymentType),html:"picpay"==e.methodCheckout||"pix"==e.paymentType?"Gerando qrcode...":"Validando dados...",timer:6e4,showConfirmButton:!1,didOpen:()=>{Swal.showLoading()},allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1}}).then((e=>{e.dismiss===Swal.DismissReason.timer&&displayMessageErrorPayment("Servidor indisponível")}))},success:function(t,a,n){200===n.status||201===n.status?(localStorage.setItem("transactionId",t.id),transactionId=localStorage.getItem("transactionId"),"picpay"==e.methodCheckout||"pix"==e.paymentType?(setQrcode(t),runCallBack()):($("#modalCard").modal("hide"),clearAllSections(),msgStatusTransaction(t.status))):(msgStatusTransaction(t.status),$("#modalCard").modal("hide"))},error:function(e){422===e.status&&displayMessageError("Erro nos dados de pagamento!"),e.responseJSON?e.responseJSON.error?notifySystem(e.status,e.responseJSON.status,e.responseJSON.error):$.each(e.responseJSON.errors,(function(e,t){$("input[name="+e+"]").is(":hidden")||($("small."+e+"_error").text(t[0]),displayMessageError("Verifique os dados informados!"),$("input[name="+e+"]").addClass("is-invalid"))})):displayMessageError("Verifique os dados informados!")}})}function setQrcode(e){let t=e.amount.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});Swal.fire({title:`Pagamento nº ${e.id} com ${"pix"==e.payment_type?"PIX":"PICPAY"}`,html:`\n            <div id="modal-qrcode" class="bg-white text-center justify-content-center">\n                <div class="box-price-qrcode-card pb-1">\n                    <h4 class="text-danger pt-2 font-weight-bold">Valor total: <span>${t}</span></h4>\n                    <p>Faturas selecionadas: <span class="font-weight-bold total-count"></span></p>\n                </div>\n                <small class="pt-2 text-black-50 ${"pix"==e.payment_type?"":"d-none"}">\n                Utilize seu app de pagamento para ler o qrcode <br> ou a código pix copia e cola abaixo\n                </small>\n                <small class="pt-2 text-black-50 ${"pix"==e.payment_type?"d-none":""}">\n                Utilize seu Picpay para ler o qrcode <br>ou o link de pagamento abaixo\n                </small>\n                <div id="container-qrcode">\n                    <small id="timerPaymentQrCode" class="text-danger"><b></b></small>\n                    <div class="body-popup-qrcode">\n                        <div class="qrcode-container">\n                            <img id="qrcode-img" src="${e.qrCode}">\n                        </div>\n                    </div>\n                    <div class="form-floating group-pix-copy-paste d-none">\n                        <input type="text" class="form-control" value="${e.copyPaste}" />\n                        <label for="pixcopypaste">Código do Pix Copia e Cola</label>\n                    </div>\n                    <div class="py-1">\n                        <a href="javascript:void(0)"\n                        id="btnPixCopyCode"\n                        class="mt-2 animate__animated text-primary d-none"\n                        onclick="pixCopyPaste(this)" data-code="${e.copyPaste}">\n                        Copiar código do PIX\n                        </a>\n                    </div>\n                    <div class="py-1">\n                        <a href="${e.paymentUrl}" target="_blank"\n                        id="btnPicpayLink"\n                        class="mt-2 animate__animated text-primary ${"pix"==e.payment_type?"d-none":""}">\n                        Quero pagar com link de pagamento!\n                        </a>\n                    </div>\n                </div>\n                <p id="labelWaitingPayment" class="mt-2 text-black-50 animate__animated animate__fadeIn d-none"></p>\n            </div>\n            `,timer:12e4,timerProgressBar:!1,showConfirmButton:!1,showDenyButton:!0,denyButtonText:'<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',denyButtonColor:"#d33",didOpen:()=>{resetTimer(),displayCart(),Swal.hideLoading(),"pix"==e.payment_type&&($("#btnPixCopyCode").removeClass("d-none"),$(".group-pix-copy-paste").removeClass("d-none"));const t=Swal.getHtmlContainer().querySelector("b");timerInterval=setInterval((()=>{const e=Swal.getTimerLeft()/1e3,a=Math.floor(e/60),n=Math.floor(e%60),i=a<10?`0${a}`:a,o=n<10?`0${n}`:n;t.textContent=`${i}:${o}`,"00"==o&&$("#timerPaymentQrCode").fadeOut()}),100)},allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1}}).then((e=>{e.dismiss===Swal.DismissReason.timer?waitingPayment():e.isDenied&&(clearAllSections(),transactionId=null,clearInterval(callback),msgStatusTransaction("canceled"))}))}function msgStatusTransaction(e){if(e)switch(e){case"approved":return clearInterval(callback),refreshSliderCards(),displayMessageStatusTransaction("Pagamento confirmado com sucesso!","success",15e3),!0;case"expired":return clearInterval(callback),refreshSliderCards(),displayMessageStatusTransaction("Tempo expirado!","error",5e3),!1;case"refused":return clearInterval(callback),refreshSliderCards(),displayMessageStatusTransaction("Pagamento recusado!","error",5e3),!1;case"canceled":return clearInterval(callback),refreshSliderCards(),displayMessageStatusTransaction("Pagamento cancelado!","error",5e3),!1;default:return!1}else displayMessageStatusTransaction("Não houve nenhum pagamento criado!","error",5e3)}function runCallBack(){callback=setInterval((function(){if(null==transactionId)return clearAllSections(),void clearInterval(callback);callbackTransaction(transactionId)}),5e3)}function waitingPayment(){Swal.fire({title:"Pagamento Nº "+transactionId,text:"Aguardando a confirmação...",icon:"info",timer:9e4,timerProgressBar:!0,showConfirmButton:!1,showCancelButton:!0,cancelButtonText:'<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',cancelButtonColor:"#d33",didOpen:()=>{runCallBack()},willClose:()=>{clearAllSections(),transactionId=null,clearInterval(callback)},allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1}}).then((e=>{e.dismiss===Swal.DismissReason.timer?msgStatusTransaction("expired"):(e.isDenied||e.isDismissed)&&msgStatusTransaction("canceled")}))}function displayMessageErrorPayment(e){Swal.fire({icon:"error",title:e,html:"<h4>Não foi possível concluir o pagamento!</h4>",timer:5e3,timerProgressBar:!1,confirmButtonText:"Ok",showDenyButton:!1,didOpen:()=>{Swal.hideLoading(),clearInterval(callback),clearAllSections()},willClose:()=>{$("#modalCard").modal("hide"),displayMessageQuestionFinish()}})}function displayMessageError(e){Swal.fire({icon:"error",title:e,timer:15e3,timerProgressBar:!1,confirmButtonText:"Ok",showDenyButton:!1,didOpen:()=>{Swal.hideLoading(),clearInterval(callback),clearAllSections()},willClose:()=>{displayMessageQuestionFinish()}})}function displayMessageStatusTransaction(e,t,a){var n=`<a href="${base_url}comprovante/${transactionId}/download" onclick="downloadClick()"\n        class="download-pdf btn btn-primary btn-sm" target="_blank">\n            <i class="fa fa-download pr-1"></i>\n            Baixar comprovante\n        </a>`;Swal.fire({title:e,icon:t,timer:a,didOpen:()=>{Swal.hideLoading(),transactionId=null},allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1},willClose:()=>{refreshSliderCards(),clearAllSections(),"success"===t?(console.log("Botão",n),Swal.fire({title:"Download do comprovante",icon:"info",timer:6e4,html:"Baixe seu comprovante ou acesse em Comprovantes para obter a 2ª via.<br><br>"+n,didOpen:()=>{Swal.hideLoading(),clearInterval(callback)},allowOutsideClick:()=>{const e=Swal.getPopup();return e.classList.remove("swal2-show"),setTimeout((()=>{e.classList.add("animate__animated","animate__headShake")})),setTimeout((()=>{e.classList.remove("animate__animated","animate__headShake")}),500),!1},willClose:()=>{displayMessageQuestionFinish()}})):displayMessageQuestionFinish()}})}$("#cc-numero").blur((function(){$(this).val($(this).val().replace(/\D/g,""))})),$("#cc-cvv").blur((function(){$(this).val($(this).val().replace(/\D/g,""))})),$("#modalCard").on("show.bs.modal",(function(e){Swal.close(),countdown()})),$("#modalCard").on("hidden.bs.modal",(function(e){resetCardFields(),clearAllSections(),refreshSliderCards(),clearInterval(callback)})),$("#btnCloseModalCard").click((function(){msgStatusTransaction("canceled")})),$("#form_checkout").submit((function(e){e.preventDefault();let t=$(this).serializeArray();""==t[1].value&&displayMessageErrorPayment("Erro: 422 - Dados inválidos");let a={paymentType:$("#payment_type").val(),actionForm:$(this).attr("action"),methodForm:$(this).attr("method"),dataForm:$(this).serialize(),methodCheckout:t[8].value};null!=a?(sessionStorage.setItem("payment",JSON.stringify(a)),sendPayment(a)):(clearAllSections(),displayMessageErrorPayment("Sessão de pagamento inválida!"))})),transactionId=localStorage.getItem("transactionId"),null==transactionId||"credit"==paymentType&&"debit"==paymentType||waitingPayment();var tempo=120;function countdown(){if(tempo-1>=-1){var e=parseInt(tempo/60),t=tempo%60;e<10&&(e=(e="0"+e).substr(0,2)),t<=9&&(t="0"+t),$("#timerPaymentQrCode").text(e+":"+t),setTimeout("countdown(tempo)",1e3),tempo--}else $("#timerPaymentQrCode").fadeOut(1e3),$("#v-pills-qrcode").fadeOut(1e3),$("#methodTitle").text("").fadeOut(1e3),$("#modalCard").modal("hide"),tempo=120}
+// ************************************************
+// E-Cart - Fork Shopping Cart API
+// ************************************************
+var cartCopy = [];
+
+var billetsCart = (function() {
+
+    cart = [];
+
+    // Constructor
+    function Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
+        this.billet_id = billet_id.toString().trim();
+        this.reference = reference;
+        this.duedate = duedate;
+        this.value = value;
+        this.addition = addition;
+        this.discount = discount;
+        this.price = price;
+        this.count = count;
+        this.company_id = company_id;
+    }
+
+    function formatDueDate(duedate)
+    {
+        const data = new Date(duedate);
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        const formatPtBr = new Intl.DateTimeFormat('pt-BR', options);
+
+        return formatPtBr.format(data);
+    }
+
+
+    // Save cart
+    function saveCart() {
+        sessionStorage.setItem('billetsCart', JSON.stringify(cart));
+        $('#cartPayment').val(JSON.stringify(cart))
+        $('#cartBillets').val(JSON.stringify(cart))
+    }
+
+    // Load cart
+    function loadCart() {
+        cart = JSON.parse(sessionStorage.getItem('billetsCart'));
+    }
+
+    if (sessionStorage.getItem("billetsCart") != null) {
+        loadCart();
+    }
+
+    // =============================
+    var obj = {};
+
+    // Add to cart
+    obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
+        var duedateFormat = formatDueDate(duedate)
+        var item = new Item(billet_id, reference, duedateFormat, value, addition, discount, price, count, company_id);
+        cart.push(item);
+        saveCart();
+    }
+
+    // Remove item from cart
+    obj.removeItemFromCart = function(billetId) {
+        for(var item in cart) {
+            if(cart[item].billet_id == billetId) {
+                cart[item].count --;
+                if(cart[item].count === 0) {
+                    cart.splice(item, 1);
+                }
+                break;
+            }
+        }
+        saveCart();
+    }
+
+    // Clear cart
+    obj.clearCart = function() {
+        cart = [];
+        saveCart();
+    }
+
+    // Count cart
+    obj.totalCount = function() {
+        var totalCount = 0;
+        for(var item in cart) {
+            totalCount += cart[item].count;
+        }
+        return totalCount;
+    }
+
+    // Total cart
+    obj.totalCart = function() {
+        var totalCart = 0;
+        for(var item in cart) {
+            totalCart += cart[item].price * cart[item].count;
+        }
+        return Number(totalCart.toFixed(2));
+    }
+
+    // Total fees
+    obj.totalFees = function() {
+        var totalFees = 0;
+        for(var item in cart) {
+            if(cart[item].addition != 0) {
+                totalFees += parseFloat(cart[item].addition);
+            }
+        }
+        return Number(totalFees.toFixed(2));
+    }
+
+    // Total sum
+    obj.totalSum = function() {
+        var totalSum = 0.00;
+
+        for(var item in cart) {
+            if(cart[item].value != 0){
+                totalSum += cart[item].value;
+            }
+        }
+        return Number(totalSum.toFixed(2));
+    }
+
+    return obj;
+})();
+
+// import('e-cart');
+
+/* E-Cart Control */
+var total = 0;
+var count = 0;
+var checkBillet = false;
+
+// Add item to cart
+function addToCartBtn(data){
+    var billet = JSON.parse(data);
+    checkBillet = false;
+    var btnId = billet.id;
+    var billet_id = billet.id;
+    var reference = billet.reference;
+    var duedate = billet.duedate;
+    var value = billet.value;
+    var addition = billet.addition;
+    var discount = billet.discount;
+    var price = Number(billet.price);
+    var company_id = Number(billet.company_id);
+    var installment = Number(billet.installment);
+    var installmentValue = 0;
+
+    $('input[name="installment"]').val("1");
+
+    if(installment == 1)
+    {
+        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
+        addPaintItem(btnId)
+        displayCart();
+    }
+    else if(installment > 1)
+    {
+        installmentValue = (parseFloat(value) / parseInt(installment));
+
+        if(installment <= maxInstallment){
+            if(installmentValue >= minInstallmentValue)
+            {
+                $('input[name="installment"]').val(installment)
+
+                Swal.fire({
+                    icon: "info",
+                    title: 'Pagamento de acordo!',
+                    html: 'Deseja pagar o acordo em '+ installment +' vezes no cartão de crédito?',
+                    confirmButtonColor: '#38c172',
+                    denyButtonColor: '#6c757d',
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: `Cancelar`,
+                    allowOutsideClick: () => {
+                        const popup = Swal.getPopup()
+                        popup.classList.remove('swal2-show')
+                        setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
+                        })
+                        setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                        }, 500)
+                        return false
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('input#installment').val(installment);
+                        clearAllSections();
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
+                        addPaintItem(btnId)
+                        displayCart();
+                        Swal.close();
+                        $('button#btn-credit').click();
+                    }else{
+                        deleteItemCart(btnId, reference)
+                        Swal.close();
+                    }
+                })
+            }else{
+                $('#select-billet-'+btnId).html('Pagar')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Acordo não autorizado!',
+                    text: 'Deseja realizar o pagamento à vista?',
+                    showDenyButton: false,
+                    showCancelButton: true,
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: `Cancelar`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
+                        addPaintItem(btnId)
+                        displayCart();
+                    }
+                    // else {
+                    //     clearAllSections();
+                    // }
+                })
+            }
+        }else{
+            $('#select-billet-'+btnId).html('Pagar')
+            Swal.fire({
+                icon: 'error',
+                title: 'Parcelamento não autorizado!',
+                text: 'Deseja realizar o pagamento à vista?',
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: `Cancelar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
+                    addPaintItem(btnId)
+                    displayCart();
+                }
+            })
+        }
+    }
+
+    Swal.fire({
+        icon: "question",
+        title: 'Deseja prosseguir com o pagamento ou adicionar outra fatura?',
+        confirmButtonColor: '#38c172',
+        cancelButtonColor: '#007bff',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Prosseguir',
+        cancelButtonText: `Adicionar`,
+        reverseButtons: true,
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: `Selecione a forma <br>de pagamento`,
+                html: checkoutButtons,
+                confirmButtonColor: '#38c172',
+                denyButtonColor: '#c82333',
+                showDenyButton: true,
+                // showCancelButton: false,
+                showConfirmButton: false,
+                confirmButtonText: 'Sim',
+                denyButtonText: `CANCELAR`,
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+            }).then((result) => {
+                if (result.isDenied) {
+                    clearAllSections();
+                    refreshSliderCards()
+                }
+            })
+        }else{
+            Swal.close();
+        }
+    })
+}
+
+$('.btn-payment-type').click(function (){
+    Swal.close();
+})
+
+function deleteItemCart(id){
+    billetsCart.removeItemFromCart(id);
+    removePaintItem(id)
+    displayCart();
+}
+
+function getCheckBillet(id){
+    $.ajax({
+        url: base_url + 'check/' + id,
+        type: "GET",
+        async: false,
+        success:function (data){
+            if(data === true){
+                checkBillet = true;
+            }
+        }
+    });
+    return checkBillet
+}
+
+// Clear items of cart
+$('.clear-cart').click(function() {
+    clearAllSections();
+    $('#v-pills-tab').removeClass('d-none')
+    $('#v-pills-tabContent').addClass('d-none')
+    swiper.slideTo(0);
+    notify('Todas as faturas foram removidas!')
+});
+
+// Clear all sections
+function clearAllSections() {
+    billetsCart.clearCart();
+    sessionStorage.clear();
+    localStorage.clear();
+    removePaintAll()
+    displayCart();
+    clearInterval(callback)
+}
+
+// Remove paint all
+function removePaintAll() {
+    $('.swiper-slide').each(function (el) {
+        $(this).removeClass('border-success text-windx-50');
+        $('.delete-item').addClass('d-none not-active');
+        $('.add-to-cart').removeClass('not-active d-none');
+        $('.btn-copy').removeClass('not-active');
+        $('.btn-print-billet').removeClass('not-active');
+        $('.invoice-title').removeClass('text-windx-50');
+    })
+}
+
+function changeTootip(id){
+    $('#'+id).attr('title', 'Copiado!')
+        .tooltip('fixTitle')
+        .tooltip('show')
+        .attr('title', "Copy to Clipboard")
+        .tooltip('fixTitle');
+}
+
+// Copy barcode to clipboard
+async function copyBarcode(id) {
+    let code = $('#'+id).attr("data-code");
+    await navigator.clipboard.writeText(code)
+        .then(() => {
+            notify('Copiado com sucesso!');
+        })
+        .catch((err) => {
+            notify('Falha ao copiar: '+ err);
+        });
+}
+
+// Add paint and disable buttons
+function addPaintItem(id) {
+    $('#billet_'+id).addClass('text-windx-50');
+    $('#title-'+id).addClass('text-windx-50');
+    $('#select-billet-'+id).addClass('d-none').addClass('not-active');
+    $('#remove-billet-'+id).removeClass('d-none not-active');
+    $('#copy-barcode-'+id).addClass('not-active');
+    $('#print-billet-'+id).addClass('not-active');
+    sessionStorage.setItem(id, 'add');
+}
+
+// Remove paint item and enable buttons
+function removePaintItem(id) {
+    $('#billet_'+id).removeClass('text-windx-50');
+    $('#title-'+id).removeClass('text-windx-50');
+    $('#select-billet-'+id).removeClass('d-none').removeClass('not-active');
+    $('#remove-billet-'+id).addClass('d-none not-active');
+    $('#copy-barcode-'+id).removeClass('not-active');
+    $('#print-billet-'+id).removeClass('not-active');
+    sessionStorage.removeItem(id);
+}
+var count = 0;
+
+// Show checkout information on dashboard
+function displayCart() {
+    var total = billetsCart.totalCart();
+    count = billetsCart.totalCount();
+    var fees = billetsCart.totalFees();
+    var totalSum = billetsCart.totalSum();
+
+
+    $('.total-cart').html(total.toFixed(2).replace(".",","));
+    $('input.bpmpi_totalamount').val(Math.round(total.toFixed(2) * 100));
+    $('.total-count').html(count);
+    $('.display-text').html(count > 1 ? ' faturas via ':' fatura via ');
+    $('.total-fees').html(fees.toFixed(2).replace(".",","));
+    $('.total-sum').html(totalSum.toFixed(2).replace(".",","));
+
+    if (count != 0) {
+        $('.checkout-controls button').each(function(){
+            $(this).prop("disabled", false);
+            $('#methodTitle').removeClass('text-muted').addClass('text-dark')
+        });
+    } else {
+        $('.checkout-controls button').each(function(){
+            $(this).prop("disabled", true);
+            $('#methodTitle').removeClass('text-dark').addClass('text-muted')
+        });
+    }
+}
+
+async function pixCopyPaste(e){
+    let code = $(e).data('code');
+
+    if(code != undefined){
+        await navigator.clipboard.writeText(code)
+            .then(() => {
+                notify5('Copiado para área de transferência!')
+            })
+            .catch((err) => {
+                notify5('Falha ao copiar chave pix: '+ err);
+                setTimeout(() => {
+                    location.reload()
+                }, 1000)
+            });
+    }else{
+        notify5('Falha ao copiar chave pix');
+    }
+}
+
+function isDue(dueDate)
+{
+    let today = new Date();
+    let pay = (dueDate).split("/");
+    let payFormat = Date.parse(pay[2]+'-'+pay[1]+'-'+pay[0]);
+
+    if(payFormat < today){
+        return true;
+    }
+    return false;
+}
+
+/* Swiper Slider Billets Cards */
+var slider = '';
+var swiper = new Swiper(".billetsSwiper", {
+    slidesPerView: 1,
+    initialized: true,
+    freeMode: true,
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        type: "fraction",
+        clickable: true,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+        },
+        768: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+        },
+        1024: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+        },
+    },
+    navigation: {
+        nextEl: ".slider-button-next",
+        prevEl: ".slider-button-prev",
+    },
+    on: {
+        init: function () {
+            getBillets()
+        },
+    },
+});
+
+async function getBillets(){
+    const response = await fetch(urlGetBillets);
+    const billets = await response.json();
+    let sliderBillets = document.querySelector('.billetsSwiper');
+    $('.billetsSwiper').addClass('billetsSwiperLoading');
+
+    if(billets.data.length === 0){
+        sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
+    }else{
+        $('.tns-controls').removeClass('d-none');
+        $('#infoCheckout').removeClass('d-none');
+        $('#buttonsCheckout').removeClass('d-none');
+        window.addEventListener('load', inicializeSlider());
+        function inicializeSlider(){
+            swiper.removeAllSlides();
+            for(let billet in billets.data){
+                swiper.appendSlide(`
+                                <div id="billet_${billets.data[billet].Id}" class="card swiper-slide  `+
+                    (isDue(billets.data[billet].dtEmissao) ? 'card-overdue' : '') +`">
+                                    <div class="card-header d-flex justify-content-center `+
+                    (isDue(billets.data[billet].dtEmissao) ? 'card-header-overdue' : '') +`">
+                                        <div class="title font-weight-bold">${billets.data[billet].Referencia}</div>
+                                        <span class="pl-1 font-weight-bold">(${billets.data[billet].NossoNumero})</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row letter-1 resume">
+                                            <div class="col-12 py-1 d-flex justify-content-between">
+                                                <small style="border-bottom: 2px solid #CCCCCC; width: 100%"
+                                                       class="card-text font-weight-bold text-muted text-left">
+                                                    RESUMO DA FATURA
+                                                </small>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between font-weight-bold">
+                                                <span class="card-text ">
+                                                    Total à pagar: </span>
+                                                <span class="card-text">${billets.data[billet].total}</span>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">
+                                                <span class="card-text">Valor: </span>
+                                                <span class="card-text">${billets.data[billet].valor}</span>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">
+                                                <span class="card-text">Juros + Multa:</span>
+                                                <span class="card-text">${billets.data[billet].fees}</span>
+                                            </div>
+                                            <div class="col-12 py-1 d-flex justify-content-between info-plus">
+                                                <span class="card-text">Vencimento: </span>
+                                                <span class="card-text">${billets.data[billet].dtEmissao}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
+                                                <div>
+                                                    <small class="card-text px-2 ">
+                                                    ${billets.data[billet].LinhaDigitavel}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    ${billets.data[billet].copy}
+                                                </div>
+                                            </div>
+                                            <div class="col-12 py-2 d-flex justify-content-center">
+                                                ${billets.data[billet].download}
+                                            </div>
+                                            <div class="col-12" style="border-top: 2px solid #CCCCCC; width: 100%">
+                                                <small class="text-muted">
+                                                * Pagamento do boleto sujeito a compensação do banco (até 72h úteis)
+                                                </small>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex_ d-none py-3" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
+                                            <small class="card-text px-2">
+                                                ${billets.data[billet].LinhaDigitavel}
+                                            </small>
+                                            ${billets.data[billet].copy}
+                                        </div>
+                                        <div class="d-flex_ d-none justify-content-center">
+                                            ${billets.data[billet].download}
+                                        </div>
+                                        <div class="d-none pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
+                                            <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        ${billets.data[billet].add}
+                                        ${billets.data[billet].remove}
+                                    </div>
+                                </div>
+                    `);
+            }
+            $('.lds-ellipsis').addClass('d-none');
+            $('.billetsSwiper').removeClass('billetsSwiperLoading');
+        }
+    }
+}
+
+function refreshSliderCards()
+{
+    swiper.removeAllSlides();
+    $('.lds-ellipsis').removeClass('d-none')
+    getBillets()
+}
+
+displayCart();
+
+let tries = 0;
+let paymentType = '';
+var callback = '';
+let transactionId  = null;
+let responseObj = null;
+
+function getPaymentText(payment_type){
+    switch (payment_type){
+        case 'credit':
+            return 'cartão de crédito';
+            break;
+        case 'debit':
+            return 'cartão de débito';
+            break;
+        case 'picpay':
+            return 'Picpay';
+            break;
+        default:
+            return 'PIX';
+            break;
+    }
+}
+
+$('#cc-numero').blur(function (){
+    $(this).val($(this).val().replace(/\D/g, ''))
+})
+
+$('#cc-cvv').blur(function (){
+    $(this).val($(this).val().replace(/\D/g, ''))
+});
+
+$('#modalCard').on('show.bs.modal', function (event) {
+    Swal.close();
+    countdown();
+})
+
+$('#modalCard').on('hidden.bs.modal', function (event) {
+    resetCardFields();
+    clearAllSections()
+    refreshSliderCards()
+    clearInterval(callback)
+})
+
+$('#btnCloseModalCard').click(function (){
+    msgStatusTransaction('canceled')
+});
+
+function resetCardFields() {
+    $('#cc-nome').val('');
+    $('#cc-numero').val('');
+    $('#expiration_month option:first').prop('selected',true).trigger("change");
+    $('#expiration_year option:first').prop('selected',true).trigger("change");
+    $('#cc-bandeira option:first').prop('selected',true).trigger("change");
+    $('#cc-cvv').val('');
+    $('#form_checkout').find('small').text('')
+    $('#form_checkout').find('input').removeClass('is-invalid')
+    $('.text-display-error').addClass('d-none').html('')
+}
+
+/* Button payment type */
+function getPaymentType(e){
+    switch (e.id){
+        case 'btn-picpay':
+        case 'btn-pix':
+            $('#payment_type').val((e.id == 'btn-picpay'?'picpay':'pix'));
+            $('#method').val((e.id == 'btn-picpay'?'picpay':'ecommerce'));
+            resetCardFields();
+            $('#form_checkout').submit();
+            break
+        default:
+            e.id == 'btn-debit'? getAccessToken() : '';
+            paymentType = (e.id == 'btn-credit'?'credit':'debit');
+            $('#payment_type').val((e.id == 'btn-credit'?'credit':'debit'));
+            $('#method').val('ecommerce');
+            $('#modalCard').modal('show');
+            break
+    }
+}
+
+/* Submit form checkout */
+$('#form_checkout').submit(function (e){
+    e.preventDefault();
+    let dataForm = $(this).serializeArray();
+    if(dataForm['1'].value == ''){
+        displayMessageErrorPayment('Erro: 422 - Dados inválidos')
+    }
+    let payment = {
+        'paymentType': $('#payment_type').val(),
+        'actionForm': $(this).attr('action'),
+        'methodForm': $(this).attr('method'),
+        'dataForm': $(this).serialize(),
+        'methodCheckout': dataForm['8'].value,
+    }
+    if(payment != null){
+        sessionStorage.setItem('payment', JSON.stringify(payment));
+        sendPayment(payment)
+    }else{
+        clearAllSections()
+        displayMessageErrorPayment('Sessão de pagamento inválida!')
+    }
+
+});
+
+function callbackTransaction(id)
+{
+    if (id != null && transactionId != null) {
+        $.ajax({
+            url: base_url + 'callback/' + id,
+            type: "GET",
+            dataType: "JSON",
+            data: JSON.stringify({}),
+            success:function (data){
+                if(data.status === 'approved'){
+                    resetCardFields();
+                }
+                msgStatusTransaction(data.status)
+                resetTimer()
+            }
+        })
+    }else{
+        return;
+    }
+}
+
+/* Send payment */
+function sendPayment(payment){
+    $(document).find('small.error-text').text('');
+
+    $.ajax({
+        type: payment.methodForm,
+        url: payment.actionForm,
+        data: payment.dataForm,
+        beforeSend: function (){
+            Swal.fire({
+                title: 'Pagamento com '+getPaymentText(payment.paymentType),
+                html: (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') ? 'Gerando qrcode...':'Validando dados...',
+                timer: 60000,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    displayMessageErrorPayment('Servidor indisponível')
+                }
+            })
+        },
+        success: function(response, textStatus, xhr) {
+            if(xhr.status === 200 || xhr.status === 201){
+                localStorage.setItem('transactionId', response.id)
+                transactionId = localStorage.getItem("transactionId");
+                if (payment.methodCheckout == 'picpay' || payment.paymentType == 'pix') {
+                    setQrcode(response)
+                    runCallBack();
+                }else{
+                    // if(response.status === 'approved')
+                    // {
+                    //     $('#modalCard').modal('hide')
+                    //     msgStatusTransaction(response.status)
+                    // }else{
+                        $('#modalCard').modal('hide')
+                        // transactionId = null
+                        clearAllSections()
+                        msgStatusTransaction(response.status)
+                    // }
+                }
+            }else{
+                msgStatusTransaction(response.status)
+                $('#modalCard').modal('hide')
+            }
+        },
+        error: function(data) {
+            if(data.status === 422){
+                displayMessageError('Erro nos dados de pagamento!');
+            }
+            if(!data.responseJSON){
+                displayMessageError('Verifique os dados informados!');
+            }else{
+                if(data.responseJSON.error) {
+                    notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
+                } else {
+                    $.each(data.responseJSON.errors, function (key, value) {
+                        if(!$('input[name='+key+']').is( ":hidden" )){
+                            $('small.'+key+'_error').text(value[0]);
+                            displayMessageError('Verifique os dados informados!');
+                            $('input[name='+key+']').addClass('is-invalid');
+                        }
+                    });
+                }
+            }
+        }
+    });
+}
+
+/* Display qrcode for payment */
+function setQrcode(payment){
+    let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
+    Swal.fire({
+        title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'pix' ? 'PIX' : 'PICPAY')}`,
+        html: `
+            <div id="modal-qrcode" class="bg-white text-center justify-content-center">
+                <div class="box-price-qrcode-card pb-1">
+                    <h4 class="text-danger pt-2 font-weight-bold">Valor total: <span>${amount}</span></h4>
+                    <p>Faturas selecionadas: <span class="font-weight-bold total-count"></span></p>
+                </div>
+                <small class="pt-2 text-black-50 ${(payment.payment_type == 'pix' ? '' : 'd-none')}">
+                Utilize seu app de pagamento para ler o qrcode <br> ou a código pix copia e cola abaixo
+                </small>
+                <small class="pt-2 text-black-50 ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
+                Utilize seu Picpay para ler o qrcode <br>ou o link de pagamento abaixo
+                </small>
+                <div id="container-qrcode">
+                    <small id="timerPaymentQrCode" class="text-danger"><b></b></small>
+                    <div class="body-popup-qrcode">
+                        <div class="qrcode-container">
+                            <img id="qrcode-img" src="${payment.qrCode}">
+                        </div>
+                    </div>
+                    <div class="form-floating group-pix-copy-paste d-none">
+                        <input type="text" class="form-control" value="${payment.copyPaste}" />
+                        <label for="pixcopypaste">Código do Pix Copia e Cola</label>
+                    </div>
+                    <div class="py-1">
+                        <a href="javascript:void(0)"
+                        id="btnPixCopyCode"
+                        class="mt-2 animate__animated text-primary d-none"
+                        onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
+                        Copiar código do PIX
+                        </a>
+                    </div>
+                    <div class="py-1">
+                        <a href="${payment.paymentUrl}" target="_blank"
+                        id="btnPicpayLink"
+                        class="mt-2 animate__animated text-primary ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
+                        Quero pagar com link de pagamento!
+                        </a>
+                    </div>
+                </div>
+                <p id="labelWaitingPayment" class="mt-2 text-black-50 animate__animated animate__fadeIn d-none"></p>
+            </div>
+            `,
+        timer: 120000,//2min
+        timerProgressBar: false,
+        showConfirmButton: false,
+        showDenyButton: true,
+        denyButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
+        denyButtonColor: '#d33',
+        didOpen: () => {
+            resetTimer()
+            displayCart()
+            Swal.hideLoading()
+            if(payment.payment_type == 'pix'){
+                $('#btnPixCopyCode').removeClass('d-none');
+                $('.group-pix-copy-paste').removeClass('d-none');
+            }
+
+            const b = Swal.getHtmlContainer().querySelector('b')
+
+            timerInterval = setInterval(() => {
+                const timerLeftInSeconds = Swal.getTimerLeft() / 1000;
+                const minutes = Math.floor(timerLeftInSeconds / 60);
+                const seconds = Math.floor(timerLeftInSeconds % 60);
+                const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+                const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+                b.textContent = `${formattedMinutes}:${formattedSeconds}`;
+                if(formattedSeconds == '00'){
+                    $('#timerPaymentQrCode').fadeOut();
+                }
+            }, 100);
+        },
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        },
+    })
+        .then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            waitingPayment()
+        } else
+        if(result.isDenied) {
+            clearAllSections()
+            transactionId = null;
+            clearInterval(callback)
+            msgStatusTransaction('canceled')
+        }
+    })
+}
+
+/* Functions Display Messages */
+function msgStatusTransaction(status){
+    if(status){
+        switch (status){
+            case 'approved':
+                clearInterval(callback)
+                refreshSliderCards()
+                displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 15000)
+                return true;
+                break;
+            case 'expired':
+                clearInterval(callback)
+                refreshSliderCards()
+                displayMessageStatusTransaction('Tempo expirado!','error', 5000)
+                return false;
+                break;
+            case 'refused':
+                clearInterval(callback)
+                refreshSliderCards()
+                displayMessageStatusTransaction('Pagamento recusado!','error', 5000)
+                return false;
+                break;
+            case 'canceled':
+                clearInterval(callback)
+                refreshSliderCards()
+                displayMessageStatusTransaction('Pagamento cancelado!','error', 5000)
+                return false;
+                break;
+            case 'created':
+                return false;
+                break;
+            default:
+                return false;
+        }
+    }else{
+        displayMessageStatusTransaction('Não houve nenhum pagamento criado!','error', 5000)
+    }
+}
+
+function runCallBack()
+{
+    callback = setInterval(function () {
+        if (transactionId != null) {
+            callbackTransaction(transactionId)
+        }else{
+            clearAllSections()
+            clearInterval(callback)
+            return;
+        }
+    }, 5000);
+}
+
+transactionId = localStorage.getItem("transactionId");
+
+if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit')) {
+    waitingPayment()
+}
+
+function waitingPayment(){
+    Swal.fire({
+        title: 'Pagamento Nº '+transactionId,
+        text: 'Aguardando a confirmação...',
+        icon: 'info',
+        timer: 90000,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: '<i class="fas fa fa-times pr-1" aria-hidden="true"></i>CANCELAR',
+        cancelButtonColor: '#d33',
+        didOpen: () => {
+            runCallBack()
+        },
+        willClose: () => {
+            clearAllSections()
+            transactionId = null;
+            clearInterval(callback)
+        },
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        }
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.timer) {
+            msgStatusTransaction('expired')
+        } else if(result.isDenied || result.isDismissed) {
+            msgStatusTransaction('canceled')
+        }
+    })
+}
+
+function displayMessageErrorPayment(title){
+    Swal.fire({
+        icon: 'error',
+        title: title,
+        html: '<h4>Não foi possível concluir o pagamento!</h4>',
+        timer: 5000,
+        timerProgressBar: false,
+        confirmButtonText: 'Ok',
+        showDenyButton: false,
+        didOpen: () => {
+            Swal.hideLoading()
+            clearInterval(callback)
+            clearAllSections()
+        },
+        willClose: () => {
+            $('#modalCard').modal('hide')
+            displayMessageQuestionFinish()
+        }
+    })
+}
+
+function displayMessageError(title){
+    Swal.fire({
+        icon: 'error',
+        title: title,
+        timer: 15000,
+        timerProgressBar: false,
+        confirmButtonText: 'Ok',
+        showDenyButton: false,
+        didOpen: () => {
+            Swal.hideLoading()
+            clearInterval(callback)
+            clearAllSections()
+        },
+        willClose: () => {
+            displayMessageQuestionFinish()
+        }
+    })
+}
+
+function displayMessageStatusTransaction(dTitle, dIcon, dTimer){
+    // var idPayment =
+    var dButton =
+        `<a href="${base_url}comprovante/${transactionId}/download" onclick="downloadClick()"
+        class="download-pdf btn btn-primary btn-sm" target="_blank">
+            <i class="fa fa-download pr-1"></i>
+            Baixar comprovante
+        </a>`;
+
+    Swal.fire({
+        title: dTitle,
+        icon: dIcon,
+        timer: dTimer,
+        didOpen: () => {
+            Swal.hideLoading()
+            transactionId = null;
+        },
+        allowOutsideClick: () => {
+            const popup = Swal.getPopup()
+            popup.classList.remove('swal2-show')
+            setTimeout(() => {
+                popup.classList.add('animate__animated', 'animate__headShake')
+            })
+            setTimeout(() => {
+                popup.classList.remove('animate__animated', 'animate__headShake')
+            }, 500)
+            return false
+        },
+        willClose: () => {
+            refreshSliderCards()
+            clearAllSections()
+            if(dIcon === 'success'){
+                console.log('Botão', dButton);
+                Swal.fire({
+                    title: 'Download do comprovante',
+                    icon: 'info',
+                    timer: 60000,
+                    html: "Baixe seu comprovante ou acesse em Comprovantes para obter a 2ª via.<br><br>"+dButton,
+                    didOpen: () => {
+                        Swal.hideLoading()
+                        clearInterval(callback)
+                    },
+                    allowOutsideClick: () => {
+                        const popup = Swal.getPopup()
+                        popup.classList.remove('swal2-show')
+                        setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
+                        })
+                        setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                        }, 500)
+                        return false
+                    },
+                    willClose: () => {
+                        displayMessageQuestionFinish()
+                    }
+                })
+            }else{
+                displayMessageQuestionFinish()
+            }
+        }
+    })
+}
+
+
+
+var tempo = 120;
+
+function countdown() {
+    if ((tempo - 1) >= -1) {
+        var min = parseInt(tempo / 60);
+        var seg = tempo % 60;
+
+        if (min < 10) {
+            min = "0" + min;
+            min = min.substr(0, 2);
+        }
+        if (seg <= 9) {
+            seg = "0" + seg;
+        }
+
+        $("#timerPaymentQrCode").text(min + ':' + seg);
+            setTimeout('countdown(tempo)', 1000);
+        tempo--;
+    }
+    else {
+        $("#timerPaymentQrCode").fadeOut(1000)
+        $("#v-pills-qrcode").fadeOut(1000)
+        $('#methodTitle').text('').fadeOut(1000)
+        $('#modalCard').modal('hide')
+        tempo = 120;
+    }
+}

@@ -3221,3 +3221,100 @@ div.item-text h5{
     color: white !important;
     text-shadow: 0 0 2px rgba(202, 228, 225, 0.92), 0 0 10px rgba(202, 228, 225, 0.34), 0 0 4px rgba(30, 132, 242, 0.52), 0 0 7px rgba(30, 132, 242, 0.92), 0 0 11px rgba(30, 132, 242, 0.78), 0 0 16px rgba(30, 132, 242, 0.92);
 }
+
+@media (max-width: 575.98px) {
+    /* modification menu mobile */
+    .mastfoot {
+        display: none !important;
+    }
+
+    .nav-web {
+        display: none !important;
+    }
+
+    /* Service box buttons */
+    .service_box p {
+        display: none;
+    }
+
+    .service_box {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        vertical-align: middle;
+        height: 80px;
+        min-height: auto;
+        margin: 6px 0;
+    }
+
+    .service_box .service_icon {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+        font-size: 25px;
+        background: #fff;
+        line-height: 51px;
+        border-radius: 50px;
+        transform: translateY(0);
+        transition: all 0.30s ease 0s;
+    }
+
+    .service_box h3 {
+        top: 0;
+        padding-left: 1rem;
+        font-size: 20px;
+    }
+
+    .swiper-wrapper .card .card-header {
+        padding: 0.3rem 1.25rem;
+        font-size: 13px;
+    }
+
+    .swiper-wrapper .card .card-footer {
+        padding-top: 0;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .mastfoot {
+        display: none !important;
+    }
+
+    .nav-web {
+        display: none !important;
+    }
+
+    .nav-mobile {
+        display: block !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .mastfoot {
+        display: none !important;
+    }
+
+    .nav-web {
+        display: none !important;
+    }
+
+    .nav-mobile {
+        display: block !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .nav-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .nav-mobile {
+        display: none !important;
+    }
+}
+
+
+

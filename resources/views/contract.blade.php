@@ -177,10 +177,12 @@
 
             .card-title {
                 padding: .5rem 0 0 .5rem !important;
+                font-size: 17px;
             }
 
             .card-body {
-                padding: .5rem !important;
+                padding: .5rem .2rem !important;
+                font-size: 13px;
             }
 
             .list-group-item {
@@ -208,6 +210,8 @@
             #collapseAccountData .show {
                 display: none;
             }
+
+
         }
     </style>
 @endsection

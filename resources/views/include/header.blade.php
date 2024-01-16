@@ -2,9 +2,9 @@
     <div class="nav-web animate__animated animate__fadeInDown animate__delay-1s ">
         <nav class="navbar sidebarNavigation p-lg-3 p-md-3 p-sm-0" data-sidebarClass="navbar-dark- bg-dark-">
             <div class="container-fluid">
-                <a class="navbar-brand {{ Route::currentRouteName() === 'central.home' ? 'd-none' : '' }}" href="#" onclick="javascript:history.back()">
-                    <i class="fa fa-arrow-left"></i>
-                </a>
+{{--                <a class="navbar-brand {{ Route::currentRouteName() === 'central.home' ? 'd-none' : '' }}" href="#" onclick="javascript:history.back()">--}}
+{{--                    <i class="fa fa-arrow-left"></i>--}}
+{{--                </a>--}}
                 <a class="navbar-brand pl-1" href="{{ route('central.home') }}">
                     <img class="logo-windx" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
                 </a>

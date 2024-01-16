@@ -55,9 +55,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col p-3 d-flex">
-                                    <button class="btn btn-primary mt-2" type="submit">Pesquisar</button>
-                                    <button id="btnDownload" class="btn btn-secondary mt-2" type="button">Download</button>
+                                <div class="col p-3 d-flex flex-column">
+                                    <button class="btn btn-primary mt-2" type="submit"><i class="fas fa-search pr-1"></i>Pesquisar</button>
                                 </div>
                             </div>
                             <div class="row card-info mt-2">
@@ -151,17 +150,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
     <script src="https://cdn.skypack.dev/date-fns"></script>
-    <!-- jspdf -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-
-    <!-- html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <!-- canvas.js -->
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-
-
-    {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.br.min.js"></script>--}}
     <script>
         $(document).ready(function() {
 

@@ -84,7 +84,9 @@
                                 </div>
                             </a>
                         </div>
+                        @if(session()->has('customer') && session('customer.status') === 'W')
                         <div class="col-lg-3 col-md-6 col-sm-6">
+
                             <a href="{{route('central.connection')}}">
                                 <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
@@ -94,7 +96,9 @@
                                     <p>Acompanhe o status de sua conexão e o consumo de internet em tempo real.</p>
                                 </div>
                             </a>
+
                         </div>
+                        @endif
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             @if(session('customer.status') === 'B')
                             <a href="#" id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)">
@@ -730,10 +734,8 @@
 
 @section('css')
     <style>
-
-
         .service_box {
-            margin: 20px 0;
+            margin: 20px 0 10px 0;
             padding: 40px 20px;
             text-align: center;
             border-radius: 5px;
@@ -850,10 +852,25 @@
                 font-size: 20px;
             }
 
+            .service_box:hover h3 {
+                top: 0 !important;
+                color: #fff;
+            }
+
+            .service_box:hover .service_icon {
+                transform: translateX(5px) !important;
+            }
+
         }
 
-        @media (min-width: 768px) {
-            /*teste*/
+        @media  (min-width: 576px) and (max-width: 767.98px) {
+            .service_box p{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
         }
 
         @media (min-width: 992px) {

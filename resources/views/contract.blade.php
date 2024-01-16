@@ -173,6 +173,7 @@
             .col {
                 padding-right: 5px !important;
                 padding-left: 5px !important;
+                color: #022DA3;
             }
 
             .card-title {

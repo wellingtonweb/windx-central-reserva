@@ -49,7 +49,7 @@
                         <div class="menu ">
                             <div class="item">
                                 <a href="{{ route('central.home') }}" class="click-loader close-menu
-                            {{ Route::currentRouteName() === 'central.home' ? 'btn-side-active' : '' }}">
+                            {{ Route::currentRouteName() === 'central.home' ? 'active' : '' }}">
                                     <i class="fa fa-home"></i>
                                     Home
                                 </a>
@@ -104,6 +104,7 @@
                                     Gráficos
                                 </a>
                             </div>
+                            @if(session()->has('customer') && session('customer.status') === 'W')
                             <div class="item">
                                 <a href="{{route('central.connection')}}"
                                    class="click-loader close-menu {{ Route::currentRouteName() === 'central.connection' ? 'btn-side-active' : '' }}">
@@ -111,6 +112,7 @@
                                     Conexão
                                 </a>
                             </div>
+                            @endif
                             @if(session()->has('customer') && session('customer.status') === 'B')
                                 <div id="btn-release-sidebar" class="item btnReleaseItem">
                                     <a href="javascript:void(0)" id="{{session('customer.id')}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">

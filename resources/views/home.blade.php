@@ -17,7 +17,7 @@
                     <div class="row mt-3 mb-5">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <a href="{{route('central.contract')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-file-alt"></i>
                                     </div>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.payment')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-dollar-sign"></i>
                                     </div>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.payments')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-file-download"></i>
                                     </div>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.invoices')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-file-invoice"></i>
                                     </div>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.support')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-life-ring"></i>
                                     </div>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.traffic.average')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-chart-bar"></i>
                                     </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.connection')}}">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-network-wired"></i>
                                     </div>
@@ -98,7 +98,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             @if(session('customer.status') === 'B')
                             <a href="#" id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)">
-                                <div class="service_box">
+                                <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
                                         <i class="fas fa-unlock-alt"></i>
                                     </div>
@@ -730,7 +730,172 @@
 
 @section('css')
     <style>
-        .service_box{margin:20px 0;padding:40px 20px;text-align:center;border-radius:5px;background-color:rgba(255,255,255,.7);backdrop-filter: blur(1px);min-height:245px;transition:all 0.30s ease 0s}.service_box:hover{background:#022DA3;color:#fff}.service_box .service_icon{width:70px;height:70px;margin:0 auto;font-size:35px;background:#fff;line-height:70px;border-radius:50px;transform:translateY(0);transition:all 0.30s ease 0s}.service_box:hover .service_icon{transform:translateY(-100%)}.service_box .service_icon i{color:#333}.service_box h3{position:relative;top:40px;margin:0;color:#002646;font-weight:700;font-size:23px;text-transform:uppercase;transform:translateY(0%);transition:all 600ms cubic-bezier(.68,-.55,.265,1.55) 0s}.service_box:hover h3{top:-40px;color:#fff}.service_box:active{color:#fff;-webkit-transform:scale(.98);-moz-transform:scale(.98);-ms-transform:scale(.98);-o-transform:scale(.98);transform:scale(.98);transition:all 0.30s linear 0s;box-shadow:3px 2px 22px 1px rgba(0,0,0,.24)}.service_box p{color:#fff;margin:0;opacity:0;transition:all 0.30s linear 0s}.service_box:hover p{opacity:1;transition:all 0.20s linear .3s}#terms-modal .modal-body{text-align:justify!important}#terms-modal p{font-size:14px!important;text-align:justify!important}@media (max-width:575.98px){.row{margin-right: 0 !important;margin-left: 0 !important;}#terms-modal .modal-body{margin:0!important;padding:0!important}.mastfoot{display:none!important}.nav-web{display:none!important}.service_box p{display:none}.service_box{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;vertical-align:middle;height:80px;min-height:auto;margin:6px 0}.service_box .service_icon{width:50px;height:50px;margin:0;font-size:25px;background:#fff;line-height:51px;border-radius:50px;transform:translateY(0);transition:all 0.30s ease 0s}.service_box h3{top:0;padding-left:1rem;font-size:20px}}@media (min-width:1200px){.action-button{max-width:calc(25% - 1.2rem)!important}.nav-mobile{display:none!important}}.windx-red{background-color:#E82528}.windx-red-70{background-color:#ED454C}.text-custom{color:#002046!important}h4.title{letter-spacing:1px;font-weight:bold!important}
+
+
+        .service_box {
+            margin: 20px 0;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(1px);
+            min-height: 245px;
+            transition: all 0.3s ease 0s;
+        }
+        .service_box:hover {
+            background: #022da3;
+            color: #fff;
+        }
+        .service_box .service_icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto;
+            font-size: 35px;
+            background: #fff;
+            line-height: 70px;
+            border-radius: 50px;
+            transform: translateY(0);
+            transition: all 0.3s ease 0s;
+        }
+        .service_box:hover .service_icon {
+            transform: translateY(-100%);
+        }
+        .service_box .service_icon i {
+            color: #333;
+        }
+        .service_box h3 {
+            position: relative;
+            top: 40px;
+            margin: 0;
+            color: #002646;
+            font-weight: 700;
+            font-size: 20px;
+            text-transform: uppercase;
+            transform: translateY(0%);
+            transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0s;
+        }
+        .service_box:hover h3 {
+            top: -40px;
+            color: #fff;
+        }
+        .service_box:active {
+            color: #fff;
+            -webkit-transform: scale(0.98);
+            -moz-transform: scale(0.98);
+            -ms-transform: scale(0.98);
+            -o-transform: scale(0.98);
+            transform: scale(0.98);
+            transition: all 0.3s linear 0s;
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+        }
+        .service_box p {
+            color: #fff;
+            margin: 0;
+            opacity: 0;
+            transition: all 0.3s linear 0s;
+        }
+        .service_box:hover p {
+            opacity: 1;
+            transition: all 0.2s linear 0.3s;
+        }
+        #terms-modal .modal-body {
+            text-align: justify !important;
+        }
+        #terms-modal p {
+            font-size: 14px !important;
+            text-align: justify !important;
+        }
+        @media (max-width: 575.98px) {
+            .row {
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+            #terms-modal .modal-body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .mastfoot {
+                display: none !important;
+            }
+            .nav-web {
+                display: none !important;
+            }
+            .service_box p {
+                display: none;
+            }
+            .service_box {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                vertical-align: middle;
+                height: 80px;
+                min-height: auto;
+                margin: 6px 0;
+            }
+            .service_box .service_icon {
+                width: 50px;
+                height: 50px;
+                margin: 0;
+                font-size: 25px;
+                background: #fff;
+                line-height: 51px;
+                border-radius: 50px;
+                transform: translateY(0);
+                transition: all 0.3s ease 0s;
+            }
+            .service_box h3 {
+                top: 0;
+                padding-left: 1rem;
+                font-size: 20px;
+            }
+
+        }
+
+        @media (min-width: 768px) {
+            /*teste*/
+        }
+
+        @media (min-width: 992px) {
+            .service_box p{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .action-button {
+                max-width: calc(25% - 1.2rem) !important;
+            }
+            .nav-mobile {
+                display: none !important;
+            }
+
+            .service_box p{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+            }
+        }
+        .windx-red {
+            background-color: #e82528;
+        }
+        .windx-red-70 {
+            background-color: #ed454c;
+        }
+        .text-custom {
+            color: #002046 !important;
+        }
+        h4.title {
+            letter-spacing: 1px;
+            font-weight: bold !important;
+        }
+
     </style>
 @endsection
 

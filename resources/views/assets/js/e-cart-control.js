@@ -416,7 +416,7 @@ async function getBillets(){
                                         <div class="row">
                                             <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
                                                 <div>
-                                                    <small class="card-text px-2 ">
+                                                    <small class="card-text">
                                                     ${billets.data[billet].LinhaDigitavel}
                                                     </small>
                                                 </div>
@@ -424,27 +424,14 @@ async function getBillets(){
                                                     ${billets.data[billet].copy}
                                                 </div>
                                             </div>
-                                            <div class="col-12 py-2 d-flex justify-content-center">
+                                            <div class="col-12 d-flex justify-content-center">
                                                 ${billets.data[billet].download}
                                             </div>
                                             <div class="col-12" style="border-top: 2px solid #CCCCCC; width: 100%">
-                                                <small class="text-muted">
+                                                <small class="payment-info72 text-muted">
                                                 * Pagamento do boleto sujeito a compensação do banco (até 72h úteis)
                                                 </small>
                                             </div>
-                                        </div>
-
-                                        <div class="d-flex_ d-none py-3" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
-                                            <small class="card-text px-2">
-                                                ${billets.data[billet].LinhaDigitavel}
-                                            </small>
-                                            ${billets.data[billet].copy}
-                                        </div>
-                                        <div class="d-flex_ d-none justify-content-center">
-                                            ${billets.data[billet].download}
-                                        </div>
-                                        <div class="d-none pt-2" style="border-top: 2px solid #CCCCCC; width: 100%">
-                                            <small class="text-muted">* Pagamento do boleto sujeito a compensação do banco (até 72h úteis)</small>
                                         </div>
                                     </div>
                                     <div class="card-footer">

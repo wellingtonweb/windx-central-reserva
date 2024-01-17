@@ -1999,6 +1999,10 @@ svg rect{
     color: tomato !important;
 }
 
+.header-app {
+    color: white;
+}
+
 /* Swiper slide invoices */
 
 .swiper {

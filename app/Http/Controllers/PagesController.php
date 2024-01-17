@@ -126,7 +126,7 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
-            return view('payment', ['header' => 'Pagamento']);
+            return view('payment', ['header' => 'Pagamento (Checkout)']);
         } else {
             throw new CheckUserException();
         }

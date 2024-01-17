@@ -12,48 +12,87 @@
                                 <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
                             </ol>
                         </nav>
-                        <div class="header-app col-12 font-weight-bolder text-left text-white p-2" style="display: none">
+                        <div class="header-app col-12 font-weight-bolder text-left p-2" style="display: none">
                             {{$header}}
                         </div>
-                        <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
-                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-                                <div class="col p-2 bg-primary text-white">texto 1</div>
-                                <div class="col p-2 bg-primary text-white">texto 2</div>
-                                <div class="col p-2 bg-primary text-white">texto 3</div>
-                                <div class="col p-2 bg-primary text-white">texto 4</div>
-                            </div>
+                        <div id="buttonsCheckout" class="d-none col-12 ">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div id="checkout-box" class="d-flex flex-wrap">
-                                    <div class="box-info flex-fill align-items-stretch text-left">
-                                        <b>Faturas: </b>
-                                        <span
-                                            class="total-count px-1 py-1" style="font-size: 100%"></span>
-                                    </div>
-                                    <div class="box-info flex-fill align-items-stretch text-left">
-                                        <b>Valor: </b>
-                                        <span class="text-muted">R$
+                                <div class="row">
+                                    <div class="col-lg-10 col-md-8 col-sm-12 order-lg-0 order-md-0 order-sm-0 px-2">
+                                        <div id="infoCheckout" class="content-box d-none col-12 mb-2">
+                                            <div id="checkout-box_" class="row row-cols-2 row-cols-sm-2 row-cols-md-4">
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Faturas: </b>
+                                                        <span class="total-count px-1 py-1" style="font-size: 100%"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Valor: </b>
+                                                        <span class="text-muted">R$
+                                        <span class="text-muted total-sum"></span>
+                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Juros<span class="feesInfoBox"> + Multa</span>: </b>
+                                                        <span class="text-muted">R$
+                                                <span class="text-muted total-fees"></span>
+                                            </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Total: R$
+                                                            <span class="total-cart badge badge-warning px-1 py-1" style="font-size: 100%"></span>
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="content-box p-lg-3 p-md-2 p-sm-2 d-none">
+                                                <div id="checkout-box_" class="d-flex flex-wrap">
+                                                    <div class="box-info flex-fill align-items-stretch text-left">
+                                                        <b>Faturas: </b>
+                                                        <span
+                                                            class="total-count px-1 py-1" style="font-size: 100%"></span>
+                                                    </div>
+                                                    <div class="box-info flex-fill align-items-stretch text-left">
+                                                        <b>Valor: </b>
+                                                        <span class="text-muted">R$
                                             <span class="text-muted total-sum"></span>
                                         </span>
-                                    </div>
-                                    <div class="box-info flex-fill align-items-stretch text-left">
-                                        <b>Juros + Multa: </b>
-                                        <span class="text-muted">R$
+                                                    </div>
+                                                    <div class="box-info flex-fill align-items-stretch text-left">
+                                                        <b>Juros + Multa: </b>
+                                                        <span class="text-muted">R$
                                             <span class="text-muted total-fees"></span>
                                         </span>
+                                                    </div>
+                                                    <div class="box-info flex-fill align-items-stretch text-left">
+                                                        <b>Total à pagar:
+                                                            R$
+                                                            <span
+                                                                class="total-cart badge badge-warning px-1 py-1" style="font-size: 100%"></span>
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="infoText" style="letter-spacing: 1px;">Formas de pagamento: Débito, Crédito, Pix e Picpay</span>
                                     </div>
-                                    <div class="box-info flex-fill align-items-stretch text-left">
-                                        <b>Total à pagar:
-                                            R$
-                                            <span
-                                                class="total-cart badge badge-warning px-1 py-1" style="font-size: 100%"></span>
-                                        </b>
+                                    <div class="col-lg-2 col-md-4 col-sm-12 order-lg-1 order-md-1 order-sm-1 px-2">
+                                        <div class="checkout-controls w-auto d-flex">
+                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block m-0">CANCELAR</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div style="display: none_" class="col-12 pl-0 pr-0 mb-2">
+                        <div style="display: none_" class="col-12 pl-0 pr-0 mt-2">
                             <div class="content-box">
-                                <div class="btn-group_ tns-controls d-none" role="group" aria-label="Basic example">
+                                <div class="tns-controls d-none" role="group" aria-label="Basic example">
                                     <div>
                                         <button type="button" data-controls="prev"
                                                  class="btn btn-primary btn-sm px-2 slider-button-prev" aria-controls="tns1">
@@ -76,21 +115,6 @@
                                 <div #swiperRef="" class="swiper billetsSwiper">
                                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                                     <div class="swiper-wrapper">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="buttonsCheckout" class="d-none col-12 ">
-                            <div class="content-box p-lg-3 p-md-2 p-sm-2">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-4 col-sm-12 order-lg-1 order-md-1 order-sm-1 px-2">
-                                        <div class="checkout-controls w-auto d-flex">
-                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block m-0">CANCELAR</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-10 col-md-8 col-sm-12 order-lg-0 order-md-0 order-sm-0 px-2">
-                                        <h4>Formas de pagamento: <br>Débito, Crédito, Pix e Picpay</h4>
-                                        <small>Selecione a fatura desejada e escolha a forma de pagamento.</small>
                                     </div>
                                 </div>
                             </div>
@@ -680,6 +704,12 @@
             gap: 5px;
         }
 
+        #infoCheckout .col {
+            text-align: left;
+            border-radius: .5rem;
+            /*background-color: coral !important;*/
+        }
+
         .letter-1 {
             letter-spacing: 1px;
         }
@@ -783,7 +813,7 @@
                 font-size: .6rem !important;
             }
 
-            #checkout-box {
+            #infoCheckout {
                 font-size: 80%;
                 font-weight: 400;
             }
@@ -803,9 +833,9 @@
                 line-height: 1.5;
             }
 
-            .info-plus {
-                display: none !important;
-            }
+            /*.info-plus {*/
+            /*    display: none !important;*/
+            /*}*/
 
             #timerPaymentQrCode {
                 position: relative !important;
@@ -880,6 +910,12 @@
             margin: 0 auto
         }
 
+        .infoText {
+            font-size: 90%;
+            font-weight: bold;
+            padding: 0;
+        }
+
         .clamped  {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -913,6 +949,10 @@
                 padding: 0;
             }
 
+            /*.info-plus {*/
+            /*    display: none !important;*/
+            /*}*/
+
         }
         @media (max-width: 575px) {
             .sideMenu{
@@ -925,8 +965,23 @@
                 padding: 0.5rem 1.25rem;
             }
 
-            .col-12 {
-                padding-bottom: 0 !important;
+            #infoCheckout {
+                padding: .2rem 1rem !important;
+            }
+
+            .infoText {
+                font-size: 80%;
+                font-weight: normal !important;
+            }
+
+            /*.info-plus {*/
+            /*    display: none !important;*/
+            /*}*/
+
+
+
+            .feesInfoBox {
+                display: none !important;
             }
 
             .card .card-body {
@@ -983,6 +1038,20 @@
                 width: 50%;
                 text-align: left;
                 padding: .2rem .4rem;
+            }
+
+            /*.info-plus {*/
+            /*    display: none !important;*/
+            /*}*/
+        }
+
+        @media screen and (max-height: 670px) {
+            .payment-info72 {
+                font-size: 65% !important;
+            }
+
+            .info-plus {
+                display: none !important;
             }
         }
 
@@ -1207,11 +1276,13 @@
             gap: 10px;
         }
 
-        #checkout-box .box-info {
-            background-color: rgba(0, 0, 0, 0.03) !important;
-            padding: .25rem .5rem;
+        #infoCheckout .box-info {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+            padding: .5rem;
             border-radius: .25rem;
         }
+
+        /*itemInfoChechout*/
 
         .delete-item {
             margin-top: 0 !important

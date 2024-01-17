@@ -916,13 +916,9 @@
     </style>
 @endsection
 
-@section('modal')
-
-@endsection
-
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script type="text/javascript" defer>inactivitySession();</script>
     <script>
         var navItems = document.querySelectorAll(".bottom-nav-item");
 

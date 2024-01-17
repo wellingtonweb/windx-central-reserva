@@ -88,7 +88,6 @@ class PagesController extends Controller
         }
     }
 
-
     public function connection()
     {
         if(session()->has('customer')){

@@ -31,6 +31,7 @@ class WorkingDays
 
     public static function hasFees($dueDate)
     {
+//        $pay = Carbon::parse("2024-01-15T00:00:00");
         $pay = Carbon::parse($dueDate);
         $today = Carbon::now()->startOfDay();
         $isHoliday = self::isHoliday($dueDate);
@@ -39,12 +40,16 @@ class WorkingDays
         {
             if (($pay->isSaturday() && $today->isSaturday() && $today <= $pay->addDays(2)) ||
                 $pay->isSunday() && $today <= $pay->addDay()) {
+//                return 1;
                 return true;
             }
         }
 
-        if (($isHoliday && $pay->isFriday()) || $today <= $pay->addDays(3))
+        //(Se é feriado e pagamento é sexta) ou (hoje menor ou igual a dt pagamento + 3 dias
+
+        if (($isHoliday && $pay->isFriday()) && $today <= $pay->addDays(3))
         {
+//            return 2;
             return true;
         }
 
@@ -52,12 +57,14 @@ class WorkingDays
         {
             if (($pay->isSaturday() && $today->isSaturday() && $today <= $pay->addDays(2)) ||
                 $pay->isSunday() && $today <= $pay->addDay()) {
+//                return 3;
                 return true;
             }
         }
 
         if($pay->isFriday() && $today <= $pay->addDays(3))
         {
+//            return 4;
             return true;
         }
 

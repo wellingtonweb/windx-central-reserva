@@ -2,7 +2,6 @@
 
 @section('content')
     <main>
-{{--        {{ dd(12.69 * 100) }}--}}
         <section>
             <div class="container-fluid container-payment">
                 <main role="main" class="inner fadeIn">
@@ -13,13 +12,22 @@
                                 <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
                             </ol>
                         </nav>
+                        <div class="header-app col-12 font-weight-bolder text-left text-white p-2" style="display: none">
+                            {{$header}}
+                        </div>
                         <div id="infoCheckout" class="d-none col-12 pl-0 pr-0 mb-2">
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+                                <div class="col p-2 bg-primary text-white">texto 1</div>
+                                <div class="col p-2 bg-primary text-white">texto 2</div>
+                                <div class="col p-2 bg-primary text-white">texto 3</div>
+                                <div class="col p-2 bg-primary text-white">texto 4</div>
+                            </div>
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
                                 <div id="checkout-box" class="d-flex flex-wrap">
                                     <div class="box-info flex-fill align-items-stretch text-left">
-                                        <b>Selecionadas: </b>
+                                        <b>Faturas: </b>
                                         <span
-                                            class="total-count badge badge-warning px-1 py-1" style="font-size: 100%"></span>
+                                            class="total-count px-1 py-1" style="font-size: 100%"></span>
                                     </div>
                                     <div class="box-info flex-fill align-items-stretch text-left">
                                         <b>Valor: </b>
@@ -91,7 +99,7 @@
                 </main>
             </div>
         </section>
-        <section >
+        <section class="teste d-none">
             <div>
                 <input type="hidden" name="authEnabled" class="bpmpi_auth" value="true" />
                 <input
@@ -400,8 +408,6 @@
                                              role="alert">
                                         </div>
                                     </div>
-
-
                                     <div class="col-12 mb-3 px-3 text-left">
                                         <label for="cc-nome">Nome no cartão</label>
                                         <input type="text" class="form-control text-uppercase" id="cc-nome"
@@ -417,9 +423,6 @@
 
                                     <div class="col-6 mb-3 px-3 text-left">
                                         <label for="expiration_month">Validade (Mês)</label>
-{{--                                        <input type="text" class="form-control" value="12"--}}
-{{--                                               id="expiration_month" name="expiration_month"--}}
-{{--                                               placeholder="Ex: 12">--}}
                                         <select id="expiration_month" name="expiration_month" class="form-control">
                                             <option value="" disabled>Ex: 12</option>
                                             <option value="01">01</option>
@@ -1226,7 +1229,7 @@
 @endsection
 
 @section('js')
-    <script src="https://mpisandbox.braspag.com.br/Scripts/BP.Mpi.3ds20.min.js" type="text/javascript"></script>
+{{--    <script src="https://mpisandbox.braspag.com.br/Scripts/BP.Mpi.3ds20.min.js" type="text/javascript"></script>--}}
     <script>
         var idCustomer = {{session('customer.id')}};
         var customerActive = @json(session('customer'));
@@ -1276,60 +1279,58 @@
                 `;
         // $('#form_checkout').prop( "disabled", true );
 
-        Swal.fire({
-            title: "Selecione uma ou mais faturas para pagamento!",
-            icon: "info"
-        });
-
         // Swal.fire({
-        //     title: `Selecione a forma <br>de depagamento`,
-        //     html: checkoutButtons,
-        //     confirmButtonColor: '#38c172',
-        //     denyButtonColor: '#6c757d',
-        //     showDenyButton: false,
-        //     showCancelButton: false,
-        //     showConfirmButton: false,
-        //     confirmButtonText: 'Sim',
-        //     cancelButtonText: `Não`,
-        //     allowOutsideClick: () => {
-        //         const popup = Swal.getPopup()
-        //         popup.classList.remove('swal2-show')
-        //         setTimeout(() => {
-        //             popup.classList.add('animate__animated', 'animate__headShake')
-        //         })
-        //         setTimeout(() => {
-        //             popup.classList.remove('animate__animated', 'animate__headShake')
-        //         }, 500)
-        //         return false
-        //     },
-        // })
+        //     title: "Selecione uma ou mais faturas para pagamento!",
+        //     icon: "info"
+        // });
 
-        function sendOrder() {
-            bpmpi_authenticate();
-        }
+        Swal.fire({
+            icon: "info",
+            title: `Selecione uma ou mais faturas para pagamento!`,
+            showDenyButton: false,
+            showCancelButton: false,
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: `Não`,
+            allowOutsideClick: () => {
+                const popup = Swal.getPopup()
+                popup.classList.remove('swal2-show')
+                setTimeout(() => {
+                    popup.classList.add('animate__animated', 'animate__headShake')
+                })
+                setTimeout(() => {
+                    popup.classList.remove('animate__animated', 'animate__headShake')
+                }, 500)
+                return false
+            },
+        })
 
-        var getAccessToken = async () => {
-            const settings = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": 'Basic '+ window.btoa('dba3a8db-fa54-40e0-8bab-7bfb9b6f2e2e:D/ilRsfoqHlSUChwAMnlyKdDNd7FMsM7cU/vo02REag=')
-                    // "Authorization": 'Basic '+ window.btoa('3d60f342-9728-47bd-9295-556a7e16e67f:CnsSGyo9IKUWiUw+v4Q1WcHwYdH2VGiyQYV2Jz0gs14=')
-                },
-                body: JSON.stringify({"EstablishmentCode":"1106093345","MerchantName": "PENHA DE SOUZA JAMARI","MCC": "4816"})
-            };
-            try {
-                const fetchResponse = await fetch(`https://mpisandbox.braspag.com.br/v2/auth/token`, settings);
-                // const fetchResponse = await fetch(`https://mpi.braspag.com.br/v2/auth/token`, settings);
-                const data = await fetchResponse.json();
-                console.log('Data: ',data);
-                // $('#form_checkout').prop( "disabled", false );
-                document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
-                return data.access_token;
-            } catch (e) {
-                return e;
-            }
-        }
+        // function sendOrder() {
+        //     bpmpi_authenticate();
+        // }
+        //
+        // var getAccessToken = async () => {
+        //     const settings = {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "Authorization": 'Basic '+ window.btoa('dba3a8db-fa54-40e0-8bab-7bfb9b6f2e2e:D/ilRsfoqHlSUChwAMnlyKdDNd7FMsM7cU/vo02REag=')
+        //             // "Authorization": 'Basic '+ window.btoa('3d60f342-9728-47bd-9295-556a7e16e67f:CnsSGyo9IKUWiUw+v4Q1WcHwYdH2VGiyQYV2Jz0gs14=')
+        //         },
+        //         body: JSON.stringify({"EstablishmentCode":"1106093345","MerchantName": "PENHA DE SOUZA JAMARI","MCC": "4816"})
+        //     };
+        //     try {
+        //         const fetchResponse = await fetch(`https://mpisandbox.braspag.com.br/v2/auth/token`, settings);
+        //         // const fetchResponse = await fetch(`https://mpi.braspag.com.br/v2/auth/token`, settings);
+        //         const data = await fetchResponse.json();
+        //         console.log('Data: ',data);
+        //         // $('#form_checkout').prop( "disabled", false );
+        //         document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
+        //         return data.access_token;
+        //     } catch (e) {
+        //         return e;
+        //     }
+        // }
 
         //bpmpi_cardnumber, bpmpi_cardexpirationmonth, bpmpi_cardexpirationyear, bpmpi_cardalias
 
@@ -1355,7 +1356,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script type="text/javascript" defer>
-        inactivitySession();
-    </script>
+{{--    <script type="text/javascript" defer>--}}
+{{--        inactivitySession();--}}
+{{--    </script>--}}
 @endsection

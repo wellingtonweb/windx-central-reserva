@@ -1,5 +1,3 @@
-// import('e-cart');
-
 /* E-Cart Control */
 var total = 0;
 var count = 0;
@@ -334,6 +332,7 @@ var swiper = new Swiper(".billetsSwiper", {
     initialized: true,
     freeMode: true,
     spaceBetween: 10,
+    grabCursor: true,
     pagination: {
         el: ".swiper-pagination",
         type: "fraction",

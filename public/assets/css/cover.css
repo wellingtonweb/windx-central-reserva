@@ -717,7 +717,7 @@ svg rect{
 .contents {
     border-radius: 0.5em;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.8) !important;
+    background: rgba(255, 255, 255, 0.3) !important;
     /*padding: 0.6rem !important;*/
     padding: 1rem;
 }
@@ -2524,7 +2524,7 @@ div.item-text{
     justify-content: space-between;
     margin-bottom: 1rem;
     vertical-align: top;
-    font-size: .9em;
+    font-size: .85em;
 }
 
 span.text-status{
@@ -2547,6 +2547,8 @@ span.text-address-menu {
 
 div.item-text h5{
     padding-right: .5rem;
+    font-size: 1.2em;
+    letter-spacing: 1px;
 }
 
 .bg-body-backdrop{
@@ -2568,6 +2570,7 @@ div.item-text h5{
     .side-bar .menu .item a {
         font-size: 14px;
         padding: 0px 30px;
+        line-height: 40px !important;
     }
 
 
@@ -2682,6 +2685,8 @@ div.item-text h5{
 
 @media (max-width: 575.98px) {
     /* modification menu mobile */
+
+
     .mastfoot {
         display: none !important;
     }
@@ -2749,6 +2754,11 @@ div.item-text h5{
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
+    /*div.item-text h5{*/
+    /*    padding-right: .5rem;*/
+    /*    font-size: .75em;*/
+    /*}*/
+
     .mastfoot {
         display: none !important;
     }

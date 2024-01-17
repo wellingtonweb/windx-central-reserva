@@ -141,7 +141,7 @@
     <div class="nav-mobile container">
         <nav class="bottom-nav">
             <div class="bottom-nav-item active">
-                <a href="{{ route('central.home') }}" class="click-loader close-menu
+                <a href="{{ route('central.home') }}" class="click-loader
                             {{ Route::currentRouteName() === 'central.home' ? 'active' : '' }}">
                     <div class="bottom-nav-link {{ Route::currentRouteName() === 'central.home' ? 'icon-active' : '' }}">
                         <i class="fa fa-home"></i>
@@ -150,7 +150,7 @@
                 </a>
             </div>
             <div class="bottom-nav-item">
-                <a href="{{ route('central.contract') }}" class="click-loader close-menu
+                <a href="{{ route('central.contract') }}" class="click-loader
                 {{ Route::currentRouteName() === 'central.contract' ? 'active' : '' }}">
                     <div class="bottom-nav-link {{ Route::currentRouteName() === 'central.contract' ? 'icon-active' : '' }}">
                         <i class="fas fa-file-alt"></i>
@@ -159,7 +159,7 @@
                 </a>
             </div>
             <div class="bottom-nav-item">
-                <a href="{{ route('central.payment') }}" class="click-loader close-menu
+                <a href="{{ route('central.payment') }}" class="click-loader
             {{ Route::currentRouteName() === 'central.payment' ? 'active' : '' }}">
                     <div class="bottom-nav-link {{ Route::currentRouteName() === 'central.payment' ? 'icon-active' : '' }}">
                         <i class="fas fa-dollar-sign"></i>
@@ -168,10 +168,13 @@
                 </a>
             </div>
             <div class="bottom-nav-item">
-                <div class="bottom-nav-link">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </div>
+                <a href="{{ env('WHATSAPP_SERVICE') }}"
+                   target="_blank">
+                    <div class="bottom-nav-link">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </div>
+                </a>
             </div>
             <div class="bottom-nav-item">
                 <a href="javascript:void(0)" class="close-menu" onclick="logout()">

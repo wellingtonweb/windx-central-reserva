@@ -244,7 +244,6 @@
 
             function bitsToMegabits(bits) {
                 return bits / 1000000;
-                // return bits / (8 * 1024 * 1024 * 1024);
             }
 
             function formatBytes(bytes) {
@@ -258,7 +257,6 @@
                 return Math.max(bytes, 0.1).toFixed(2);
             }
 
-
             function getDataGraphics(graphics)
             {
                 const labels = Object.keys(graphics[0]);
@@ -268,12 +266,7 @@
                     return dates.toLocaleDateString("pt-BR");
                 });
                 const downloads = labels.map(date => formatBytes(parseInt(graphics[0][date].download)));
-                // const downloads = labels.map(date => graphics[0][date].download);
-                // const downloads = labels.map(date => graphics[0][date].download);
                 const uploads = labels.map(date => formatBytes(parseInt(graphics[0][date].upload)));
-                // const uploads = labels.map(date => graphics[0][date].upload);
-                // const uploads = labels.map(date => graphics[0][date].upload);
-                // console.log(downloads, uploads)
 
                 myChart = new Chart(ctx, {
                     // type: 'line',

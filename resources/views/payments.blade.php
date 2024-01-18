@@ -15,7 +15,7 @@
                         {{$header}}
                     </div>
                     <div class="container-list-table col-12">
-                        <table class="table table-bordered table-striped display list-payments text-uppercase">
+                        <table class="table table-bordered table-striped_ display list-payments text-uppercase">
                         </table>
                     </div>
                 </div>
@@ -71,6 +71,10 @@
             .header-page {
                 display: none !important;
             }
+
+            .dataTables_wrapper {
+                font-size: 85% !important;
+            }
         }
 
         @media (max-width: 991.98px) {
@@ -78,13 +82,57 @@
                 max-width: 80% !important;
             }
         }
+
+        .container-list-table {
+            background: white;
+            padding: 10px;
+            border-radius: .5rem;
+            color: #002646;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details {
+            width: 100% !important;
+        }
+
+
+        table.dataTable > tbody > tr.child ul.dtr-details > li {
+            display: flex !important;
+            justify-content: space-between !important;
+        }
+
+
+
+        table.dataTable > tbody > tr.child span.dtr-title {
+            font-weight: bold;
+            color: #002646;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details > li .dtr-data{
+            color: #002646;
+            letter-spacing: .7px;
+        }
+
+        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control::before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control::before
+        {
+            font-family: "Font Awesome 5 Free" !important;
+            content:"\f0fe" !important;/*content:"\f35a"*/
+            margin-right: .5em;
+            display: inline-block;
+            color: blue;
+        }
+
+        table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control::before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control::before {
+            font-family: "Font Awesome 5 Free" !important;
+            content:"\f146" !important;/*content:"\f35b"*/
+            font-size: 13px;
+        }
     </style>
 @endsection
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script>
@@ -93,7 +141,7 @@
                 var billet = '';
                 var table = $('.list-payments').DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
-                    pagingType: 'full_numbers',
+                    pagingType: 'simple',
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('central.coupons') }}",

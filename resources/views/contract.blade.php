@@ -4,7 +4,7 @@
     <main>
         <section>
             <div class="container-fluid mt-lg-3 mt-md-0">
-                <div class="row mt-4 contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
+                <div class="row mt-4_ contents inner animate__animated animate__fadeInUpBig animate__delay-1s">
                     <nav id="infoCustomerActive" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>

@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="{{ url(mix('assets/css/modules/login.css')) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css') }}">
+    <style>
+        .full-screen-splash {
+            overflow: hidden !important;
+        }
+    </style>
 </head>
 
 <body class="body" style="background: #020f26 url(/assets/img/bg001.jpg) no-repeat center center fixed; background-size: cover;">

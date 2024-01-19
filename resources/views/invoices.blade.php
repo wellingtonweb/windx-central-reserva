@@ -27,58 +27,7 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
-    <style>
-        #infoCustomerActive {
-            border-top-right-radius: .5rem;
-            border-top-left-radius: .5rem;
-        }
-
-        #infoCustomerActive p {
-            font-size: 80%;
-            margin: 0 auto
-        }
-
-        .bottom, .top {
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-        }
-
-        table.dataTable.dtr-inline.collapsed > tbody > tr > td {
-            padding: 1rem 0 !important;
-        }
-
-        table.dataTable.dtr-inline.collapsed > tbody > tr > td.child,
-        table.dataTable.dtr-inline.collapsed > tbody > tr > th.child,
-        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty {
-            text-align: left !important;
-            padding: 1rem !important;
-        }
-
-        div.dataTables_processing {
-            background-color: rgba(255, 255, 255, 0.6);
-            padding: 2rem !important;
-            border-radius: .4rem;
-            font-weight: bold;
-            top: 35% !important;
-        }
-
-        .dataTables_wrapper {
-            min-height: 200px !important;
-        }
-
-        @media (max-width: 575.98px) {
-            .header-page {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 991.98px) {
-            .sideMenu {
-                max-width: 80% !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/invoices.css') }}">
 @endsection
 
 @section('js')

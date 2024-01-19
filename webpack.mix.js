@@ -24,6 +24,16 @@ mix
     .styles('resources/views/assets/css/cover.css','public/assets/css/cover.css')
     .styles('resources/views/assets/css/loader.css','public/assets/css/loader.css')
 
+    /* Styles CSS - Custom Pages */
+    .styles('resources/views/assets/css/pages/home.css','public/assets/css/pages/home.css')
+    .styles('resources/views/assets/css/pages/contract.css','public/assets/css/pages/contract.css')
+    .styles('resources/views/assets/css/pages/payment.css','public/assets/css/pages/payment.css')
+    .styles('resources/views/assets/css/pages/payments.css','public/assets/css/pages/payments.css')
+    .styles('resources/views/assets/css/pages/support.css','public/assets/css/pages/support.css')
+    .styles('resources/views/assets/css/pages/invoices.css','public/assets/css/pages/invoices.css')
+    .styles('resources/views/assets/css/pages/graphics.css','public/assets/css/pages/graphics.css')
+    .styles('resources/views/assets/css/pages/connection.css','public/assets/css/pages/connection.css')
+
     // .styles(
     //     [
     //

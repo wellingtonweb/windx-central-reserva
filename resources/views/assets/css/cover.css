@@ -1061,27 +1061,16 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.child {
 
 .btn {
     text-decoration: none;
-    /*border: none;*/
-    /*padding: 12px 40px;*/
-    /*padding: 10px 20px;*/
     padding: .5rem 1.5rem;
     font-size: 13px;
-    /*font-size: 16px;*/
-    /*box-shadow: 7px 6px 18px 1px rgba(0, 0, 0, 0.2);*/
     cursor: pointer;
     outline: none;
     transition: 0.2s all;
-
-
-    /*padding: 14px 20px;*/
-    /*font-size: 14px;*/
     font-weight: 600 !important;
-    /*color: #ffffff;*/
     box-shadow: 0px 10px 20px -10px #1376c5;
     border-radius: 50px;
     text-transform: uppercase;
     letter-spacing: 2px !important;
-    /*margin: 10px;*/
 }
 
 .btn:active {
@@ -1089,32 +1078,18 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.child {
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
+.btn-copy {
+    display: flex !important;
+    flex-direction: column;
+}
+
 .bg-success-windx {
     background-color: var(--bg-success-windx);
 }
 
-/*.btn-print-billet {*/
-/*    display: block;*/
-/*}*/
-/*.btn-print-billet-mobile {*/
-/*    display: none;*/
-/*}*/
-
-
 .coupons-list.table tr td{
     border-top: 1px solid rgba(0, 32, 70, 0.1) !important;
 }
-
-/*@media (max-width: 1250px) {*/
-/*    .btn-print-billet {*/
-/*        display: none;*/
-/*    }*/
-/*    .btn-print-billet-mobile {*/
-/*        display: block;*/
-/*    }*/
-/*}*/
-
-/*@media (min-width: 992px) { ... }*/
 
 .captcha span i {
     position: relative;
@@ -1158,11 +1133,6 @@ table.dataTable.dtr-inline.collapsed > tbody > tr > td.child {
     font-size: 18px;
     padding-left: 0;
 }
-
-/*.btn-load {*/
-/*    !*background-color: #2a608c;*!*/
-/*    font-size: 18px;*/
-/*}*/
 
 .container-all {
     min-width: 360px;
@@ -1223,6 +1193,10 @@ table.dataTable > tbody > tr > td {
 
     .swal2-html-container {
         font-size: 1.1em !important;
+    }
+
+    .resume {
+        font-size: 13px !important;
     }
 }
 

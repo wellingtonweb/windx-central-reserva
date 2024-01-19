@@ -15,7 +15,7 @@
                         {{$header}}
                     </div>
                     <div class="container-list-table col-12">
-                        <table class="table table-bordered table-striped display list-payments text-uppercase">
+                        <table class="table list-payments text-uppercase">
                         </table>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                     } )
                     .DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
-                    pagingType: 'full_numbers',
+                    pagingType: 'simple',
                     processing: true,
                     serverSide: true,
                     ajax: {

@@ -15,7 +15,7 @@
                         {{$header}}
                     </div>
                     <div class="container-list-table col-12">
-                        <table class="table table-bordered table-striped_ display list-payments text-uppercase">
+                        <table class="table table-bordered_ table-striped_ display_ list-payments text-uppercase">
                         </table>
                     </div>
                 </div>
@@ -72,9 +72,7 @@
                 display: none !important;
             }
 
-            .dataTables_wrapper {
-                font-size: 85% !important;
-            }
+
         }
 
         @media (max-width: 991.98px) {
@@ -83,49 +81,7 @@
             }
         }
 
-        .container-list-table {
-            background: white;
-            padding: 10px;
-            border-radius: .5rem;
-            color: #002646;
-        }
 
-        table.dataTable > tbody > tr.child ul.dtr-details {
-            width: 100% !important;
-        }
-
-
-        table.dataTable > tbody > tr.child ul.dtr-details > li {
-            display: flex !important;
-            justify-content: space-between !important;
-        }
-
-
-
-        table.dataTable > tbody > tr.child span.dtr-title {
-            font-weight: bold;
-            color: #002646;
-        }
-
-        table.dataTable > tbody > tr.child ul.dtr-details > li .dtr-data{
-            color: #002646;
-            letter-spacing: .7px;
-        }
-
-        table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control::before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control::before
-        {
-            font-family: "Font Awesome 5 Free" !important;
-            content:"\f0fe" !important;/*content:"\f35a"*/
-            margin-right: .5em;
-            display: inline-block;
-            color: blue;
-        }
-
-        table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control::before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control::before {
-            font-family: "Font Awesome 5 Free" !important;
-            content:"\f146" !important;/*content:"\f35b"*/
-            font-size: 13px;
-        }
     </style>
 @endsection
 

@@ -20,7 +20,7 @@
                         {{$header}}
                     </div>
                     <div class="container-list-table col-12">
-                        <table id="list-calls" class="table table-bordered table-striped display list-calls text-uppercase">
+                        <table id="list-calls" class="table list-calls text-uppercase">
                         </table>
                     </div>
                 </div>
@@ -149,10 +149,9 @@
         #btnNewCall {
             font-size: 90%;
             position: absolute;
-            top: 1.2rem;
+            top: .65rem;
             right: 1.2rem;
             z-index: 99;
-
         }
 
         .bottom, .top {
@@ -193,6 +192,11 @@
                 display: block !important;
                 padding: 0.25rem 0 !important;
             }
+
+            .modal-title {
+                font-size: 13px;
+                font-weight: bold;
+            }
         }
 
         @media (max-width: 991.98px) {
@@ -216,7 +220,7 @@
                 var billet = '';
                 var table = $('.list-calls').DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
-                    pagingType: 'full_numbers',
+                    pagingType: 'simple',
                     processing: true,
                     serverSide: true,
                     ajax: "{{ route('central.support.list') }}",

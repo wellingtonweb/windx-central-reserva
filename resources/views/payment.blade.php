@@ -93,26 +93,31 @@
                                         <div id="infoCheckout" class="content-box d-none col-12 mb-2">
                                             <div id="checkout-box_" >
                                                 <div class="d-flex justify-content-between align-items-center">
-                                                        <div
-                                                            style="display: flex;
-                                                    position: relative;
-
-    flex-direction: column;
-    align-items: center;
-    text-align: center;"
-
-                                                        >
-                                                            <svg xmlns="http://www.w3.org/2000/svg" height="28" width="30" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-                                                            <span style="position: absolute; font-size: 90%; padding-top: 2px" class="total-count text-white font-weight-bold"></span>
-                                                        </div>
-                                                        <div class="checkout-controls pl-2">
-                                                            <h4 class="font-weight-bold">Total: R$
-                                                                <span class="total-cart" style="font-size: 100%"></span>
-                                                            </h4>
-                                                        </div>
                                                     <div class="d-flex pl-2">
-                                                        <i class="fas fa-trash text-danger fa-2x clear-cart" style="cursor: pointer"></i>
+                                                        <i id="trashIcon" class="fas fa-trash-alt text-danger fa-2x clear-cart" style="cursor: pointer"></i>
+{{--                                                        <i class="fas fa-trash text-danger fa-2x clear-cart" style="cursor: pointer"></i>--}}
                                                     </div>
+                                                    <div class="checkout-controls pl-2">
+                                                        <h4 class="font-weight-bold">Total: R$
+                                                            <span  class="total-cart" style="font-size: 100%"></span>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="d-flex justify-content-center align-items-center" style="position: relative">
+                                                        <i class="fas fa-shopping-bag" style="font-size: 2.2em"></i>
+                                                        <span style="position: absolute; font-size: 90%; padding-top: 10px" class="total-count text-white font-weight-bold"></span>
+                                                    </div>
+{{--                                                    <div--}}
+{{--                                                        style="display: flex;--}}
+{{--                                                    position: relative;--}}
+
+{{--    flex-direction: column;--}}
+{{--    align-items: center;--}}
+{{--    text-align: center;"--}}
+
+{{--                                                    >--}}
+{{--                                                        <svg xmlns="http://www.w3.org/2000/svg" height="28" width="30" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>--}}
+{{--                                                        <span style="position: absolute; font-size: 90%; padding-top: 2px" class="total-count text-white font-weight-bold"></span>--}}
+{{--                                                    </div>--}}
                                                 </div>
                                             </div>
                                             <div class="content-box p-lg-3 p-md-2 p-sm-2 d-none">
@@ -595,46 +600,7 @@
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";
         var checkoutForm = $('#form_checkout')[0];
-        var checkoutButtons = `
-                <div id="v-pills-tab" class="checkout-controls mt-4 px-3">
-                    <div class="mt-3">
-                        <button class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-debit"
-                                onclick="getPaymentType(this)" type="button">
-                            <span class="pl-3">DÉBITO</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
-                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-3">
-                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-credit" type="button">
-                            <span class="pl-3">CRÉDITO</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
-                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-3">
-                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-pix"
-                            data-toggle="pill" data-target="#v-pills-qrcode" type="button"
-                            role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
-                            <span class="pl-3">PIX</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
-                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-3">
-                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-picpay"
-                                data-toggle="pill" data-target="#v-pills-qrcode" type="button"
-                                role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
-                            <span class="pl-3">PICPAY</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
-                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-                            </svg>
-                        </button>
-                    </div>
-                `;
+        // var checkoutButtons =
         // $('#form_checkout').prop( "disabled", true );
 
         // Swal.fire({
@@ -645,6 +611,16 @@
         Swal.fire({
             icon: "info",
             title: `Selecione uma ou mais faturas para pagamento!`,
+            html: `<div class="p-2 d-flex justify-content-center align-items-center">
+                            <div class="container-screen">
+                                <div>Fatura 4</div>
+                                <div>Fatura 5</div>
+                                <div>Fatura 1</div>
+                                <div>Fatura 2</div>
+                                <div>Fatura 3</div>
+                                <i class="fas fa-hand-pointer fa-2x hand-icon"></i>
+                            </div>
+                        </div>`,
             showDenyButton: false,
             showCancelButton: false,
             showConfirmButton: true,

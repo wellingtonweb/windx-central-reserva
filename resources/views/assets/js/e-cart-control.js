@@ -26,6 +26,7 @@ function addToCartBtn(data){
         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
         addPaintItem(btnId)
         displayCart();
+        nextStepCheckout();
     }
     else if(installment > 1)
     {
@@ -86,6 +87,7 @@ function addToCartBtn(data){
                         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
+                        nextStepCheckout();
                     }
                     // else {
                     //     clearAllSections();
@@ -107,11 +109,14 @@ function addToCartBtn(data){
                     billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                     addPaintItem(btnId)
                     displayCart();
+                    nextStepCheckout();
                 }
             })
         }
     }
+}
 
+function nextStepCheckout(){
     Swal.fire({
         icon: "question",
         title: 'Deseja prosseguir com o pagamento ou adicionar outra fatura?',
@@ -137,7 +142,46 @@ function addToCartBtn(data){
         if (result.isConfirmed) {
             Swal.fire({
                 title: `Selecione a forma <br>de pagamento`,
-                html: checkoutButtons,
+                html: `
+                <div id="v-pills-tab" class="checkout-controls mt-4 px-3">
+                    <div class="mt-3">
+                        <button class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-debit"
+                                onclick="getPaymentType(this)" type="button">
+                            <span class="pl-3">DÉBITO</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
+                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-credit" type="button">
+                            <span class="pl-3">CRÉDITO</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
+                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-pix"
+                            data-toggle="pill" data-target="#v-pills-qrcode" type="button"
+                            role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
+                            <span class="pl-3">PIX</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
+                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-picpay"
+                                data-toggle="pill" data-target="#v-pills-qrcode" type="button"
+                                role="tab" aria-controls="v-pills-qrcode" aria-selected="false">
+                            <span class="pl-3">PICPAY</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
+                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                            </svg>
+                        </button>
+                    </div>
+                `,
                 confirmButtonColor: '#38c172',
                 denyButtonColor: '#c82333',
                 showDenyButton: true,
@@ -282,15 +326,17 @@ function displayCart() {
     $('.total-sum').html(totalSum.toFixed(2).replace(".",","));
 
     if (count != 0) {
-        $('.checkout-controls button').each(function(){
+        $('.checkout-controls button,i').each(function(){
             $(this).prop("disabled", false);
             $('#methodTitle').removeClass('text-muted').addClass('text-dark')
         });
+        $('#trashIcon').removeClass('fa-trash').addClass('fa-trash-alt');
     } else {
-        $('.checkout-controls button').each(function(){
+        $('.checkout-controls button,i').each(function(){
             $(this).prop("disabled", true);
             $('#methodTitle').removeClass('text-dark').addClass('text-muted')
         });
+        $('#trashIcon').removeClass('fa-trash-alt').addClass('fa-trash');
     }
 }
 

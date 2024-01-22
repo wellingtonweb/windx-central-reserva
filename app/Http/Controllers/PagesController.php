@@ -158,7 +158,7 @@ class PagesController extends Controller
                 })
                 ->addColumn('download', function($data){
                     return '<a target="_blank" id="print-billet-'. $data['Id'] .'" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
-                        '" class="billet-link btn-print-billet text-primary px-3">Baixar 2ª via<i class="fas fa-download pl-1"></i></a>';
+                        '" class="billet-link btn-print-billet text-primary px-3"><i class="fas fa-download pr-1"></i>Baixar 2ª via</a>';
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .

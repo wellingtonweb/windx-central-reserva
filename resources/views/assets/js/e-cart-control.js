@@ -2,6 +2,15 @@
 var total = 0;
 var count = 0;
 var checkBillet = false;
+var isAgreement = false;
+
+isAgreement = JSON.parse(sessionStorage.getItem('isAgreement'));
+
+if (isAgreement){
+    alert('Tem acordo')
+}else{
+    alert('Sem acordo')
+}
 
 // Add item to cart
 function addToCartBtn(data){
@@ -36,11 +45,10 @@ function addToCartBtn(data){
             if(installmentValue >= minInstallmentValue)
             {
                 $('input[name="installment"]').val(installment)
-
                 Swal.fire({
                     icon: "info",
                     title: 'Pagamento de acordo!',
-                    html: 'Deseja pagar o acordo em '+ installment +' vezes no cartão de crédito?',
+                    html: '<small>Este pagamento permitirá apenas uma fatura, com valor único e parcelado conforme a determinação da empresa.</small> <br><br>Deseja pagar o acordo em <b>'+ installment +'</b> vezes no <b>cartão de crédito</b>?',
                     confirmButtonColor: '#38c172',
                     denyButtonColor: '#6c757d',
                     showDenyButton: false,
@@ -60,13 +68,14 @@ function addToCartBtn(data){
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        sessionStorage.setItem('isAgreement', JSON.stringify(true));
                         $('input#installment').val(installment);
                         clearAllSections();
                         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
-                        $('button#btn-credit').click();
+                        getPaymentType($('button#btn-credit'))
                     }else{
                         deleteItemCart(btnId, reference)
                         Swal.close();
@@ -74,6 +83,8 @@ function addToCartBtn(data){
                 })
             }else{
                 $('#select-billet-'+btnId).html('Pagar')
+                sessionStorage.setItem('isAgreement', JSON.stringify(false));
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Acordo não autorizado!',
@@ -95,6 +106,7 @@ function addToCartBtn(data){
                 })
             }
         }else{
+            sessionStorage.setItem('isAgreement', JSON.stringify(false));
             $('#select-billet-'+btnId).html('Pagar')
             Swal.fire({
                 icon: 'error',
@@ -144,15 +156,6 @@ function nextStepCheckout(){
                 title: `Selecione a forma <br>de pagamento`,
                 html: `
                 <div id="v-pills-tab" class="checkout-controls mt-4 px-3">
-                    <div class="mt-3">
-                        <button class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-debit"
-                                onclick="getPaymentType(this)" type="button">
-                            <span class="pl-3">DÉBITO</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
-                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-                            </svg>
-                        </button>
-                    </div>
                     <div class="mt-3">
                         <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-credit" type="button">
                             <span class="pl-3">CRÉDITO</span>
@@ -316,7 +319,6 @@ function displayCart() {
     count = billetsCart.totalCount();
     var fees = billetsCart.totalFees();
     var totalSum = billetsCart.totalSum();
-
 
     $('.total-cart').html(total.toFixed(2).replace(".",","));
     $('input.bpmpi_totalamount').val(Math.round(total.toFixed(2) * 100));

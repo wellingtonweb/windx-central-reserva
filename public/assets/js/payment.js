@@ -29,7 +29,6 @@ var billetsCart = (function() {
         return formatPtBr.format(data);
     }
 
-
     // Save cart
     function saveCart() {
         sessionStorage.setItem('billetsCart', JSON.stringify(cart));
@@ -51,9 +50,10 @@ var billetsCart = (function() {
 
     // Add to cart
     obj.addItemToCart = function(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
-        var duedateFormat = formatDueDate(duedate)
-        var item = new Item(billet_id, reference, duedateFormat, value, addition, discount, price, count, company_id);
+        // var duedateFormat = formatDueDate(duedate)
+        var item = new Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id);
         cart.push(item);
+        console.log(cart)
         saveCart();
     }
 
@@ -125,6 +125,15 @@ var billetsCart = (function() {
 var total = 0;
 var count = 0;
 var checkBillet = false;
+var isAgreement = false;
+
+isAgreement = JSON.parse(sessionStorage.getItem('isAgreement'));
+
+if (isAgreement){
+    alert('Tem acordo')
+}else{
+    alert('Sem acordo')
+}
 
 // Add item to cart
 function addToCartBtn(data){
@@ -159,11 +168,10 @@ function addToCartBtn(data){
             if(installmentValue >= minInstallmentValue)
             {
                 $('input[name="installment"]').val(installment)
-
                 Swal.fire({
                     icon: "info",
                     title: 'Pagamento de acordo!',
-                    html: 'Deseja pagar o acordo em '+ installment +' vezes no cartão de crédito?',
+                    html: '<small>Este pagamento permitirá apenas uma fatura, com valor único e parcelado conforme a determinação da empresa.</small> <br><br>Deseja pagar o acordo em <b>'+ installment +'</b> vezes no <b>cartão de crédito</b>?',
                     confirmButtonColor: '#38c172',
                     denyButtonColor: '#6c757d',
                     showDenyButton: false,
@@ -183,13 +191,14 @@ function addToCartBtn(data){
                     },
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        sessionStorage.setItem('isAgreement', JSON.stringify(true));
                         $('input#installment').val(installment);
                         clearAllSections();
                         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
                         displayCart();
                         Swal.close();
-                        $('button#btn-credit').click();
+                        getPaymentType($('button#btn-credit'))
                     }else{
                         deleteItemCart(btnId, reference)
                         Swal.close();
@@ -197,6 +206,8 @@ function addToCartBtn(data){
                 })
             }else{
                 $('#select-billet-'+btnId).html('Pagar')
+                sessionStorage.setItem('isAgreement', JSON.stringify(false));
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Acordo não autorizado!',
@@ -218,6 +229,7 @@ function addToCartBtn(data){
                 })
             }
         }else{
+            sessionStorage.setItem('isAgreement', JSON.stringify(false));
             $('#select-billet-'+btnId).html('Pagar')
             Swal.fire({
                 icon: 'error',
@@ -267,15 +279,6 @@ function nextStepCheckout(){
                 title: `Selecione a forma <br>de pagamento`,
                 html: `
                 <div id="v-pills-tab" class="checkout-controls mt-4 px-3">
-                    <div class="mt-3">
-                        <button class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-debit"
-                                onclick="getPaymentType(this)" type="button">
-                            <span class="pl-3">DÉBITO</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
-                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
-                            </svg>
-                        </button>
-                    </div>
                     <div class="mt-3">
                         <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-credit" type="button">
                             <span class="pl-3">CRÉDITO</span>
@@ -439,7 +442,6 @@ function displayCart() {
     count = billetsCart.totalCount();
     var fees = billetsCart.totalFees();
     var totalSum = billetsCart.totalSum();
-
 
     $('.total-cart').html(total.toFixed(2).replace(".",","));
     $('input.bpmpi_totalamount').val(Math.round(total.toFixed(2) * 100));
@@ -784,6 +786,8 @@ function sendPayment(payment){
             })
         },
         success: function(response, textStatus, xhr) {
+            console.log(response, textStatus, xhr.status)
+
             if(xhr.status === 200 || xhr.status === 201){
                 localStorage.setItem('transactionId', response.id)
                 transactionId = localStorage.getItem("transactionId");
@@ -809,10 +813,36 @@ function sendPayment(payment){
         },
         error: function(data) {
             if(data.status === 422){
-                displayMessageError('Erro nos dados de pagamento!');
+
+                console.log('Error')
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Erro nos dados de pagamento!',
+                //     timer: 15000,
+                //     timerProgressBar: false,
+                //     confirmButtonText: 'Ok',
+                //     showDenyButton: false,
+                //     didOpen: () => {
+                //         Swal.hideLoading()
+                //         clearInterval(callback)
+                //         clearAllSections()
+                //     },
+                // })
             }
             if(!data.responseJSON){
-                displayMessageError('Verifique os dados informados!');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Preencha campos corretamente!',
+                    timer: 15000,
+                    timerProgressBar: false,
+                    confirmButtonText: 'Ok',
+                    showDenyButton: false,
+                    didOpen: () => {
+                        Swal.hideLoading()
+                        clearInterval(callback)
+                        clearAllSections()
+                    },
+                })
             }else{
                 if(data.responseJSON.error) {
                     notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
@@ -820,7 +850,19 @@ function sendPayment(payment){
                     $.each(data.responseJSON.errors, function (key, value) {
                         if(!$('input[name='+key+']').is( ":hidden" )){
                             $('small.'+key+'_error').text(value[0]);
-                            displayMessageError('Verifique os dados informados!');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Preencha campos corretamente!',
+                                timer: 15000,
+                                timerProgressBar: false,
+                                confirmButtonText: 'Ok',
+                                showDenyButton: false,
+                                didOpen: () => {
+                                    Swal.hideLoading()
+                                    clearInterval(callback)
+                                    clearAllSections()
+                                },
+                            })
                             $('input[name='+key+']').addClass('is-invalid');
                         }
                     });
@@ -832,13 +874,14 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(payment){
+
     let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 
     Swal.fire({
         title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'pix' ? 'PIX' : 'PICPAY')}`,
         html: `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
-                <div class="box-price-qrcode-card pb-1">
+                <div class="box-price-qrcode-card">
                     <h4 class="text-danger pt-2 font-weight-bold">Valor total: <span>${amount}</span></h4>
                     <p>Faturas selecionadas: <span class="font-weight-bold total-count"></span></p>
                 </div>
@@ -862,15 +905,15 @@ function setQrcode(payment){
                     <div class="py-1">
                         <a href="javascript:void(0)"
                         id="btnPixCopyCode"
-                        class="mt-2 animate__animated text-primary d-none"
+                        class="mt-2_ animate__animated text-primary d-none"
                         onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
-                        Copiar código do PIX
+                       <i class="fas fa-copy pr-1"></i>Copiar código do PIX
                         </a>
                     </div>
                     <div class="py-1">
                         <a href="${payment.paymentUrl}" target="_blank"
                         id="btnPicpayLink"
-                        class="mt-2 animate__animated text-primary ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
+                        class="mt-2_ animate__animated text-primary ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
                         Quero pagar com link de pagamento!
                         </a>
                     </div>
@@ -938,25 +981,29 @@ function msgStatusTransaction(status){
     if(status){
         switch (status){
             case 'approved':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 15000)
                 return true;
                 break;
             case 'expired':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Tempo expirado!','error', 5000)
                 return false;
                 break;
             case 'refused':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento recusado!','error', 5000)
                 return false;
                 break;
             case 'canceled':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento cancelado!','error', 5000)
                 return false;
@@ -987,8 +1034,10 @@ function runCallBack()
 
 transactionId = localStorage.getItem("transactionId");
 
-if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit')) {
+if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit' || paymentType != undefined )) {
     waitingPayment()
+}else{
+    clearAllSections()
 }
 
 function waitingPayment(){
@@ -1160,6 +1209,7 @@ function countdown() {
         $("#v-pills-qrcode").fadeOut(1000)
         $('#methodTitle').text('').fadeOut(1000)
         $('#modalCard').modal('hide')
+        msgStatusTransaction('expired')
         tempo = 120;
     }
 }

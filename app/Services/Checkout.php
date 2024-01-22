@@ -43,9 +43,8 @@ class Checkout
                 ],
                 'payment_type' => $valid["payment_type"],
                 'installment' => $valid["installment"],
-                'customer_origin' => json_encode([
-                    'origin' => 'central'
-                ])
+
+                'customer_origin' => json_encode([['origin' => 'ecommerce']])
 //                'payment_type' => $valid["payment_type"],
             ];
         }else{
@@ -62,9 +61,7 @@ class Checkout
                 'payment_type' => $valid["payment_type"],
                 'method' => $valid["method"],
                 'installment' => $valid["installment"],
-                'customer_origin' => json_encode([
-                    'origin' => 'central'
-                ])
+                'customer_origin' => json_encode([['origin' => 'ecommerce']])
             ];
         }
 
@@ -89,9 +86,8 @@ class Checkout
             'method' => $valid["payment_type"],
             'installment' => $valid["installment"],
 //            'company_id' => session('customer.company_id'),
-            'customer_origin' => json_encode([
-                'origin' => 'central'
-            ])
+            'customer_origin' => json_encode([['origin' => 'ecommerce']])
+//            'customer_origin' => json_encode(['origin' => 'ecommerce'])
         ];
 
         return $body;

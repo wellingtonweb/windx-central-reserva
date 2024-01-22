@@ -126,6 +126,8 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
+//            dd(json_encode([['origin' => 'ecommerce']]));
+
             return view('payment', ['header' => 'Pagamento (Checkout)']);
         } else {
             throw new CheckUserException();
@@ -158,7 +160,7 @@ class PagesController extends Controller
                 })
                 ->addColumn('download', function($data){
                     return '<a target="_blank" id="print-billet-'. $data['Id'] .'" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
-                        '" class="billet-link btn-print-billet text-primary px-3"><i class="fas fa-download pr-1"></i>Baixar 2ª via</a>';
+                        '" class="billet-link btn-print-billet text-primary px-3"><i class="fas fa-download pr-1"></i>Baixar segunda via</a>';
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .

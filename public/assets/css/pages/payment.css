@@ -78,6 +78,7 @@ div:where(.swal2-container) h2:where(.swal2-title) {
 .box-price-qrcode-card {
     background-color: whitesmoke;
     border-radius: .3rem;
+    padding-bottom: .2rem;
 }
 
 .box-price-qrcode-card p {
@@ -326,6 +327,10 @@ div:where(.swal2-container) h2:where(.swal2-title) {
         font-size: 1.15em !important;
     }
 
+    /*.box-price-qrcode-card {*/
+    /*    padding: .2rem !important;*/
+    /*}*/
+
 }
 
 .content-box {
@@ -461,7 +466,9 @@ div:where(.swal2-container) h2:where(.swal2-title) {
     /*    display: none !important;*/
     /*}*/
 
-
+    .payment-info72 {
+        font-size: 65% !important;
+    }
 
     .feesInfoBox {
         display: none !important;
@@ -478,6 +485,20 @@ div:where(.swal2-container) h2:where(.swal2-title) {
     .billet-link i {
         font-size: 1rem !important;
     }
+
+    .modal-body label {
+        font-size: 13px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .modal-body p {
+        margin-bottom: 0 !important;
+    }
+
+    .container-screen {
+        width: 110px !important;
+    }
+
 }
 
 @media (max-width: 1100px) {
@@ -800,7 +821,7 @@ div:where(.swal2-container) h2:where(.swal2-title) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 110px;
+    width: 350px;
     height: 180px;
     border-radius: 7px;
     border: 3px solid rgba(0, 32, 70, 0.6);

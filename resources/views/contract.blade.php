@@ -180,27 +180,6 @@
                 $('#collapsePersonalData, #collapseAddress, #collapseAccountData').addClass('show')
             }
 
-            // Swal.fire({
-            //     icon: "info",
-            //     title: `Selecione uma ou mais faturas para pagamento!`,
-            //     html: `<div></div>`,
-            //     showDenyButton: false,
-            //     showCancelButton: false,
-            //     showConfirmButton: true,
-            //     confirmButtonText: 'OK',
-            //     cancelButtonText: `Não`,
-            //     allowOutsideClick: () => {
-            //         const popup = Swal.getPopup()
-            //         popup.classList.remove('swal2-show')
-            //         setTimeout(() => {
-            //             popup.classList.add('animate__animated', 'animate__headShake')
-            //         })
-            //         setTimeout(() => {
-            //             popup.classList.remove('animate__animated', 'animate__headShake')
-            //         }, 500)
-            //         return false
-            //     },
-            // })
         });
     </script>
 

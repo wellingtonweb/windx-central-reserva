@@ -157,6 +157,8 @@ function sendPayment(payment){
             })
         },
         success: function(response, textStatus, xhr) {
+            console.log(response, textStatus, xhr.status)
+
             if(xhr.status === 200 || xhr.status === 201){
                 localStorage.setItem('transactionId', response.id)
                 transactionId = localStorage.getItem("transactionId");
@@ -182,10 +184,36 @@ function sendPayment(payment){
         },
         error: function(data) {
             if(data.status === 422){
-                displayMessageError('Erro nos dados de pagamento!');
+
+                console.log('Error')
+                // Swal.fire({
+                //     icon: 'error',
+                //     title: 'Erro nos dados de pagamento!',
+                //     timer: 15000,
+                //     timerProgressBar: false,
+                //     confirmButtonText: 'Ok',
+                //     showDenyButton: false,
+                //     didOpen: () => {
+                //         Swal.hideLoading()
+                //         clearInterval(callback)
+                //         clearAllSections()
+                //     },
+                // })
             }
             if(!data.responseJSON){
-                displayMessageError('Verifique os dados informados!');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Preencha campos corretamente!',
+                    timer: 15000,
+                    timerProgressBar: false,
+                    confirmButtonText: 'Ok',
+                    showDenyButton: false,
+                    didOpen: () => {
+                        Swal.hideLoading()
+                        clearInterval(callback)
+                        clearAllSections()
+                    },
+                })
             }else{
                 if(data.responseJSON.error) {
                     notifySystem(data.status, data.responseJSON.status, data.responseJSON.error);
@@ -193,7 +221,19 @@ function sendPayment(payment){
                     $.each(data.responseJSON.errors, function (key, value) {
                         if(!$('input[name='+key+']').is( ":hidden" )){
                             $('small.'+key+'_error').text(value[0]);
-                            displayMessageError('Verifique os dados informados!');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Preencha campos corretamente!',
+                                timer: 15000,
+                                timerProgressBar: false,
+                                confirmButtonText: 'Ok',
+                                showDenyButton: false,
+                                didOpen: () => {
+                                    Swal.hideLoading()
+                                    clearInterval(callback)
+                                    clearAllSections()
+                                },
+                            })
                             $('input[name='+key+']').addClass('is-invalid');
                         }
                     });
@@ -205,13 +245,14 @@ function sendPayment(payment){
 
 /* Display qrcode for payment */
 function setQrcode(payment){
+
     let amount = (payment.amount).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 
     Swal.fire({
         title: `Pagamento nº ${payment.id} com ${(payment.payment_type == 'pix' ? 'PIX' : 'PICPAY')}`,
         html: `
             <div id="modal-qrcode" class="bg-white text-center justify-content-center">
-                <div class="box-price-qrcode-card pb-1">
+                <div class="box-price-qrcode-card">
                     <h4 class="text-danger pt-2 font-weight-bold">Valor total: <span>${amount}</span></h4>
                     <p>Faturas selecionadas: <span class="font-weight-bold total-count"></span></p>
                 </div>
@@ -235,15 +276,15 @@ function setQrcode(payment){
                     <div class="py-1">
                         <a href="javascript:void(0)"
                         id="btnPixCopyCode"
-                        class="mt-2 animate__animated text-primary d-none"
+                        class="mt-2_ animate__animated text-primary d-none"
                         onclick="pixCopyPaste(this)" data-code="${payment.copyPaste}">
-                        Copiar código do PIX
+                       <i class="fas fa-copy pr-1"></i>Copiar código do PIX
                         </a>
                     </div>
                     <div class="py-1">
                         <a href="${payment.paymentUrl}" target="_blank"
                         id="btnPicpayLink"
-                        class="mt-2 animate__animated text-primary ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
+                        class="mt-2_ animate__animated text-primary ${(payment.payment_type == 'pix' ? 'd-none' : '')}">
                         Quero pagar com link de pagamento!
                         </a>
                     </div>
@@ -311,25 +352,29 @@ function msgStatusTransaction(status){
     if(status){
         switch (status){
             case 'approved':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento confirmado com sucesso!','success', 15000)
                 return true;
                 break;
             case 'expired':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Tempo expirado!','error', 5000)
                 return false;
                 break;
             case 'refused':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento recusado!','error', 5000)
                 return false;
                 break;
             case 'canceled':
-                clearInterval(callback)
+                // clearInterval(callback)
+                clearAllSections()
                 refreshSliderCards()
                 displayMessageStatusTransaction('Pagamento cancelado!','error', 5000)
                 return false;
@@ -360,8 +405,10 @@ function runCallBack()
 
 transactionId = localStorage.getItem("transactionId");
 
-if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit')) {
+if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit' || paymentType != undefined )) {
     waitingPayment()
+}else{
+    clearAllSections()
 }
 
 function waitingPayment(){
@@ -533,6 +580,7 @@ function countdown() {
         $("#v-pills-qrcode").fadeOut(1000)
         $('#methodTitle').text('').fadeOut(1000)
         $('#modalCard').modal('hide')
+        msgStatusTransaction('expired')
         tempo = 120;
     }
 }

@@ -468,7 +468,7 @@
                 <div class="modal-body pb-4 pr-4 pl-4 pt-0">
                     <div id="modalCard" class="bg-white text-center justify-content-center">
 
-                        <div class="box-price-qrcode-card pb-1">
+                        <div class="box-price-qrcode-card">
                             <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold total-cart"></span></h4>
                             <p> Faturas selecionadas: <b class="total-count"></b></p>
                         </div>

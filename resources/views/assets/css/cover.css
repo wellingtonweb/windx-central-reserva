@@ -492,7 +492,6 @@ header {
 
 .modal-body label {
     color: rgba(0, 32, 70, 0.9);
-    /*font-size: 17px !important;*/
 }
 
 .modal-body p {
@@ -508,7 +507,7 @@ header {
 .progress-bar {
     background-color: rgba(0, 32, 70, 0.9) !important;
     color: #e8e8e8;
-    color: #e9ecef;;
+    /*color: #e9ecef;*/
 }
 
 .content-pay label {
@@ -1188,7 +1187,7 @@ table.dataTable > tbody > tr > td {
     }
 
     .swal2-title {
-        font-size: 1.5em !important;
+        font-size: 1.1em !important;
     }
 
     .swal2-html-container {
@@ -1197,6 +1196,22 @@ table.dataTable > tbody > tr > td {
 
     .resume {
         font-size: 13px !important;
+    }
+
+    .box-price-qrcode-card h4{
+        font-size: 1rem !important;
+    }
+
+    #modal-qrcode small{
+        font-size: 70% !important;
+    }
+
+    #btnPixCopyCode{
+        font-size: 80% !important;
+    }
+
+    div:where(.swal2-container) div:where(.swal2-actions) {
+         margin: 0 !important;
     }
 }
 

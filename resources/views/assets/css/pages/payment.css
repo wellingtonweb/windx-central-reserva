@@ -112,7 +112,7 @@ div:where(.swal2-container) h2:where(.swal2-title) {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #fbfafa;
+    background-color: #ffffff !important;
     background-clip: padding-box;
     border: none !important;
     border-radius: 0.3rem;

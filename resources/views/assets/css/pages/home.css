@@ -89,31 +89,48 @@
     .service_box p {
         display: none;
     }
+
+
     .service_box {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
         vertical-align: middle;
-        height: 80px;
+        height: 60px !important;
         min-height: auto;
         margin: 6px 0;
+        padding: 0 20px !important;
     }
+
+    /*.service_box .service_icon {*/
+    /*    width: 50px;*/
+    /*    height: 50px;*/
+    /*    margin: 0;*/
+    /*    font-size: 25px;*/
+    /*    background: #fff;*/
+    /*    line-height: 51px;*/
+    /*    border-radius: 50px;*/
+    /*    transform: translateY(0);*/
+    /*    transition: all 0.3s ease 0s;*/
+    /*}*/
+
     .service_box .service_icon {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         margin: 0;
-        font-size: 25px;
+        font-size: 20px !important;
         background: #fff;
-        line-height: 51px;
+        line-height: 41px;
         border-radius: 50px;
         transform: translateY(0);
         transition: all 0.3s ease 0s;
     }
+
     .service_box h3 {
         top: 0;
         padding-left: 1rem;
-        font-size: 20px;
+        font-size: 16px !important;
     }
 
     .service_box:hover h3 {

@@ -17,40 +17,46 @@
                         </div>
                         <div id="buttonsCheckout" class=" col-12 ">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">
-{{--                                <div class="d-none row">--}}
-{{--                                    <div class="col-lg-10 col-md-8 col-sm-12 order-lg-0 order-md-0 order-sm-0 px-2">--}}
-{{--                                        <div id="infoCheckout" class="content-box d-none col-12 mb-2">--}}
-{{--                                            <div id="checkout-box_" class="row row-cols-2 row-cols-sm-2 row-cols-md-4">--}}
-{{--                                                <div class="col p-1">--}}
-{{--                                                    <div class="box-info">--}}
-{{--                                                        <b>Faturas: </b>--}}
-{{--                                                        <span class="total-count px-1 py-1" style="font-size: 100%"></span>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col p-1">--}}
-{{--                                                    <div class="box-info">--}}
-{{--                                                        <b>Valor: </b>--}}
-{{--                                                        <span class="text-muted">R$--}}
-{{--                                        <span class="text-muted total-sum"></span>--}}
-{{--                                    </span>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col p-1">--}}
-{{--                                                    <div class="box-info">--}}
-{{--                                                        <b>Juros<span class="feesInfoBox"> + Multa</span>: </b>--}}
-{{--                                                        <span class="text-muted">R$--}}
-{{--                                                <span class="text-muted total-fees"></span>--}}
-{{--                                            </span>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col p-1">--}}
-{{--                                                    <div class="box-info">--}}
-{{--                                                        <b>Total: R$--}}
-{{--                                                            <span class="total-cart badge badge-warning px-1 py-1" style="font-size: 100%"></span>--}}
-{{--                                                        </b>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                <div class="d-none_ row">
+                                    <div class="col order-lg-0 order-md-0 order-sm-0 px-2">
+                                        <div id="infoCheckout" class="content-box d-none col-12 mb-2">
+                                            <div id="checkout-box_" class="row row-cols-2 row-cols-sm-2 row-cols-md-5">
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Faturas: </b>
+                                                        <span class="total-count px-1 py-1" style="font-size: 100%"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Valor: </b>
+                                                        <span class="text-muted pl-1">R$
+                                        <span class="text-muted total-sum"></span>
+                                    </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Juros<span class="feesInfoBox"> + Multa</span>: </b>
+                                                        <span class="text-muted pl-1">R$
+                                                <span class="text-muted total-fees"></span>
+                                            </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="box-info">
+                                                        <b>Total: R$
+                                                            <span class="total-cart px-1 py-1" style="font-size: 100%"></span>
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col p-1">
+                                                    <div class="checkout-controls">
+                                                        <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block">
+                                                            <i class="fas fa-trash pr-1"></i>CANCELAR</button>
+                                                    </div>
+                                                </div>
+                                            </div>
 {{--                                            <div class="content-box p-lg-3 p-md-2 p-sm-2 d-none">--}}
 {{--                                                <div id="checkout-box_" class="d-flex flex-wrap">--}}
 {{--                                                    <div class="box-info flex-fill align-items-stretch text-left">--}}
@@ -79,15 +85,16 @@
 {{--                                                    </div>--}}
 {{--                                                </div>--}}
 {{--                                            </div>--}}
-{{--                                        </div>--}}
+                                        </div>
 {{--                                        <span class="infoText" style="letter-spacing: 1px;">Formas de pagamento: Débito, Crédito, Pix e Picpay</span>--}}
-{{--                                    </div>--}}
+                                    </div>
 {{--                                    <div class="col-lg-2 col-md-4 col-sm-12 order-lg-1 order-md-1 order-sm-1 px-2">--}}
 {{--                                        <div class="checkout-controls w-auto d-flex">--}}
-{{--                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block m-0">CANCELAR</button>--}}
+{{--                                            <button type="button" id="clear-cart" class="clear-cart btn btn-danger btn-block" style="margin-top: 1.6rem !important;">--}}
+{{--                                                <i class="fas fa-trash pr-1"></i>CANCELAR</button>--}}
 {{--                                        </div>--}}
 {{--                                    </div>--}}
-{{--                                </div>--}}
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-10 col-md-8 col-sm-12 order-lg-0 order-md-0 order-sm-0 px-2">
                                         <div id="infoCheckout" class="content-box d-none col-12 mb-2">

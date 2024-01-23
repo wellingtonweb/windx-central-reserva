@@ -1213,6 +1213,11 @@ table.dataTable > tbody > tr > td {
     div:where(.swal2-container) div:where(.swal2-actions) {
          margin: 0 !important;
     }
+
+    .btn, a.btn {
+        font-size: 13px !important;
+        padding: .3rem 1rem !important;
+    }
 }
 
 /* Medium devices (tablets, 768px and up)*/

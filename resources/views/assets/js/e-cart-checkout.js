@@ -157,8 +157,6 @@ function sendPayment(payment){
             })
         },
         success: function(response, textStatus, xhr) {
-            console.log(response, textStatus, xhr.status)
-
             if(xhr.status === 200 || xhr.status === 201){
                 localStorage.setItem('transactionId', response.id)
                 transactionId = localStorage.getItem("transactionId");
@@ -183,23 +181,6 @@ function sendPayment(payment){
             }
         },
         error: function(data) {
-            if(data.status === 422){
-
-                console.log('Error')
-                // Swal.fire({
-                //     icon: 'error',
-                //     title: 'Erro nos dados de pagamento!',
-                //     timer: 15000,
-                //     timerProgressBar: false,
-                //     confirmButtonText: 'Ok',
-                //     showDenyButton: false,
-                //     didOpen: () => {
-                //         Swal.hideLoading()
-                //         clearInterval(callback)
-                //         clearAllSections()
-                //     },
-                // })
-            }
             if(!data.responseJSON){
                 Swal.fire({
                     icon: 'error',

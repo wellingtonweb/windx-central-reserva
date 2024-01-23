@@ -87,7 +87,6 @@ class Checkout
             'installment' => $valid["installment"],
 //            'company_id' => session('customer.company_id'),
             'customer_origin' => json_encode([['origin' => 'ecommerce']])
-//            'customer_origin' => json_encode(['origin' => 'ecommerce'])
         ];
 
         return $body;

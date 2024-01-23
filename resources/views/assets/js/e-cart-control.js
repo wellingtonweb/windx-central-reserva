@@ -4,14 +4,6 @@ var count = 0;
 var checkBillet = false;
 var isAgreement = false;
 
-isAgreement = JSON.parse(sessionStorage.getItem('isAgreement'));
-
-if (isAgreement){
-    alert('Tem acordo')
-}else{
-    alert('Sem acordo')
-}
-
 // Add item to cart
 function addToCartBtn(data){
     var billet = JSON.parse(data);

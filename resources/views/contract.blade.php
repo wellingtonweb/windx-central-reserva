@@ -112,7 +112,7 @@
                                             </li>
                                             <li class="contract list-group-item d-flex justify-content-between align-items-center">
                                                 Status:
-                                                @switch($customer['status'])
+                                                @switch(session('customer.status'))
                                                     @case('B')
                                                     <span class="badge badge-pill badge-danger">BLOQUEADO</span>
                                                     @break
@@ -140,14 +140,11 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/css/pages/contract.css') }}">
-    <style>
-
-    </style>
 @endsection
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
+    <script type="text/javascript" defer>inactivitySession();</script>
     <script>
         $(document).ready(function() {
             var isHidden = true;

@@ -113,7 +113,7 @@
                                 </a>
                             </div>
                             @endif
-                            @if(session()->has('customer') && session('customer.status') === 'B')
+                            @if(session()->has('customer') && session('customer.status') === 'B' && \App\Services\Validations::isRelease(session('customer.dt_trust')))
                                 <div id="btn-release-sidebar" class="item btnReleaseItem">
                                     <a href="javascript:void(0)" id="{{session('customer.id')}}" class="btnRelease click-loader close-menu" onclick="releaseCustomer(this.id)">
                                         <i class="fas fa-unlock-alt"></i>

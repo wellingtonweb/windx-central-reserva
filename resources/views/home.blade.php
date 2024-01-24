@@ -13,6 +13,7 @@
                         </h5>
                     </div>
                 </div>
+
                 <div class="container">
                     <div class="row mt-3 mb-5">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
@@ -99,8 +100,8 @@
 
                         </div>
                         @endif
+                        @if(session('customer.status') === 'B' && \App\Services\Validations::isRelease(session('customer.dt_trust')))
                         <div class="col-lg-3 col-md-6 col-sm-6">
-                            @if(session('customer.status') === 'B')
                             <a href="#" id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)">
                                 <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
@@ -111,8 +112,8 @@
                                         regularizar os débitos.</p>
                                 </div>
                             </a>
-                            @endif
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -738,7 +739,7 @@
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script>
         var navItems = document.querySelectorAll(".bottom-nav-item");
 

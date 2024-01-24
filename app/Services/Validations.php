@@ -86,4 +86,15 @@ class Validations
         return false;
     }
 
+    public function isRelease(String $date)
+    {
+        $result = (Carbon::today())->diffInDays(Carbon::parse($date));
+
+        if($result > 23){
+            return true;
+        }
+
+        return false;
+    }
+
 }

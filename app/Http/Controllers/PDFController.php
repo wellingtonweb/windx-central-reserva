@@ -68,7 +68,7 @@ class PDFController extends Controller
 
             $payment = (new API())->getPayment($id);
 
-            if($payment->data->transaction == null && $payment->data->status != 'approved'){
+            if($payment->data->status != 'approved'){
                 return redirect()
                     ->route('central.contract', ['customerId' => $payment->data->customer])
                     ->with('error','O pagamento Nº '.$id.' não foi aprovado!');

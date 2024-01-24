@@ -233,11 +233,15 @@ function getCheckBillet(id){
 
 // Clear items of cart
 $('.clear-cart').click(function() {
-    clearAllSections();
-    $('#v-pills-tab').removeClass('d-none')
-    $('#v-pills-tabContent').addClass('d-none')
-    swiper.slideTo(0);
-    notify('Todas as faturas foram removidas!')
+    if(cart.length != 0){
+        clearAllSections();
+        $('#v-pills-tab').removeClass('d-none')
+        $('#v-pills-tabContent').addClass('d-none')
+        swiper.slideTo(0);
+        notify('Todas as faturas foram removidas!')
+    }else{
+        notify('Nenhuma fatura foi selecionada!')
+    }
 });
 
 // Clear all sections

@@ -19,7 +19,7 @@ $('#form_login').submit(async function (e){
 
     let formData = $(this).serializeArray()
     let url = "/logon";
-    $('#btn-login').fadeIn().html("Validando<i class='fas fa-spinner fa-pulse pl-2'></i>")
+    $('#btn-login').fadeIn().html("<span class='pr-2'>Validando <i class='fas fa-spinner fa-pulse'></i></span>")
 
     try {
         let response = await fetch(url, {
@@ -107,7 +107,7 @@ $('#form_login').submit(async function (e){
             $('#footer').addClass('animate__animated animate__fadeOutDown');
             $(this)[0].reset();
             $('#btn-login').text('Entrar')
-            $('.form-signin').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
+            $('#main').removeClass('animate__fadeInUp').addClass('animate__fadeOutUpBig')
             $('.loader').removeClass('d-none');
             location.href = `/home`;
         }

@@ -59,6 +59,9 @@
     </section>
 </main>
 @endsection
+<script>
+    alert('Verificar ')
+</script>
 
 @section('js')
     @if ($errors->has('document'))

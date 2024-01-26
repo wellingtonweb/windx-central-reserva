@@ -34,6 +34,7 @@ use App\Rules\CheckLoginForgotPassword;
 use App\Rules\CheckFormatLogin;
 use App\Rules\CheckTokenPasswordReset;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 
 class AuthController extends Controller
 {
@@ -60,22 +61,19 @@ class AuthController extends Controller
         else
         {
 
-            $imagePath = 'http://127.0.0.1:8000/assets/img/bg001.jpg';
-//
-//            if (Cache::has('bg')){
-//                $this_bg = Cache::get('bg');
-//            }
-//            else{
-////                $this_bg = file_get_contents($imagePath);
-////                Cache::put('bg', $this_bg, now()->addHours(24));
-//                Cache::store('database')->put('bg', $imagePath, 600); // 10 Minutes
-//            }
 
-            session()->put('bg',  $imagePath);
 
-            return view('auth.login',[
-                'bg_url_cache' => session('bg')
-            ]);
+            $file_path = storage_path();
+            $files = File::files("$file_path\app\backup");
+
+            foreach ($files as $file) {
+                $created_at = File::lastModified($file);
+                if (time() - $created_at > 172800) {
+                    File::delete($file);
+                }
+            }
+
+            return view('auth.login');
         }
     }
 

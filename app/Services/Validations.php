@@ -90,6 +90,8 @@ class Validations
     {
         $result = (Carbon::today())->diffInDays(Carbon::parse($date));
 
+//        dd($result);
+
         if($result > 23){
             return true;
         }

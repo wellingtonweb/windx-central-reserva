@@ -1,1 +1,73 @@
-.loader{position:absolute;width:80vw;height:60px;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important}.loader h2{color:#fff!important;font-size:1.6rem;font-weight:400;letter-spacing:.1em}.loader h2 span{animation:loading-pulse .9s ease-in infinite}.loader h2 span:first-child{animation-delay:0s}.loader h2 span:nth-child(2){animation-delay:.1s}.loader h2 span:nth-child(3){animation-delay:.2s}.loader h2 span:nth-child(4){animation-delay:.3s}.loader h2 span:nth-child(5){animation-delay:.4s}.loader h2 span:nth-child(6){animation-delay:.5s}.loader h2 span:nth-child(7){animation-delay:.6s}.loader h2 span:nth-child(8){animation-delay:.7s}.loader h2 span:nth-child(9){animation-delay:.8s}.loader h2 span:nth-child(10){animation-delay:.9s}@keyframes loading-pulse{0%{text-shadow:0 0 1px #00b3ff,0 0 2px #00b3ff,0 0 5px #00b3ff,0 0 6px #00b3ff,0 0 7px #00b3ff,0 0 10px #00b3ff}100%{text-shadow:0 0 10px #00b3ff,0 0 10px #00b3ff,0 0 20px #00b3ff,0 0 40px #00b3ff,0 0 80px #00b3ff,0 0 120px #00b3ff}}
+/*
+* Loader CSS - Windx Telecomunicações
+*/
+
+.loader {
+    position: absolute;
+    width: 80vw;
+    height: 60px;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.loader h2 {
+    color: #fff !important;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: .1em;
+}
+
+.loader h2 span {
+    animation: loading-pulse .9s ease-in infinite;
+}
+
+.loader h2 span:nth-child(1) {
+    animation-delay: 0s;
+}
+.loader h2 span:nth-child(2) {
+    animation-delay: .1s;
+}
+.loader h2 span:nth-child(3) {
+    animation-delay: .2s;
+}
+.loader h2 span:nth-child(4) {
+    animation-delay: .3s;
+}
+.loader h2 span:nth-child(5) {
+    animation-delay: .4s;
+}
+.loader h2 span:nth-child(6) {
+    animation-delay: .5s;
+}
+.loader h2 span:nth-child(7) {
+    animation-delay: .6s;
+}
+.loader h2 span:nth-child(8) {
+    animation-delay: .7s;
+}
+.loader h2 span:nth-child(9) {
+    animation-delay: .8s;
+}
+.loader h2 span:nth-child(10) {
+    animation-delay: .9s;
+}
+
+@keyframes loading-pulse {
+    0% {
+        text-shadow: 0 0 1px #00b3ff,
+        0 0 2px #00b3ff,
+        0 0 5px #00b3ff,
+        0 0 6px #00b3ff,
+        0 0 7px #00b3ff,
+        0 0 10px #00b3ff;
+    }
+    100%{
+        text-shadow: 0 0 10px #00b3ff,
+        0 0 10px #00b3ff,
+        0 0 20px #00b3ff,
+        0 0 40px #00b3ff,
+        0 0 80px #00b3ff,
+        0 0 120px #00b3ff;
+    }
+}

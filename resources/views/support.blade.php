@@ -13,13 +13,16 @@
                             </ol>
                         </nav>
                     </div>
-                    <a href="#" id="btnNewCall" class="badge badge-pill badge-primary px-3 py-2"
-                       data-toggle="modal" data-target="#new-call-modal">
-                        <i class="fa fa-plus pr-1"></i>Novo atendimento</a>
-                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
-                        {{$header}}
+                    <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                        <a href="javascript:history.back();">
+                            <i class="fas fa-arrow-left pr-3"></i>
+                        </a>
+                        <span>{{$header}}</span>
+                        <a href="#" data-toggle="modal" data-target="#new-call-modal">
+                            <small><i class="fa fa-plus pr-1"></i>Novo</small>
+                        </a>
                     </div>
-                    <div class="container-list-table col-12">
+                    <div class="container-list-table col-12 pt-1">
                         <table id="list-calls" class="table list-calls text-uppercase">
                         </table>
                     </div>
@@ -122,7 +125,7 @@
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

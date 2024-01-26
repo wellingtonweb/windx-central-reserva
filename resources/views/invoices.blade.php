@@ -11,8 +11,10 @@
                             <li class="breadcrumb-item active" aria-current="page">Notas fiscais</li>
                         </ol>
                     </nav>
-                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
-                        {{$header}}
+                    <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                        <a href="javascript:history.back();"><i class="fas fa-arrow-left pr-3"></i></a>
+                        <span>{{$header}}</span>
+                        <span class="px-3"></span>
                     </div>
                     <div class="container-list-table col-12">
                         <table class="table list-payments text-uppercase">

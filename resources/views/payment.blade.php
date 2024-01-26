@@ -12,8 +12,10 @@
                                 <li class="breadcrumb-item active" aria-current="page">Pagamento</li>
                             </ol>
                         </nav>
-                        <div class="header-app col-12 font-weight-bolder text-left p-2" style="display: none">
-                            {{$header}}
+                        <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                            <a href="javascript:history.back();"><i class="fas fa-arrow-left pr-3"></i></a>
+                            <span>{{$header}}</span>
+                            <span class="px-3"></span>
                         </div>
                         <div id="buttonsCheckout" class=" col-12 ">
                             <div class="content-box p-lg-3 p-md-2 p-sm-2">

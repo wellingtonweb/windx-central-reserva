@@ -14,6 +14,8 @@
                     </div>
                 </div>
 
+{{--                {{dd(\App\Services\Validations::isRelease(session('customer.dt_trust')))}}--}}
+
                 <div class="container">
                     <div class="row mt-3 mb-5">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
@@ -87,7 +89,6 @@
                         </div>
                         @if(session()->has('customer') && session('customer.status') === 'W')
                         <div class="col-lg-3 col-md-6 col-sm-6">
-
                             <a href="{{route('central.connection')}}">
                                 <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">
@@ -97,11 +98,10 @@
                                     <p>Acompanhe o status de sua conexão e o consumo de internet em tempo real.</p>
                                 </div>
                             </a>
-
                         </div>
                         @endif
                         @if(session('customer.status') === 'B' && \App\Services\Validations::isRelease(session('customer.dt_trust')))
-                        <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div id="btn-release-home" class="col-lg-3 col-md-6 col-sm-6">
                             <a href="#" id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)">
                                 <div class="service_box animate__animated animate__fadeIn">
                                     <div class="service_icon">

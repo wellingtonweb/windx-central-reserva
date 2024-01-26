@@ -11,8 +11,10 @@
                             <li class="breadcrumb-item active" aria-current="page">Comprovantes</li>
                         </ol>
                     </nav>
-                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
-                        {{$header}}
+                    <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                        <a href="javascript:history.back();"><i class="fas fa-arrow-left pr-3"></i></a>
+                        <span>{{$header}}</span>
+                        <span class="px-3"></span>
                     </div>
                     <div class="container-list-table col-12">
                         <table class="table table-bordered_ table-striped_ display_ list-payments text-uppercase">

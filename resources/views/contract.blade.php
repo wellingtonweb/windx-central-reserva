@@ -11,12 +11,14 @@
                             <li class="breadcrumb-item active" aria-current="page">Contrato</li>
                         </ol>
                     </nav>
-                    <div class="header-app col-12 font-weight-bolder text-left" style="display: none">
-                        {{$header}}
+                    <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                        <a href="javascript:history.back();"><i class="fas fa-arrow-left pr-3"></i></a>
+                        <span>{{$header}}</span>
+                        <span class="px-3"></span>
                     </div>
                     <div class="contract-info col-12">
                         <div id="accordion" class="row row-cols-1 row-cols-md-3 accordion">
-                            <div  class="col mt-3 pl-0 pr-0">
+                            <div  class="col pl-0 pr-0">
                                 <div class="card h-100 ">
                                     <div class="card-body">
                                         <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapsePersonalData" aria-expanded="true" aria-controls="collapseOne">
@@ -144,7 +146,7 @@
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script type="text/javascript" defer>inactivitySession();</script>
+{{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script>
         $(document).ready(function() {
             var isHidden = true;

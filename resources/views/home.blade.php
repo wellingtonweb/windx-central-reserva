@@ -6,21 +6,19 @@
             <div class="container">
                 <div class="row mt-4">
                     <div class="col-12">
-                        <h5 class="d-flex justify-content-start pl-3 animate__animated animate__zoomIn animate__delay-1s"
+                        <h5 class="pl-1 animate__animated animate__zoomIn animate__delay-1s"
                             style="color: whitesmoke">
                             Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}
-                            <span class="pl-1" style="letter-spacing: 1px">{{ explode(' ', session('customer.full_name'))[0] }}</span>!
+                            <span class="pl-1 " style="letter-spacing: 1px">{{ explode(' ', session('customer.full_name'))[0] }}</span>!
                         </h5>
+                        <small class="animate__animated animate__zoomIn animate__delay-1s">Escolha a opção desejada</small>
                     </div>
                 </div>
-
-{{--                {{dd(\App\Services\Validations::isRelease(session('customer.dt_trust')))}}--}}
-
                 <div class="container">
                     <div class="row mt-3 mb-5">
                         <div class="col-lg-3 col-md-6 col-sm-6 ">
                             <a href="{{route('central.contract')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-file-alt"></i>
                                     </div>
@@ -31,7 +29,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.payment')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-dollar-sign"></i>
                                     </div>
@@ -42,7 +40,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.payments')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-file-download"></i>
                                     </div>
@@ -54,7 +52,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.invoices')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-file-invoice"></i>
                                     </div>
@@ -65,7 +63,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.support')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-life-ring"></i>
                                     </div>
@@ -77,7 +75,7 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.traffic.average')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-chart-bar"></i>
                                     </div>
@@ -90,7 +88,7 @@
                         @if(session()->has('customer') && session('customer.status') === 'W')
                         <div class="col-lg-3 col-md-6 col-sm-6">
                             <a href="{{route('central.connection')}}">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-network-wired"></i>
                                     </div>
@@ -103,7 +101,7 @@
                         @if(session('customer.status') === 'B' && \App\Services\Validations::isRelease(session('customer.dt_trust')))
                         <div id="btn-release-home" class="col-lg-3 col-md-6 col-sm-6">
                             <a href="#" id="{{session('customer.id')}}" onclick="releaseCustomer(this.id)">
-                                <div class="service_box animate__animated animate__fadeIn">
+                                <div class="service_box animate__animated animate__fadeIn animate__delay-2s">
                                     <div class="service_icon">
                                         <i class="fas fa-unlock-alt"></i>
                                     </div>

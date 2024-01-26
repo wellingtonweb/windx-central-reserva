@@ -2780,6 +2780,11 @@ div.item-text h5{
     text-shadow: 0 0 2px rgba(202, 228, 225, 0.92), 0 0 10px rgba(202, 228, 225, 0.34), 0 0 4px rgba(30, 132, 242, 0.52), 0 0 7px rgba(30, 132, 242, 0.92), 0 0 11px rgba(30, 132, 242, 0.78), 0 0 16px rgba(30, 132, 242, 0.92);
 }
 
+.header-app a:active,
+.header-app a:visited {
+    color: white !important;
+}
+
 @media (max-width: 575.98px) {
     /* modification menu mobile */
 

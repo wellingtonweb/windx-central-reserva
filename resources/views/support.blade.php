@@ -267,7 +267,7 @@
             $('.form-group').each(function() {
                 $('input, textarea').removeClass('is-invalid').text('');
                 if($('small').hasClass('text-danger')){
-                    $('small').text('')
+                    $('small.text-danger').text('')
                 };
             });
         })

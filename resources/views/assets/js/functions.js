@@ -146,8 +146,6 @@ function getCookie(chave){
     return "";
 }
 
-
-
 function notify(message){
     Swal.fire({
         position: 'top',

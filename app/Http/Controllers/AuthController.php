@@ -18,6 +18,7 @@ use App\Services\Validations;
 use Faker\Factory;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -37,11 +38,14 @@ use Carbon\Carbon;
 class AuthController extends Controller
 {
 
+    public $bg;
+
     public function __construct()
     {
         $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
 
         $hourBackup = Validations::checkHourBackupVigo($array);
+
 
 //        if ($hourBackup) return abort(423);
     }
@@ -50,11 +54,28 @@ class AuthController extends Controller
     {
         if(session()->has('customer'))
         {
+
             return redirect()->route('central.home');
         }
         else
         {
-            return view('auth.login');
+
+            $imagePath = 'http://127.0.0.1:8000/assets/img/bg001.jpg';
+//
+//            if (Cache::has('bg')){
+//                $this_bg = Cache::get('bg');
+//            }
+//            else{
+////                $this_bg = file_get_contents($imagePath);
+////                Cache::put('bg', $this_bg, now()->addHours(24));
+//                Cache::store('database')->put('bg', $imagePath, 600); // 10 Minutes
+//            }
+
+            session()->put('bg',  $imagePath);
+
+            return view('auth.login',[
+                'bg_url_cache' => session('bg')
+            ]);
         }
     }
 

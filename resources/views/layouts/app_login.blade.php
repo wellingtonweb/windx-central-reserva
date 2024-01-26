@@ -21,6 +21,7 @@
     </style>
 </head>
 
+
 <body class="body" style="background: #020f26 url(/assets/img/bg001.jpg) no-repeat center center fixed; background-size: cover;">
 <div class="bg-body-backdrop"></div>
 <div class="full-screen-backdrop"></div>
@@ -56,7 +57,6 @@
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.mask.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/bootstrap.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/swal2.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/intro.js') }}"></script>

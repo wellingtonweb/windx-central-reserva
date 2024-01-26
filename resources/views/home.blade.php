@@ -11,7 +11,7 @@
                             Seja bem vind{{ (session('customer.gender') === 'Masculino') ? 'o' : 'a' }}
                             <span class="pl-1 " style="letter-spacing: 1px">{{ explode(' ', session('customer.full_name'))[0] }}</span>!
                         </h5>
-                        <small class="animate__animated animate__zoomIn animate__delay-1s">Escolha a opção desejada</small>
+                        <small class="animate__animated animate__zoomIn animate__delay-3s">Escolha a opção desejada</small>
                     </div>
                 </div>
                 <div class="container">

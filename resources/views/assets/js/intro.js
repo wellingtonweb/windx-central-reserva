@@ -19,7 +19,7 @@ $('#form_login').submit(async function (e){
 
     let formData = $(this).serializeArray()
     let url = "/logon";
-    $('#btn-login').fadeIn().html("Validando<i class='fas fa-spinner fa-pulse'></i>")
+    $('#btn-login').fadeIn().html("Validando<i class='fas fa-spinner fa-pulse pl-2'></i>")
 
     try {
         let response = await fetch(url, {
@@ -69,8 +69,6 @@ $('#form_login').submit(async function (e){
                 }
             })
         }
-
-
 
         if(response.status > 200)
         {
@@ -148,7 +146,8 @@ $(".reload").click(function () {
 setTimeout(() => {
     $('.full-screen-splash').addClass('animate__animated animate__fadeOut_ animate__zoomOut d-none')
     $('.logo-windx').removeClass('d-none').addClass('animate__animated animate__fadeInDown')
-    $('.form-signin').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
+    $('#main').addClass('animate__animated animate__fadeInUp')
+    document.getElementById('main').style.display = 'flex';
     $('.mastfoot').removeClass('d-none').addClass('animate__animated animate__fadeInUp')
     $('.button-card-contact').removeClass('d-none').addClass('animate__animated animate__slideInRight')
 }, "3000");

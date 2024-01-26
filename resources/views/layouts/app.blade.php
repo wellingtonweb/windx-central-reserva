@@ -29,7 +29,6 @@
     />
 </head>
 
-{{--<body class="body" style="background: #002046 url(/assets/img/bg001.jpg) no-repeat center center fixed;">--}}
 <body class="body" style="background: #020f26 url(/assets/img/bg001.jpg) no-repeat center center fixed; background-size: cover; padding: 0 !important; margin: 0 !important;">
 <div class="bg-body-backdrop"></div>
 <div class="progress progress-system {{ (Route::currentRouteName() === 'central.login' ? 'd-none' : '') }} animate__animated animate__fadeIn">

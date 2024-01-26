@@ -1,6 +1,8 @@
 @extends('layouts.app_login')
 
 @section('content')
+
+
 <div class="full-screen-splash">
     <section>
         <article>
@@ -13,9 +15,9 @@
 </div>
 <main role="main" class="inner cover mt-md-3">
     <section>
-        <div id="main" class="container-logon">
+        <div id="main" class="container-logon" style="display:none;">
             <div class="card-logon p-2">
-                <div class="card form-signin py-4 d-none" style="border-radius: .5rem">
+                <div class="card form-signin py-4" style=" border-radius: .5rem">
                     <form id="form_login" method="POST" class="panel" action="{{ Route('central.logon') }}">
                         <div class="card-header" style="padding-top: 0; ">
                             <h2>Central do Assinante</h2>

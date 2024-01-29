@@ -19,8 +19,11 @@
                     <div class="contract-info col-12">
                         <form id="formFilterGraphics">
                             <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <div class="row card-info row-cols-1 row-cols-sm-2 row-cols-md-4">
-                                <div class="col pt-4">
+                            <div class="row card-info">
+{{--                            <div class="row card-info row-cols-1 row-cols-sm-2 row-cols-md-4">--}}
+
+
+                                <div class="col-lg-3 col-6 pt-4">
                                     <div class="form-group">
                                         <div id="dtPkrStart" class="datepicker date dtInicial input-group">
                                             <input type="text" placeholder="Data inicial" class="form-control dtpkr" name="dtInicial" id="dtInicial">
@@ -30,7 +33,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col pt-4">
+                                <div class="col-lg-3 col-6 pt-4">
                                     <div class="form-group">
                                         <div id="dtPkrEnd" class="datepicker date dtFinal input-group">
                                             <input type="text" placeholder="Data final" class="form-control dtpkr" name="dtFinal" id="dtFinal">
@@ -40,8 +43,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col p-3">
-                                    <label class="form-check-label">Filtro rápido</label>
+                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-lg-block d-flex justify-content-center align-middle">
+                                    <label class="form-check-label pr-2">Filtro rápido: </label>
                                     <div class="form-group d-flex d-sm-flex">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter7" value="7">
@@ -57,7 +60,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col p-3 d-flex flex-column">
+                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-flex flex-column">
                                     <button class="btn btn-primary mt-2" type="submit"><i class="fas fa-search pr-2"></i>Pesquisar</button>
                                 </div>
                             </div>

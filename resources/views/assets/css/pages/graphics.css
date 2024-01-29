@@ -20,11 +20,21 @@ h2 {
     /*gap: 5px;*/
 }
 
+.input-group-text {
+     background-color: transparent !important;
+     border: none !important;
+}
+
+.datepicker {
+    background-color: rgba(223, 223, 223, 0.8) !important;
+}
+
+.datepicker table {
+    background-color: white;
+}
+
 @media (max-width: 575.98px) {
-    .datepicker {
-        background-color: white;
-        width: 80% !important;
-    }
+
 
     .datepicker table {
         width: 100% !important;

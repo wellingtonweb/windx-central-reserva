@@ -11,14 +11,14 @@
                             <li class="breadcrumb-item active" aria-current="page">Contrato</li>
                         </ol>
                     </nav>
-                    <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                    <div class="header-app col-12 font-weight-bolder d-lg-none d-flex justify-content-between" >
                         <a href="javascript:history.back();"><i class="fas fa-arrow-left pr-3"></i></a>
                         <span>{{$header}}</span>
                         <span class="px-3"></span>
                     </div>
                     <div class="contract-info col-12">
                         <div id="accordion" class="row row-cols-1 row-cols-md-3 accordion">
-                            <div  class="col pl-0 pr-0">
+                            <div class="col pl-0 pr-0">
                                 <div class="card h-100 ">
                                     <div class="card-body">
                                         <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapsePersonalData" aria-expanded="true" aria-controls="collapseOne">
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mt-3 ">
+                            <div class="col mt-lg-0 mt-3 ">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapseAddress" aria-expanded="true" aria-controls="collapseOne">
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col mt-3 pl-0 pr-0">
+                            <div class="col mt-lg-0 mt-3 pl-0 pr-0">
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <a href="#" class="help-link d-flex collapsed" data-toggle="collapse" data-target="#collapseAccountData" aria-expanded="true" aria-controls="collapseOne">
@@ -131,8 +131,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

@@ -45,7 +45,7 @@ class AuthController extends Controller
     {
         $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
 
-        $hourBackup = Validations::checkHourBackupVigo($array);
+        $hourBackup = (new Validations())->checkHourBackupVigo($array);
 
 
 //        if ($hourBackup) return abort(423);

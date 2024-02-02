@@ -1,8 +1,16 @@
 let tries = 0;
 let paymentType = '';
 var callback = '';
-let transactionId  = null;
+// let transactionId  = null;
 let responseObj = null;
+
+let transactionId = localStorage.getItem("transactionId");
+
+if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit' || paymentType != undefined )) {
+    waitingPayment()
+}else{
+    clearAllSections()
+}
 
 function getPaymentText(payment_type){
     switch (payment_type){
@@ -384,13 +392,7 @@ function runCallBack()
     }, 5000);
 }
 
-transactionId = localStorage.getItem("transactionId");
 
-if (transactionId != null && (paymentType != 'credit' || paymentType != 'debit' || paymentType != undefined )) {
-    waitingPayment()
-}else{
-    clearAllSections()
-}
 
 function waitingPayment(){
     Swal.fire({

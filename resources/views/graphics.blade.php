@@ -11,7 +11,7 @@
                             <li class="breadcrumb-item active" aria-current="page">{{$header}}</li>
                         </ol>
                     </nav>
-                    <div class="header-app col-12 font-weight-bolder d-flex justify-content-between" style="display: none">
+                    <div class="header-app col-12 font-weight-bolder d-lg-none d-flex justify-content-between" >
                         <a href="javascript:history.back();"><i class="fas fa-arrow-left pr-3"></i></a>
                         <span>{{$header}}</span>
                         <span class="px-3"></span>
@@ -20,9 +20,6 @@
                         <form id="formFilterGraphics">
                             <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <div class="row card-info">
-{{--                            <div class="row card-info row-cols-1 row-cols-sm-2 row-cols-md-4">--}}
-
-
                                 <div class="col-lg-3 col-6 pt-4">
                                     <div class="form-group">
                                         <div id="dtPkrStart" class="datepicker date dtInicial input-group">

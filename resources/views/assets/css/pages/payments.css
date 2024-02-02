@@ -15,7 +15,7 @@
 }
 
 table.dataTable.dtr-inline.collapsed > tbody > tr > td {
-    padding: 1rem 0 !important;
+    padding: 1rem .5rem !important;
 }
 
 table.dataTable.dtr-inline.collapsed > tbody > tr > td.child,

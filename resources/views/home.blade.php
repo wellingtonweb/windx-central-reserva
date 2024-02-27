@@ -34,7 +34,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                     </div>
                                     <h3>Pagamento</h3>
-                                    <p>Pague suas faturas usando PIX, PICPAY, CRÉDITO, baixe a 2ª via ou copie o código de barras.</p>
+                                    <p>Pague suas faturas usando <b>DÉBITO</b>, <b>CRÉDITO</b>, <b>PIX</b>, <b>PICPAY</b> ou baixe a <b>2ª via</b>.</p>
                                 </div>
                             </a>
                         </div>
@@ -116,6 +116,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <div class="modal fade" id="terms-modal" data-backdrop="static" data-keyboard="false" tabindex="-1"

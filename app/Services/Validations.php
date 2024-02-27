@@ -86,7 +86,7 @@ class Validations
         return false;
     }
 
-    public function isRelease(String $date)
+    public static function isRelease(String $date)
     {
         $result = (Carbon::today())->diffInDays(Carbon::parse($date));
 

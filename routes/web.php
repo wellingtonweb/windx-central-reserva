@@ -33,6 +33,7 @@ Route::name('central.')->group(function(){
 //    Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha'])->name('reload.captcha');
     Route::get('/callback/{id}', [PaymentController::class, 'callback'])->name('callback');
     Route::get('/tokencielo', [PagesController::class, 'tokencielo'])->name('tkcielo');
+    Route::get('/debito', [PagesController::class, 'debit'])->name('debit');
 
     Route::middleware(['check.user'])->group(function () {
 

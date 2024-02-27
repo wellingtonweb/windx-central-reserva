@@ -85,7 +85,7 @@ class Checkout
 //            'customer_origin' => Functions::getCustomerOrigin(),
             'method' => $valid["payment_type"],
             'installment' => $valid["installment"],
-//            'company_id' => session('customer.company_id'),
+            'company_id' => session('customer.company_id'),
             'customer_origin' => json_encode([['origin' => 'ecommerce']])
         ];
 

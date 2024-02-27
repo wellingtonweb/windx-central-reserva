@@ -3,7 +3,7 @@
 @section('content')
     <main>
         <section>
-            <div class="container-fluid container-payment">
+            <div class="container-fluid container-payment d-none">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
@@ -116,255 +116,44 @@
                 </main>
             </div>
         </section>
-        <section class="teste d-none">
+        <section class="teste d-none_">
             <div>
+                <h2>3DS v2 CIELO</h2>
                 <input type="hidden" name="authEnabled" class="bpmpi_auth" value="true" />
-                <input
-                    type="hidden"
-                    name="authEnabledNotifyonly"
-                    class="bpmpi_auth_notifyonly"
-                    value="false"
-                />
-                <input
-                    type="text"
-                    name="accessToken"
-                    class="bpmpi_accesstoken"
-                    value=""
-                />
-                <div>
-                    <label>Order Number:</label>
-                    <input
-                        type="text"
-                        size="50"
-                        name="orderNumber"
-                        class="bpmpi_ordernumber"
-                        value="123456"
-                    />
-                </div>
-                <div>
-                    <label>Currency:</label>
-                    <select name="currency" class="bpmpi_currency">
-                        <option value="986" selected="selected">BRL</option>
-                        <option value="840">USD</option>
-                        <option value="032">ARS</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Amount:</label>
-                    <input
-                        type="text"
-                        size="50"
-                        name="amount"
-                        class="bpmpi_totalamount"
-                        value=""
-                    />
-                </div>
-                <div>
-                    <label>Installments:</label>
-                    <input
-                        type="text"
-                        size="2"
-                        name="installments"
-                        class="bpmpi_installments"
-                        value="1"
-                    />
-                </div>
-                <div>
-                    <label>Payment Method:</label>
-                    <select name="paymentMethod" class="bpmpi_paymentmethod">
-                        <option value="credit" >Credit</option>
-                        <option value="debit" selected="selected">Debit</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Card Number:</label>
-                    <input
-                        type="text"
-                        size="50"
-                        name="cardNumber"
-                        class="bpmpi_cardnumber"
-                        value=""
-                    />
-                </div>
+                <input type="hidden" name="authEnabledNotifyonly" class="bpmpi_auth_notifyonly" value="false" />
+                <input type="hidden" name="bpmpi_auth_suppresschallenge" class="bpmpi_auth_suppresschallenge" value="false" />
+                    <input type="text" placeholder="bpmpi_accesstoken" name="accessToken" id="accessToken" class="bpmpi_accesstoken" value="" />
+                    <input type="text" placeholder="bpmpi_ordernumber" size="50" name="orderNumber" class="bpmpi_ordernumber" value="{{session('_token')}}" />
+                    <input type="hidden" placeholder="bpmpi_currency" size="50" name="currency" class="bpmpi_currency" value="986" />
+                    <input type="text" placeholder="bpmpi_totalamount" size="50" name="amount" class="bpmpi_totalamount" value="" />
+                    <input type="text" placeholder="bpmpi_installments" size="2" name="installments" class="bpmpi_installments" value="1" />
+                    <input type="text" placeholder="bpmpi_paymentmethod" size="50" name="paymentMethod" class="bpmpi_paymentmethod" value="" />
+                    <!-- //Preencher com o payment_type
+                        <select name="paymentMethod" class="bpmpi_paymentmethod">
+                        <option value="credit" selected="selected">Credit</option>
+                        <option value="debit">Debit</option>
+                    </select>-->
 
-                <div>
-                    <label>Expiration date:</label>
-                    <input
-                        type="text"
-                        size="50"
-                        name="expMonth"
-                        class="bpmpi_cardexpirationmonth"
-                        value=""
-                    />
-                    <input
-                        type="text"
-                        size="50"
-                        name="expYear"
-                        class="bpmpi_cardexpirationyear"
-                        value=""
-                    />
-                </div>
-                <div>
-                    <label>Card Alias:</label>
-                    <input
-                        type="text"
-                        size="50"
-                        class="bpmpi_cardalias"
-                        value=""
-                    />
-                </div>
-
-
-
-
-
-                <!-- dados de cobrança -->
-                <fieldset style="width: 0">
-                    <legend>Billing Address</legend>
-                    <div>
-                        <label>Customer ID (CPF/CNPJ):</label>
-                        <input
-                            type="text"
-                            size="14"
-                            class="bpmpi_billto_customerid"
-                            value="{{ preg_replace('/[^\d]/', '',session('customer.document')) }}"
-                        />
-                    </div>
-                    <div>
-                        <label>New Customer:</label>
-                        <select name="newCustomer" class="bpmpi_merchant_newcustomer">
-                            <option value="credit" selected="selected">true</option>
-                            <option value="debit">false</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Name:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_name"
-                            value="{{ session('customer.full_name') }}"
-                        />
-                    </div>
-                    <div>
-                        <label>Phone number:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_phonenumber"
-                            value="{{ preg_replace('/[^\d]/', '',session('customer.cell')) }}"
-                        />
-                    </div>
-                    <div>
-                        <label>E-mail:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_email"
-                            value="{{ session('customer.email') }}"
-                        />
-                    </div>
-                    <div>
-                        <label>Street 1:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_street1"
-                            value="{{ session('customer.street') }}"
-                        />
-                    </div>
-                    <div>
-                        <label>Street 2:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_street2"
-                            value="Sala 934 Centro"
-                        />
-                    </div>
-                    <div>
-                        <label>City:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_city"
-                            value="{{ session('customer.city') }}"
-                        />
-                    </div>
-                    <div>
-                        <label>State:</label>
-                        <input type="text" size="50" class="bpmpi_billto_state" value="{{ session('customer.state') }}" />
-                    </div>
-                    <div>
-                        <label>Country:</label>
-                        <input type="text" size="2" class="bpmpi_billto_country" value="BR" />
-                    </div>
-                    <div>
-                        <label>Zipcode:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_billto_zipcode"
-                            value="{{ preg_replace('/[^\d]/', '',session('customer.cep')) }}"
-                        />
-                    </div>
-                </fieldset>
-
-                <!-- dados do device (coleção) -->
-                <fieldset style="width: 0">
-                    <legend>Device</legend>
-                    <div>
-                        <label>Ip address:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_device_ipaddress"
-                            value="{{ session('customer.ip_address') }}"
-                        />
-                    </div>
-                </fieldset>
-
-                <!-- dados do pedido -->
-                <fieldset style="width: 0">
-                    <legend>Order</legend>
-                    <div>
-                        <label>Transaction Mode:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_transaction_mode"
-                            value="S"
-                        />
-                    </div>
-                    <div>
-                        <label>Merchant URL:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_merchant_url"
-                            value="https://www.windx.com.br"
-                        />
-                    </div>
-
-                    <div>
-                        <label>Product code:</label>
-                        <input
-                            type="text"
-                            size="50"
-                            class="bpmpi_order_productcode"
-                            value="QCT"
-                        />
-                        <!-- ver domínio no manual -->
-                    </div>
-
-                </fieldset>
-
-                <input
-                    type="button"
-                    onclick="sendOrder()"
-                    value="Send Order"
-                    id="btnSendOrder"
-                />
+                    <input type="text" placeholder="bpmpi_cardnumber" size="50" name="cardNumber" class="bpmpi_cardnumber" value="" />
+                    <input type="text" placeholder="bpmpi_cardexpirationmonth" size="50" name="expMonth" class="bpmpi_cardexpirationmonth" value="" />
+                    <input type="text" placeholder="bpmpi_cardexpirationyear" size="50" name="expYear" class="bpmpi_cardexpirationyear" value="" />
+                    <input type="text" placeholder="bpmpi_cardalias" size="50" class="bpmpi_cardalias" value="" />
+                        <input type="text" placeholder="bpmpi_billto_contactname" size="50" class="bpmpi_billto_contactname" value="{{session('customer.full_name')}}" />
+                        <input type="text" placeholder="bpmpi_billto_phonenumber" size="50" class="bpmpi_billto_phonenumber" value="{{preg_replace('/[^\d]/i', '', session('customer.phone'))}}" />
+                        <input type="text" placeholder="bpmpi_billto_email" size="50" class="bpmpi_billto_email" value="{{session('customer.email')}}" />
+                        <input type="text" placeholder="bpmpi_billto_street1" size="50" class="bpmpi_billto_street1" value="{{session('customer.street')}}" />
+                        <input type="text" placeholder="bpmpi_billto_street2" size="50" class="bpmpi_billto_street2" value="{{session('customer.district')}}" />
+                        <input type="text" placeholder="bpmpi_billto_city" size="50" class="bpmpi_billto_city" value="{{session('customer.city')}}" />
+                        <input type="text" placeholder="bpmpi_billto_state" size="50" class="bpmpi_billto_state" value="{{session('customer.state')}}" />
+                        <input type="hidden" size="2" class="bpmpi_billto_country" value="BR" />
+                        <input type="text" placeholder="bpmpi_billto_zipcode" size="50" class="bpmpi_billto_zipcode" value="{{preg_replace('/[^\d]/i', '', session('customer.cep'))}}" />
+                        <input type="hidden" size="50" class="bpmpi_shipto_sameasbillto" value="true" />
+                        <input type="text" placeholder="bpmpi_device_ipaddress" size="50" class="bpmpi_device_ipaddress" value="" />
+                        <input type="hidden" size="7" class="bpmpi_device_channel" value="Browser" />
+                        <input type="hidden" size="50" class="bpmpi_transaction_mode" value="S" />
+                        <input type="hidden" size="50" class="bpmpi_merchant_url" value="https://www.windx.com.br" />
+                        <input type="hidden" size="50" class="bpmpi_order_productcode" value="PHY" />
+                    <input type="button" onclick="sendOrder()" value="Send Order" id="btnSendOrder" />
             </div>
         </section>
     </main>
@@ -403,22 +192,18 @@
                                   action="{{route('central.checkout')}}">
                                 <div class="row">
                                     <div id="inputs-hidden" class="form-row d-none">
-                                        <input id="customer" name="customer"
-                                               value="{{session('customer.id')}}" type="text" hidden>
-                                        <input id="cartBillets" name="billets" type="text" hidden>
-                                        <input id="full_name" name="full_name" type="text"
-                                               value="{{session('customer.full_name')}}" hidden>
-                                        <input id="email" name="email" type="text"
-                                               value="{{session('customer.email')}}" hidden>
-                                        <input id="cpf_cnpj" name="cpf_cnpj" type="text"
-                                               value="{{session('customer.document')}}" hidden>
-                                        <input id="phone" name="phone" type="text"
-                                               value="{{session('customer.phone')}}" hidden>
-                                        <input id="payment_type" name="payment_type" type="text" hidden>
+                                        <input id="customer" name="customer" value="{{session('customer.id')}}" type="hidden">
+                                        <input id="cartBillets" name="billets" type="hidden">
+                                        <input id="full_name" name="full_name" type="hidden" value="{{session('customer.full_name')}}">
+                                        <input id="email" name="email" type="hidden" value="{{session('customer.email')}}">
+                                        <input id="cpf_cnpj" name="cpf_cnpj" type="hidden" value="{{session('customer.document')}}">
+                                        <input id="phone" name="phone" type="hidden" value="{{session('customer.phone')}}">
+                                        <input id="payment_type" name="payment_type" type="hidden">
                                         <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                        <input id="method" name="method" type="text" hidden>
-                                        <input id="installment" name="installment" type="text" hidden>
-                                        <input id="company" name="company" type="text" value="{{session('customer')['company_id']}}" hidden>
+                                        <input id="method" name="method" type="hidden">
+                                        <input id="installment" name="installment" type="hidden">
+                                        <input id="company" name="company" type="hidden" value="{{session('customer')['company_id']}}">
+
                                     </div>
                                     <div class="col-12">
                                         <div class="col-12 w-100 alert alert-danger text-display-error text-center justify-content-center font-weight-bold d-none"
@@ -426,19 +211,47 @@
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3 px-3 text-left">
+                                        <input id="3dsCavv" placeholder="3ds_cavv" name="cavv" type="text">
+                                        <input id="3dsEci" placeholder="3ds_eci" name="eci" type="text">
+                                        <input id="3dsVersion" placeholder="3ds_version" name="version" type="text">
+                                        <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
+
+
                                         <label for="cc-nome">Nome no cartão</label>
                                         <input type="text" class="form-control text-uppercase" id="cc-nome"
                                                name="holder_name" placeholder="Nome como está no cartão">
                                         <small class="text-danger error-text holder_name_error"></small>
                                     </div>
-                                    <div class="col-12 mb-3 px-3 text-left">
+                                    <div class="col-6 mb-3 px-3 text-left">
                                         <label for="cc-numero">Número do cartão</label>
                                         <input type="text" class="form-control" id="cc-numero"
-                                               name="card_number" placeholder="0000 0000 0000 0000">
+                                               name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)">
                                         <small class="text-danger error-text card_number_error"></small>
                                     </div>
-
                                     <div class="col-6 mb-3 px-3 text-left">
+                                        <label for="cc-bandeira">Bandeira do cartão</label>
+                                        <input type="text" class="form-control" id="cc-bandeira" name="bandeira"
+                                               placeholder="Master">
+                                        <small class="text-danger error-text bandeira_error"></small>
+                                    </div>
+{{--                                    <div class="col-6 mb-3 px-3 text-left">--}}
+{{--                                        <label for="cc-bandeira">Bandeira do cartão</label>--}}
+{{--                                        <select id="cc-bandeira" name="bandeira"--}}
+{{--                                                class="form-control">--}}
+{{--                                            <option value="" disabled selected>Escolher</option>--}}
+{{--                                            <option value="American Express">American Express</option>--}}
+{{--                                            <option value="Aura">Aura</option>--}}
+{{--                                            <option value="Banescard">Banescard</option>--}}
+{{--                                            <option value="Cabal">Cabal</option>--}}
+{{--                                            <option value="Dinners">Dinners</option>--}}
+{{--                                            <option value="Elo">Elo</option>--}}
+{{--                                            <option value="Hipercard">Hipercard</option>--}}
+{{--                                            <option value="Master">Master</option>--}}
+{{--                                            <option value="Visa">Visa</option>--}}
+{{--                                        </select>--}}
+{{--                                        <small class="text-danger error-text bandeira_error"></small>--}}
+{{--                                    </div>--}}
+                                    <div class="col-4 mb-3 px-3 text-left">
                                         <label for="expiration_month">Validade (Mês)</label>
                                         <select id="expiration_month" name="expiration_month" class="form-control">
                                             <option value="" disabled>Ex: 12</option>
@@ -458,7 +271,7 @@
                                         <small
                                             class="text-danger error-text expiration_month_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 px-3 text-left">
+                                    <div class="col-4 mb-3 px-3 text-left">
                                         <label for="expiration_year">Validade (Ano)</label>
                                         <select id="expiration_year" name="expiration_year"
                                                 class="form-control" placeholder="Ex: 2028">
@@ -472,32 +285,16 @@
                                         </select>
                                         <small class="text-danger error-text expiration_year_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 px-3 text-left">
-                                        <label for="cc-bandeira">Bandeira do cartão</label>
-                                        <select id="cc-bandeira" name="bandeira"
-                                                class="form-control">
-                                            <option value="" disabled selected>Escolher</option>
-                                            <option value="American Express">American Express</option>
-                                            <option value="Aura">Aura</option>
-                                            <option value="Banescard">Banescard</option>
-                                            <option value="Cabal">Cabal</option>
-                                            <option value="Dinners">Dinners</option>
-                                            <option value="Elo">Elo</option>
-                                            <option value="Hipercard">Hipercard</option>
-                                            <option value="Master">Master</option>
-                                            <option value="Visa">Visa</option>
-                                        </select>
-                                        <small class="text-danger error-text bandeira_error"></small>
-                                    </div>
-                                    <div class="col-6 mb-3 px-3 text-left">
+
+                                    <div class="col-4 mb-3 px-3 text-left">
                                         <label for="cc-cvv">Cód. de segurança</label>
                                         <input type="text" class="form-control" id="cc-cvv" name="cvv" placeholder="Ex: 123">
                                         <small class="text-danger error-text cvv_error"></small>
                                     </div>
                                 </div>
                                 <div class="p-2">
-                                    <button class="btn btn-success btn-block"
-                                            type="submit">Finalizar pagamento
+                                    <button id="sendPayment" class="btn btn-success btn-block"
+                                            type="submit" disabled>Finalizar pagamento
                                     </button>
                                 </div>
                             </form>
@@ -516,7 +313,9 @@
 @endsection
 
 @section('js')
-{{--    <script src="https://mpisandbox.braspag.com.br/Scripts/BP.Mpi.3ds20.min.js" type="text/javascript"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    {{--    <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>--}}
+
     <script>
         var idCustomer = {{session('customer.id')}};
         var customerActive = @json(session('customer'));
@@ -524,73 +323,41 @@
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";
         var checkoutForm = $('#form_checkout')[0];
-        // var checkoutButtons =
-        // $('#form_checkout').prop( "disabled", true );
+
+        document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
+
 
         // Swal.fire({
-        //     title: "Selecione uma ou mais faturas para pagamento!",
-        //     icon: "info"
-        // });
+        //     icon: "info",
+        //     title: `Selecione uma ou mais faturas para pagamento!`,
+        //     html: `<div class="p-2 d-flex justify-content-center align-items-center">
+        //                     <div class="container-screen">
+        //                         <div>Fatura 4</div>
+        //                         <div>Fatura 5</div>
+        //                         <div>Fatura 1</div>
+        //                         <div>Fatura 2</div>
+        //                         <div>Fatura 3</div>
+        //                         <i class="fas fa-hand-pointer fa-2x hand-icon"></i>
+        //                     </div>
+        //                 </div>`,
+        //     showDenyButton: false,
+        //     showCancelButton: false,
+        //     showConfirmButton: true,
+        //     confirmButtonText: 'OK',
+        //     cancelButtonText: `Não`,
+        //     allowOutsideClick: () => {
+        //         const popup = Swal.getPopup()
+        //         popup.classList.remove('swal2-show')
+        //         setTimeout(() => {
+        //             popup.classList.add('animate__animated', 'animate__headShake')
+        //         })
+        //         setTimeout(() => {
+        //             popup.classList.remove('animate__animated', 'animate__headShake')
+        //         }, 500)
+        //         return false
+        //     },
+        // })
 
-        Swal.fire({
-            icon: "info",
-            title: `Selecione uma ou mais faturas para pagamento!`,
-            html: `<div class="p-2 d-flex justify-content-center align-items-center">
-                            <div class="container-screen">
-                                <div>Fatura 4</div>
-                                <div>Fatura 5</div>
-                                <div>Fatura 1</div>
-                                <div>Fatura 2</div>
-                                <div>Fatura 3</div>
-                                <i class="fas fa-hand-pointer fa-2x hand-icon"></i>
-                            </div>
-                        </div>`,
-            showDenyButton: false,
-            showCancelButton: false,
-            showConfirmButton: true,
-            confirmButtonText: 'OK',
-            cancelButtonText: `Não`,
-            allowOutsideClick: () => {
-                const popup = Swal.getPopup()
-                popup.classList.remove('swal2-show')
-                setTimeout(() => {
-                    popup.classList.add('animate__animated', 'animate__headShake')
-                })
-                setTimeout(() => {
-                    popup.classList.remove('animate__animated', 'animate__headShake')
-                }, 500)
-                return false
-            },
-        })
-
-        // function sendOrder() {
-        //     bpmpi_authenticate();
-        // }
-        //
-        // var getAccessToken = async () => {
-        //     const settings = {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             "Authorization": 'Basic '+ window.btoa('dba3a8db-fa54-40e0-8bab-7bfb9b6f2e2e:D/ilRsfoqHlSUChwAMnlyKdDNd7FMsM7cU/vo02REag=')
-        //             // "Authorization": 'Basic '+ window.btoa('3d60f342-9728-47bd-9295-556a7e16e67f:CnsSGyo9IKUWiUw+v4Q1WcHwYdH2VGiyQYV2Jz0gs14=')
-        //         },
-        //         body: JSON.stringify({"EstablishmentCode":"1106093345","MerchantName": "PENHA DE SOUZA JAMARI","MCC": "4816"})
-        //     };
-        //     try {
-        //         const fetchResponse = await fetch(`https://mpisandbox.braspag.com.br/v2/auth/token`, settings);
-        //         // const fetchResponse = await fetch(`https://mpi.braspag.com.br/v2/auth/token`, settings);
-        //         const data = await fetchResponse.json();
-        //         console.log('Data: ',data);
-        //         // $('#form_checkout').prop( "disabled", false );
-        //         document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
-        //         return data.access_token;
-        //     } catch (e) {
-        //         return e;
-        //     }
-        // }
-
-        //bpmpi_cardnumber, bpmpi_cardexpirationmonth, bpmpi_cardexpirationyear, bpmpi_cardalias
 
         //cc-nome, cc-numero, expiration_month, expiration_year
         $('#cc-nome').blur(function(){
@@ -611,10 +378,221 @@
 
 
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script type="text/javascript" defer>
-        inactivitySession();
+    <script type="text/javascript">
+        // document.getElementsByClassName("bpmpi_ordernumber")[0].value = generateOrderNumber();
+        //
+        // var merchantData = {};
+        // var authorization = '';
+        $('#modalCard').on('show.bs.modal', function (event) {
+            getToken3DSCielo(6);
+        })
+
+        function getToken3DSCielo(companyId) {
+            var companyData = {};
+            document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
+
+            switch(companyId){
+                case 5:
+                    companyData.merchantData = {"EstablishmentCode": "2893748702","MerchantName": "JDS","MCC": "4816"};
+                    companyData.authorization = btoa('1b41f1b2-2027-45f2-be17-c365135effeb:zUTDqxIsLELd6SDhSWCt7bxXAsU01Y2XhSrM+oR3N/Q=');
+                    break;
+                case 6:
+                    companyData.merchantData = {"EstablishmentCode": "2893663839","MerchantName": "ANTONIO CARLOS DE SOUZA JAMARIQUELI","MCC": "4816"};
+                    companyData.authorization = btoa('aeaf4ed9-80fd-4a99-85b8-a4fd1bf837c6:nNmnLTqgPiDCjBcL+ASOHrDSJKHAgVw9twoey6a001o=');
+                    break;
+                default:
+                    companyData.merchantData = {"EstablishmentCode": "1106093345","MerchantName": "WIDX","MCC": "4814"};
+                    companyData.authorization = btoa('521ab3e1-b97d-4090-8d2f-3292c36ea26e:JeR2HoUjq4oyjOC3/nZAlZkkFKdmNP26p50swKzdRVY=');
+            }
+
+            fetch("https://mpi.braspag.com.br/v2/auth/token", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Basic ${companyData.authorization}`
+                },
+                body: JSON.stringify(companyData.merchantData),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.error) {
+                        $('#modalCard').modal('hide');
+                        alert(data.error_description)
+                        console.log(data.error_description);
+
+                    }else{
+                        document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    console.log('Preencher os campos 3DS com os dados')
+                    console.log('Submeter o form usando a função bpmpi_authenticate()')
+                    bpmpi_authenticate();
+
+                    console.log('Submeter o form usando a função bpmpi_authenticate()')
+                    // alert('Finalizou!')
+                });
+        }
+
+        function bpmpi_config() {
+            swal.fire('Autenticando...')
+            return {
+                onReady: function () {
+                    // Evento indicando quando a inicialização do script terminou.
+                    document.getElementById("sendPayment").disabled = false;
+                },
+                onSuccess: function (e) {
+                    // Cartão elegível para autenticação, e portador autenticou com sucesso.
+                    var cavv = e.Cavv;
+                    var xid = e.Xid;
+                    var eci = e.Eci;
+                    var version = e.Version;
+                    var referenceId = e.ReferenceId;
+                    console.log("Deu certo: ", cavv, xid, eci, version, referenceId, e)
+                    document.getElementsById("3dsCavv").value = e.Cavv;
+                    document.getElementsById("3dsEci").value = e.Eci;
+                    document.getElementsById("3dsVersion").value = e.Version;
+                    document.getElementsById("3dsReferenceId").value = e.ReferenceId;
+
+                    console.log('Habilita o botão para enviar o pagamento!')
+
+                },
+                onFailure: function (e) {
+                    // Cartão elegível para autenticação, porém o portador finalizou com falha.
+                    var xid = e.Xid;
+                    var eci = e.Eci;
+                    var version = e.Version;
+                    var referenceId = e.ReferenceId;
+                },
+                onUnenrolled: function (e) {
+                    // Cartão não elegível para autenticação (não autenticável).
+                    var xid = e.Xid;
+                    var eci = e.Eci;
+                    var version = e.Version;
+                    var referenceId = e.ReferenceId;
+                },
+                onDisabled: function () {
+                    // Loja não requer autenticação do portador (classe "bpmpi_auth" false -> autenticação desabilitada).
+                },
+                onError: function (e) {
+                    // Erro no processo de autenticação.
+                    var xid = e.Xid;
+                    var eci = e.Eci;
+                    var returnCode = e.ReturnCode;
+                    var returnMessage = e.ReturnMessage;
+                    var referenceId = e.ReferenceId;
+                },
+                onUnsupportedBrand: function (e) {
+                    // Bandeira não suportada para autenticação.
+                    var returnCode = e.ReturnCode;
+                    var returnMessage = e.ReturnMessage;
+                },
+                Environment: "PRD",
+                Debug: true,
+            };
+        }
+
+        // function getQueryString(field) {
+        //     var href = window.location.href;
+        //     var reg = new RegExp("[?&]" + field + "=([^&#]*)", "i");
+        //     var string = reg.exec(href);
+        //     return string ? string[1] : null;
+        // }
+
+        $(function () {
+            $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+                function (json) {
+                    document.getElementsByClassName("bpmpi_device_ipaddress")[0].value = json.ip
+                }
+            );
+        });
+
+        function parseToCents(reais) {
+            return Math.round(reais * 100); // Arredondando para o inteiro mais próximo
+        }
+
+        // Exemplo de uso
+        var valorEmReais = 69.90; // Substitua isso pelo valor real em reais
+        var valorEmCentavos = parseToCents(valorEmReais);
+        console.log('O valor em centavos é: ' + valorEmCentavos + ' centavos');
+
+        function getBrand(input){
+            var cardNumber = $(input).val()
+            // Visa, Mastercard, Elo e Amex
+
+            var cartoes = {
+                Visa: /^4[0-9]{12}(?:[0-9]{3})/,
+                Mastercard: /^5[1-5][0-9]{14}/,
+                Amex: /^3[47][0-9]{13}/,
+                Elo:/^4011(78|79)|^43(1274|8935)|^45(1416|7393|763(1|2))|^50(4175|6699|67[0-6][0-9]|677[0-8]|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9])|^627780|^63(6297|6368|6369)|^65(0(0(3([1-3]|[5-9])|4([0-9])|5[0-1])|4(0[5-9]|[1-3][0-9]|8[5-9]|9[0-9])|5([0-2][0-9]|3[0-8]|4[1-9]|[5-8][0-9]|9[0-8])|7(0[0-9]|1[0-8]|2[0-7])|9(0[1-9]|[1-6][0-9]|7[0-8]))|16(5[2-9]|[6-7][0-9])|50(0[0-9]|1[0-9]|2[1-9]|[3-4][0-9]|5[0-8]))/,
+                DinersClub: /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+                Discover: /^6(?:011|5[0-9]{2})[0-9]{12}/,
+                JCB: /^(?:2131|1800|35\d{3})\d{11}/
+            };
+
+            function testarCC(nr, cartoes) {
+                for (var cartao in cartoes) {
+                    if (nr.match(cartoes[cartao])) {
+                        return cartao;
+                    }else{
+                        return false;
+                    }
+                }
+            }
+
+            var valido = cardNumber.replace(/\s+/g, "");
+            var invalido = '1234567890';
+
+            [valido, invalido].forEach(function(teste){
+                console.log(testarCC(teste, cartoes));
+                if(testarCC(teste, cartoes)){
+
+                }
+                document.getElementById('cc-bandeira').value = testarCC(teste, cartoes)
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('form_checkout');
+            const formControls = form.querySelectorAll('.formControl');
+            const submitButton = form.querySelector('button');
+
+            function validateInput(input) {
+                const value = input.value.trim();
+                const isValid = /^[a-zA-Z0-9]+$/.test(value);
+                return isValid;
+            }
+
+            function checkFormValidity() {
+                const allInputsValid = Array.from(formControls).every(validateInput);
+                submitButton.disabled = !allInputsValid;
+            }
+
+
+
+            formControls.forEach(function(input) {
+                input.addEventListener('blur', function() {
+                    const isValid = validateInput(input);
+                    if (!isValid) {
+                        alert('Por favor, insira apenas números e letras.');
+                        input.focus();
+                    }
+                    checkFormValidity();
+                });
+            });
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Realizar a ação do envio do formulário aqui
+                alert('Formulário enviado!');
+            });
+        });
+
     </script>
+    <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
+    <script defer type="text/javascript" src="{{ asset('assets/js/BP.Mpi.3ds20.min.js') }}"></script>
+{{--    <script type="text/javascript" defer>inactivitySession()</script>--}}
 @endsection

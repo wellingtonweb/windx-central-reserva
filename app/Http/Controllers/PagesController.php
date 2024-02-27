@@ -237,10 +237,19 @@ class PagesController extends Controller
         }
     }
 
+    public function debit()
+    {
+        if(session()->has('customer')){
+            return view('debit', ['header' => 'Débito']);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
     public function tokencielo()
     {
 //        if(session()->has('customer')){
-            return view('tkcielo', ['header' => 'tokencielo']);
+            return view('tkcielo', ['header' => 'tkcielo']);
 //            return view('tokencielo', ['header' => 'tokencielo']);
 //        } else {
 //            throw new CheckUserException();

@@ -16,7 +16,6 @@
         var data = {
             "EstablishmentCode":"1106093345",
             "MerchantName": "PENHA DE SOUZA JAMARI",
-            // "MCC": "5733"
             "MCC": "4816"
         };
 

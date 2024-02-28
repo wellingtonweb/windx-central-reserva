@@ -215,24 +215,35 @@
                                         <input id="3dsEci" placeholder="3ds_eci" name="eci" type="text">
                                         <input id="3dsVersion" placeholder="3ds_version" name="version" type="text">
                                         <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
+                                        <input id="cc-bandeira" type="text" class="form-control" name="bandeira">
 
-
-                                        <label for="cc-nome">Nome no cartão</label>
+                                        <label for="cc-nome">Nome no titular</label>
                                         <input type="text" class="form-control text-uppercase" id="cc-nome"
                                                name="holder_name" placeholder="Nome como está no cartão">
                                         <small class="text-danger error-text holder_name_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 px-3 text-left">
+                                    <div class="col-10 mb-3 px-3 text-left">
                                         <label for="cc-numero">Número do cartão</label>
                                         <input type="text" class="form-control" id="cc-numero"
-                                               name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)">
+                                               name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)" onchange="getBrand(this)" min="15" max="19">
+
+{{--                                        <div class="card-number input-group mb-3 w-auto" style="background-color: transparent !important; border: none; align-items: normal;">--}}
+{{--                                            <div class="input-group-prepend " style="margin-right: -6px; margin-top: -6px">--}}
+{{--                                                <div class="input-group-text" id="basic-addon1" style="padding: 0; ">--}}
+{{--                                                    <img id="icon_flag" class="icon-flag_" src="/assets/img/flags/card.svg" alt="card flag" width="35">--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                            <input type="text" class="form-control" id="cc-numero"--}}
+{{--                                                   name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)">--}}
+
+{{--                                        </div>--}}
                                         <small class="text-danger error-text card_number_error"></small>
                                     </div>
-                                    <div class="col-6 mb-3 px-3 text-left">
-                                        <label for="cc-bandeira">Bandeira do cartão</label>
-                                        <input type="text" class="form-control" id="cc-bandeira" name="bandeira"
-                                               placeholder="Master">
-                                        <small class="text-danger error-text bandeira_error"></small>
+                                    <div class="col-2 mb-3 px-3 d-flex justify-content-end align-items-end" style="margin-bottom: .45rem !important;">
+                                        <img id="icon_flag" src="/assets/img/flags/card.svg" alt="bandeira" width="55" style="margin-left: -5px">
+{{--                                        <input id="cc-bandeira" type="text" class="form-control" name="bandeira">--}}
+{{--                                        <input type="text" class="form-control" id="cc-bandeira" name="bandeira" readonly>--}}
+{{--                                        <small class="text-danger error-text bandeira_error"></small>--}}
                                     </div>
 {{--                                    <div class="col-6 mb-3 px-3 text-left">--}}
 {{--                                        <label for="cc-bandeira">Bandeira do cartão</label>--}}
@@ -308,6 +319,25 @@
 @endsection
 
 @section('css')
+    <style>
+        .icon-flag {
+            position:absolute;
+            top:0; right:0;
+            z-index:10;
+            border:none;
+            background:transparent;
+            outline:none;
+        }
+
+        .card-number {
+            position: relative;
+            width: 100%;
+        }
+
+        .card-number input {
+            width: 100%;
+        }
+    </style>
     <link rel="stylesheet" href="{{ asset('assets/css/pages/payment.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 @endsection
@@ -325,7 +355,6 @@
         var checkoutForm = $('#form_checkout')[0];
 
         document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
-
 
         // Swal.fire({
         //     icon: "info",
@@ -384,7 +413,7 @@
         // var merchantData = {};
         // var authorization = '';
         $('#modalCard').on('show.bs.modal', function (event) {
-            getToken3DSCielo(6);
+            //getToken3DSCielo(customerActive.company_id);
         })
 
         function getToken3DSCielo(companyId) {
@@ -428,17 +457,48 @@
                     console.error(error);
                 })
                 .finally(() => {
-                    console.log('Preencher os campos 3DS com os dados')
-                    console.log('Submeter o form usando a função bpmpi_authenticate()')
-                    bpmpi_authenticate();
+                    // console.log('Preencher os campos 3DS com os dados')
+                    // console.log('Submeter o form usando a função bpmpi_authenticate()')
+                    // bpmpi_authenticate();
 
-                    console.log('Submeter o form usando a função bpmpi_authenticate()')
+                    // console.log('Submeter o form usando a função bpmpi_authenticate()')
                     // alert('Finalizou!')
                 });
         }
 
+        function toogleFlag(flag){
+            var imgFlag = document.getElementById("icon_flag");
+            var cc_brand = document.getElementById("cc-bandeira");
+
+            switch (flag){
+                case 'Visa':
+                    imgFlag.src = "/assets/img/flags/visa.svg";
+                    cc_brand.value = flag;
+                    break;
+                case 'Mastercard':
+                    imgFlag.src = "/assets/img/flags/mastercard.svg";
+                    cc_brand.value = flag;
+                    break;
+                case 'Amex':
+                    imgFlag.src = "/assets/img/flags/amex.svg";
+                    cc_brand.value = flag;
+                    break;
+                case 'Elo':
+                    imgFlag.src = "/assets/img/flags/elo.svg";
+                    cc_brand.value = flag;
+                    break;
+                case null:
+                case '':
+                case false:
+                default:
+                    imgFlag.src = "/assets/img/flags/card.svg";
+                    cc_brand.value = '';
+                    break;
+            }
+        }
+
         function bpmpi_config() {
-            swal.fire('Autenticando...')
+            // swal.fire('Autenticando...')
             return {
                 onReady: function () {
                     // Evento indicando quando a inicialização do script terminou.
@@ -495,13 +555,6 @@
             };
         }
 
-        // function getQueryString(field) {
-        //     var href = window.location.href;
-        //     var reg = new RegExp("[?&]" + field + "=([^&#]*)", "i");
-        //     var string = reg.exec(href);
-        //     return string ? string[1] : null;
-        // }
-
         $(function () {
             $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
                 function (json) {
@@ -515,44 +568,53 @@
         }
 
         // Exemplo de uso
-        var valorEmReais = 69.90; // Substitua isso pelo valor real em reais
-        var valorEmCentavos = parseToCents(valorEmReais);
-        console.log('O valor em centavos é: ' + valorEmCentavos + ' centavos');
+        // var valorEmReais = 69.90; // Substitua isso pelo valor real em reais
+        // var valorEmCentavos = parseToCents(valorEmReais);
+        // console.log('O valor em centavos é: ' + valorEmCentavos + ' centavos');
 
         function getBrand(input){
             var cardNumber = $(input).val()
-            // Visa, Mastercard, Elo e Amex
+            var inputCCnumero = document.getElementById('cc-numero')
 
-            var cartoes = {
-                Visa: /^4[0-9]{12}(?:[0-9]{3})/,
-                Mastercard: /^5[1-5][0-9]{14}/,
-                Amex: /^3[47][0-9]{13}/,
-                Elo:/^4011(78|79)|^43(1274|8935)|^45(1416|7393|763(1|2))|^50(4175|6699|67[0-6][0-9]|677[0-8]|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9])|^627780|^63(6297|6368|6369)|^65(0(0(3([1-3]|[5-9])|4([0-9])|5[0-1])|4(0[5-9]|[1-3][0-9]|8[5-9]|9[0-9])|5([0-2][0-9]|3[0-8]|4[1-9]|[5-8][0-9]|9[0-8])|7(0[0-9]|1[0-8]|2[0-7])|9(0[1-9]|[1-6][0-9]|7[0-8]))|16(5[2-9]|[6-7][0-9])|50(0[0-9]|1[0-9]|2[1-9]|[3-4][0-9]|5[0-8]))/,
-                DinersClub: /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
-                Discover: /^6(?:011|5[0-9]{2})[0-9]{12}/,
-                JCB: /^(?:2131|1800|35\d{3})\d{11}/
-            };
+            var cardFlag = {
+                getCardFlag: function(cardnumber) {
+                    var cardnumber = cardnumber.replace(/[^0-9]+/g, '');
+                    inputCCnumero.value = cardnumber;
 
-            function testarCC(nr, cartoes) {
-                for (var cartao in cartoes) {
-                    if (nr.match(cartoes[cartao])) {
-                        return cartao;
-                    }else{
-                        return false;
+                    var cards = {
+                        Visa      : /^4[0-9]{12}(?:[0-9]{3})/,
+                        Mastercard : /^((5(([1-2]|[4-5])[0-9]{8}|0((1|6)([0-9]{7}))|3(0(4((0|[2-9])[0-9]{5})|([0-3]|[5-9])[0-9]{6})|[1-9][0-9]{7})))|((508116)\\d{4,10})|((502121)\\d{4,10})|((589916)\\d{4,10})|(2[0-9]{15})|(67[0-9]{14})|(506387)\\d{4,10})/,
+                        // Mastercard : /^5[1-5][0-9]{14}/,
+                        Amex      : /^3[47][0-9]{13}/,
+                        Elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+                    };
+
+                    for (var flag in cards) {
+                        if(cards[flag].test(cardnumber)) {
+                            return flag;
+                        }
                     }
+
+                    return false;
                 }
+
             }
 
-            var valido = cardNumber.replace(/\s+/g, "");
-            var invalido = '1234567890';
-
-            [valido, invalido].forEach(function(teste){
-                console.log(testarCC(teste, cartoes));
-                if(testarCC(teste, cartoes)){
-
+            var flag = cardFlag.getCardFlag(cardNumber)
+            if(document.getElementById('cc-numero').value != ''){
+                toogleFlag(flag)
+                if(!flag && (cardNumber.length >= 16 || cardNumber.length <= 16)){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Bandeira do cartão não suportada!",
+                    });
+                    inputCCnumero.value = '';
                 }
-                document.getElementById('cc-bandeira').value = testarCC(teste, cartoes)
-            });
+                // else{
+                //
+                // }
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -570,8 +632,6 @@
                 const allInputsValid = Array.from(formControls).every(validateInput);
                 submitButton.disabled = !allInputsValid;
             }
-
-
 
             formControls.forEach(function(input) {
                 input.addEventListener('blur', function() {
@@ -591,6 +651,7 @@
             });
         });
 
+        $('#modalCard').modal('show')
     </script>
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
     <script defer type="text/javascript" src="{{ asset('assets/js/BP.Mpi.3ds20.min.js') }}"></script>

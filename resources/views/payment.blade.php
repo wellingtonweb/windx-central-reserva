@@ -6,6 +6,7 @@
             <div class="container-fluid container-payment d-none">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
+
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
@@ -122,7 +123,7 @@
                 <input type="hidden" name="authEnabled" class="bpmpi_auth" value="true" />
                 <input type="hidden" name="authEnabledNotifyonly" class="bpmpi_auth_notifyonly" value="false" />
                 <input type="hidden" name="bpmpi_auth_suppresschallenge" class="bpmpi_auth_suppresschallenge" value="false" />
-                <input type="text" placeholder="bpmpi_accesstoken" name="accessToken" id="accessToken" class="bpmpi_accesstoken" value="" />
+                <input type="text" placeholder="bpmpi_accesstoken" name="accessToken" id="accessToken" class="bpmpi_accesstoken" value="{{ $authorization }}" />
                 <input type="text" placeholder="bpmpi_ordernumber" size="50" name="orderNumber" class="bpmpi_ordernumber" value="{{session('_token')}}" />
                 <input type="hidden" placeholder="bpmpi_currency" size="50" name="currency" class="bpmpi_currency" value="986" />
 
@@ -214,6 +215,7 @@
                                         <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
                                         <input id="cc-bandeira" class="form-control data-card" type="text" name="bandeira">
 
+
                                         <label for="cc-nome">Nome no titular</label>
                                         <input type="text" class="form-control text-uppercase data-card" id="cc-nome"
                                                name="holder_name" placeholder="Nome como está no cartão">
@@ -302,12 +304,13 @@
                                 </div>
                                 <div class="p-2">
                                     <button id="sendPayment" class="btn btn-success btn-block" onclick="bpmpi_authenticate()"
-                                            type="button" disabled>Finalizar pagamento
+                                            type="button">Finalizar pagamento
                                     </button>
                                 </div>
                             </form>
                         </div>
                         <p id="labelWaitingPayment" class="pt-3 text-black-50 animate__animated animate__fadeIn d-none"></p>
+
                     </div>
                 </div>
             </div>
@@ -351,7 +354,7 @@
         let urlGetBillets = "{{ route('central.get.billets') }}";
         var checkoutForm = $('#form_checkout')[0];
 
-        document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
+        // document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
 
         // Swal.fire({
         //     icon: "info",
@@ -404,20 +407,15 @@
 
 
     </script>
+
     <script type="text/javascript">
         // document.getElementsByClassName("bpmpi_ordernumber")[0].value = generateOrderNumber();
         //
-        // var merchantData = {};
-        // var authorization = '';
-        $('#modalCard').on('show.bs.modal', function (event) {
-            console.log('Empresa: ', customerActive.company_id)
-            getToken3DSCielo(customerActive.company_id);
-        })
+        var merchantData = {};
+        var authorization = '';
+        var companyData = {};
 
-        function getToken3DSCielo(companyId) {
-            var companyData = {};
-            document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
-
+        function getCompanyData(companyId){
             switch(companyId){
                 case 5:
                     companyData.merchantData = {"EstablishmentCode": "2893748702","MerchantName": "JORDAO DE SOUZA","MCC": "4814"};
@@ -431,6 +429,14 @@
                     companyData.merchantData = {"EstablishmentCode": "1106093345","MerchantName": "WIDX","MCC": "4814"};
                     companyData.authorization = btoa('521ab3e1-b97d-4090-8d2f-3292c36ea26e:JeR2HoUjq4oyjOC3/nZAlZkkFKdmNP26p50swKzdRVY=');
             }
+
+            return companyData;
+        }
+
+        getCompanyData(customerActive.company_id)
+
+        function getTokenCielo() {
+            // document.getElementsByClassName("bpmpi_accesstoken")[0].value = "";
 
             fetch("https://mpi.braspag.com.br/v2/auth/token", {
                 method: "POST",
@@ -448,7 +454,7 @@
                         console.log(data.error_description);
 
                     }else{
-                        document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
+                        // document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
                     }
                 })
                 .catch((error) => {
@@ -464,43 +470,19 @@
                 });
         }
 
-        function toogleFlag(flag){
-            var imgFlag = document.getElementById("icon_flag");
-            var cc_brand = document.getElementById("cc-bandeira");
-
-            switch (flag){
-                case 'Visa':
-                    imgFlag.src = "/assets/img/flags/visa.svg";
-                    cc_brand.value = flag;
-                    break;
-                case 'Mastercard':
-                    imgFlag.src = "/assets/img/flags/mastercard.svg";
-                    cc_brand.value = flag;
-                    break;
-                case 'Amex':
-                    imgFlag.src = "/assets/img/flags/amex.svg";
-                    cc_brand.value = flag;
-                    break;
-                case 'Elo':
-                    imgFlag.src = "/assets/img/flags/elo.svg";
-                    cc_brand.value = flag;
-                    break;
-                case null:
-                case '':
-                case false:
-                default:
-                    imgFlag.src = "/assets/img/flags/card.svg";
-                    cc_brand.value = '';
-                    break;
-            }
-        }
+        $('#modalCard').on('show.bs.modal', function (event) {
+            console.log('Empresa: ', customerActive.company_id)
+            // getTokenCielo()
+        })
 
         function bpmpi_config() {
+
+            // swal.fire('Autenticando...')
             return {
                 onReady: function () {
                     // Evento indicando quando a inicialização do script terminou.
-                    document.getElementById("sendPayment").disabled = false;
-                    // swal.fire('Autenticando pagamento...')
+                    // document.getElementById("sendPayment").disabled = false;
+                    swal.fire('Autenticando pagamento...')
                 },
                 onSuccess: function (e) {
                     // Cartão elegível para autenticação, e portador autenticou com sucesso.
@@ -576,6 +558,39 @@
             };
         }
 
+        $('#modalCard').modal('show');
+
+        function toogleFlag(flag){
+            var imgFlag = document.getElementById("icon_flag");
+            var cc_brand = document.getElementById("cc-bandeira");
+
+            switch (flag){
+                case 'Visa':
+                    imgFlag.src = "/assets/img/flags/visa.svg";
+                    cc_brand.value = flag;
+                    break;
+                case 'Mastercard':
+                    imgFlag.src = "/assets/img/flags/mastercard.svg";
+                    cc_brand.value = flag;
+                    break;
+                case 'Amex':
+                    imgFlag.src = "/assets/img/flags/amex.svg";
+                    cc_brand.value = flag;
+                    break;
+                case 'Elo':
+                    imgFlag.src = "/assets/img/flags/elo.svg";
+                    cc_brand.value = flag;
+                    break;
+                case null:
+                case '':
+                case false:
+                default:
+                    imgFlag.src = "/assets/img/flags/card.svg";
+                    cc_brand.value = '';
+                    break;
+            }
+        }
+
         $(function () {
             $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
                 function (json) {
@@ -634,46 +649,9 @@
             }
         }
 
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const form = document.getElementById('form_checkout');
-        //     const formControls = form.querySelectorAll('.data-card');
-        //     const submitButton = form.querySelector('button');
-        //
-        //     function validateInput(input) {
-        //         const value = input.value.trim();
-        //         const isValid = /^[a-zA-Z0-9]+$/.test(value);
-        //         return isValid;
-        //     }
-        //
-        //     function checkFormValidity() {
-        //         const allInputsValid = Array.from(formControls).every(validateInput);
-        //         submitButton.disabled = !allInputsValid;
-        //     }
-        //
-        //     formControls.forEach(function(input) {
-        //         input.addEventListener('blur', function() {
-        //             const isValid = validateInput(input);
-        //             if (!isValid) {
-        //                 alert('Por favor, insira apenas números e letras.');
-        //                 input.focus();
-        //             }
-        //             checkFormValidity();
-        //         });
-        //     });
-        //
-        //     form.addEventListener('submit', function(event) {
-        //         event.preventDefault();
-        //         // Realizar a ação do envio do formulário aqui
-        //         alert('Formulário enviado!');
-        //     });
-        // });
-        //
-
-
-        $('#modalCard').modal('show')
     </script>
     <script src="https://mpisandbox.braspag.com.br/Scripts/BP.Mpi.3ds20.min.js" type="text/javascript"></script>
-{{--    <script type="text/javascript" src="https://assinante.windx.com.br/assets/js/BP.Mpi.3ds20.min.js"></script>--}}
+{{--        <script type="text/javascript" src="{{ asset('assets/js/BP.Mpi.3ds20.min.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
 
 {{--    <script type="text/javascript" defer>inactivitySession()</script>--}}

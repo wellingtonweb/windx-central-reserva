@@ -102,6 +102,7 @@ class API
     public function releaseCustomerID($customer)
     {
 
+
         $response = Http::accept('application/json')
             ->retry(3, 100)
             ->withToken($this->apiToken)
@@ -296,6 +297,62 @@ class API
 //                'status' => 'error',
 //                'error' => $e->getMessage(),
 //            ], 400);
+//        }
+    }
+
+    public function getTokenTreeDS($company_id)
+    {
+
+        $companyData = [];
+
+        switch ($company_id)
+        {
+            case 5:
+                $companyData = [
+                    "merchantData" => [
+                        "EstablishmentCode" => "2893748702",
+                        "MerchantName" => "JORDAO DE SOUZA",
+                        "MCC" => "4814"
+                    ],
+                    "authorization" => base64_encode('1b41f1b2-2027-45f2-be17-c365135effeb:zUTDqxIsLELd6SDhSWCt7bxXAsU01Y2XhSrM+oR3N/Q=')
+                ];
+                break;
+            case 6:
+                $companyData = [
+                    "merchantData" => [
+                        "EstablishmentCode" => "2893663839",
+                        "MerchantName" => "ANTONIO CARLOS DE S JAMAR",
+                        "MCC" => "4816"
+                    ],
+                    "authorization" => base64_encode('aeaf4ed9-80fd-4a99-85b8-a4fd1bf837c6:nNmnLTqgPiDCjBcL+ASOHrDSJKHAgVw9twoey6a001o=')
+                ];
+                break;
+            default:
+                $companyData = [
+                    "merchantData" => [
+                        "EstablishmentCode" => "1106093345",
+                        "MerchantName" => "WIDX",
+                        "MCC" => "4814"
+                    ],
+                    "authorization" => base64_encode('521ab3e1-b97d-4090-8d2f-3292c36ea26e:JeR2HoUjq4oyjOC3/nZAlZkkFKdmNP26p50swKzdRVY=')
+                ];
+                break;
+        }
+
+//        return $companyData;
+
+        $response = Http::accept('application/json')
+            ->retry(3, 100)
+            ->withToken($companyData['authorization'])
+            ->post('https://mpi.braspag.com.br/v2/auth/token', $companyData['merchantData']);
+
+//        dd($response->object());
+
+//        if($response->successful()){
+//            return response()->json($response->object());
+        return $response->object();
+//        }else{
+//            return $response->throw();
 //        }
     }
 

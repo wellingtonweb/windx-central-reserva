@@ -126,9 +126,13 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
-//            dd(json_encode([['origin' => 'ecommerce']]));
+//            dd((new API())->getTokenTreeDS(session('customer.company_id')));
 
-            return view('payment', ['header' => 'Pagamento (Checkout)']);
+
+            return view('payment', [
+                'header' => 'Pagamento (Checkout)',
+                'authorization' => (new API())->getTokenTreeDS(session('customer.company_id'))->access_token,
+                ]);
         } else {
             throw new CheckUserException();
         }

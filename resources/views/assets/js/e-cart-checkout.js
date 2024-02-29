@@ -56,13 +56,14 @@ $('#btnCloseModalCard').click(function (){
 function resetCardFields() {
     $('#cc-nome').val('');
     $('#cc-numero').val('');
-    $('#expiration_month option:first').prop('selected',true).trigger("change");
-    $('#expiration_year option:first').prop('selected',true).trigger("change");
-    $('#cc-bandeira option:first').prop('selected',true).trigger("change");
+    $('#expiration_month').val('');
+    $('#expiration_year').val('');
+    $('#cc-bandeira').val('');
     $('#cc-cvv').val('');
     $('#form_checkout').find('small').text('')
     $('#form_checkout').find('input').removeClass('is-invalid')
     $('.text-display-error').addClass('d-none').html('')
+    document.getElementById("icon_flag").src = "/assets/img/flags/card.svg"
 }
 
 /* Button payment type */
@@ -79,6 +80,7 @@ function getPaymentType(e){
             e.id == 'btn-debit'? getAccessToken() : '';
             paymentType = (e.id == 'btn-credit'?'credit':'debit');
             $('#payment_type').val((e.id == 'btn-credit'?'credit':'debit'));
+            $('.bpmpi_paymentmethod').val(paymentType);
             $('#method').val('ecommerce');
             $('#modalCard').modal('show');
             break

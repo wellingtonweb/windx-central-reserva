@@ -62,6 +62,7 @@ function addToCartBtn(data){
                     if (result.isConfirmed) {
                         sessionStorage.setItem('isAgreement', JSON.stringify(true));
                         $('input#installment').val(installment);
+                        $('input.bpmpi_installments').val(installment);
                         clearAllSections();
                         billetsCart.addItemToCart(billet_id, reference, duedate, value, addition, discount, price, 1, company_id);
                         addPaintItem(btnId)
@@ -148,6 +149,14 @@ function nextStepCheckout(){
                 title: `Selecione a forma <br>de pagamento`,
                 html: `
                 <div id="v-pills-tab" class="checkout-controls mt-4 px-3">
+                    <div class="mt-3">
+                        <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-debit" type="button">
+                            <span class="pl-3">DÉBITO</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512" class="mr-3">
+                                <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/>
+                            </svg>
+                        </button>
+                    </div>
                     <div class="mt-3">
                         <button onclick="getPaymentType(this)" class="btn btn-windx mb-1 btn-payment-type mt-4 btn-block d-flex justify-content-between" id="btn-credit" type="button">
                             <span class="pl-3">CRÉDITO</span>

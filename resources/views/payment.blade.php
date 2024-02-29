@@ -122,38 +122,35 @@
                 <input type="hidden" name="authEnabled" class="bpmpi_auth" value="true" />
                 <input type="hidden" name="authEnabledNotifyonly" class="bpmpi_auth_notifyonly" value="false" />
                 <input type="hidden" name="bpmpi_auth_suppresschallenge" class="bpmpi_auth_suppresschallenge" value="false" />
-                    <input type="text" placeholder="bpmpi_accesstoken" name="accessToken" id="accessToken" class="bpmpi_accesstoken" value="" />
-                    <input type="text" placeholder="bpmpi_ordernumber" size="50" name="orderNumber" class="bpmpi_ordernumber" value="{{session('_token')}}" />
-                    <input type="hidden" placeholder="bpmpi_currency" size="50" name="currency" class="bpmpi_currency" value="986" />
-                    <input type="text" placeholder="bpmpi_totalamount" size="50" name="amount" class="bpmpi_totalamount" value="" />
-                    <input type="text" placeholder="bpmpi_installments" size="2" name="installments" class="bpmpi_installments" value="1" />
-                    <input type="text" placeholder="bpmpi_paymentmethod" size="50" name="paymentMethod" class="bpmpi_paymentmethod" value="" />
-                    <!-- //Preencher com o payment_type
-                        <select name="paymentMethod" class="bpmpi_paymentmethod">
-                        <option value="credit" selected="selected">Credit</option>
-                        <option value="debit">Debit</option>
-                    </select>-->
+                <input type="text" placeholder="bpmpi_accesstoken" name="accessToken" id="accessToken" class="bpmpi_accesstoken" value="" />
+                <input type="text" placeholder="bpmpi_ordernumber" size="50" name="orderNumber" class="bpmpi_ordernumber" value="{{session('_token')}}" />
+                <input type="hidden" placeholder="bpmpi_currency" size="50" name="currency" class="bpmpi_currency" value="986" />
 
-                    <input type="text" placeholder="bpmpi_cardnumber" size="50" name="cardNumber" class="bpmpi_cardnumber" value="" />
-                    <input type="text" placeholder="bpmpi_cardexpirationmonth" size="50" name="expMonth" class="bpmpi_cardexpirationmonth" value="" />
-                    <input type="text" placeholder="bpmpi_cardexpirationyear" size="50" name="expYear" class="bpmpi_cardexpirationyear" value="" />
-                    <input type="text" placeholder="bpmpi_cardalias" size="50" class="bpmpi_cardalias" value="" />
-                        <input type="text" placeholder="bpmpi_billto_contactname" size="50" class="bpmpi_billto_contactname" value="{{session('customer.full_name')}}" />
-                        <input type="text" placeholder="bpmpi_billto_phonenumber" size="50" class="bpmpi_billto_phonenumber" value="{{preg_replace('/[^\d]/i', '', session('customer.phone'))}}" />
-                        <input type="text" placeholder="bpmpi_billto_email" size="50" class="bpmpi_billto_email" value="{{session('customer.email')}}" />
-                        <input type="text" placeholder="bpmpi_billto_street1" size="50" class="bpmpi_billto_street1" value="{{session('customer.street')}}" />
-                        <input type="text" placeholder="bpmpi_billto_street2" size="50" class="bpmpi_billto_street2" value="{{session('customer.district')}}" />
-                        <input type="text" placeholder="bpmpi_billto_city" size="50" class="bpmpi_billto_city" value="{{session('customer.city')}}" />
-                        <input type="text" placeholder="bpmpi_billto_state" size="50" class="bpmpi_billto_state" value="{{session('customer.state')}}" />
-                        <input type="hidden" size="2" class="bpmpi_billto_country" value="BR" />
-                        <input type="text" placeholder="bpmpi_billto_zipcode" size="50" class="bpmpi_billto_zipcode" value="{{preg_replace('/[^\d]/i', '', session('customer.cep'))}}" />
-                        <input type="hidden" size="50" class="bpmpi_shipto_sameasbillto" value="true" />
-                        <input type="text" placeholder="bpmpi_device_ipaddress" size="50" class="bpmpi_device_ipaddress" value="" />
-                        <input type="hidden" size="7" class="bpmpi_device_channel" value="Browser" />
-                        <input type="hidden" size="50" class="bpmpi_transaction_mode" value="S" />
-                        <input type="hidden" size="50" class="bpmpi_merchant_url" value="https://www.windx.com.br" />
-                        <input type="hidden" size="50" class="bpmpi_order_productcode" value="PHY" />
-                    <input type="button" onclick="sendOrder()" value="Send Order" id="btnSendOrder" />
+                <input type="text" placeholder="bpmpi_totalamount" size="50" name="amount" class="bpmpi_totalamount" value="6990" />
+
+                <input type="text" placeholder="bpmpi_installments" size="2" name="installments" class="bpmpi_installments" value="1" />
+                <input type="text" placeholder="bpmpi_paymentmethod" size="50" name="paymentMethod" class="bpmpi_paymentmethod" value="credit" />
+                <input type="text" placeholder="bpmpi_cardnumber" size="50" name="cardNumber" class="bpmpi_cardnumber" value="5474080131153155" />
+                <input type="text" placeholder="bpmpi_cardexpirationmonth" size="50" name="expMonth" class="bpmpi_cardexpirationmonth" value="08" />
+                <input type="text" placeholder="bpmpi_cardexpirationyear" size="50" name="expYear" class="bpmpi_cardexpirationyear" value="2025" />
+                <input type="text" placeholder="bpmpi_cardalias" size="50" class="bpmpi_cardalias" value="jordao s jamariqueli" />
+
+                <input type="text" size="50" class="bpmpi_billto_contactname" value="{{session('customer.full_name')}}" />
+                <input type="text" size="50" class="bpmpi_billto_phonenumber" value="{{preg_replace('/[^\d]/i', '', session('customer.phone'))}}" />
+                <input type="text" size="50" class="bpmpi_billto_email" value="{{session('customer.email')}}" />
+                <input type="text" size="50" class="bpmpi_billto_street1" value="{{session('customer.street')}}" />
+                <input type="text" size="50" class="bpmpi_billto_street2" value="{{session('customer.district')}}" />
+                <input type="text" size="50" class="bpmpi_billto_city" value="{{session('customer.city')}}" />
+                <input type="text" size="50" class="bpmpi_billto_state" value="{{session('customer.state')}}" />
+                <input type="hidden" size="2" class="bpmpi_billto_country" value="BR" />
+                <input type="text" size="50" class="bpmpi_billto_zipcode" value="{{preg_replace('/[^\d]/i', '', session('customer.cep'))}}" />
+                <input type="hidden" size="50" class="bpmpi_shipto_sameasbillto" value="true" />
+                <input type="text" size="50" class="bpmpi_device_ipaddress" value="" />
+                <input type="hidden" size="7" class="bpmpi_device_channel" value="Browser" />
+                <input type="hidden" size="50" class="bpmpi_transaction_mode" value="S" />
+                <input type="hidden" size="50" class="bpmpi_merchant_url" value="https://www.windx.com.br" />
+                <input type="hidden" size="50" class="bpmpi_order_productcode" value="PHY" />
+{{--                    <input type="button" onclick="sendOrder()" value="Send Order" id="btnSendOrder" />--}}
             </div>
         </section>
     </main>
@@ -215,16 +212,16 @@
                                         <input id="3dsEci" placeholder="3ds_eci" name="eci" type="text">
                                         <input id="3dsVersion" placeholder="3ds_version" name="version" type="text">
                                         <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
-                                        <input id="cc-bandeira" type="text" class="form-control" name="bandeira">
+                                        <input id="cc-bandeira" class="form-control data-card" type="text" name="bandeira">
 
                                         <label for="cc-nome">Nome no titular</label>
-                                        <input type="text" class="form-control text-uppercase" id="cc-nome"
+                                        <input type="text" class="form-control text-uppercase data-card" id="cc-nome"
                                                name="holder_name" placeholder="Nome como está no cartão">
                                         <small class="text-danger error-text holder_name_error"></small>
                                     </div>
                                     <div class="col-10 mb-3 px-3 text-left">
                                         <label for="cc-numero">Número do cartão</label>
-                                        <input type="text" class="form-control" id="cc-numero"
+                                        <input type="text" class="form-control data-card" id="cc-numero"
                                                name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)" onchange="getBrand(this)" min="15" max="19">
 
 {{--                                        <div class="card-number input-group mb-3 w-auto" style="background-color: transparent !important; border: none; align-items: normal;">--}}
@@ -264,7 +261,7 @@
 {{--                                    </div>--}}
                                     <div class="col-4 mb-3 px-3 text-left">
                                         <label for="expiration_month">Validade (Mês)</label>
-                                        <select id="expiration_month" name="expiration_month" class="form-control">
+                                        <select id="expiration_month" name="expiration_month" class="form-control data-card">
                                             <option value="" disabled>Ex: 12</option>
                                             <option value="01">01</option>
                                             <option value="02">02</option>
@@ -285,7 +282,7 @@
                                     <div class="col-4 mb-3 px-3 text-left">
                                         <label for="expiration_year">Validade (Ano)</label>
                                         <select id="expiration_year" name="expiration_year"
-                                                class="form-control" placeholder="Ex: 2028">
+                                                class="form-control data-card" placeholder="Ex: 2028">
                                             <option value="" disabled>Ex: 2028</option>
                                             @for ($i = 0; $i < 10; $i++)
                                                 @php
@@ -299,13 +296,13 @@
 
                                     <div class="col-4 mb-3 px-3 text-left">
                                         <label for="cc-cvv">Cód. de segurança</label>
-                                        <input type="text" class="form-control" id="cc-cvv" name="cvv" placeholder="Ex: 123">
+                                        <input type="text" class="form-control data-card" id="cc-cvv" name="cvv" placeholder="Ex: 123">
                                         <small class="text-danger error-text cvv_error"></small>
                                     </div>
                                 </div>
                                 <div class="p-2">
-                                    <button id="sendPayment" class="btn btn-success btn-block"
-                                            type="submit" disabled>Finalizar pagamento
+                                    <button id="sendPayment" class="btn btn-success btn-block" onclick="bpmpi_authenticate()"
+                                            type="button" disabled>Finalizar pagamento
                                     </button>
                                 </div>
                             </form>
@@ -413,7 +410,8 @@
         // var merchantData = {};
         // var authorization = '';
         $('#modalCard').on('show.bs.modal', function (event) {
-            //getToken3DSCielo(customerActive.company_id);
+            console.log('Empresa: ', customerActive.company_id)
+            getToken3DSCielo(customerActive.company_id);
         })
 
         function getToken3DSCielo(companyId) {
@@ -422,11 +420,11 @@
 
             switch(companyId){
                 case 5:
-                    companyData.merchantData = {"EstablishmentCode": "2893748702","MerchantName": "JDS","MCC": "4816"};
+                    companyData.merchantData = {"EstablishmentCode": "2893748702","MerchantName": "JORDAO DE SOUZA","MCC": "4814"};
                     companyData.authorization = btoa('1b41f1b2-2027-45f2-be17-c365135effeb:zUTDqxIsLELd6SDhSWCt7bxXAsU01Y2XhSrM+oR3N/Q=');
                     break;
                 case 6:
-                    companyData.merchantData = {"EstablishmentCode": "2893663839","MerchantName": "ANTONIO CARLOS DE SOUZA JAMARIQUELI","MCC": "4816"};
+                    companyData.merchantData = {"EstablishmentCode": "2893663839","MerchantName": "ANTONIO CARLOS DE S JAMAR","MCC": "4816"};
                     companyData.authorization = btoa('aeaf4ed9-80fd-4a99-85b8-a4fd1bf837c6:nNmnLTqgPiDCjBcL+ASOHrDSJKHAgVw9twoey6a001o=');
                     break;
                 default:
@@ -459,7 +457,7 @@
                 .finally(() => {
                     // console.log('Preencher os campos 3DS com os dados')
                     // console.log('Submeter o form usando a função bpmpi_authenticate()')
-                    // bpmpi_authenticate();
+
 
                     // console.log('Submeter o form usando a função bpmpi_authenticate()')
                     // alert('Finalizou!')
@@ -498,11 +496,11 @@
         }
 
         function bpmpi_config() {
-            // swal.fire('Autenticando...')
             return {
                 onReady: function () {
                     // Evento indicando quando a inicialização do script terminou.
                     document.getElementById("sendPayment").disabled = false;
+                    // swal.fire('Autenticando pagamento...')
                 },
                 onSuccess: function (e) {
                     // Cartão elegível para autenticação, e portador autenticou com sucesso.
@@ -517,6 +515,8 @@
                     document.getElementsById("3dsVersion").value = e.Version;
                     document.getElementsById("3dsReferenceId").value = e.ReferenceId;
 
+                    $('#form_checkout').submit();
+
                     console.log('Habilita o botão para enviar o pagamento!')
 
                 },
@@ -526,6 +526,11 @@
                     var eci = e.Eci;
                     var version = e.Version;
                     var referenceId = e.ReferenceId;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Falha na autenticação do cartão!",
+                    });
                 },
                 onUnenrolled: function (e) {
                     // Cartão não elegível para autenticação (não autenticável).
@@ -533,8 +538,14 @@
                     var eci = e.Eci;
                     var version = e.Version;
                     var referenceId = e.ReferenceId;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Cartão não autenticável!",
+                    });
                 },
                 onDisabled: function () {
+                    console.log('Loja não requer autenticação do portador (classe "bpmpi_auth" false -> autenticação desabilitada)')
                     // Loja não requer autenticação do portador (classe "bpmpi_auth" false -> autenticação desabilitada).
                 },
                 onError: function (e) {
@@ -544,11 +555,21 @@
                     var returnCode = e.ReturnCode;
                     var returnMessage = e.ReturnMessage;
                     var referenceId = e.ReferenceId;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Erro no processo de autenticação!",
+                    });
                 },
                 onUnsupportedBrand: function (e) {
                     // Bandeira não suportada para autenticação.
                     var returnCode = e.ReturnCode;
                     var returnMessage = e.ReturnMessage;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Bandeira do cartão não suportada!",
+                    });
                 },
                 Environment: "PRD",
                 Debug: true,
@@ -584,7 +605,6 @@
                     var cards = {
                         Visa      : /^4[0-9]{12}(?:[0-9]{3})/,
                         Mastercard : /^((5(([1-2]|[4-5])[0-9]{8}|0((1|6)([0-9]{7}))|3(0(4((0|[2-9])[0-9]{5})|([0-3]|[5-9])[0-9]{6})|[1-9][0-9]{7})))|((508116)\\d{4,10})|((502121)\\d{4,10})|((589916)\\d{4,10})|(2[0-9]{15})|(67[0-9]{14})|(506387)\\d{4,10})/,
-                        // Mastercard : /^5[1-5][0-9]{14}/,
                         Amex      : /^3[47][0-9]{13}/,
                         Elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
                     };
@@ -601,8 +621,8 @@
             }
 
             var flag = cardFlag.getCardFlag(cardNumber)
+            toogleFlag(flag)
             if(document.getElementById('cc-numero').value != ''){
-                toogleFlag(flag)
                 if(!flag && (cardNumber.length >= 16 || cardNumber.length <= 16)){
                     Swal.fire({
                         icon: "error",
@@ -611,49 +631,50 @@
                     });
                     inputCCnumero.value = '';
                 }
-                // else{
-                //
-                // }
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('form_checkout');
-            const formControls = form.querySelectorAll('.formControl');
-            const submitButton = form.querySelector('button');
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const form = document.getElementById('form_checkout');
+        //     const formControls = form.querySelectorAll('.data-card');
+        //     const submitButton = form.querySelector('button');
+        //
+        //     function validateInput(input) {
+        //         const value = input.value.trim();
+        //         const isValid = /^[a-zA-Z0-9]+$/.test(value);
+        //         return isValid;
+        //     }
+        //
+        //     function checkFormValidity() {
+        //         const allInputsValid = Array.from(formControls).every(validateInput);
+        //         submitButton.disabled = !allInputsValid;
+        //     }
+        //
+        //     formControls.forEach(function(input) {
+        //         input.addEventListener('blur', function() {
+        //             const isValid = validateInput(input);
+        //             if (!isValid) {
+        //                 alert('Por favor, insira apenas números e letras.');
+        //                 input.focus();
+        //             }
+        //             checkFormValidity();
+        //         });
+        //     });
+        //
+        //     form.addEventListener('submit', function(event) {
+        //         event.preventDefault();
+        //         // Realizar a ação do envio do formulário aqui
+        //         alert('Formulário enviado!');
+        //     });
+        // });
+        //
 
-            function validateInput(input) {
-                const value = input.value.trim();
-                const isValid = /^[a-zA-Z0-9]+$/.test(value);
-                return isValid;
-            }
-
-            function checkFormValidity() {
-                const allInputsValid = Array.from(formControls).every(validateInput);
-                submitButton.disabled = !allInputsValid;
-            }
-
-            formControls.forEach(function(input) {
-                input.addEventListener('blur', function() {
-                    const isValid = validateInput(input);
-                    if (!isValid) {
-                        alert('Por favor, insira apenas números e letras.');
-                        input.focus();
-                    }
-                    checkFormValidity();
-                });
-            });
-
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                // Realizar a ação do envio do formulário aqui
-                alert('Formulário enviado!');
-            });
-        });
 
         $('#modalCard').modal('show')
     </script>
+    <script src="https://mpisandbox.braspag.com.br/Scripts/BP.Mpi.3ds20.min.js" type="text/javascript"></script>
+{{--    <script type="text/javascript" src="https://assinante.windx.com.br/assets/js/BP.Mpi.3ds20.min.js"></script>--}}
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
-    <script defer type="text/javascript" src="{{ asset('assets/js/BP.Mpi.3ds20.min.js') }}"></script>
+
 {{--    <script type="text/javascript" defer>inactivitySession()</script>--}}
 @endsection

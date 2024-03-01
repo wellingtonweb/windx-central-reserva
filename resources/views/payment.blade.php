@@ -146,10 +146,10 @@
                 <input type="hidden" size="2" class="bpmpi_billto_country" value="BR" />
                 <input type="text" size="50" class="bpmpi_billto_zipcode" value="{{preg_replace('/[^\d]/i', '', session('customer.cep'))}}" />
                 <input type="hidden" size="50" class="bpmpi_shipto_sameasbillto" value="true" />
-                <input type="text" size="50" class="bpmpi_device_ipaddress" value="" />
+                <input type="text" size="50" class="bpmpi_device_ipaddress" value="{{session('customer.ip_address')}}" />
                 <input type="hidden" size="7" class="bpmpi_device_channel" value="Browser" />
                 <input type="hidden" size="50" class="bpmpi_transaction_mode" value="S" />
-                <input type="hidden" size="50" class="bpmpi_merchant_url" value="https://www.windx.com.br" />
+                <input type="hidden" size="50" class="bpmpi_merchant_url" value="https://assinante.windx.com.br" />
                 <input type="hidden" size="50" class="bpmpi_order_productcode" value="PHY" />
 {{--                    <input type="button" onclick="sendOrder()" value="Send Order" id="btnSendOrder" />--}}
             </div>
@@ -213,12 +213,12 @@
                                         <input id="3dsEci" placeholder="3ds_eci" name="eci" type="text">
                                         <input id="3dsVersion" placeholder="3ds_version" name="version" type="text">
                                         <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
-                                        <input id="cc-bandeira" class="form-control data-card" type="text" name="bandeira">
 
 
-                                        <label for="cc-nome">Nome no titular</label>
+
+                                        <label for="cc-nome">Nome do titular</label>
                                         <input type="text" class="form-control text-uppercase data-card" id="cc-nome"
-                                               name="holder_name" placeholder="Nome como está no cartão">
+                                               name="holder_name" placeholder="Nome impresso no cartão">
                                         <small class="text-danger error-text holder_name_error"></small>
                                     </div>
                                     <div class="col-10 mb-3 px-3 text-left">
@@ -240,31 +240,12 @@
                                     </div>
                                     <div class="col-2 mb-3 px-3 d-flex justify-content-end align-items-end" style="margin-bottom: .45rem !important;">
                                         <img id="icon_flag" src="/assets/img/flags/card.svg" alt="bandeira" width="55" style="margin-left: -5px">
-{{--                                        <input id="cc-bandeira" type="text" class="form-control" name="bandeira">--}}
-{{--                                        <input type="text" class="form-control" id="cc-bandeira" name="bandeira" readonly>--}}
-{{--                                        <small class="text-danger error-text bandeira_error"></small>--}}
+                                        <input id="cc-bandeira" class="form-control data-card" type="hidden" name="bandeira">
                                     </div>
-{{--                                    <div class="col-6 mb-3 px-3 text-left">--}}
-{{--                                        <label for="cc-bandeira">Bandeira do cartão</label>--}}
-{{--                                        <select id="cc-bandeira" name="bandeira"--}}
-{{--                                                class="form-control">--}}
-{{--                                            <option value="" disabled selected>Escolher</option>--}}
-{{--                                            <option value="American Express">American Express</option>--}}
-{{--                                            <option value="Aura">Aura</option>--}}
-{{--                                            <option value="Banescard">Banescard</option>--}}
-{{--                                            <option value="Cabal">Cabal</option>--}}
-{{--                                            <option value="Dinners">Dinners</option>--}}
-{{--                                            <option value="Elo">Elo</option>--}}
-{{--                                            <option value="Hipercard">Hipercard</option>--}}
-{{--                                            <option value="Master">Master</option>--}}
-{{--                                            <option value="Visa">Visa</option>--}}
-{{--                                        </select>--}}
-{{--                                        <small class="text-danger error-text bandeira_error"></small>--}}
-{{--                                    </div>--}}
                                     <div class="col-4 mb-3 px-3 text-left">
-                                        <label for="expiration_month">Validade (Mês)</label>
-                                        <select id="expiration_month" name="expiration_month" class="form-control data-card">
-                                            <option value="" disabled>Ex: 12</option>
+                                        <label for="expiration_month">Validade</label>
+                                        <select id="expiration_month" name="expiration_month" placeholder="Mês" class="form-control data-card">
+                                            <option value="" selected disabled>Mês</option>
                                             <option value="01">01</option>
                                             <option value="02">02</option>
                                             <option value="03">03</option>
@@ -278,15 +259,14 @@
                                             <option value="11">11</option>
                                             <option value="12">12</option>
                                         </select>
-                                        <small
-                                            class="text-danger error-text expiration_month_error"></small>
+                                        <small class="text-danger error-text expiration_month_error"></small>
                                     </div>
                                     <div class="col-4 mb-3 px-3 text-left">
-                                        <label for="expiration_year">Validade (Ano)</label>
+                                        <label for="expiration_year"></label>
                                         <select id="expiration_year" name="expiration_year"
-                                                class="form-control data-card" placeholder="Ex: 2028">
-                                            <option value="" disabled>Ex: 2028</option>
-                                            @for ($i = 0; $i < 10; $i++)
+                                                class="form-control data-card mt-lg-2" placeholder="Ano">
+                                            <option value="" selected disabled>Ano</option>
+                                            @for ($i = 0; $i < 5; $i++)
                                                 @php
                                                     $ano = now()->year + $i;
                                                 @endphp
@@ -297,14 +277,14 @@
                                     </div>
 
                                     <div class="col-4 mb-3 px-3 text-left">
-                                        <label for="cc-cvv">Cód. de segurança</label>
+                                        <label for="cc-cvv">CVV</label>
                                         <input type="text" class="form-control data-card" id="cc-cvv" name="cvv" placeholder="Ex: 123">
                                         <small class="text-danger error-text cvv_error"></small>
                                     </div>
                                 </div>
                                 <div class="p-2">
                                     <button id="sendPayment" class="btn btn-success btn-block" onclick="bpmpi_authenticate()"
-                                            type="button">Finalizar pagamento
+                                            type="button" disabled>Finalizar pagamento
                                     </button>
                                 </div>
                             </form>
@@ -411,69 +391,69 @@
     <script type="text/javascript">
         // document.getElementsByClassName("bpmpi_ordernumber")[0].value = generateOrderNumber();
         //
-        var merchantData = {};
-        var authorization = '';
-        var companyData = {};
-
-        function getCompanyData(companyId){
-            switch(companyId){
-                case 5:
-                    companyData.merchantData = {"EstablishmentCode": "2893748702","MerchantName": "JORDAO DE SOUZA","MCC": "4814"};
-                    companyData.authorization = btoa('1b41f1b2-2027-45f2-be17-c365135effeb:zUTDqxIsLELd6SDhSWCt7bxXAsU01Y2XhSrM+oR3N/Q=');
-                    break;
-                case 6:
-                    companyData.merchantData = {"EstablishmentCode": "2893663839","MerchantName": "ANTONIO CARLOS DE S JAMAR","MCC": "4816"};
-                    companyData.authorization = btoa('aeaf4ed9-80fd-4a99-85b8-a4fd1bf837c6:nNmnLTqgPiDCjBcL+ASOHrDSJKHAgVw9twoey6a001o=');
-                    break;
-                default:
-                    companyData.merchantData = {"EstablishmentCode": "1106093345","MerchantName": "WIDX","MCC": "4814"};
-                    companyData.authorization = btoa('521ab3e1-b97d-4090-8d2f-3292c36ea26e:JeR2HoUjq4oyjOC3/nZAlZkkFKdmNP26p50swKzdRVY=');
-            }
-
-            return companyData;
-        }
-
-        getCompanyData(customerActive.company_id)
-
-        function getTokenCielo() {
-            // document.getElementsByClassName("bpmpi_accesstoken")[0].value = "";
-
-            fetch("https://mpi.braspag.com.br/v2/auth/token", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Basic ${companyData.authorization}`
-                },
-                body: JSON.stringify(companyData.merchantData),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.error) {
-                        $('#modalCard').modal('hide');
-                        alert(data.error_description)
-                        console.log(data.error_description);
-
-                    }else{
-                        // document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    // console.log('Preencher os campos 3DS com os dados')
-                    // console.log('Submeter o form usando a função bpmpi_authenticate()')
-
-
-                    // console.log('Submeter o form usando a função bpmpi_authenticate()')
-                    // alert('Finalizou!')
-                });
-        }
-
-        $('#modalCard').on('show.bs.modal', function (event) {
-            console.log('Empresa: ', customerActive.company_id)
-            // getTokenCielo()
-        })
+        // var merchantData = {};
+        // var authorization = '';
+        // var companyData = {};
+        //
+        // function getCompanyData(companyId){
+        //     switch(companyId){
+        //         case 5:
+        //             companyData.merchantData = {"EstablishmentCode": "2893748702","MerchantName": "JORDAO DE SOUZA","MCC": "4814"};
+        //             companyData.authorization = btoa('1b41f1b2-2027-45f2-be17-c365135effeb:zUTDqxIsLELd6SDhSWCt7bxXAsU01Y2XhSrM+oR3N/Q=');
+        //             break;
+        //         case 6:
+        //             companyData.merchantData = {"EstablishmentCode": "2893663839","MerchantName": "ANTONIO CARLOS DE S JAMAR","MCC": "4816"};
+        //             companyData.authorization = btoa('aeaf4ed9-80fd-4a99-85b8-a4fd1bf837c6:nNmnLTqgPiDCjBcL+ASOHrDSJKHAgVw9twoey6a001o=');
+        //             break;
+        //         default:
+        //             companyData.merchantData = {"EstablishmentCode": "1106093345","MerchantName": "WIDX","MCC": "4814"};
+        //             companyData.authorization = btoa('521ab3e1-b97d-4090-8d2f-3292c36ea26e:JeR2HoUjq4oyjOC3/nZAlZkkFKdmNP26p50swKzdRVY=');
+        //     }
+        //
+        //     return companyData;
+        // }
+        //
+        // getCompanyData(customerActive.company_id)
+        //
+        // function getTokenCielo() {
+        //     // document.getElementsByClassName("bpmpi_accesstoken")[0].value = "";
+        //
+        //     fetch("https://mpi.braspag.com.br/v2/auth/token", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "Authorization": `Basic ${companyData.authorization}`
+        //         },
+        //         body: JSON.stringify(companyData.merchantData),
+        //     })
+        //         .then((response) => response.json())
+        //         .then((data) => {
+        //             if (data.error) {
+        //                 $('#modalCard').modal('hide');
+        //                 alert(data.error_description)
+        //                 console.log(data.error_description);
+        //
+        //             }else{
+        //                 // document.getElementsByClassName("bpmpi_accesstoken")[0].value = data.access_token
+        //             }
+        //         })
+        //         .catch((error) => {
+        //             console.error(error);
+        //         })
+        //         .finally(() => {
+        //             // console.log('Preencher os campos 3DS com os dados')
+        //             // console.log('Submeter o form usando a função bpmpi_authenticate()')
+        //
+        //
+        //             // console.log('Submeter o form usando a função bpmpi_authenticate()')
+        //             // alert('Finalizou!')
+        //         });
+        // }
+        //
+        // $('#modalCard').on('show.bs.modal', function (event) {
+        //     console.log('Empresa: ', customerActive.company_id)
+        //     // getTokenCielo()
+        // })
 
         function bpmpi_config() {
 
@@ -481,8 +461,8 @@
             return {
                 onReady: function () {
                     // Evento indicando quando a inicialização do script terminou.
-                    // document.getElementById("sendPayment").disabled = false;
-                    swal.fire('Autenticando pagamento...')
+                    document.getElementById("sendPayment").disabled = false;
+                    // swal.fire('Autenticando pagamento...')
                 },
                 onSuccess: function (e) {
                     // Cartão elegível para autenticação, e portador autenticou com sucesso.
@@ -600,6 +580,8 @@
         });
 
         function parseToCents(reais) {
+
+            //Colocar valor em centavos dentro do payment ao atualizar o carrinho
             return Math.round(reais * 100); // Arredondando para o inteiro mais próximo
         }
 
@@ -637,8 +619,9 @@
 
             var flag = cardFlag.getCardFlag(cardNumber)
             toogleFlag(flag)
+            console.log("Bandeira: ", flag)
             if(document.getElementById('cc-numero').value != ''){
-                if(!flag && (cardNumber.length >= 16 || cardNumber.length <= 16)){
+                if(!flag && (cardNumber.length >= 16 || cardNumber.length < 15)){
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",

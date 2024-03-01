@@ -108,6 +108,7 @@ class AuthController extends Controller
 
             session()->put('customer',  $customer);
             session()->put('customer.login',  $validator->validate()['login']);
+            session()->put('customer.ip_address', file_get_contents("http://ipecho.net/plain"));
             UserInfo::get_customer_metadata();
 
 //            dd(session('customer'));

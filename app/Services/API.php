@@ -302,7 +302,6 @@ class API
 
     public function getTokenTreeDS($company_id)
     {
-
         $companyData = [];
 
         switch ($company_id)
@@ -339,23 +338,11 @@ class API
                 break;
         }
 
-//        return $companyData;
-
         $response = Http::accept('application/json')
             ->retry(3, 100)
             ->withToken($companyData['authorization'])
             ->post('https://mpi.braspag.com.br/v2/auth/token', $companyData['merchantData']);
 
-//        dd($response->object());
-
-//        if($response->successful()){
-//            return response()->json($response->object());
         return $response->object();
-//        }else{
-//            return $response->throw();
-//        }
     }
-
-
-
 }

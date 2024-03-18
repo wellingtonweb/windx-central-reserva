@@ -48,11 +48,13 @@ class PaymentController extends Controller implements ShouldQueue
 
         if($validated['method'] == 'picpay')
         {
-            $body = Checkout::getBodyPaymentPicpay($validated);
+            $body = (new Checkout())->getBodyPaymentPicpay($validated);
         }
         else
         {
-            $body = Checkout::getBodyPaymentEcommerce($validated);
+//            dd($validated);
+            $body = (new Checkout())->getBodyPaymentEcommerce($validated);
+            dd($validated, $body);
         }
 
         $response = (new API())->postPayment($body);

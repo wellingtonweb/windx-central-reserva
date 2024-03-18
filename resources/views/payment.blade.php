@@ -3,10 +3,9 @@
 @section('content')
     <main>
         <section>
-            <div class="container-fluid container-payment d-none">
+            <div class="container-fluid container-payment">
                 <main role="main" class="inner fadeIn">
                     <div class="row contents animate__animated animate__fadeIn">
-
                         <nav id="infoCustomerActive" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-primary" href="{{route('central.home')}}">Home</a></li>
@@ -79,7 +78,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <span class="infoText" style="letter-spacing: 1px;">Formas de pagamento: Crédito, Pix e Picpay</span>
+                                        <span class="infoText" style="letter-spacing: 1px;">Formas de pagamento: Débito, Crédito, Pix e Picpay</span>
                                     </div>
                                 </div>
                             </div>
@@ -127,14 +126,14 @@
                 <input type="text" placeholder="bpmpi_ordernumber" size="50" name="orderNumber" class="bpmpi_ordernumber" value="{{session('_token')}}" />
                 <input type="hidden" placeholder="bpmpi_currency" size="50" name="currency" class="bpmpi_currency" value="986" />
 
-                <input type="text" placeholder="bpmpi_totalamount" size="50" name="amount" class="bpmpi_totalamount" value="6990" />
+                <input type="text" placeholder="bpmpi_totalamount" size="50" name="amount" class="bpmpi_totalamount" value="" />
 
                 <input type="text" placeholder="bpmpi_installments" size="2" name="installments" class="bpmpi_installments" value="1" />
-                <input type="text" placeholder="bpmpi_paymentmethod" size="50" name="paymentMethod" class="bpmpi_paymentmethod" value="credit" />
-                <input type="text" placeholder="bpmpi_cardnumber" size="50" name="cardNumber" class="bpmpi_cardnumber" value="5474080131153155" />
-                <input type="text" placeholder="bpmpi_cardexpirationmonth" size="50" name="expMonth" class="bpmpi_cardexpirationmonth" value="08" />
-                <input type="text" placeholder="bpmpi_cardexpirationyear" size="50" name="expYear" class="bpmpi_cardexpirationyear" value="2025" />
-                <input type="text" placeholder="bpmpi_cardalias" size="50" class="bpmpi_cardalias" value="jordao s jamariqueli" />
+                <input type="text" placeholder="bpmpi_paymentmethod" size="50" name="paymentMethod" class="bpmpi_paymentmethod" value="" />
+                <input type="text" placeholder="bpmpi_cardnumber" size="50" name="cardNumber" class="bpmpi_cardnumber" value="" />
+                <input type="text" placeholder="bpmpi_cardexpirationmonth" size="50" name="expMonth" class="bpmpi_cardexpirationmonth" value="" />
+                <input type="text" placeholder="bpmpi_cardexpirationyear" size="50" name="expYear" class="bpmpi_cardexpirationyear" value="" />
+                <input type="text" placeholder="bpmpi_cardalias" size="50" class="bpmpi_cardalias" value="" />
 
                 <input type="text" size="50" class="bpmpi_billto_contactname" value="{{session('customer.full_name')}}" />
                 <input type="text" size="50" class="bpmpi_billto_phonenumber" value="{{preg_replace('/[^\d]/i', '', session('customer.phone'))}}" />
@@ -171,7 +170,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header text-center" style="border-bottom: none; display: ruby">
-                    <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Pagamento via CRÉDITO</h5>
+                    <h5 class="modal-title font-weight-bold" id="staticBackdropLabel">Pagamento via <span class="text-uppercase"></span></h5>
                     <button id="btnCloseModalCard" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -181,7 +180,16 @@
 
                         <div class="box-price-qrcode-card">
                             <h4 class="text-danger pt-2"><b>Valor total: R$ </b><span class="font-weight-bold total-cart"></span></h4>
-                            <p> Faturas selecionadas: <b class="total-count"></b></p>
+                            <p> Total de faturas selecionadas: <b class="total-count"></b></p>
+                        </div>
+                        <div class="d-flex flex-column mt-1 pb-1">
+                            <span class="mb-0 text-dark" style="letter-spacing: 1px">Bandeiras suportadas</span>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img class="m-1" src="/assets/img/flags/visa.svg" alt="visa" width="28">
+                                <img class="m-1" src="/assets/img/flags/mastercard.svg" alt="mastercard" width="28">
+                                <img class="m-1" src="/assets/img/flags/elo.svg" alt="elo" width="28">
+                                <img class="m-1" src="/assets/img/flags/amex.svg" alt="amex" width="28">
+                            </div>
                         </div>
                         <small class="pt-2 text-black-50">Preencha os campos com os dados de seu cartão</small><br>
                         <small id="timerPaymentQrCode" class="mt-2 text-danger font-weight-bold">02:00</small>
@@ -209,33 +217,21 @@
                                         </div>
                                     </div>
                                     <div class="col-12 mb-3 px-3 text-left">
-                                        <input id="3dsCavv" placeholder="3ds_cavv" name="cavv" type="text">
-                                        <input id="3dsEci" placeholder="3ds_eci" name="eci" type="text">
-                                        <input id="3dsVersion" placeholder="3ds_version" name="version" type="text">
-                                        <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
 
-
+                                            <input id="3dsCavv" placeholder="3ds_cavv" name="cavv" type="text">
+                                            <input id="3dsEci" placeholder="3ds_eci" name="eci" type="text">
+                                            <input id="3dsVersion" placeholder="3ds_version" name="version" type="text">
+                                            <input id="3dsReferenceId" placeholder="3ds_reference_id" name="reference_id" type="text">
 
                                         <label for="cc-nome">Nome do titular</label>
                                         <input type="text" class="form-control text-uppercase data-card" id="cc-nome"
-                                               name="holder_name" placeholder="Nome impresso no cartão">
+                                               name="holder_name" placeholder="Nome impresso no cartão" required>
                                         <small class="text-danger error-text holder_name_error"></small>
                                     </div>
                                     <div class="col-10 mb-3 px-3 text-left">
                                         <label for="cc-numero">Número do cartão</label>
                                         <input type="text" class="form-control data-card" id="cc-numero"
                                                name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)" onchange="getBrand(this)" min="15" max="19">
-
-{{--                                        <div class="card-number input-group mb-3 w-auto" style="background-color: transparent !important; border: none; align-items: normal;">--}}
-{{--                                            <div class="input-group-prepend " style="margin-right: -6px; margin-top: -6px">--}}
-{{--                                                <div class="input-group-text" id="basic-addon1" style="padding: 0; ">--}}
-{{--                                                    <img id="icon_flag" class="icon-flag_" src="/assets/img/flags/card.svg" alt="card flag" width="35">--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <input type="text" class="form-control" id="cc-numero"--}}
-{{--                                                   name="card_number" placeholder="0000 0000 0000 0000" onblur="getBrand(this)">--}}
-
-{{--                                        </div>--}}
                                         <small class="text-danger error-text card_number_error"></small>
                                     </div>
                                     <div class="col-2 mb-3 px-3 d-flex justify-content-end align-items-end" style="margin-bottom: .45rem !important;">
@@ -266,7 +262,7 @@
                                         <select id="expiration_year" name="expiration_year"
                                                 class="form-control data-card mt-lg-2" placeholder="Ano">
                                             <option value="" selected disabled>Ano</option>
-                                            @for ($i = 0; $i < 5; $i++)
+                                            @for ($i = 0; $i < 10; $i++)
                                                 @php
                                                     $ano = now()->year + $i;
                                                 @endphp
@@ -283,7 +279,7 @@
                                     </div>
                                 </div>
                                 <div class="p-2">
-                                    <button id="sendPayment" class="btn btn-success btn-block" onclick="bpmpi_authenticate()"
+                                    <button id="sendPayment" class="btn btn-success btn-block" onclick="sendPaymentAuthentication()"
                                             type="button" disabled>Finalizar pagamento
                                     </button>
                                 </div>
@@ -300,6 +296,11 @@
 
 @section('css')
     <style>
+
+        #Cardinal-Modal {
+            border-radius: .4rem !important;
+        }
+
         .icon-flag {
             position:absolute;
             top:0; right:0;
@@ -324,7 +325,7 @@
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    {{--    <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>--}}
+        <script defer type="text/javascript" src="{{ asset('assets/js/payment.js') }}"></script>
 
     <script>
         var idCustomer = {{session('customer.id')}};
@@ -334,38 +335,43 @@
         let urlGetBillets = "{{ route('central.get.billets') }}";
         var checkoutForm = $('#form_checkout')[0];
 
-        // document.getElementsByClassName("bpmpi_accesstoken")[0].value = '';
+        function formatDueDate(dueDate)
+        {
+            var dt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric'});
 
-        // Swal.fire({
-        //     icon: "info",
-        //     title: `Selecione uma ou mais faturas para pagamento!`,
-        //     html: `<div class="p-2 d-flex justify-content-center align-items-center">
-        //                     <div class="container-screen">
-        //                         <div>Fatura 4</div>
-        //                         <div>Fatura 5</div>
-        //                         <div>Fatura 1</div>
-        //                         <div>Fatura 2</div>
-        //                         <div>Fatura 3</div>
-        //                         <i class="fas fa-hand-pointer fa-2x hand-icon"></i>
-        //                     </div>
-        //                 </div>`,
-        //     showDenyButton: false,
-        //     showCancelButton: false,
-        //     showConfirmButton: true,
-        //     confirmButtonText: 'OK',
-        //     cancelButtonText: `Não`,
-        //     allowOutsideClick: () => {
-        //         const popup = Swal.getPopup()
-        //         popup.classList.remove('swal2-show')
-        //         setTimeout(() => {
-        //             popup.classList.add('animate__animated', 'animate__headShake')
-        //         })
-        //         setTimeout(() => {
-        //             popup.classList.remove('animate__animated', 'animate__headShake')
-        //         }, 500)
-        //         return false
-        //     },
-        // })
+            return dt.format(new Date(dueDate));
+        }
+
+        Swal.fire({
+            icon: "info",
+            title: `Selecione uma ou mais faturas para pagamento!`,
+            html: `<div class="p-2 d-flex justify-content-center align-items-center">
+                            <div class="container-screen">
+                                <div>Fatura 4</div>
+                                <div>Fatura 5</div>
+                                <div>Fatura 1</div>
+                                <div>Fatura 2</div>
+                                <div>Fatura 3</div>
+                                <i class="fas fa-hand-pointer fa-2x hand-icon"></i>
+                            </div>
+                        </div>`,
+            showDenyButton: false,
+            showCancelButton: false,
+            showConfirmButton: true,
+            confirmButtonText: 'OK',
+            cancelButtonText: `Não`,
+            allowOutsideClick: () => {
+                const popup = Swal.getPopup()
+                popup.classList.remove('swal2-show')
+                setTimeout(() => {
+                    popup.classList.add('animate__animated', 'animate__headShake')
+                })
+                setTimeout(() => {
+                    popup.classList.remove('animate__animated', 'animate__headShake')
+                }, 500)
+                return false
+            },
+        })
 
 
         //cc-nome, cc-numero, expiration_month, expiration_year
@@ -455,6 +461,11 @@
         //     // getTokenCielo()
         // })
 
+        function sendPaymentAuthentication(){
+            document.getElementById("sendPayment").textContent = 'Autenticando...';
+            bpmpi_authenticate()
+        }
+
         function bpmpi_config() {
 
             // swal.fire('Autenticando...')
@@ -462,6 +473,7 @@
                 onReady: function () {
                     // Evento indicando quando a inicialização do script terminou.
                     document.getElementById("sendPayment").disabled = false;
+                    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
                     // swal.fire('Autenticando pagamento...')
                 },
                 onSuccess: function (e) {
@@ -477,6 +489,7 @@
                     document.getElementsById("3dsVersion").value = e.Version;
                     document.getElementsById("3dsReferenceId").value = e.ReferenceId;
 
+
                     $('#form_checkout').submit();
 
                     console.log('Habilita o botão para enviar o pagamento!')
@@ -488,6 +501,8 @@
                     var eci = e.Eci;
                     var version = e.Version;
                     var referenceId = e.ReferenceId;
+                    resetCardFields()
+                    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
@@ -496,10 +511,13 @@
                 },
                 onUnenrolled: function (e) {
                     // Cartão não elegível para autenticação (não autenticável).
+                    $('#form_checkout').submit();
                     var xid = e.Xid;
                     var eci = e.Eci;
                     var version = e.Version;
                     var referenceId = e.ReferenceId;
+                    resetCardFields()
+                    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
@@ -507,6 +525,7 @@
                     });
                 },
                 onDisabled: function () {
+                    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
                     console.log('Loja não requer autenticação do portador (classe "bpmpi_auth" false -> autenticação desabilitada)')
                     // Loja não requer autenticação do portador (classe "bpmpi_auth" false -> autenticação desabilitada).
                 },
@@ -517,6 +536,8 @@
                     var returnCode = e.ReturnCode;
                     var returnMessage = e.ReturnMessage;
                     var referenceId = e.ReferenceId;
+                    resetCardFields()
+                    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
@@ -527,6 +548,7 @@
                     // Bandeira não suportada para autenticação.
                     var returnCode = e.ReturnCode;
                     var returnMessage = e.ReturnMessage;
+                    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
@@ -534,11 +556,11 @@
                     });
                 },
                 Environment: "PRD",
-                Debug: true,
+                Debug: false,
             };
         }
 
-        $('#modalCard').modal('show');
+        // $('#modalCard').modal('show');
 
         function toogleFlag(flag){
             var imgFlag = document.getElementById("icon_flag");
@@ -600,10 +622,10 @@
                     inputCCnumero.value = cardnumber;
 
                     var cards = {
-                        Visa      : /^4[0-9]{12}(?:[0-9]{3})/,
+                        Visa      : /^(?!504175|506699|5067|509|6500|6501|4011(78|79)|43(1274|8935)|45(1416|7393|763(1|2))|50(4175|6699|67[0-6][0-9]|677[0-8]|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9])|627780|63(6297|6368|6369)|65(0(0(3([1-3]|[5-9])|4([0-9])|5[0-1])|4(0[5-9]|[1-3][0-9]|8[5-9]|9[0-9])|5([0-2][0-9]|3[0-8]|4[1-9]|[5-8][0-9]|9[0-8])|7(0[0-9]|1[0-8]|2[0-7])|9(0[1-9]|[1-6][0-9]|7[0-8]))|16(5[2-9]|[6-7][0-9])|50(0[0-9]|1[0-9]|2[1-9]|[3-4][0-9]|5[0-8])))4[0-9]{12}(?:[0-9]{3})?$/,
                         Mastercard : /^((5(([1-2]|[4-5])[0-9]{8}|0((1|6)([0-9]{7}))|3(0(4((0|[2-9])[0-9]{5})|([0-3]|[5-9])[0-9]{6})|[1-9][0-9]{7})))|((508116)\\d{4,10})|((502121)\\d{4,10})|((589916)\\d{4,10})|(2[0-9]{15})|(67[0-9]{14})|(506387)\\d{4,10})/,
                         Amex      : /^3[47][0-9]{13}/,
-                        Elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+                        Elo        : /^4011(78|79)|^43(1274|8935)|^45(1416|7393|763(1|2))|^504175|^627780|^63(6297|6368|6369)|(65003[5-9]|65004[0-9]|65005[01])|(65040[5-9]|6504[1-3][0-9])|(65048[5-9]|65049[0-9]|6505[0-2][0-9]|65053[0-8])|(65054[1-9]|6505[5-8][0-9]|65059[0-8])|(65070[0-9]|65071[0-8])|(65072[0-7])|(65090[1-9]|6509[1-6][0-9]|65097[0-8])|(65165[2-9]|6516[67][0-9])|(65500[0-9]|65501[0-9])|(65502[1-9]|6550[34][0-9]|65505[0-8])|^(506699|5067[0-6][0-9]|50677[0-8])|^(509[0-8][0-9]{2}|5099[0-8][0-9]|50999[0-9])|^65003[1-3]|^(65003[5-9]|65004\d|65005[0-1])|^(65040[5-9]|6504[1-3]\d)|^(65048[5-9]|65049\d|6505[0-2]\d|65053[0-8])|^(65054[1-9]|6505[5-8]\d|65059[0-8])|^(65070\d|65071[0-8])|^65072[0-7]|^(65090[1-9]|65091\d|650920)|^(65165[2-9]|6516[6-7]\d)|^(65500\d|65501\d)|^(65502[1-9]|6550[3-4]\d|65505[0-8])/,
                     };
 
                     for (var flag in cards) {
@@ -619,7 +641,6 @@
 
             var flag = cardFlag.getCardFlag(cardNumber)
             toogleFlag(flag)
-            console.log("Bandeira: ", flag)
             if(document.getElementById('cc-numero').value != ''){
                 if(!flag && (cardNumber.length >= 16 || cardNumber.length < 15)){
                     Swal.fire({

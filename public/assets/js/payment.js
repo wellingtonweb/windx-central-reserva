@@ -11,7 +11,7 @@ var billetsCart = (function() {
     function Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
-        this.duedate = duedate;
+        this.duedate = formatDueDate(duedate);
         this.value = value;
         this.addition = addition;
         this.discount = discount;
@@ -20,13 +20,11 @@ var billetsCart = (function() {
         this.company_id = company_id;
     }
 
-    function formatDueDate(duedate)
+    function formatDueDate(dueDate)
     {
-        const data = new Date(duedate);
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-        const formatPtBr = new Intl.DateTimeFormat('pt-BR', options);
+        var dt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric'});
 
-        return formatPtBr.format(data);
+        return dt.format(new Date(dueDate));
     }
 
     // Save cart
@@ -673,6 +671,7 @@ $('#cc-cvv').blur(function (){
 
 $('#modalCard').on('show.bs.modal', function (event) {
     Swal.close();
+    document.getElementById("sendPayment").textContent = 'Finalizar pagamento';
     countdown();
 })
 
@@ -694,6 +693,10 @@ function resetCardFields() {
     $('#expiration_year').val('');
     $('#cc-bandeira').val('');
     $('#cc-cvv').val('');
+    $('input.bpmpi_cardalias').val('');
+    $('input.bpmpi_cardnumber').val('');
+    $('input.bpmpi_cardexpirationmonth').val('');
+    $('input.bpmpi_cardexpirationyear').val('');
     $('#form_checkout').find('small').text('')
     $('#form_checkout').find('input').removeClass('is-invalid')
     $('.text-display-error').addClass('d-none').html('')
@@ -707,15 +710,19 @@ function getPaymentType(e){
         case 'btn-pix':
             $('#payment_type').val((e.id == 'btn-picpay'?'picpay':'pix'));
             $('#method').val((e.id == 'btn-picpay'?'picpay':'ecommerce'));
+            paymentTypeLabel = (e.id == 'btn-picpay'?'Picpay':'Pix');
+            $('#staticBackdropLabel span').text(paymentTypeLabel);
             resetCardFields();
             $('#form_checkout').submit();
             break
         default:
-            e.id == 'btn-debit'? getAccessToken() : '';
+            // e.id == 'btn-debit'? getAccessToken() : '';
             paymentType = (e.id == 'btn-credit'?'credit':'debit');
-            $('#payment_type').val((e.id == 'btn-credit'?'credit':'debit'));
+            paymentTypeLabel = (e.id == 'btn-credit'?'Crédito':'Débito');
+            $('#payment_type').val(paymentType);
             $('.bpmpi_paymentmethod').val(paymentType);
             $('#method').val('ecommerce');
+            $('#staticBackdropLabel span').text(paymentTypeLabel);
             $('#modalCard').modal('show');
             break
     }

@@ -16,6 +16,10 @@
                         <span>{{$header}}</span>
                         <span class="px-3"></span>
                     </div>
+                    {{$name = "GEMILSE LEONARDO HAUTEQUESTT (PITY)"}}
+                    {{$first_name = strtok($name, ' ')}}
+                    {{$last_name = substr(strstr($name, ' '),1)}}
+                    {{dd($name, $first_name, $last_name)}}
                     <div class="contract-info col-12">
                         <div id="accordion" class="row row-cols-1 row-cols-md-3 accordion">
                             <div class="col pl-0 pr-0">

@@ -11,10 +11,15 @@
                 <a class="navbar-brand pl-1" href="{{ route('central.home') }}">
                     <img class="logo-windx" src="{{ asset('assets/img/logo.svg') }}" alt="{{ config('app.name') }}">
                 </a>
-                <button id="btn-menu-toggle" class="navbar-toggler rightNavbarToggler font-weight-bold" type="button" data-toggle="collapse" data-target="#sidebar"
-                        aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span><i class="fas fa-bars fa-2x" aria-hidden="true"></i>
-                </button>
+                <div class="flex justify-content-between align-items-center align-vertical">
+                    <button id="btn-menu-toggle" class="navbar-toggler rightNavbarToggler font-weight-bold" type="button" data-toggle="collapse" data-target="#sidebar"
+                            aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span><i class="fas fa-bars fa-2x" aria-hidden="true"></i>
+                    </button>
+                    <a href="javascript:void(0)" style="border-radius: 5px; border: 1px solid white; padding: 5px 10px; margin-top: 5px; display: flex; color: white; background-color: #ba302c; justify-content: center; align-items: center" onclick="logout()">
+                            <i class="fas fa-sign-out-alt pr-1"></i>Sair
+                    </a>
+                </div>
                 <div class="collapse navbar-collapse" id="sidebar">
                     <div class="side-bar">
                         <div class="text-left m-3 p-3" style="border-bottom: 1px solid rgba(248,249,250,0.6)">

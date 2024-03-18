@@ -11,7 +11,7 @@ var billetsCart = (function() {
     function Item(billet_id, reference, duedate, value, addition, discount, price, count, company_id) {
         this.billet_id = billet_id.toString().trim();
         this.reference = reference;
-        this.duedate = duedate;
+        this.duedate = formatDueDate(duedate);
         this.value = value;
         this.addition = addition;
         this.discount = discount;
@@ -20,13 +20,11 @@ var billetsCart = (function() {
         this.company_id = company_id;
     }
 
-    function formatDueDate(duedate)
+    function formatDueDate(dueDate)
     {
-        const data = new Date(duedate);
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-        const formatPtBr = new Intl.DateTimeFormat('pt-BR', options);
+        var dt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric'});
 
-        return formatPtBr.format(data);
+        return dt.format(new Date(dueDate));
     }
 
     // Save cart

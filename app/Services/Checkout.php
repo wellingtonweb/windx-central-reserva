@@ -16,7 +16,7 @@ class Checkout
 //    protected $customerBrowser;
 //    protected $customerDevice;
 
-    public function __construct($customer_ip, $customer_os, $customer_browser, $customer_device)
+    public function __construct()
     {
 //        $this->customerIp = UserInfo::get_ip();
 //        $this->customerOs = UserInfo::get_os();
@@ -26,10 +26,13 @@ class Checkout
 
     public function getBodyPaymentEcommerce($valid)
     {
-
         $chars = array(".", "-", "/", "(", ")", " ");
         $identity = str_replace($chars, "", $valid["cpf_cnpj"]);
-        $name = explode(" ", $valid["full_name"]);
+        $first_name = strtok($valid["full_name"], ' ');
+        $last_name = substr(strstr($valid["full_name"], ' '),1);
+
+//        $name = explode(" ", $valid["full_name"]);
+//        $last_name = array_splice($name, 1);
 //        str_replace($chars, "", $valid["full_name"])
         if($valid["payment_type"] == 'pix'){
             $body = [
@@ -37,15 +40,18 @@ class Checkout
                 'billets' => $valid["billets"],
                 'method' => $valid["method"],
                 'buyer' => [
-                    "first_name" => str_replace($chars, "", $name[0]),
-                    "last_name" => str_replace($chars, "", $name[1]),
+                    "first_name" => $first_name,
+//                    "first_name" => $valid["customer"]. " - " .str_replace($chars, "", $name[0]),
+                    "last_name" => $last_name,
+//                    "last_name" => str_replace($chars, "", $name[1]),
                     "cpf_cnpj" => $identity,
                 ],
                 'payment_type' => $valid["payment_type"],
                 'installment' => $valid["installment"],
-
-                'customer_origin' => json_encode([['origin' => 'ecommerce']])
-//                'payment_type' => $valid["payment_type"],
+                'company_id' => session('customer.company_id'),
+                'customer_origin' => json_encode([['origin' => 'central']]),
+                'origin' => 'central',
+                'ip' => $_SERVER['REMOTE_ADDR']
             ];
         }else{
             $body = [
@@ -61,7 +67,16 @@ class Checkout
                 'payment_type' => $valid["payment_type"],
                 'method' => $valid["method"],
                 'installment' => $valid["installment"],
-                'customer_origin' => json_encode([['origin' => 'ecommerce']])
+                'company_id' => session('customer.company_id'),
+                'customer_origin' => json_encode([['origin' => 'central']]),
+                'authentication' => [
+                    'Cavv' => $valid["cavv"],
+                    'Eci' => $valid["eci"],
+                    'Version' => $valid["version"],
+                    'ReferenceId' => $valid["reference_id"],
+                ],
+                'origin' => 'central',
+                'ip' => $_SERVER['REMOTE_ADDR']
             ];
         }
 
@@ -70,14 +85,16 @@ class Checkout
 
     public function getBodyPaymentPicpay($valid)
     {
-        $name = explode(" ", $valid["full_name"]);
+//        $name = explode(" ", $valid["full_name"]);
+        $first_name = strtok($valid["full_name"], ' ');
+        $last_name = substr(strstr($valid["full_name"], ' '),1);
 
         $body = [
             'customer' => $valid["customer"],
             'billets' => $valid["billets"],
             'buyer' => [
-                "first_name" => $name[0],
-                "last_name" => end($name),
+                "first_name" => $first_name,
+                "last_name" => $last_name,
                 "email" => $valid["email"],
                 "cpf_cnpj" => $valid["cpf_cnpj"],
                 "phone" => $valid["phone"]
@@ -86,7 +103,9 @@ class Checkout
             'method' => $valid["payment_type"],
             'installment' => $valid["installment"],
             'company_id' => session('customer.company_id'),
-            'customer_origin' => json_encode([['origin' => 'ecommerce']])
+            'customer_origin' => json_encode([['origin' => 'central']]),
+            'origin' => 'central',
+            'ip' => $_SERVER['REMOTE_ADDR']
         ];
 
         return $body;

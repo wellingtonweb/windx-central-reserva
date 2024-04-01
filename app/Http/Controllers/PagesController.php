@@ -271,19 +271,25 @@ class PagesController extends Controller
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
+
+
             return Datatables::of($paymentCustomer)
-                ->addColumn('action', function($data){
-                    if($data['status'] === 'approved'){
-                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
-                            '" data-toggle="tooltip" onclick="downloadClick()" data-original-title="Download" class="download-pdf badge badge-pill badge-primary px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>';
-                    }else{
-                        $button = '---';
-                    }
-                    return $button;
-                })
-                ->rawColumns(['action'])
-                ->addIndexColumn()
-                ->make(true);
+//                ->addColumn('action', function($data){
+//                    if($data['status'] === 'approved'){
+//                        $compactData = json_encode($data);
+//                          $button = "<a href=\"#\" class=\"download-pdf_ badge badge-pill badge-primary px-3 py-2\"><i class=\"fas fa-receipt pr-1\"></i>VISUALIZAR</a>";
+//
+////                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
+////                            '" data-toggle="tooltip" onclick="downloadClick()" data-original-title="Download" class="download-pdf badge badge-pill badge-primary px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>';
+//                    }else{
+//                        $button = '---';
+//                    }
+//                    return $button;
+//                })
+//                ->rawColumns(['action'])
+//                ->addIndexColumn()
+                ->make(true)
+                ;
         } else {
             throw new CheckUserException();
         }

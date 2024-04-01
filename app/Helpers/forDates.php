@@ -310,7 +310,7 @@ class forDates
         return false;
     }
 
-    public function convertDateTime($date)
+    public static function convertDateTime($date)
     {
         return date("d/m/Y H:i", strtotime($date));
     }

@@ -484,16 +484,12 @@
                     var version = e.Version;
                     var referenceId = e.ReferenceId;
                     console.log("Deu certo: ", cavv, xid, eci, version, referenceId, e)
-                    document.getElementsById("3dsCavv").value = e.Cavv;
-                    document.getElementsById("3dsEci").value = e.Eci;
-                    document.getElementsById("3dsVersion").value = e.Version;
-                    document.getElementsById("3dsReferenceId").value = e.ReferenceId;
-
-
+                    document.getElementById("3dsCavv").value = e.Cavv;
+                    document.getElementById("3dsEci").value = e.Eci;
+                    document.getElementById("3dsVersion").value = e.Version;
+                    document.getElementById("3dsReferenceId").value = e.ReferenceId;
                     $('#form_checkout').submit();
-
                     console.log('Habilita o botão para enviar o pagamento!')
-
                 },
                 onFailure: function (e) {
                     // Cartão elegível para autenticação, porém o portador finalizou com falha.

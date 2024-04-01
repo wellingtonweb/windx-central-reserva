@@ -61,4 +61,7 @@ class NotificationErrosApp extends Notification implements ShouldQueue
     {
         return json_encode($this->notification->toArray());
     }
+
+
+
 }

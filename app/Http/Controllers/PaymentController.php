@@ -54,7 +54,7 @@ class PaymentController extends Controller implements ShouldQueue
         {
 //            dd($validated);
             $body = (new Checkout())->getBodyPaymentEcommerce($validated);
-            dd($validated, $body);
+//            dd($validated, $body);
         }
 
         $response = (new API())->postPayment($body);

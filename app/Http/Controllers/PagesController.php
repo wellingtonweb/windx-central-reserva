@@ -274,7 +274,7 @@ class PagesController extends Controller
 
 
             return Datatables::of($paymentCustomer)
-//                ->addColumn('action', function($data){
+                ->addColumn('action', function($data){
 //                    if($data['status'] === 'approved'){
 //                        $compactData = json_encode($data);
 //                          $button = "<a href=\"#\" class=\"download-pdf_ badge badge-pill badge-primary px-3 py-2\"><i class=\"fas fa-receipt pr-1\"></i>VISUALIZAR</a>";
@@ -284,10 +284,10 @@ class PagesController extends Controller
 //                    }else{
 //                        $button = '---';
 //                    }
-//                    return $button;
-//                })
-//                ->rawColumns(['action'])
-//                ->addIndexColumn()
+                    return '-';
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
                 ->make(true)
                 ;
         } else {

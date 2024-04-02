@@ -164,17 +164,17 @@
                             <tr class="ttu b-top pb-4" style="font-weight: bold;">
                                 <td class="right ">Valor pago: </td>
                                 <td class="left ">
-                                    R$ <span id="coupon_amount">
-{{--                                      {{number_format($payment['amount'], 2, ',', '.') }}--}}
-                   </span>
+                                    R$ <span id="coupon_amount"></span>
                                 </td>
                             </tr>
 {{--                                            @if(isset($payment['receipt']['card_ent_mode']))--}}
-{{--                                                <tr class="ttu b-top text-center ">--}}
-{{--                                                    <td colspan="4" style="text-align: center; letter-spacing: 1px">--}}
-{{--                                                        <p>{{ $payment['receipt']['card_ent_mode'] }}</p>--}}
-{{--                                                    </td>--}}
-{{--                                                </tr>--}}
+                            <tr class="ttu b-top text-center">
+                                <td colspan="4" style="text-align: center; letter-spacing: 1px">
+                                    <span id="coupon_card_ent_mode">
+{{--                                                            {{ $payment['receipt']['card_ent_mode'] }}--}}
+                                    </span>
+                                </td>
+                            </tr>
 {{--                                            @endif--}}
 {{--                                            @if($payment['payment_type'] == 'pix' || $payment['method'] == 'picpay')--}}
                                 <tr class="ttu b-top text-center ">
@@ -311,6 +311,9 @@
         var paymentViewer = [];
         var feesB, valueB = 0;
 
+        var test = {"card_number":"402400******3191","payer":"WELLINGTON FERREIRA","flag":"Master","transaction_code":"6be01539-4330-489f-963c-05bc8b5cabb0","card_ent_mode":"TRANSACAO AUTORIZADA COM SENHA","in_installments":1,"receipt":null}
+        console.log('Test',JSON.stringify(test))
+
         let additionTotal = 0;
         let valueTotal = 0;
         let formattedBillets = [];
@@ -404,7 +407,7 @@
                                 return state;
                             }},
                         {data: 'action', name: 'action', title: '2ª via (download)', orderable: false, searchable: false, render: function(data, type, full, meta) {
-                                delete full.customer_origin;
+                                // delete full.customer_origin, full.receipt;
                                 var payment = JSON.stringify(full)
 
                                 return `<a href="#" data-payment='${payment}' onclick="previewCoupon(this)" class='badge badge-pill badge-primary px-3 py-2'><i class='fas fa-receipt pr-1'></i>VISUALIZAR</a>`;
@@ -450,62 +453,8 @@
             valueTotal = 0;
             formattedReference = '';
 
-            payment.billets.forEach(billet => {
-                additionTotal += billet.addition;
-                valueTotal += billet.value;
-                formattedReference += `${billet.reference} (${billet.duedate}) <br>`;
-
-                // Formatar o atributo reference (duedate) no formato especificado
-                // if(payment.billets.length > 1){
-                //
-                // }else{
-                //     formattedReference += `${billet.reference} (${billet.duedate})`;
-                // }
-                // formattedBillets.push({ reference: formattedReference, duedate: billet.duedate });
-            });
-
-
-            $('#coupon_addition').text(additionTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
-            $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
-            $(`#coupon_label_billets`).text(payment.billets.length > 1 ? 'Faturas: ':'Fatura: ')
-            $(`#coupon_billets`).html(formattedReference)
-
-
-
-            console.log("Total de addition:", additionTotal);
-            console.log("Total de value:", valueTotal);
-            console.log("Billets formatados:", formattedBillets, formattedReference);
-
             for (const [key, value] of Object.entries(payment)) {
-                if(key == 'billets'){
-                    if(value.length > 1){
-
-                    }
-                    // for (const [keyBillets, Billets] of Object.entries(value)) {
-                    //     for (const [keyBillet, Billet] of Object.entries(Billets)) {
-                    //         if(keyBillet == 'reference'){
-                    //             billets += Billet
-                    //         }
-                    //
-                    //         if(keyBillet == 'duedate'){
-                    //             billets += ' ('+Billet+') '
-                    //         }
-                    //
-                    //         if(keyBillet == 'addition'){
-                    //             feesB = feesB + Billet
-                    //             $(`#coupon_${keyBillet}`).text(feesB.toLocaleString('pt-br', {minimumFractionDigits: 2}))
-                    //         }
-                    //
-                    //         if(keyBillet == 'value'){
-                    //             valueB = valueB + Billet
-                    //             $(`#coupon_${keyBillet}`).text(valueB.toLocaleString('pt-br', {minimumFractionDigits: 2}))
-                    //         }
-                    //     }
-                    // }
-
-                    // $(`#coupon_${key}`).text(billets)
-
-                }else if(key == 'origin'){
+                if(key == 'origin'){
                     if(value == 'central'){
                         $(`#coupon_${key}`).text('Central do Assinante')
                     }else if(value == 'bot'){
@@ -540,20 +489,38 @@
                 }else{
                     $(`#coupon_${key}`).text(value)
                 }
-
-
-
-                // console.log(`${key}: ${value}`);
             }
 
-        }
+            // for (const [key2, value2] of Object.entries(payment.receipt)) {
+            //     if(key2 == 'card_number'){
+            //         $(`#coupon_${key2}`).text(value2)
+            //     }
+            // }
 
-        function getBilletsData(item, indice) {
-            if (marcas[indice].indexOf("F") == 0) {
-                marcasIniciadasComF[novoIndice] = marcas[indice];
-                novoIndice++;
-            }
-        }
+            payment.billets.forEach(billet => {
+                additionTotal += billet.addition;
+                valueTotal += billet.value;
+                formattedReference += `${billet.reference} (${billet.duedate}) <br>`;
+            });
 
+            // payment.receipt.forEach(billet => {
+            //     console.log(billet)
+            // });
+
+            // Object.keys(payment).forEach(key => {
+            //     if (key === 'addition') {
+            //         additionTotal += payment[key];
+            //     } else if (key === 'value') {
+            //         valueTotal += payment[key];
+            //     }
+            //
+            //     $(`#coupon_${payment[key]}`).text('Central do Assinante')
+            // });
+
+            $('#coupon_addition').text(additionTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+            $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+            $(`#coupon_label_billets`).text(payment.billets.length > 1 ? 'Faturas: ':'Fatura: ')
+            $(`#coupon_billets`).html(formattedReference)
+        }
     </script>
 @endsection

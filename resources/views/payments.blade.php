@@ -84,7 +84,7 @@
                             </tr>
                             <tr class="ttu b-top">
                                 <td id="coupon_label_billets" class="right">
-                                    Fatura:
+
                                 </td>
                                 <td id="coupon_billets" class="left">
                                 </td>
@@ -287,13 +287,14 @@
 
         .coupon .right {
             text-align: right !important;
-            width: 40%;
+            width: 30%;
             font-weight: bold;
         }
 
         .coupon .left {
             text-align: left !important;
-            width: 60%;
+            width: 70%;
+            padding-left: .3rem;
         }
 
     </style>
@@ -308,6 +309,12 @@
     <script>
         var customerActive = @json(session('customer'));
         var paymentViewer = [];
+        var feesB, valueB = 0;
+
+        let additionTotal = 0;
+        let valueTotal = 0;
+        let formattedBillets = [];
+        let formattedReference = '';
         // const moment = require('moment-timezone');
         console.log(customerActive)
 
@@ -439,23 +446,65 @@
             $('#modalCouponViewerLabel').text(payment.id)
             $('#coupon_customer_id').text(customerActive.id + '('+payment.company_id+')')
             $('#coupon_customer_fullname').text(customerActive.full_name)
+            additionTotal = 0;
+            valueTotal = 0;
+            formattedReference = '';
+
+            payment.billets.forEach(billet => {
+                additionTotal += billet.addition;
+                valueTotal += billet.value;
+                formattedReference += `${billet.reference} (${billet.duedate}) <br>`;
+
+                // Formatar o atributo reference (duedate) no formato especificado
+                // if(payment.billets.length > 1){
+                //
+                // }else{
+                //     formattedReference += `${billet.reference} (${billet.duedate})`;
+                // }
+                // formattedBillets.push({ reference: formattedReference, duedate: billet.duedate });
+            });
+
+
+            $('#coupon_addition').text(additionTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+            $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+            $(`#coupon_label_billets`).text(payment.billets.length > 1 ? 'Faturas: ':'Fatura: ')
+            $(`#coupon_billets`).html(formattedReference)
+
+
+
+            console.log("Total de addition:", additionTotal);
+            console.log("Total de value:", valueTotal);
+            console.log("Billets formatados:", formattedBillets, formattedReference);
+
             for (const [key, value] of Object.entries(payment)) {
                 if(key == 'billets'){
                     if(value.length > 1){
-                        $(`#coupon_label_billets`).text('Faturas: ')
-                    }
-                    for (const [keyBillets, Billets] of Object.entries(value)) {
-                        for (const [keyBillet, Billet] of Object.entries(Billets)) {
-                            if(keyBillet == 'reference'){
-                                billets += Billet
-                            }
 
-                            if(keyBillet == 'duedate'){
-                                billets += ' ('+Billet+') '
-                            }
-                        }
                     }
-                    $(`#coupon_${key}`).text(billets)
+                    // for (const [keyBillets, Billets] of Object.entries(value)) {
+                    //     for (const [keyBillet, Billet] of Object.entries(Billets)) {
+                    //         if(keyBillet == 'reference'){
+                    //             billets += Billet
+                    //         }
+                    //
+                    //         if(keyBillet == 'duedate'){
+                    //             billets += ' ('+Billet+') '
+                    //         }
+                    //
+                    //         if(keyBillet == 'addition'){
+                    //             feesB = feesB + Billet
+                    //             $(`#coupon_${keyBillet}`).text(feesB.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+                    //         }
+                    //
+                    //         if(keyBillet == 'value'){
+                    //             valueB = valueB + Billet
+                    //             $(`#coupon_${keyBillet}`).text(valueB.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+                    //         }
+                    //     }
+                    // }
+
+                    // $(`#coupon_${key}`).text(billets)
+
                 }else if(key == 'origin'){
                     if(value == 'central'){
                         $(`#coupon_${key}`).text('Central do Assinante')

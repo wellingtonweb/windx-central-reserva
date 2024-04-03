@@ -257,13 +257,34 @@ class PagesController extends Controller
 //        }
     }
 
-    public function coupons()
+    public function coupons_old()
     {
         if(session()->has('customer')){
             $payments = json_decode(json_encode((new API())->getPayments()),true);
             $paymentCustomer = [];
 
+            $receipt = [
+                "card_number" => "3155",
+                "flag" => "MASTER",
+                "card_ent_mode" => "TRANSACAO AUTORIZADA COM SENHA",
+                "payer" => "JORDAO S JAMARIQUELI",
+                "in_installments" => 1,
+                "transaction_code" => 254720,
+                "capture_date" => "2024-01-31T15:33",
+                "receipt" => "vazio"
+            ];
+
+            $serialized = serialize($receipt);
+
             foreach($payments as $key => $payment){
+
+                foreach($payment as $key2 => $data){
+                    if($data['id'] == 2168 && ($data['payment_type'] == 'credit' || $data['payment_type'] == 'debit')){
+                        $data['receipt'] = unserialize($data['receipt']);
+                    }
+
+                    dd($data, $key);
+                }
 
                 $paymentCustomer = array_filter($payment, function($v, $k) {
                     return $v['customer'] == session('customer.id') && $v['status'] == 'approved';
@@ -271,6 +292,7 @@ class PagesController extends Controller
                 }, ARRAY_FILTER_USE_BOTH);
             }
 
+            dd($paymentCustomer);
 
 
             return Datatables::of($paymentCustomer)
@@ -294,6 +316,34 @@ class PagesController extends Controller
             throw new CheckUserException();
         }
     }
+
+    public function coupons()
+    {
+        if(session()->has('customer')){
+            $paymentCustomer = json_decode(json_encode((new API())->getPaymentsCustomer(session('customer.id'))),true);
+
+            return Datatables::of($paymentCustomer)
+                ->addColumn('action', function($data){
+//                    if($data['status'] === 'approved'){
+//                        $compactData = json_encode($data);
+//                          $button = "<a href=\"#\" class=\"download-pdf_ badge badge-pill badge-primary px-3 py-2\"><i class=\"fas fa-receipt pr-1\"></i>VISUALIZAR</a>";
+//
+////                        $button = '<a href="'. route('central.coupon.pdf', ['id' => $data['id'] ]) .
+////                            '" data-toggle="tooltip" onclick="downloadClick()" data-original-title="Download" class="download-pdf badge badge-pill badge-primary px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>';
+//                    }else{
+//                        $button = '---';
+//                    }
+                    return '-';
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true)
+                ;
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
 
     public function invoices()
     {

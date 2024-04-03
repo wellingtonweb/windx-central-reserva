@@ -134,6 +134,25 @@ class API
         }
     }
 
+    public function getPaymentsCustomer($customer_id)
+    {
+        $response = Http::accept('application/json')
+            ->withToken($this->apiToken)
+            ->retry(3, 100)
+            ->post($this->apiUrl . '/api/list-payments-customer',[
+                'customer' => $customer_id,
+                'status' => 'approved'
+            ]);
+
+        if($response->successful()){
+//        if($response->successful()){
+            return $response->object();
+        }else{
+            return $response->throw();
+//            throw new ApiConnectException();
+        }
+    }
+
     public function getPayment($id)
     {
         $response = Http::accept('application/json')

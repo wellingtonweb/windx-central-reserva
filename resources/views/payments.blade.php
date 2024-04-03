@@ -99,66 +99,37 @@
                                 <td id="coupon_payment_type" class="left text-uppercase">
                                 </td>
                             </tr>
-{{--                            @if($payment['payment_type'] == 'credit' || $payment['payment_type'] == 'debit')--}}
-{{--                                @if(isset($payment['receipt']['card_number']))--}}
                                     <tr id="tr_card_number" class="ttu b-top d-none">
                                         <td class="right">Cartão: </td>
                                         <td class="left" style="max-width: 74mm">
-                                            ************<span id="coupon_card">1234</span>
+                                            ****.****.****<span id="coupon_card"></span>
                                         </td>
                                     </tr>
-{{--                                @endif--}}
-{{--                                @if(isset($payment['receipt']['flag']))--}}
                                     <tr id="tr_card_flag" class="ttu b-top d-none">
                                         <td class="right">Bandeira: </td>
                                         <td id="coupon_flag" class="left" style="max-width: 74mm">
-                                            MasterCard Crédito
+
                                         </td>
                                     </tr>
-{{--                                @endif--}}
-{{--                                @if(isset($payment['receipt']['payer']))--}}
                                     <tr id="tr_card_payer" class="ttu b-top d-none">
                                         <td class="right">Titular: </td>
                                         <td id="coupon_payer" class="left" style="max-width: 74mm">
-                                            FERREIRA/WELLINGTON
                                         </td>
                                     </tr>
-{{--                                @endif--}}
-{{--                                @if(isset($payment['receipt']['in_installments']) && $payment['receipt']['in_installments'] > 1)--}}
                                     <tr id="tr_card_installment" class="ttu b-top d-none">
                                         <td class="right">Acordo: </td>
                                         <td class="left" style="max-width: 74mm">
                                             Parcelado em <span id="coupon_installment"></span>x
                                         </td>
                                     </tr>
-{{--                                @endif--}}
-{{--                            @endif--}}
                             <tr class="ttu b-top">
                                 <td class="right">Valor: </td>
-                                <td class="left">R$ <span id="coupon_value">
-{{--                                @php--}}
-{{--                                    $total = 0;--}}
-{{--                                    foreach ($billets as $billet)--}}
-{{--                                    {--}}
-{{--                                        $total += $billet['value'];--}}
-{{--                                    }--}}
-{{--                                @endphp--}}
-{{--                                                        {{number_format($total, 2, ',', '.') }}--}}
-                </span>
+                                <td class="left">R$ <span id="coupon_value"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="right">Juros + Multa: </td>
-                                <td class="left">R$ <span id="coupon_addition">
-{{--                                @php--}}
-{{--                                    $totalAdition = 0;--}}
-{{--                                    foreach ($billets as $billet)--}}
-{{--                                    {--}}
-{{--                                        $totalAdition += $billet['addition'];--}}
-{{--                                    }--}}
-{{--                                @endphp--}}
-{{--                                                        {{number_format($totalAdition, 2, ',', '.') }}--}}
-                </span>
+                                <td class="left">R$ <span id="coupon_addition"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top pb-4" style="font-weight: bold;">
@@ -167,24 +138,17 @@
                                     R$ <span id="coupon_amount"></span>
                                 </td>
                             </tr>
-{{--                                            @if(isset($payment['receipt']['card_ent_mode']))--}}
                             <tr class="ttu b-top text-center">
                                 <td colspan="4" style="text-align: center; letter-spacing: 1px">
                                     <span id="coupon_card_ent_mode">
-{{--                                                            {{ $payment['receipt']['card_ent_mode'] }}--}}
                                     </span>
                                 </td>
                             </tr>
-{{--                                            @endif--}}
-{{--                                            @if($payment['payment_type'] == 'pix' || $payment['method'] == 'picpay')--}}
                                 <tr class="ttu b-top text-center ">
                                     <td colspan="4" class="label-info">
                                         <p>FAVOR CONFERIR EM SEU <br>APLICATIVO DE PAGAMENTO</p>
                                     </td>
                                 </tr>
-{{--                                            @else--}}
-{{--                                                <tr><td colspan="4"class="line-1"></td></tr>--}}
-{{--                                            @endif--}}
                             </tbody>
                             <tfoot>
                             <tr class="sup b-top pt-2 font-weight-bold">
@@ -321,6 +285,22 @@
         // const moment = require('moment-timezone');
         console.log(customerActive)
 
+        fetch("{{ route('central.coupons') }}")
+            .then(response => response.text())
+            .then(data => {
+                // Aqui 'data' será a string recuperada do banco de dados
+                // console.log(data);
+                const array = JSON.parse(data); // Convertendo a string para um array JavaScript
+                const payment = array['data']['17'];
+                console.log(payment)
+                const receipt = JSON.parse(payment.receipt);
+                console.log(receipt);
+            })
+            .catch(error => {
+                console.error('Erro ao recuperar os dados:', error);
+            });
+
+
         $(document).ready(function() {
             $(function () {
                 var billet = '';
@@ -407,7 +387,9 @@
                                 return state;
                             }},
                         {data: 'action', name: 'action', title: '2ª via (download)', orderable: false, searchable: false, render: function(data, type, full, meta) {
-                                // delete full.customer_origin, full.receipt;
+                                delete full.customer_origin;
+
+                                // full.receipt = JSON.parse(full.receipt)
                                 var payment = JSON.stringify(full)
 
                                 return `<a href="#" data-payment='${payment}' onclick="previewCoupon(this)" class='badge badge-pill badge-primary px-3 py-2'><i class='fas fa-receipt pr-1'></i>VISUALIZAR</a>`;

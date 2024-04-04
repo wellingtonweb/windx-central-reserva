@@ -35,14 +35,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="coupon d-flex_ justify-content-center_">
+                    <div id="coupon" class="coupon d-flex_ justify-content-center_">
                         <table>
                             <thead>
                             <tr>
                                 <th class="text-center" colspan="2">
                                     {{--                                <h2 style="text-transform: uppercase; letter-spacing: 1px "><strong>Windx Telecomunicações</strong></h2>--}}
                                     <img style="width: 20mm !important; margin-top: 1rem"
-                                         src="https://terminal.windx.com.br/assets/img/logo2.png" class="logo pt-2">
+                                         src="{{ asset('assets/img/logo2.png') }}" class="logo pt-2">
                                 </th>
                             </tr>
                             <tr class="b-top" >
@@ -61,86 +61,87 @@
 
                             <tr class="ttu b-top">
                                 <td class="right" style="padding-top: 1rem">Pagamento Nº: </td>
-                                <td id="coupon_id" class="left" style="max-width: 74mm; padding-top: 1rem">
+                                <td class="input_data left" id="coupon_id" style="padding-top: 1rem">
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="right">Referência: </td>
-                                <td class="left" >
-                                    <span id="coupon_reference" style="max-width: 75%"></span>
+                                <td class="left">
+                                    <span class="input_data" id="coupon_reference"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="right">Data Hora: </td>
-                                <td id="coupon_created_at" class="left">
+                                <td class="input_data left" id="coupon_created_at">
                                 </td>
                             </tr>
                             <tr class="ttu b-top" >
                                 <td class="right">Cliente: </td>
                                 <td class="left">
-                                    <span id="coupon_customer_id"></span> -
-                                    <span id="coupon_customer_fullname"></span>
+                                    <span class="input_data" id="coupon_customer"></span> -
+                                    <span class="input_data" id="coupon_customer_fullname"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
-                                <td id="coupon_label_billets" class="right">
+                                <td class="input_data right" id="coupon_label_billets">
 
                                 </td>
-                                <td id="coupon_billets" class="left">
+                                <td class="input_data left" id="coupon_billets">
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="right">Pago via: </td>
-                                <td id="coupon_origin" class="left text-uppercase">
+                                <td class="input_data left text-uppercase" id="coupon_origin">
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="right">Modalidade: </td>
-                                <td id="coupon_payment_type" class="left text-uppercase">
+                                <td class="input_data left text-uppercase" id="coupon_payment_type">
                                 </td>
                             </tr>
-                                    <tr id="tr_card_number" class="ttu b-top d-none">
-                                        <td class="right">Cartão: </td>
-                                        <td class="left" style="max-width: 74mm">
-                                            ****.****.****<span id="coupon_card"></span>
-                                        </td>
-                                    </tr>
-                                    <tr id="tr_card_flag" class="ttu b-top d-none">
-                                        <td class="right">Bandeira: </td>
-                                        <td id="coupon_flag" class="left" style="max-width: 74mm">
+                            <tr id="tr_card_number" class="ttu b-top d-none card-data">
+                                <td class="right" colspan="1">Cartão: </td>
+                                <td class="left" colspan="3">
+                                    ****.****.****.<span class="input_data" id="coupon_card"></span>
+                                </td>
+                            </tr>
+                            <tr id="tr_card_flag" class="ttu b-top d-none card-data">
+                                <td class="right">Bandeira: </td>
+                                <td class="left input_data" id="coupon_flag">
 
-                                        </td>
-                                    </tr>
-                                    <tr id="tr_card_payer" class="ttu b-top d-none">
-                                        <td class="right">Titular: </td>
-                                        <td id="coupon_payer" class="left" style="max-width: 74mm">
-                                        </td>
-                                    </tr>
-                                    <tr id="tr_card_installment" class="ttu b-top d-none">
-                                        <td class="right">Acordo: </td>
-                                        <td class="left" style="max-width: 74mm">
-                                            Parcelado em <span id="coupon_installment"></span>x
-                                        </td>
-                                    </tr>
+                                </td>
+                            </tr>
+                            <tr id="tr_card_payer" class="ttu b-top d-none card-data">
+                                <td class="right">Titular: </td>
+                                <td class="left input_data" id="coupon_payer">
+                                </td>
+                            </tr>
+                            <tr id="tr_card_installment" class="ttu b-top d-none">
+                                <td class="right">Acordo: </td>
+                                <td class="left" style="max-width: 74mm">
+                                    Parcelado em <span class="input_data" id="coupon_installment"></span>x
+                                </td>
+                            </tr>
+
                             <tr class="ttu b-top">
                                 <td class="right">Valor: </td>
-                                <td class="left">R$ <span id="coupon_value"></span>
+                                <td class="left">R$ <span class="input_data" id="coupon_value"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="right">Juros + Multa: </td>
-                                <td class="left">R$ <span id="coupon_addition"></span>
+                                <td class="left">R$ <span class="input_data" id="coupon_addition"></span>
                                 </td>
                             </tr>
-                            <tr class="ttu b-top pb-4" style="font-weight: bold;">
+                            <tr class="ttu b-top pb-4 font-weight-bold">
                                 <td class="right ">Valor pago: </td>
                                 <td class="left ">
-                                    R$ <span id="coupon_amount"></span>
+                                    <span class="input_data" id="coupon_amount"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top text-center">
-                                <td colspan="4" style="text-align: center; letter-spacing: 1px">
-                                    <span id="coupon_card_ent_mode">
+                                <td colspan="4" style="text-align: center; letter-spacing: 1px; padding-top: 1rem">
+                                    <span class="input_data" id="coupon_card_ent_mode">
                                     </span>
                                 </td>
                             </tr>
@@ -162,8 +163,12 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-download pr-1"></i>Baixar</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                        <i class="fa fa-times pr-1"></i>Fechar
+                    </button>
+                    <button type="button" id="download" class="btn btn-primary btn-sm" data-dismiss="modal">
+                        <i class="fa fa-download pr-1"></i>Baixar
+                    </button>
 {{--                    <a href="{{ route('central.coupon.pdf', ['id' => $data['id'] ]) }} .--}}
 {{--////                            '" data-toggle="tooltip" onclick="downloadClick()" data-original-title="Download" class="download-pdf badge badge-pill badge-primary px-3 py-2"><i class="fa fa-download pr-1"></i>BAIXAR</a>--}}
                 </div>
@@ -249,15 +254,15 @@
             padding-top: 2rem !important;
         }
 
-        .coupon .right {
+        .right {
             text-align: right !important;
-            width: 30%;
+            width: 35% !important;
             font-weight: bold;
         }
 
-        .coupon .left {
+        .left {
             text-align: left !important;
-            width: 70%;
+            width: 65% !important;
             padding-left: .3rem;
         }
 
@@ -270,6 +275,9 @@
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+
     <script>
         var customerActive = @json(session('customer'));
         var paymentViewer = [];
@@ -384,50 +392,99 @@
 
         function setDataCoupon(payment){
             var billets = '';
+            $('.input_data').html('');
             $('#modalCouponViewerLabel').text(payment.id)
-            $('#coupon_customer_id').text(customerActive.id + '('+payment.company_id+')')
-            $('#coupon_customer_fullname').text(customerActive.full_name)
+            var companyRef = payment.company_id == 1 ? 'P' : payment.company_id == 5 ? 'J' : 'A'
             additionTotal = 0;
             valueTotal = 0;
             formattedReference = '';
 
-            for (const [key, value] of Object.entries(payment)) {
-                if(key == 'origin'){
-                    if(value == 'central'){
-                        $(`#coupon_${key}`).text('Central do Assinante')
-                    }else if(value == 'bot'){
-                        $(`#coupon_${key}`).text('WhatsApp')
-                    }else{
-                        $(`#coupon_${key}`).text('Autoatendimento')
-                    }
-                }else if(key == 'payment_type'){
-                    if(value == 'credit' || value == 'debit'){
-                        $(`#tr_card_number`).removeClass('d-none')
-                        $(`#tr_card_flag`).removeClass('d-none')
-                        $(`#tr_card_payer`).removeClass('d-none')
-                        // if(payment.installment > 1){
-                            $(`#tr_card_installment`).removeClass('d-none')
-                        // }
-                        if(value == 'credit'){
-                            $(`#coupon_${key}`).text('Crédito')
-                        }else{
-                            $(`#coupon_${key}`).text('Débito')
-                        }
-                    }
+            payment.billets.forEach(billet => {
+                additionTotal += billet.addition;
+                valueTotal += billet.value;
+                formattedReference += `${billet.reference} (${billet.duedate}) <br>`;
+            });
 
-                    if(value == null){
-                        $(`#coupon_${key}`).text('Picpay')
-                    }
-                }else if(key == 'created_at'){
-                    var pay = moment(value).format('DD/MM/YYYY HH:mm:ss')
+            $(`#coupon_id`).text(payment.id)
+            $(`#coupon_reference`).text(payment.reference)
+            $(`#coupon_created_at`).text(payment.created_at)
+            $(`#coupon_customer`).text(companyRef + customerActive.id)
+            $(`#coupon_customer_fullname`).text(customerActive.full_name)
+            $(`#coupon_billets`).html(formattedReference)
+            $(`#coupon_origin`).html(payment.method)
+            $(`#coupon_payment_type`).html(payment.payment_type)
+            if(payment.receipt != null && (payment.payment_type == 'Crédito' || payment.payment_type == 'Débito')) {
+                var card_number = payment.receipt[0].card_number
+                if(card_number.length > 4){
+                    card_number = card_number.substr(-4)
+                }
 
-                        $(`#coupon_${key}`).text(pay)
-                }else if(key == 'amount'){
-                    $(`#coupon_${key}`).text(value.replace('.',','))
-                }else{
-                    $(`#coupon_${key}`).text(value)
+                $(`#coupon_card`).html(card_number)//
+                $(`#coupon_flag`).html(payment.receipt[0].flag)
+                $(`#coupon_payer`).html(payment.receipt[0].payer)
+                $(`#coupon_card_ent_mode`).html(payment.receipt[0].card_ent_mode)
+                $(`.card-data`).removeClass('d-none')
+                if(payment.installment > 1){
+                    $(`#tr_card_installment`).removeClass('d-none')
+                    $(`#coupon_installment`).html(payment.installment)
                 }
             }
+            $('#coupon_addition').text(additionTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+            $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
+            $('#coupon_amount').text(payment.amount)
+            $(`#coupon_label_billets`).text(payment.billets.length > 1 ? 'Faturas: ':'Fatura: ')
+
+            html2canvas(document.querySelector("#coupon")).then(canvas => {
+                document.body.appendChild(canvas)
+            });
+
+            // for (const [key, value] of Object.entries(payment)) {
+            //     if(key == 'origin'){
+            //         if(value == 'central'){
+            //             $(`#coupon_${key}`).text('Central do Assinante')
+            //         }else if(value == 'bot'){
+            //             $(`#coupon_${key}`).text('WhatsApp')
+            //         }else{
+            //             $(`#coupon_${key}`).text('Autoatendimento')
+            //         }
+            //     }else if(key == 'payment_type'){
+            //         if(value == 'Crédito' || value == 'Débito'){
+            //             console.log('Key', key)
+            //             if(key == 'receipt'){
+            //                 console.log(value[0])
+            //
+            //                 $(`.card-data`).removeClass('d-none')
+            //
+            //                 $(`#coupon_card`).html(value[0].card_number)
+            //                 $(`#coupon_flag`).html(value[0].flag)
+            //                 $(`#coupon_payer`).html(value[0].payer)
+            //                 $(`#coupon_card_ent_mode`).html(value[0].card_ent_mode)
+            //
+            //                 // if(payment.installment > 1 && key == 'installment'){
+            //                     $(`#tr_card_installment`).removeClass('d-none')
+            //                     $(`#coupon_installment`).html(value)
+            //                 // }
+            //             }
+            //             $(`#coupon_${key}`).text(value)
+            //         }
+            //
+            //         if(value == null){
+            //             $(`#coupon_${key}`).text('Picpay')
+            //         }
+            //     }else if(key == 'created_at'){
+            //         // var pay = moment(value).format('DD/MM/YYYY HH:mm:ss')
+            //
+            //             $(`#coupon_${key}`).text(value)
+            //     }else if(key == 'amount'){
+            //         $(`#coupon_${key}`).text(value)
+            //     }
+            //     // else{
+            //     //     $(`#coupon_${key}`).text(value)
+            //     // }
+            //
+            //
+            // }
+
 
             // for (const [key2, value2] of Object.entries(payment.receipt)) {
             //     if(key2 == 'card_number'){
@@ -435,11 +492,7 @@
             //     }
             // }
 
-            payment.billets.forEach(billet => {
-                additionTotal += billet.addition;
-                valueTotal += billet.value;
-                formattedReference += `${billet.reference} (${billet.duedate}) <br>`;
-            });
+
 
             // payment.receipt.forEach(billet => {
             //     console.log(billet)
@@ -455,10 +508,55 @@
             //     $(`#coupon_${payment[key]}`).text('Central do Assinante')
             // });
 
-            $('#coupon_addition').text(additionTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
-            $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
-            $(`#coupon_label_billets`).text(payment.billets.length > 1 ? 'Faturas: ':'Fatura: ')
-            $(`#coupon_billets`).html(formattedReference)
+
         }
+
+        $('#modalCouponViewer').on('hidden.bs.modal', function (event) {
+            $('.input_data').html('');
+            $(`.card-data`).addClass('d-none')
+        })
+
+        // setUpDownloadPageAsImage();
+        //
+        // function setUpDownloadPageAsImage() {
+        //     document.getElementById("download_coupon").addEventListener("click", function() {
+        //         html2canvas(document.querySelector("#coupon")).then(function(canvas) {
+        //             console.log(canvas);
+        //             simulateDownloadImageClick(canvas.toDataURL(), 'comprovante.png');
+        //         });
+        //     });
+        // }
+        //
+        // function simulateDownloadImageClick(uri, filename) {
+        //     var link = document.createElement('a');
+        //     if (typeof link.download !== 'string') {
+        //         window.open(uri);
+        //     } else {
+        //         link.href = uri;
+        //         link.download = filename;
+        //         accountForFirefox(clickLink, link);
+        //     }
+        // }
+        //
+        // function clickLink(link) {
+        //     link.click();
+        // }
+        //
+        // function accountForFirefox(click) { // wrapper function
+        //     let link = arguments[1];
+        //     document.body.appendChild(link);
+        //     click(link);
+        //     document.body.removeChild(link);
+        // }
+
+
+        $("#download").on( "click", function() {
+            html2canvas(document.querySelector("#coupon")).then(canvas => {
+                canvas.toBlob(function(blob) {
+                    window.saveAs(blob, 'comp.png');
+                });
+            });
+        });
+
     </script>
 @endsection

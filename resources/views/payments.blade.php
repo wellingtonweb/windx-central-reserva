@@ -265,7 +265,7 @@
 @endsection
 
 @section('js')
-    <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>--}}
     <script type="text/javascript" defer  src="{{ asset('assets/js/moment.min.js') }}"></script>
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -304,10 +304,6 @@
         $(document).ready(function() {
             $(function () {
                 var billet = '';
-
-
-
-
                 var table = $('.list-payments').DataTable({
                     dom: '<"top"i>rt<"bottom"p><"clear">',
                     pagingType: 'simple',
@@ -342,52 +338,12 @@
                                 }
                                 return billetsHTML;
                             }},
-                        {data: 'amount', name: 'amount', title: 'Valor pago', render: function(data, type, full, meta) {
-                                return 'R$ ' + data.replace(".", ",");
-                            }
-                        },
-                        {data: 'payment_type', name: 'payment_type', title: 'Modalidade', render: function(data, type, full, meta) {
-                                var paymentType = '';
-                                switch (data) {
-                                    case 'pix':
-                                        paymentType = "pix";
-                                        break;
-                                    case null:
-                                        paymentType = "picpay";
-                                        break;
-                                    case 'debit':
-                                        paymentType = "Débito";
-                                        break;
-                                    case 'credit':
-                                        paymentType = "Crédito";
-                                        break;
-                                }
-                                return paymentType;
-                            }},
-                        {data: 'created_at', name: 'created_at', title: 'Data, Hora', render: function(data, type, full, meta) {
-                                var pay = new Date(data);
-                                return pay.toLocaleString();
-                            }},
-                        {data: 'status', name: 'status', title: 'Status', render: function(data, type, full, meta) {
-                                var state = '';
-                                switch (data) {
-                                    case 'created':
-                                        state = "Criado";
-                                        break;
-                                    case 'approved':
-                                        state = "Aprovado";
-                                        break;
-                                    case 'canceled':
-                                        state = "Cancelado";
-                                        break;
-                                    case 'refused':
-                                        state = "Recusado";
-                                        break;
-                                }
-                                return state;
-                            }},
+                        {data: 'amount', name: 'amount', title: 'Valor pago'},
+                        {data: 'payment_type', name: 'payment_type', title: 'Modalidade'},
+                        {data: 'created_at', name: 'created_at', title: 'Data/Hora'},
+                        {data: 'status', name: 'status', title: 'Status'},
                         {data: 'action', name: 'action', title: '2ª via (download)', orderable: false, searchable: false, render: function(data, type, full, meta) {
-                                delete full.customer_origin;
+                                // delete full.customer_origin;
 
                                 // full.receipt = JSON.parse(full.receipt)
                                 var payment = JSON.stringify(full)

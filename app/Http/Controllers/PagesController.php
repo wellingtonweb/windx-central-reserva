@@ -322,7 +322,7 @@ class PagesController extends Controller
         if(session()->has('customer')){
             $paymentCustomer = json_decode(json_encode((new API())->getPaymentsCustomer(session('customer.id'))),true);
 
-            return Datatables::of($paymentCustomer)
+            return Datatables::of($paymentCustomer['data'])
                 ->addColumn('action', function($data){
 //                    if($data['status'] === 'approved'){
 //                        $compactData = json_encode($data);

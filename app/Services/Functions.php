@@ -98,7 +98,7 @@ class Functions
 //        return date("d/m/Y", (strtotime('next month',strtotime($date))));
 //    }
 
-    public function checkBirth(String $date)
+    public static function checkBirth(String $date)
     {
         $birth = Date("m-d",strtotime($date));
         $today = Date("m-d");
@@ -110,19 +110,19 @@ class Functions
         }
     }
 
-    public function dateToUs(String $date)
+    public static function dateToUs(String $date)
     {
         return date("Y-m-d", strtotime($date));
     }
 
-    public function convertDate(String $date)
+    public static function convertDate(String $date)
     {
         $dataObjeto = DateTime::createFromFormat('d/m/Y', $date);
 
         return $dataObjeto->format('Y-m-d');
     }
 
-    public function infoDate()
+    public static function infoDate()
     {
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         date_default_timezone_set('America/Sao_Paulo');

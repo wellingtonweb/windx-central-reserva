@@ -39,21 +39,24 @@
                         <table>
                             <thead>
                             <tr>
-                                <th class="text-center" colspan="2">
+                                <th class="text-center" colspan="4">
                                     {{--                                <h2 style="text-transform: uppercase; letter-spacing: 1px "><strong>Windx Telecomunicações</strong></h2>--}}
                                     <img style="width: 20mm !important; margin-top: 1rem"
                                          src="{{ asset('assets/img/logo2.png') }}" class="logo pt-2">
                                 </th>
                             </tr>
-                            <tr class="b-top" >
-                                <th class="ttu text-center" colspan="2" style="border-bottom: 1px solid #cfcfcf">
+                            <tr class="b-top">
+                                <th class="info-header ttu text-center" colspan="4">
+                                        WINDX TELECOMUNICAÇÕES<br>
+                                        <span id="company_document"></span><br>
+                                        AV. SIMÃO SOARES, Nº 365, MARATAÍZES-ES (sede)<br><br>
+                                    <span>{{ \App\Services\Functions::infoDate() }}</span>
+                                </th>
+                            </tr>
+                            <tr class="b-top">
+                                <th class="ttu text-center" colspan="4" style="border-bottom: 1px solid #cfcfcf; padding-bottom: .5rem">
                                     <h3>Comprovante de pagamento</h3>
-                                    <span style="letter-spacing: 1px; padding-top: 1rem; padding-bottom: 1rem;">(Cupom não fiscal)</span><br>
-                                    <p>
-                    <span style="color: #5b5b5b; padding-top: 1rem; padding-bottom: 1rem; font-size: 90% !important;">
-{{--                                        {{ $date_time_full }}--}}
-                    </span>
-                                    </p>
+                                    <span style="letter-spacing: 1px; padding-top: 1rem; padding-bottom: 1rem;">(Cupom não fiscal)</span>
                                 </th>
                             </tr>
                             </thead>
@@ -67,7 +70,7 @@
                             <tr class="ttu b-top">
                                 <td class="right">Referência: </td>
                                 <td class="left">
-                                    <span class="input_data" id="coupon_reference"></span>
+                                    <span class="input_data max-data" id="coupon_reference"></span>
                                 </td>
                             </tr>
                             <tr class="ttu b-top">
@@ -84,7 +87,6 @@
                             </tr>
                             <tr class="ttu b-top">
                                 <td class="input_data right" id="coupon_label_billets">
-
                                 </td>
                                 <td class="input_data left" id="coupon_billets">
                                 </td>
@@ -99,9 +101,15 @@
                                 <td class="input_data left text-uppercase" id="coupon_payment_type">
                                 </td>
                             </tr>
+                            <tr class="ttu b-top">
+                                <td class="right">Autorização: </td>
+                                <td class="left">
+                                    <span class="input_data max-data" id="coupon_transaction"></span>
+                                </td>
+                            </tr>
                             <tr id="tr_card_number" class="ttu b-top d-none card-data">
-                                <td class="right" colspan="1">Cartão: </td>
-                                <td class="left" colspan="3">
+                                <td class="right">Cartão: </td>
+                                <td class="left">
                                     ****.****.****.<span class="input_data" id="coupon_card"></span>
                                 </td>
                             </tr>
@@ -118,7 +126,7 @@
                             </tr>
                             <tr id="tr_card_installment" class="ttu b-top d-none">
                                 <td class="right">Acordo: </td>
-                                <td class="left" style="max-width: 74mm">
+                                <td class="left">
                                     Parcelado em <span class="input_data" id="coupon_installment"></span>x
                                 </td>
                             </tr>
@@ -152,10 +160,9 @@
                                 </tr>
                             </tbody>
                             <tfoot>
-                            <tr class="sup b-top pt-2 font-weight-bold">
-                                <td colspan="4" style="text-align: center; padding-top: .5rem; border-top: 1px solid #cfcfcf; letter-spacing: 1px">
-                                    <b>Ouvidoria: 0800 028 2309</b></br>
-                                    <b>Financeiro: (28)3532-2309</b></br></br>
+                            <tr class="sup b-top pt-2">
+                                <td colspan="4">
+                                    Ouvidoria: 0800 028 2309 | Financeiro: (28)3532-2309
                                 </td>
                             </tr>
                             </tfoot>
@@ -185,7 +192,8 @@
         @page { margin: 0; }
 
         #modalCouponViewer .modal-dialog {
-            max-width: 400px;
+            /*max-width: 78mm;//add to print coupon*/
+            max-width: 420px;
         }
 
         #modalCouponViewer .modal-body {
@@ -197,6 +205,10 @@
             font-size: .875rem;
             line-height: 1.5;
             border-radius: 20px;
+        }
+
+        #coupon_card_ent_mode {
+            font-size: .68rem !important;
         }
 
         thead h3 {
@@ -224,7 +236,8 @@
             /*width: 68mm;*/
             font-size: .68rem !important;
             text-align: center;
-            padding: .43rem;
+            padding: .5rem;
+            /*padding: .43rem;*/
             background-color: #fff9f2 !important;
             color: #0a1520;
             border-radius: 4px;
@@ -240,6 +253,16 @@
         .coupon table tbody,
         .coupon table tfoot{
             line-height: 22px;
+        }
+
+        .coupon table tfoot{
+            font-weight: 400;
+            color: #5b5b5b;
+            font-size: 90%;
+            text-align: center;
+            padding-top: .5rem;
+            border-top: 1px solid #cfcfcf;
+            letter-spacing: 1px
         }
 
         .line-1{
@@ -258,12 +281,30 @@
             text-align: right !important;
             width: 35% !important;
             font-weight: bold;
+            padding-right: 5px;
         }
 
         .left {
             text-align: left !important;
             width: 65% !important;
-            padding-left: .3rem;
+        }
+
+        .max-data {
+            display: inline-block;
+            width: 90%;
+        }
+
+        .info-header {
+            /*color: #5b5b5b;*/
+            font-weight: normal;
+            padding-top: 1.2rem;
+            padding-bottom: 1rem;
+            font-size: 80%;
+            letter-spacing: 1px;
+        }
+
+        thead p:first-letter {
+            text-transform: uppercase;
         }
 
     </style>
@@ -282,10 +323,7 @@
         var customerActive = @json(session('customer'));
         var paymentViewer = [];
         var feesB, valueB = 0;
-
-        var test = {"card_number":"402400******3191","payer":"WELLINGTON FERREIRA","flag":"Master","transaction_code":"6be01539-4330-489f-963c-05bc8b5cabb0","card_ent_mode":"TRANSACAO AUTORIZADA COM SENHA","in_installments":1,"receipt":null}
-        console.log('Test',JSON.stringify(test))
-
+        let payment_id = '';
         let additionTotal = 0;
         let valueTotal = 0;
         let formattedBillets = [];
@@ -380,13 +418,10 @@
             });
         });
 
-
         function previewCoupon(button){
             var dataPaymentString = button.getAttribute('data-payment');
             var payment = JSON.parse(dataPaymentString);
-            console.log(payment);
             setDataCoupon(payment)
-
             $("#modalCouponViewer").modal('show')
         }
 
@@ -398,6 +433,8 @@
             additionTotal = 0;
             valueTotal = 0;
             formattedReference = '';
+            payment_id = payment.id;
+
 
             payment.billets.forEach(billet => {
                 additionTotal += billet.addition;
@@ -413,12 +450,12 @@
             $(`#coupon_billets`).html(formattedReference)
             $(`#coupon_origin`).html(payment.method)
             $(`#coupon_payment_type`).html(payment.payment_type)
+            $(`#coupon_transaction`).html(payment.transaction)
             if(payment.receipt != null && (payment.payment_type == 'Crédito' || payment.payment_type == 'Débito')) {
                 var card_number = payment.receipt[0].card_number
                 if(card_number.length > 4){
                     card_number = card_number.substr(-4)
                 }
-
                 $(`#coupon_card`).html(card_number)//
                 $(`#coupon_flag`).html(payment.receipt[0].flag)
                 $(`#coupon_payer`).html(payment.receipt[0].payer)
@@ -433,82 +470,7 @@
             $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
             $('#coupon_amount').text(payment.amount)
             $(`#coupon_label_billets`).text(payment.billets.length > 1 ? 'Faturas: ':'Fatura: ')
-
-            html2canvas(document.querySelector("#coupon")).then(canvas => {
-                document.body.appendChild(canvas)
-            });
-
-            // for (const [key, value] of Object.entries(payment)) {
-            //     if(key == 'origin'){
-            //         if(value == 'central'){
-            //             $(`#coupon_${key}`).text('Central do Assinante')
-            //         }else if(value == 'bot'){
-            //             $(`#coupon_${key}`).text('WhatsApp')
-            //         }else{
-            //             $(`#coupon_${key}`).text('Autoatendimento')
-            //         }
-            //     }else if(key == 'payment_type'){
-            //         if(value == 'Crédito' || value == 'Débito'){
-            //             console.log('Key', key)
-            //             if(key == 'receipt'){
-            //                 console.log(value[0])
-            //
-            //                 $(`.card-data`).removeClass('d-none')
-            //
-            //                 $(`#coupon_card`).html(value[0].card_number)
-            //                 $(`#coupon_flag`).html(value[0].flag)
-            //                 $(`#coupon_payer`).html(value[0].payer)
-            //                 $(`#coupon_card_ent_mode`).html(value[0].card_ent_mode)
-            //
-            //                 // if(payment.installment > 1 && key == 'installment'){
-            //                     $(`#tr_card_installment`).removeClass('d-none')
-            //                     $(`#coupon_installment`).html(value)
-            //                 // }
-            //             }
-            //             $(`#coupon_${key}`).text(value)
-            //         }
-            //
-            //         if(value == null){
-            //             $(`#coupon_${key}`).text('Picpay')
-            //         }
-            //     }else if(key == 'created_at'){
-            //         // var pay = moment(value).format('DD/MM/YYYY HH:mm:ss')
-            //
-            //             $(`#coupon_${key}`).text(value)
-            //     }else if(key == 'amount'){
-            //         $(`#coupon_${key}`).text(value)
-            //     }
-            //     // else{
-            //     //     $(`#coupon_${key}`).text(value)
-            //     // }
-            //
-            //
-            // }
-
-
-            // for (const [key2, value2] of Object.entries(payment.receipt)) {
-            //     if(key2 == 'card_number'){
-            //         $(`#coupon_${key2}`).text(value2)
-            //     }
-            // }
-
-
-
-            // payment.receipt.forEach(billet => {
-            //     console.log(billet)
-            // });
-
-            // Object.keys(payment).forEach(key => {
-            //     if (key === 'addition') {
-            //         additionTotal += payment[key];
-            //     } else if (key === 'value') {
-            //         valueTotal += payment[key];
-            //     }
-            //
-            //     $(`#coupon_${payment[key]}`).text('Central do Assinante')
-            // });
-
-
+            $(`#company_document`).text(checkFavored(payment.company_id).cnpj)
         }
 
         $('#modalCouponViewer').on('hidden.bs.modal', function (event) {
@@ -516,47 +478,30 @@
             $(`.card-data`).addClass('d-none')
         })
 
-        // setUpDownloadPageAsImage();
-        //
-        // function setUpDownloadPageAsImage() {
-        //     document.getElementById("download_coupon").addEventListener("click", function() {
-        //         html2canvas(document.querySelector("#coupon")).then(function(canvas) {
-        //             console.log(canvas);
-        //             simulateDownloadImageClick(canvas.toDataURL(), 'comprovante.png');
-        //         });
-        //     });
-        // }
-        //
-        // function simulateDownloadImageClick(uri, filename) {
-        //     var link = document.createElement('a');
-        //     if (typeof link.download !== 'string') {
-        //         window.open(uri);
-        //     } else {
-        //         link.href = uri;
-        //         link.download = filename;
-        //         accountForFirefox(clickLink, link);
-        //     }
-        // }
-        //
-        // function clickLink(link) {
-        //     link.click();
-        // }
-        //
-        // function accountForFirefox(click) { // wrapper function
-        //     let link = arguments[1];
-        //     document.body.appendChild(link);
-        //     click(link);
-        //     document.body.removeChild(link);
-        // }
-
-
         $("#download").on( "click", function() {
-            html2canvas(document.querySelector("#coupon")).then(canvas => {
+            html2canvas(document.querySelector("#coupon"), {backgroundColor: "#fff"})
+                .then(canvas => {
                 canvas.toBlob(function(blob) {
-                    window.saveAs(blob, 'comp.png');
+                    window.saveAs(blob, `comp_pag_${payment_id}.png`);
                 });
             });
         });
+
+        function checkFavored(id){
+            let favored = {};
+            switch (id){
+                case 1:
+                    favored.cnpj = '01.771.952/0001-71';
+                    break;
+                case 5:
+                    favored.cnpj = '10.528.742/0001-48';
+                    break;
+                case 6:
+                    favored.cnpj = '44.053.846/0001-65';
+                    break;
+            }
+            return favored;
+        }
 
     </script>
 @endsection

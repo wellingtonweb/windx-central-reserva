@@ -141,7 +141,8 @@ class API
             ->retry(3, 100)
             ->post($this->apiUrl . '/api/list-payments-customer',[
                 'customer' => $customer_id,
-                'status' => 'approved'
+                'status' => 'approved',
+                'limitation' => 15
             ]);
 
         if($response->successful()){

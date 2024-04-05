@@ -345,23 +345,19 @@
         let valueTotal = 0;
         let formattedBillets = [];
         let formattedReference = '';
-        // const moment = require('moment-timezone');
-        console.log(customerActive)
 
-        fetch("{{ route('central.coupons') }}")
-            .then(response => response.text())
-            .then(data => {
-                // Aqui 'data' será a string recuperada do banco de dados
-                // console.log(data);
-                const array = JSON.parse(data); // Convertendo a string para um array JavaScript
-                const payment = array['data']['17'];
-                console.log(payment)
-                const receipt = JSON.parse(payment.receipt);
-                console.log(receipt);
-            })
-            .catch(error => {
-                console.error('Erro ao recuperar os dados:', error);
-            });
+        {{--fetch("{{ route('central.coupons') }}")--}}
+        {{--    .then(response => response.text())--}}
+        {{--    .then(data => {--}}
+        {{--        const array = JSON.parse(data);--}}
+        {{--        const payment = array['data']['17'];--}}
+        {{--        console.log(payment)--}}
+        {{--        const receipt = JSON.parse(payment.receipt);--}}
+        {{--        console.log(receipt);--}}
+        {{--    })--}}
+        {{--    .catch(error => {--}}
+        {{--        console.error('Erro ao recuperar os dados:', error);--}}
+        {{--    });--}}
 
 
         $(document).ready(function() {
@@ -437,13 +433,11 @@
 
         function previewCoupon(button){
             var dataPaymentString = button.getAttribute('data-payment');
-            var payment = JSON.parse(dataPaymentString);
-            setDataCoupon(payment)
+            setDataCoupon(JSON.parse(dataPaymentString))
             $("#modalCouponViewer").modal('show')
         }
 
         function setDataCoupon(payment){
-            console.log(payment)
             var billets = '';
             $('.input_data').html('');
             $('#modalCouponViewerLabel').text(payment.id)
@@ -452,7 +446,6 @@
             valueTotal = 0;
             formattedReference = '';
             payment_id = payment.id;
-
 
             payment.billets.forEach(billet => {
                 additionTotal += billet.addition;

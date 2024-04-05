@@ -41,7 +41,7 @@
                             <tr>
                                 <th class="text-center" colspan="4">
                                     {{--                                <h2 style="text-transform: uppercase; letter-spacing: 1px "><strong>Windx Telecomunicações</strong></h2>--}}
-                                    <img style="width: 20mm !important; margin-top: 1rem"
+                                    <img style="width: 20mm !important;"
                                          src="{{ asset('assets/img/logo2.png') }}" class="logo pt-2">
                                 </th>
                             </tr>
@@ -49,8 +49,13 @@
                                 <th class="info-header ttu text-center" colspan="4">
                                         WINDX TELECOMUNICAÇÕES<br>
                                         <span id="company_document"></span><br>
-                                        AV. SIMÃO SOARES, Nº 365, MARATAÍZES-ES (sede)<br><br>
-                                    <span>{{ \App\Services\Functions::infoDate() }}</span>
+                                        AV. SIMÃO SOARES, Nº 365, MARATAÍZES-ES (sede)
+
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="border-bottom: 1px solid #cfcfcf;">
+                                    <span class="date-full">{{ \App\Services\Functions::infoDate() }}</span>
                                 </th>
                             </tr>
                             <tr class="b-top">
@@ -101,7 +106,7 @@
                                 <td class="input_data left text-uppercase" id="coupon_payment_type">
                                 </td>
                             </tr>
-                            <tr class="ttu b-top">
+                            <tr id="tr_transaction" class="ttu b-top d-none">
                                 <td class="right">Autorização: </td>
                                 <td class="left">
                                     <span class="input_data max-data" id="coupon_transaction"></span>
@@ -116,10 +121,9 @@
                             <tr id="tr_card_flag" class="ttu b-top d-none card-data">
                                 <td class="right">Bandeira: </td>
                                 <td class="left input_data" id="coupon_flag">
-
                                 </td>
                             </tr>
-                            <tr id="tr_card_payer" class="ttu b-top d-none card-data">
+                            <tr id="tr_card_payer" class="ttu b-top d-none">
                                 <td class="right">Titular: </td>
                                 <td class="left input_data" id="coupon_payer">
                                 </td>
@@ -130,7 +134,6 @@
                                     Parcelado em <span class="input_data" id="coupon_installment"></span>x
                                 </td>
                             </tr>
-
                             <tr class="ttu b-top">
                                 <td class="right">Valor: </td>
                                 <td class="left">R$ <span class="input_data" id="coupon_value"></span>
@@ -147,17 +150,17 @@
                                     <span class="input_data" id="coupon_amount"></span>
                                 </td>
                             </tr>
-                            <tr class="ttu b-top text-center">
+                            <tr id="tr_card_ent_mode" class="ttu b-top text-center d-none">
                                 <td colspan="4" style="text-align: center; letter-spacing: 1px; padding-top: 1rem">
-                                    <span class="input_data" id="coupon_card_ent_mode">
-                                    </span>
+                                    <p class="input_data" id="coupon_card_ent_mode">
+                                    </p>
                                 </td>
                             </tr>
-                                <tr class="ttu b-top text-center ">
-                                    <td colspan="4" class="label-info">
-                                        <p>FAVOR CONFERIR EM SEU <br>APLICATIVO DE PAGAMENTO</p>
-                                    </td>
-                                </tr>
+                            <tr id="tr_label_info" class="ttu b-top text-center d-none">
+                                <td colspan="4" class="label-info">
+                                    <p>FAVOR CONFERIR EM SEU <br>APLICATIVO DE PAGAMENTO</p>
+                                </td>
+                            </tr>
                             </tbody>
                             <tfoot>
                             <tr class="sup b-top pt-2">
@@ -303,8 +306,22 @@
             letter-spacing: 1px;
         }
 
-        thead p:first-letter {
+        thead .date-full {
             text-transform: uppercase;
+            font-weight: normal;
+            padding-top: 1.2rem;
+            padding-bottom: 1rem;
+            font-size: 80%;
+            letter-spacing: 1px;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .coupon table tr td:nth-child(2),
+            .coupon table tr th:nth-child(2),
+            .coupon table tr td:nth-child(6),
+            .coupon table tr th:nth-child(6) {
+                display: table-cell !important;
+            }
         }
 
     </style>
@@ -426,6 +443,7 @@
         }
 
         function setDataCoupon(payment){
+            console.log(payment)
             var billets = '';
             $('.input_data').html('');
             $('#modalCouponViewerLabel').text(payment.id)
@@ -450,21 +468,35 @@
             $(`#coupon_billets`).html(formattedReference)
             $(`#coupon_origin`).html(payment.method)
             $(`#coupon_payment_type`).html(payment.payment_type)
-            $(`#coupon_transaction`).html(payment.transaction)
+            if(payment.transaction != null){
+                $(`#coupon_transaction`).html(payment.transaction)
+                $(`#tr_transaction`).removeClass('d-none')
+            }
+
             if(payment.receipt != null && (payment.payment_type == 'Crédito' || payment.payment_type == 'Débito')) {
-                var card_number = payment.receipt[0].card_number
+                let card_number = payment.receipt[0].card_number
+                let card_ent_mode = payment.receipt[0].card_ent_mode
+
                 if(card_number.length > 4){
                     card_number = card_number.substr(-4)
                 }
                 $(`#coupon_card`).html(card_number)//
                 $(`#coupon_flag`).html(payment.receipt[0].flag)
-                $(`#coupon_payer`).html(payment.receipt[0].payer)
-                $(`#coupon_card_ent_mode`).html(payment.receipt[0].card_ent_mode)
+
+                if(card_ent_mode.includes('SENHA')){
+                    $(`#coupon_payer`).html(payment.receipt[0].payer)
+                    $(`#tr_card_payer`).removeClass('d-none')
+                }
+
+                $(`#coupon_card_ent_mode`).html(card_ent_mode)
                 $(`.card-data`).removeClass('d-none')
                 if(payment.installment > 1){
                     $(`#tr_card_installment`).removeClass('d-none')
                     $(`#coupon_installment`).html(payment.installment)
                 }
+                $(`#tr_card_ent_mode`).removeClass('d-none')
+            }else{
+                $(`#tr_label_info`).removeClass('d-none')
             }
             $('#coupon_addition').text(additionTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
             $('#coupon_value').text(valueTotal.toLocaleString('pt-br', {minimumFractionDigits: 2}))
@@ -476,6 +508,10 @@
         $('#modalCouponViewer').on('hidden.bs.modal', function (event) {
             $('.input_data').html('');
             $(`.card-data`).addClass('d-none')
+            $(`#tr_label_info`).addClass('d-none')
+            $(`#tr_card_ent_mode`).addClass('d-none')
+            $(`#tr_card_payer`).addClass('d-none')
+            $(`#tr_transaction`).addClass('d-none')
         })
 
         $("#download").on( "click", function() {

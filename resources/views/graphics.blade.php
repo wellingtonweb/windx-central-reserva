@@ -72,7 +72,7 @@
 {{--                                    </div>--}}
 {{--                                </div>--}}
 {{--                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-flex flex-column">--}}
-                                    <button id="btn_submit" class="btn btn-primary mt-2 d-none" type="submit"><i class="fas fa-search pr-2"></i>Pesquisar</button>
+{{--                                    <button id="btn_submit" class="btn btn-primary mt-2 d-none" type="submit"><i class="fas fa-search pr-2"></i>Pesquisar</button>--}}
 {{--                                </div>--}}
                             </div>
                             <div class="row card-info mt-2">
@@ -82,7 +82,7 @@
                                             <i class="fas fa-spinner fa-2x fa-spin"></i>
                                         </div>
                                         <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">
-                                            <canvas id="myChart"></canvas>
+                                            <canvas id="graphicsChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +111,19 @@
             color: #fff !important;
         }
 
+        #container_filter {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: .5rem 1rem;
+        }
+
         #container_filter .date {
             width: 300px;
+        }
+
+        #container_filter .date {
+            margin-left: 5px;
         }
 
         @media (max-width: 575.98px) {
@@ -156,7 +167,7 @@
             maxDate: moment(),
             locale: {
                 "format": 'DD/MM/YYYY',
-                "separator": '-',
+                "separator": ' - ',
                 "applyLabel": 'Confirmar',
                 "cancelLabel": 'Cancelar',
                 "daysOfWeek": [
@@ -190,11 +201,7 @@
             e.preventDefault();
             startDate = picker.startDate.format('DD/MM/YYYY');
             dateEnd = picker.endDate.format('DD/MM/YYYY');
-
-            $('#btn_submit').click();
-
-            // console.log(startDate, dateEnd)
-
+            $('#formFilterGraphics').submit()
         })
 
         $('.btn_calendar').click(function (){
@@ -204,25 +211,15 @@
         $(document).ready(function() {
 
             //Teste graphics
-            const ctx = document.getElementById('myChart').getContext('2d');
+            const ctx = document.getElementById('graphicsChart').getContext('2d');
             const dt = [];
             const graphics = []
-            var myChart = {};
-
-            // $('.datepicker').datepicker({
-            //     language: "pt-BR",
-            //     format: "dd/mm/yyyy",
-            //     endDate: "date",
-            //     todayHighlight: true,
-            //     autoclose: true,
-            //     locale: 'pt-br'
-            // })
+            var graphicsChart = {};
 
 
-
-            $('.dtpkr').on('change', function (){
-                $(".form-check-input").prop('checked', false);
-            });
+            // $('.dtpkr').on('change', function (){
+            //     $(".form-check-input").prop('checked', false);
+            // });
 
             async function postJSON(data) {
                 try {
@@ -247,16 +244,13 @@
 
             $('#formFilterGraphics').submit(function (e){
                 e.preventDefault();
-
-                console.log($(this).serializeArray())
-
                 const inputDtStart = startDate
                 const inputDtEnd = dateEnd
 
                 if(inputDtStart == '' || inputDtEnd == ''){
                     swal.fire('Informe corretamente o período desejado!')
                 }else{
-                    let chartStatus = Chart.getChart("myChart"); // <canvas> id
+                    let chartStatus = Chart.getChart("graphicsChart"); // <canvas> id
                     if (chartStatus != undefined) {
                         chartStatus.destroy();
                         $("#loadingCharts").removeClass('d-none')
@@ -284,23 +278,23 @@
             }
 
             (function startGraphics(){
-                $('#fastFilter7').on('change', function (){
-                    getData($(this).val())
-                }).trigger("click")
+                // $('#fastFilter7').on('change', function (){
+                //     getData($(this).val())
+                // }).trigger("click")
                 $('#formFilterGraphics').submit()
             })()
-
-            $('#fastFilter7').on('change', function (){
-                getData($(this).val())
-            }).trigger("click")
-
-            $('#fastFilter15').on('change', function (){
-                getData($(this).val())
-            })
-
-            $('#fastFilter30').on('change', function (){
-                getData($(this).val())
-            })
+            //
+            // $('#fastFilter7').on('change', function (){
+            //     getData($(this).val())
+            // }).trigger("click")
+            //
+            // $('#fastFilter15').on('change', function (){
+            //     getData($(this).val())
+            // })
+            //
+            // $('#fastFilter30').on('change', function (){
+            //     getData($(this).val())
+            // })
 
             function bitsToMegabits(bits) {
                 return bits / 1000000;
@@ -328,7 +322,7 @@
                 const downloads = labels.map(date => formatBytes(parseInt(graphics[0][date].download)));
                 const uploads = labels.map(date => formatBytes(parseInt(graphics[0][date].upload)));
 
-                myChart = new Chart(ctx, {
+                graphicsChart = new Chart(ctx, {
                     // type: 'line',
                     type: 'bar',
 

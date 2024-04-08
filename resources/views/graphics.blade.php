@@ -20,46 +20,60 @@
                         <form id="formFilterGraphics">
                             <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
                             <div class="row card-info">
-                                <div class="col-lg-3 col-6 pt-4">
-                                    <div class="form-group">
-                                        <div id="dtPkrStart" class="datepicker date dtInicial input-group">
-                                            <input type="text" placeholder="Data inicial" class="form-control dtpkr" name="dtInicial" id="dtInicial">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                            </div>
+
+                                <div id="container_filter" class="col-12">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        Filtrar por período:
+                                    </div>
+                                    <div class="date input-group">
+                                        <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">
+                                        <div class="input-group-append btn_calendar">
+                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 col-6 pt-4">
-                                    <div class="form-group">
-                                        <div id="dtPkrEnd" class="datepicker date dtFinal input-group">
-                                            <input type="text" placeholder="Data final" class="form-control dtpkr" name="dtFinal" id="dtFinal">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-lg-block d-flex justify-content-center align-middle">
-                                    <label class="form-check-label pr-2">Filtro rápido: </label>
-                                    <div class="form-group d-flex d-sm-flex">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter7" value="7">
-                                            <label class="form-check-label" for="inlineRadio1">7 dias</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter15" value="15">
-                                            <label class="form-check-label" for="inlineRadio2">15 dias</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter30" value="30">
-                                            <label class="form-check-label" for="inlineRadio3">30 dias</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-flex flex-column">
-                                    <button class="btn btn-primary mt-2" type="submit"><i class="fas fa-search pr-2"></i>Pesquisar</button>
-                                </div>
+{{--                                <div class="col-lg-3 col-6 pt-4">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <div id="dtPkrStart" class="datepicker date dtInicial input-group">--}}
+{{--                                            <input type="text" placeholder="Data inicial" class="form-control dtpkr" name="dtInicial" id="dtInicial">--}}
+{{--                                            <div class="input-group-append">--}}
+{{--                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-lg-3 col-6 pt-4">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <div id="dtPkrEnd" class="datepicker date dtFinal input-group">--}}
+{{--                                            <input type="text" placeholder="Data final" class="form-control dtpkr" name="dtFinal" id="dtFinal">--}}
+{{--                                            <div class="input-group-append">--}}
+{{--                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+
+{{--                                        --}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-lg-block d-flex justify-content-center align-middle">--}}
+{{--                                    <label class="form-check-label pr-2">Filtro rápido: </label>--}}
+{{--                                    <div class="form-group d-flex d-sm-flex">--}}
+{{--                                        <div class="form-check form-check-inline">--}}
+{{--                                            <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter7" value="7">--}}
+{{--                                            <label class="form-check-label" for="inlineRadio1">7 dias</label>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-check form-check-inline">--}}
+{{--                                            <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter15" value="15">--}}
+{{--                                            <label class="form-check-label" for="inlineRadio2">15 dias</label>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="form-check form-check-inline">--}}
+{{--                                            <input class="form-check-input" type="radio" name="fastFilter" id="fastFilter30" value="30">--}}
+{{--                                            <label class="form-check-label" for="inlineRadio3">30 dias</label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-lg-3 col-md-6 col-sm-12 p-3 d-flex flex-column">--}}
+                                    <button id="btn_submit" class="btn btn-primary mt-2 d-none" type="submit"><i class="fas fa-search pr-2"></i>Pesquisar</button>
+{{--                                </div>--}}
                             </div>
                             <div class="row card-info mt-2">
                                 <div class="col-12 ">
@@ -82,17 +96,111 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="{{ asset('assets/css/pages/graphics.css') }}">
+    <style>
+        .daterangepicker .calendar-table th,
+        .daterangepicker .calendar-table td {
+            color: #888888;
+        }
+
+        .daterangepicker td.active,
+        .daterangepicker td.active:hover {
+            background-color: #357ebd;
+            border-color: transparent;
+            color: #fff !important;
+        }
+
+        #container_filter .date {
+            width: 300px;
+        }
+
+        @media (max-width: 575.98px) {
+            #container_filter .date {
+                width: 100% !important;
+            }
+
+            #container_filter {
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+    </style>
 @endsection
 
 @section('js')
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{{--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>--}}
+{{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>--}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
+
+
     <script>
+        let startDate = moment().format('DD/MM/YYYY')
+        let dateEnd = moment().format('DD/MM/YYYY')
+
+        $("#period").daterangepicker({
+            timePicker: false,
+            autoApply: true,
+            opens: 'right',
+            startDate: moment().format('DD/MM/YYYY'),
+            endDate: moment().format('DD/MM/YYYY'),
+            maxDate: moment(),
+            locale: {
+                "format": 'DD/MM/YYYY',
+                "separator": '-',
+                "applyLabel": 'Confirmar',
+                "cancelLabel": 'Cancelar',
+                "daysOfWeek": [
+                    "Dom",
+                    "Seg",
+                    "Ter",
+                    "Qua",
+                    "Qui",
+                    "Sex",
+                    "Sab"
+                ],
+                "monthNames": [
+                    "Jan",
+                    "Fev",
+                    "Mar",
+                    "Abr",
+                    "Mai",
+                    "Jun",
+                    "Jul",
+                    "Ago",
+                    "Set",
+                    "Out",
+                    "Nov",
+                    "Dez"
+                ],
+                "firstDay" : 0
+            }
+        });
+
+        $("#period").on('apply.daterangepicker', function(e, picker) {
+            e.preventDefault();
+            startDate = picker.startDate.format('DD/MM/YYYY');
+            dateEnd = picker.endDate.format('DD/MM/YYYY');
+
+            $('#btn_submit').click();
+
+            // console.log(startDate, dateEnd)
+
+        })
+
+        $('.btn_calendar').click(function (){
+            $('#period').focus();
+        })
+
         $(document).ready(function() {
 
             //Teste graphics
@@ -101,14 +209,16 @@
             const graphics = []
             var myChart = {};
 
-            $('.datepicker').datepicker({
-                language: "pt-BR",
-                format: "dd/mm/yyyy",
-                endDate: "date",
-                todayHighlight: true,
-                autoclose: true,
-                locale: 'pt-br'
-            })
+            // $('.datepicker').datepicker({
+            //     language: "pt-BR",
+            //     format: "dd/mm/yyyy",
+            //     endDate: "date",
+            //     todayHighlight: true,
+            //     autoclose: true,
+            //     locale: 'pt-br'
+            // })
+
+
 
             $('.dtpkr').on('change', function (){
                 $(".form-check-input").prop('checked', false);
@@ -137,8 +247,11 @@
 
             $('#formFilterGraphics').submit(function (e){
                 e.preventDefault();
-                const inputDtStart = $("#dtInicial").val()
-                const inputDtEnd = $("#dtFinal").val()
+
+                console.log($(this).serializeArray())
+
+                const inputDtStart = startDate
+                const inputDtEnd = dateEnd
 
                 if(inputDtStart == '' || inputDtEnd == ''){
                     swal.fire('Informe corretamente o período desejado!')
@@ -149,7 +262,9 @@
                         $("#loadingCharts").removeClass('d-none')
                     }
 
-                    postJSON({'_token': $(this).serializeArray()[0].value,'dtStart': $(this).serializeArray()[1].value,'dtEnd': $(this).serializeArray()[2].value});
+                    postJSON({'_token': $(this).serializeArray()[0].value,
+                        'dtStart': startDate,
+                        'dtEnd': dateEnd});
                 }
 
             })

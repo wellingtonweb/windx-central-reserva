@@ -338,6 +338,7 @@
 
     <script>
         var customerActive = @json(session('customer'));
+
         var paymentViewer = [];
         var feesB, valueB = 0;
         let payment_id = '';

@@ -330,6 +330,7 @@
     <script>
         var idCustomer = {{session('customer.id')}};
         var customerActive = @json(session('customer'));
+        console.log(customerActive)
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";

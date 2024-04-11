@@ -104,7 +104,11 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Dados inválidos!'], 500);
             }
 
+//            dd($response->object());
+
             $customer = json_decode(json_encode($response->object()),true);
+
+//            dd(count($customer['old_billets']), $customer['old_billets']);
 
             session()->put('customer',  $customer);
             session()->put('customer.login',  $validator->validate()['login']);

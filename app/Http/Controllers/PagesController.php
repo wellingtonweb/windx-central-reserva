@@ -23,7 +23,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class PagesController extends Controller
 {
-
     public function __construct()
     {
         $array = explode(",", env('BACKUP_VIGO_SCHEDULES'));
@@ -37,8 +36,6 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
-
-
             return view('home', ['header' => 'Home']);
         } else {
             throw new CheckUserException();
@@ -126,6 +123,11 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
+            if(count(session('customer.old_billets')) > 0)
+            {
+                return redirect('/home')->with(['warning' => 'old_billets']);
+            }
+
             return view('payment', [
                 'header' => 'Pagamento (Checkout)',
                 'authorization' => (new API())->getTokenTreeDS(session('customer.company_id'))->access_token,

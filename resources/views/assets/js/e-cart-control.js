@@ -421,6 +421,7 @@ async function getBillets(){
     const billets = await response.json();
     let sliderBillets = document.querySelector('.billetsSwiper');
     $('.billetsSwiper').addClass('billetsSwiperLoading');
+    const date_limit = moment()
 
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';

@@ -99,8 +99,8 @@
         Swal.fire({
             title: 'Atenção!',
             icon: 'warning',
-            html: '<b>Você possuí débitos antigos!</b><br><br>' +
-                'Estaremos te direcionando para<br> nosso setor de negociação.',
+            html: '<b>Este cadastro possuí débitos antigos!</b><br><br>' +
+                'Estaremos direcionando você<br> para nosso atendimento.<br>Escolha o menu Financeiro > Negociação de Débitos.',
             timer: 8000,
             timerProgressBar: false,
             showConfirmButton: true,

@@ -123,10 +123,21 @@ class PagesController extends Controller
     {
         if(session()->has('customer'))
         {
-            if(count(session('customer.old_billets')) > 0)
-            {
-                return redirect('/home')->with(['warning' => 'old_billets']);
-            }
+//            if(count(session('customer.old_billets')) > 0)
+//            {
+//                return redirect('/home')->with(['warning' => 'old_billets']);
+//            }
+//            $today = Carbon::today();
+//            $duedate = Carbon::parse('2023-12-15T00:00:00');
+//            $diff = $today->diffInDays($duedate, false);
+//
+//            if($diff <= -90){
+//                dd('Negociar');
+//            }else{
+//                dd('Pagar');
+//            }
+
+//            dd($duedate > $limitation, $today, $duedate, $diff);
 
             return view('payment', [
                 'header' => 'Pagamento (Checkout)',
@@ -209,8 +220,17 @@ class PagesController extends Controller
                         'company_id' => session('customer.company_id')
                     ]);
 
-                    $button = '<a href="#" id="select-billet-'. $data['Id'] .
-                        '" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn('. htmlspecialchars(json_encode($billet)) .')">PAGAR</button>';
+                    $today = Carbon::today();
+                    $duedate = Carbon::parse($data['Vencimento']);
+                    $diff = $today->diffInDays($duedate, false);
+
+                    if($diff <= -90){
+                        $button = '<a href="#" id="select-billet-'. $data['Id'] .
+                            '" class="btn btn-secondary btn-sm btn-block" disabled="disabled">VENCIDO +90 DIAS</button>';
+                    }else{
+                        $button = '<a href="#" id="select-billet-'. $data['Id'] .
+                            '" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn('. htmlspecialchars(json_encode($billet)) .')">PAGAR</button>';
+                    }
 
                     return $button;
                 })

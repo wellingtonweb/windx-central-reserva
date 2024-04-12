@@ -296,6 +296,12 @@
 
 @section('css')
     <style>
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+        }
+
 
         #Cardinal-Modal {
             border-radius: .4rem !important;

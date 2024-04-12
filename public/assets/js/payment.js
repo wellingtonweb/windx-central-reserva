@@ -540,8 +540,11 @@ var swiper = new Swiper(".billetsSwiper", {
 async function getBillets(){
     const response = await fetch(urlGetBillets);
     const billets = await response.json();
+    console.log(billets)
+
     let sliderBillets = document.querySelector('.billetsSwiper');
     $('.billetsSwiper').addClass('billetsSwiperLoading');
+    // const date_limit = moment()
 
     if(billets.data.length === 0){
         sliderBillets.innerHTML = '<h4 class="p-3">Não existem faturas à pagar!</h4>';
@@ -589,14 +592,8 @@ async function getBillets(){
                                         </div>
                                         <div class="row">
                                             <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
-                                                <div>
-                                                    <small class="card-text">
-                                                    ${billets.data[billet].LinhaDigitavel}
-                                                    </small>
-                                                </div>
-                                                <div>
-                                                    ${billets.data[billet].copy}
-                                                </div>
+
+                                                ${billets.data[billet].copy}
                                             </div>
                                             <div class="col-12 d-flex justify-content-center">
                                                 ${billets.data[billet].download}

@@ -150,6 +150,7 @@ class PagesController extends Controller
 
     public function getbillets()
     {
+
         if(session()->has('customer')){
 //            $customer = json_decode(json_encode((new API())->getCustomer(9)),true);
             $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
@@ -168,13 +169,45 @@ class PagesController extends Controller
                     return 'R$ ' .number_format((new Functions)->calcFees($data['Vencimento'], $data['Valor']) + $data['Valor'], 2, ',', '');
                 })
                 ->addColumn('copy', function($data){
-                    return '<a href="#" id="copy-barcode-'. $data['Id'] .'" class="d-block billet-link btn-copy text-primary click px-2" data-id="'.
-                        $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'"><i class="fas fa-copy pl-1"></i>'.
-                                    '<small class="text-primary" style="font-size: .7rem">copiar</small></a>';
+                    $today = Carbon::today();
+                    $duedate = Carbon::parse($data['Vencimento']);
+                    $diff = $today->diffInDays($duedate, false);
+
+                    if($diff <= -90){
+                        $btn_copy = '<div>
+                        <small class="card-text">00000.00000   00000.000000   00000.000000   0   00000000000000</small>
+                                                </div>
+                                                <div>
+                                                    <a href="#" class="d-block billet-link btn-copy text-secondary px-2 disabled"><i class="fas fa-copy pl-1"></i>'.
+                            '<small class="text-secondary" style="font-size: .7rem">copiar</small></a>
+                                                </div>';
+                    }else{
+                        $btn_copy = '<div>
+                        <small class="card-text">'. $data['LinhaDigitavel'] .'
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <a href="#" id="copy-barcode-'. $data['Id'] .'" class="d-block billet-link btn-copy text-primary click px-2" data-id="'.
+                            $data['Id'] .'" onclick="copyBarcode3(this)" data-code="'. $data['LinhaDigitavel'] .'"><i class="fas fa-copy pl-1"></i>'.
+                            '<small class="text-primary" style="font-size: .7rem">copiar</small></a>
+                                                </div>';
+
+                    }
+
+                    return $btn_copy;
                 })
                 ->addColumn('download', function($data){
-                    return '<a target="_blank" id="print-billet-'. $data['Id'] .'" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
-                        '" class="billet-link btn-print-billet text-primary px-3"><i class="fas fa-download pr-1"></i>Baixar segunda via</a>';
+                    $today = Carbon::today();
+                    $duedate = Carbon::parse($data['Vencimento']);
+                    $diff = $today->diffInDays($duedate, false);
+
+                    if($diff <= -90){
+                        return '<a target="_blank" href="#" class="billet-link btn-print-billet text-secondary px-3 disabled"><i class="fas fa-download pr-1"></i>Baixar segunda via</a>';
+                    }else{
+                        return '<a target="_blank" id="print-billet-'. $data['Id'] .'" href="'. env('API_URL_VIGO_PROD') . $data['Link'] .
+                            '" class="billet-link btn-print-billet text-primary px-3"><i class="fas fa-download pr-1"></i>Baixar segunda via</a>';
+                    }
+
                 })
                 ->addColumn('remove', function($data){
                     return '<a href="#" id="remove-billet-'. $data['Id'] .
@@ -187,6 +220,7 @@ class PagesController extends Controller
                     $fees = 0;
                     $today = Carbon::now()->startOfDay();
                     $pay = Carbon::parse($data['Vencimento']);
+
 
                     if($today > $pay)
                     {
@@ -220,13 +254,15 @@ class PagesController extends Controller
                         'company_id' => session('customer.company_id')
                     ]);
 
-                    $today = Carbon::today();
+
                     $duedate = Carbon::parse($data['Vencimento']);
                     $diff = $today->diffInDays($duedate, false);
 
                     if($diff <= -90){
+                        $data['Vencido'] = 1;
+
                         $button = '<a href="#" id="select-billet-'. $data['Id'] .
-                            '" class="btn btn-secondary btn-sm btn-block" disabled="disabled">VENCIDO +90 DIAS</button>';
+                            '" class="btn btn-secondary btn-sm btn-block disabled">VENCIDO +90 DIAS</button>';
                     }else{
                         $button = '<a href="#" id="select-billet-'. $data['Id'] .
                             '" class="add-to-cart btn btn-success btn-sm btn-block" onclick="addToCartBtn('. htmlspecialchars(json_encode($billet)) .')">PAGAR</button>';
@@ -244,8 +280,11 @@ class PagesController extends Controller
 
     public function getbillets2(){
         if(session()->has('customer')){
-            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
-            return $customer[0]['billets'];
+            $customer = (new API())->getCustomer(session('customer.id'));
+            return $customer[0]->billets;
+
+//            $customer = json_decode(json_encode((new API())->getCustomer(session('customer.id'))),true);
+//            return $customer[0]['billets'];
         } else {
             throw new CheckUserException();
         }

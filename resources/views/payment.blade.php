@@ -336,23 +336,44 @@
     <script>
         var idCustomer = {{session('customer.id')}};
         var customerActive = @json(session('customer'));
-        console.log(customerActive)
         var maxInstallment = {{ env('MAX_INSTALLMENT') }};
         var minInstallmentValue = {{ env('MIN_INSTALLMENT_VALUE') }};
         let urlGetBillets = "{{ route('central.get.billets') }}";
         var checkoutForm = $('#form_checkout')[0];
 
-        function formatDueDate(dueDate)
-        {
-            var dt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric'});
-
-            return dt.format(new Date(dueDate));
-        }
-
-        Swal.fire({
-            icon: "info",
-            title: `Selecione uma ou mais faturas para pagamento!`,
-            html: `<div class="p-2 d-flex justify-content-center align-items-center">
+        if(customerActive.old_billets.length > 0){
+            Swal.fire({
+                title: 'Este cadastro possuí débitos antigos!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#ccc",
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não",
+                reverseButtons: true,
+                html: 'Deseja regularizar com nosso setor financeiro?',
+                showConfirmButton: true,
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location = "{{env('WHATSAPP_FINANCIAL')}}";
+                }
+            });
+        }else{
+            Swal.fire({
+                icon: "info",
+                title: `Selecione uma ou mais faturas para pagamento!`,
+                html: `<div class="p-2 d-flex justify-content-center align-items-center">
                             <div class="container-screen">
                                 <div>Fatura 4</div>
                                 <div>Fatura 5</div>
@@ -362,24 +383,31 @@
                                 <i class="fas fa-hand-pointer fa-2x hand-icon"></i>
                             </div>
                         </div>`,
-            showDenyButton: false,
-            showCancelButton: false,
-            showConfirmButton: true,
-            confirmButtonText: 'OK',
-            cancelButtonText: `Não`,
-            allowOutsideClick: () => {
-                const popup = Swal.getPopup()
-                popup.classList.remove('swal2-show')
-                setTimeout(() => {
-                    popup.classList.add('animate__animated', 'animate__headShake')
-                })
-                setTimeout(() => {
-                    popup.classList.remove('animate__animated', 'animate__headShake')
-                }, 500)
-                return false
-            },
-        })
+                showDenyButton: false,
+                showCancelButton: false,
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: `Não`,
+                allowOutsideClick: () => {
+                    const popup = Swal.getPopup()
+                    popup.classList.remove('swal2-show')
+                    setTimeout(() => {
+                        popup.classList.add('animate__animated', 'animate__headShake')
+                    })
+                    setTimeout(() => {
+                        popup.classList.remove('animate__animated', 'animate__headShake')
+                    }, 500)
+                    return false
+                },
+            })
+        }
 
+        function formatDueDate(dueDate)
+        {
+            var dt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric'});
+
+            return dt.format(new Date(dueDate));
+        }
 
         //cc-nome, cc-numero, expiration_month, expiration_year
         $('#cc-nome').blur(function(){

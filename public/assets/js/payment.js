@@ -24,7 +24,7 @@ var billetsCart = (function() {
     {
         var dt = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric'});
 
-        return dt.format(new Date(dueDate));
+        return dt.format(new Date(dueDate));btn-debit
     }
 
     // Save cart
@@ -592,7 +592,6 @@ async function getBillets(){
                                         </div>
                                         <div class="row">
                                             <div class="col-12 py-2 d-flex justify-content-between" style="vertical-align: middle; border-top: 2px solid #CCCCCC; width: 100%">
-
                                                 ${billets.data[billet].copy}
                                             </div>
                                             <div class="col-12 d-flex justify-content-center">

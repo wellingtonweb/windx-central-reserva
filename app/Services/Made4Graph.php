@@ -71,16 +71,16 @@ class Made4Graph
 
     }
 
-    public function trafficRealTime()
+    public function trafficRealTime($login_pppoe)
     {
         $response = Http::accept('application/json')
             ->retry(3, 100)
             ->withToken($this->apiToken)
             ->post($this->apiUrl . '/api/v1/trafficRealTime.php',
                 [
-                    "login" => $this->login_pppoe,
+//                    "login" => "097wdf"
+                    "login" => $login_pppoe
                 ]);
-
 
         if($response->successful()){
             return ['obj'=> $response->object(), 'token' => $this->apiToken];

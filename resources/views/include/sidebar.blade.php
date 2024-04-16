@@ -28,6 +28,7 @@
             </a>
         </li>
         <li class="credits">
+            <p>Versão 1.2.2</p>
             <p>Development by:</p>
             <p>Wellington Dias Ferreira</p>
         </li>

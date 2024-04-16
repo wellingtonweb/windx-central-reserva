@@ -17,34 +17,77 @@
                         <span class="px-3"></span>
                     </div>
                     <div class="contract-info col-12">
-                        <form id="formFilterGraphics">
-                            <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                            <div class="row card-info">
-                                <div id="container_filter" class="col-12">
-                                    <div class="d-flex justify-content-start align-items-center">
-                                        Filtrar por período:
-                                    </div>
-                                    <div class="date input-group">
-                                        <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">
-                                        <div class="input-group-append btn_calendar">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                        <div class="row card-info_ mt-2">
+                            <div class="col-12 p-0">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Consumo em Tempo Real</h5>
+                                        <p class="card-text">Acompanhe o consumo de sua internet em tempo real</p>
+                                        <div id="reportPage2">
+                                            <div id="loadingChartsTime" class="w-100">
+                                                <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                            </div>
+                                            <div id="chartContainerTime" class="container-fluid w-100" style="height: 40vh">
+                                                <canvas id="realTimeChart"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row card-info mt-2">
-                                <div class="col-12 ">
-                                    <div id="reportPage">
-                                        <div id="loadingCharts" class="w-100">
-                                            <i class="fas fa-spinner fa-2x fa-spin"></i>
-                                        </div>
-                                        <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">
-                                            <canvas id="graphicsChart"></canvas>
+                            <div class="col-12 p-0 mt-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Consumo por período</h5>
+                                        <p class="card-text">Acompanhe o consumo de sua internet no período desejado</p>
+                                        <div id="reportPage">
+                                            <div id="loadingCharts" class="w-100">
+                                                <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                            </div>
+                                            <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">
+                                                <canvas id="graphicsChart"></canvas>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+
+                            {{--                            <div class="col-12">Grafico Tempo Real--}}
+                            {{--                                <div id="reportPage2">--}}
+                            {{--                                    <div id="loadingChartsTime" class="w-100">--}}
+                            {{--                                        <i class="fas fa-spinner fa-2x fa-spin"></i>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <div id="chartContainerTime" class="container-fluid w-100" style="height: 40vh">--}}
+                            {{--                                        <canvas id="graphicsChartTime"></canvas>--}}
+                            {{--                                    </div>--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
+                        </div>
+{{--                        <div class="row card-info mt-2">--}}
+{{--                            <div class="col-12 ">--}}
+{{--                                <div id="container_filter" class="col-12">--}}
+{{--                                    <form id="formFilterGraphics">--}}
+{{--                                        <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>--}}
+{{--                                        <div class="d-flex justify-content-end align-items-center">--}}
+{{--                                            Filtrar por período:--}}
+{{--                                        </div>--}}
+{{--                                        <div class="date input-group">--}}
+{{--                                            <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">--}}
+{{--                                            <div class="input-group-append btn_calendar">--}}
+{{--                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </form>--}}
+{{--                                </div>--}}
+{{--                                <div id="reportPage">--}}
+{{--                                    <div id="loadingCharts" class="w-100">--}}
+{{--                                        <i class="fas fa-spinner fa-2x fa-spin"></i>--}}
+{{--                                    </div>--}}
+{{--                                    <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">--}}
+{{--                                        <canvas id="graphicsChart"></canvas>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -137,6 +180,52 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/js/FileSaver.js') }}"></script>
 
+    <script>
+        var data = {
+            labels: [0],
+            datasets: [
+                {
+                    label: 'Download',
+                    data: [0],
+                    borderColor: 'rgba(2, 45, 163, 1)',
+                    lineTension: .5
+                },
+                {
+                    label: 'Upload',
+                    data: [0],
+                    borderColor: 'rgba(220, 53, 69, 1)',
+                    lineTension: .5
+                },
+            ]
+        };
+
+        var config = {
+            type: 'line',
+            data: data,
+        }
+
+        var realTimeChart = new Chart(
+            document.querySelector('#realTimeChart'),
+            config
+        )
+
+        setInterval(getRealTimeData, 5000);
+
+        function getRealTimeData(realData){
+
+            // var now = new Date();
+            // now = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+            var down = Math.floor(Math.random() * 1000);
+            var up = Math.floor(Math.random() * 1000);
+            data.labels.push(moment().format('HH:mm:ss'));
+            data.datasets[0].data.push(down);
+            data.datasets[1].data.push(up);
+            realTimeChart.update();
+
+            console.log(down, up)
+        }
+    </script>
+
 
     <script>
         let startDate = moment().format('DD/MM/YYYY')
@@ -188,8 +277,8 @@
             $('#formFilterGraphics').submit()
         })
 
-        var file = new File(["Hello, world!"], "hello_world.txt", {type: "text/plain;charset=utf-8"});
-        saveAs(file);
+        // var file = new File(["Hello, world!"], "hello_world.txt", {type: "text/plain;charset=utf-8"});
+        // saveAs(file);
 
         $('.btn_calendar').click(function (){
             $('#period').focus();

@@ -135,6 +135,7 @@
                         </div>
                     </div>
                     <div class="credits">
+                        <p>Versão 1.2.2</p>
                         <a href="https://dewelloper.dev.br" target="_blank">
                             <smalL>dewelloper.dev.br</smalL>
                         </a>

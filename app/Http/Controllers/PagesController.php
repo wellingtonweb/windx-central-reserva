@@ -85,6 +85,24 @@ class PagesController extends Controller
         }
     }
 
+    public function trafficRealTime()
+    {
+        if(session()->has('customer')){
+
+            $login = "097wdf";
+
+            $response = (new Made4Graph())->trafficRealTime($login);
+
+            return response()->json($response);
+//            return view('graphics', [
+//                'header' => 'Consumo',
+//                'customer' => session('customer')
+//            ]);
+        } else {
+            throw new CheckUserException();
+        }
+    }
+
     public function connection()
     {
         if(session()->has('customer')){
@@ -253,7 +271,6 @@ class PagesController extends Controller
                         'installment' => preg_match("/acordo/i", $data['Referencia']) ? (int) preg_replace('/[^0-9]/', '', $data['Referencia']) : 1,
                         'company_id' => session('customer.company_id')
                     ]);
-
 
                     $duedate = Carbon::parse($data['Vencimento']);
                     $diff = $today->diffInDays($duedate, false);

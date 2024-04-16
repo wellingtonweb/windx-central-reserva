@@ -22,12 +22,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Consumo em Tempo Real</h5>
-                                        <p class="card-text">Acompanhe o consumo de sua internet em tempo real</p>
+                                        <p class="card-text">Este abaixo é o consumo do login <b id="labelLogin"></b> em tempo real</p>
                                         <div id="reportPage2">
                                             <div id="loadingChartsTime" class="w-100">
                                                 <i class="fas fa-spinner fa-2x fa-spin"></i>
                                             </div>
-                                            <div id="chartContainerTime" class="container-fluid w-100" style="height: 40vh">
+                                            <div id="chartContainerTime" class="container-fluid w-100">
                                                 <canvas id="realTimeChart"></canvas>
                                             </div>
                                         </div>
@@ -43,7 +43,7 @@
                                             <div id="loadingCharts" class="w-100">
                                                 <i class="fas fa-spinner fa-2x fa-spin"></i>
                                             </div>
-                                            <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">
+                                            <div id="chartContainer" class="container-fluid w-100">
                                                 <canvas id="graphicsChart"></canvas>
                                             </div>
                                         </div>
@@ -178,6 +178,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/js/FileSaver.js') }}"></script>
 
     <script>
@@ -202,6 +203,9 @@
         var config = {
             type: 'line',
             data: data,
+            options: {
+                resposive: true
+            }
         }
 
         var realTimeChart = new Chart(
@@ -211,18 +215,52 @@
 
         setInterval(getRealTimeData, 5000);
 
-        function getRealTimeData(realData){
+        function getRealTimeData(){
+            // const axios = require('axios');
+            const realData = {
+                login:'',
+                download: 0,
+                upload: 0
+            }
+            axios.get('/graficos2')
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data?.obj);
+                    if(response.data?.obj != null){
+                        realData.login = response.data?.obj.message.Username
+                        realData.download = response.data?.obj.message.Download
+                        realData.download = response.data?.obj.message.Upload
+                        setRealTimeData(realData)
+                    }
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
 
-            // var now = new Date();
-            // now = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
+        }
+
+        function setRealTimeData(realData){
             var down = Math.floor(Math.random() * 1000);
             var up = Math.floor(Math.random() * 1000);
             data.labels.push(moment().format('HH:mm:ss'));
             data.datasets[0].data.push(down);
             data.datasets[1].data.push(up);
+            document.querySelector('#labelLogin').text = realData.login
             realTimeChart.update();
+        }
 
-            console.log(down, up)
+        var count = 0
+        function sessionCount(){
+            count = count + 1;
+            console.log('Real', count)
+            if(count == 10){
+                count = 0
+                swal.fire('Sessão terminada!')
+            }
         }
     </script>
 

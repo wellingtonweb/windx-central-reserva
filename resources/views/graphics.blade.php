@@ -22,12 +22,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Consumo em Tempo Real</h5>
-                                        <p class="card-text">Este abaixo é o consumo do login <b id="labelLogin"></b> em tempo real</p>
+                                        <p class="card-text">Login <b id="labelLogin">{{ session('customer.login') }}</b> conectado</p>
                                         <div id="reportPage2">
                                             <div id="loadingChartsTime" class="w-100">
                                                 <i class="fas fa-spinner fa-2x fa-spin"></i>
                                             </div>
-                                            <div id="chartContainerTime" class="container-fluid w-100">
+                                            <div id="chartContainerTime" class="container-fluid w-100 d-none">
                                                 <canvas id="realTimeChart"></canvas>
                                             </div>
                                         </div>
@@ -171,6 +171,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/functions.js') }}"></script>
 {{--    <script type="text/javascript" defer>inactivitySession();</script>--}}
 
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {{--    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>--}}
 {{--    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>--}}
@@ -178,9 +179,8 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/js/FileSaver.js') }}"></script>
-
     <script>
         var data = {
             labels: [0],
@@ -189,12 +189,14 @@
                     label: 'Download',
                     data: [0],
                     borderColor: 'rgba(2, 45, 163, 1)',
+                    backgroundColor: 'rgba(2, 45, 163, 1)',
                     lineTension: .5
                 },
                 {
                     label: 'Upload',
                     data: [0],
                     borderColor: 'rgba(220, 53, 69, 1)',
+                    backgroundColor: 'rgba(220, 53, 69, 1)',
                     lineTension: .5
                 },
             ]
@@ -204,8 +206,19 @@
             type: 'line',
             data: data,
             options: {
-                resposive: true
-            }
+                responsive: true
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, ticks) {
+                            return value.toFixed(2)+ ' Mbps';
+                        }
+                    }
+                },
+
+            },
         }
 
         var realTimeChart = new Chart(
@@ -224,12 +237,13 @@
             }
             axios.get('/graficos2')
                 .then(function (response) {
+
                     // handle success
                     console.log(response.data?.obj);
                     if(response.data?.obj != null){
                         realData.login = response.data?.obj.message.Username
                         realData.download = response.data?.obj.message.Download
-                        realData.download = response.data?.obj.message.Upload
+                        realData.upload = response.data?.obj.message.Upload
                         setRealTimeData(realData)
                     }
                 })
@@ -239,31 +253,105 @@
                 })
                 .finally(function () {
                     // always executed
+                    $('#loadingChartsTime').addClass('d-none')
+                    $('#chartContainerTime').removeClass('d-none')
                 });
 
         }
+        getRealTimeData()
 
         function setRealTimeData(realData){
-            var down = Math.floor(Math.random() * 1000);
-            var up = Math.floor(Math.random() * 1000);
             data.labels.push(moment().format('HH:mm:ss'));
-            data.datasets[0].data.push(down);
-            data.datasets[1].data.push(up);
-            document.querySelector('#labelLogin').text = realData.login
+            console.log(realData)
+            data.datasets[0].data.push(realData.download);
+            data.datasets[1].data.push(realData.upload);
             realTimeChart.update();
         }
 
-        var count = 0
-        function sessionCount(){
-            count = count + 1;
-            console.log('Real', count)
-            if(count == 10){
-                count = 0
-                swal.fire('Sessão terminada!')
+        // var timer = setInterval(sessionCount, 1000);
+        //
+        // var count = 59
+        // function sessionCount(){
+        //     $('#btn-logout-main span').text(count);
+        //     count = count - 1;
+        //     console.log('Real', count)
+        //
+        //     if(count == -1){
+        //         displayMessageQuestionLogout()
+        //         count = 59
+        //         clearInterval(timer)
+        //     }
+        // }
+
+        var sessionTime = 60;
+
+        function sessionTimer(fn, t) {
+            var timerObj = setInterval(fn, t);
+
+            this.stop = function() {
+                if (timerObj) {
+                    clearInterval(timerObj);
+                    timerObj = null;
+                }
+                return this;
+            }
+
+            this.start = function() {
+                if (!timerObj) {
+                    this.stop();
+                    timerObj = setInterval(fn, t);
+                }
+                sessionTime = 60
+                return this;
+            }
+
+            this.reset = function(newT = t) {
+                t = newT;
+                sessionTime = 60
+                return this.stop().start();
             }
         }
-    </script>
 
+        var timer = new sessionTimer(function (){
+            sessionTime--;
+            // if(sessionTime == 0){
+            //     timer.stop();
+            //     displayMessageQuestionLogout()
+            // }
+
+            if (sessionTime > 0) {
+                $('.progress-bar-system').css('width', sessionTime + '%');
+            } else {
+                timer.stop();
+                displayMessageQuestionLogout()
+            }
+        }, 1000);
+
+        let inactivitySession2 = function () {
+            document.onkeypress = resetTimer2;
+            document.onmousedown = resetTimer2;
+            document.ontouchstart = resetTimer2;
+            document.onclick = resetTimer2;
+            window.onload = resetTimer2;
+        };
+
+        function resetTimer2(){
+            timer.reset(1000)
+        }
+
+
+
+
+        // switch interval to 10 seconds
+        // timer.reset(10000);
+        //
+        // // stop the timer
+        // timer.stop();
+
+        // start the timer
+        timer.start();
+
+    </script>
 
     <script>
         let startDate = moment().format('DD/MM/YYYY')
@@ -496,5 +584,5 @@
             }
         });
     </script>
-
+    <script type="text/javascript" defer>inactivitySession2();</script>
 @endsection

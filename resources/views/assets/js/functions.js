@@ -83,8 +83,8 @@ function displayMessageQuestionLogout(){
         },
     }).then((result) => {
         if (result.isConfirmed) {
-            resetTimer()
-        } else if (result.dismiss || result.isDenied) {
+            resetTimer2()
+        } else if (result.dismiss || result.isDenied || result.dismiss === Swal.DismissReason.timer) {
             logout()
         }
     })
@@ -310,6 +310,10 @@ function resetTimer() {
         }
     }, 500);
 }
+
+
+
+
 
 $('.container-fluid').trigger('click');
 

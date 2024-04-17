@@ -16,8 +16,8 @@
                             aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span><i class="fas fa-bars fa-2x" aria-hidden="true"></i>
                     </button>
-                    <a href="javascript:void(0)" style="border-radius: 5px; border: 1px solid white; padding: 5px 10px; margin-top: 5px; display: flex; color: white; background-color: #ba302c; justify-content: center; align-items: center" onclick="logout()">
-                            <i class="fas fa-sign-out-alt pr-1"></i>Sair
+                    <a id="btn-logout-main" href="javascript:void(0)" style="border-radius: 5px; border: 1px solid white; padding: 5px 10px; margin-top: 5px; display: flex; color: white; background-color: #ba302c; justify-content: center; align-items: center" onclick="logout()">
+                        <i class="fas fa-sign-out-alt pr-1"></i>Sair<span class="pl-1"></span>
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="sidebar">

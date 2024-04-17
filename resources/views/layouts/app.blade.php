@@ -22,6 +22,14 @@
         .container-all {
             padding: .5rem;
         }
+
+        .nav-mobile .bottom-nav{
+            background-color: #002646b0 !important;
+        }
+
+        .container-fluid {
+            margin-bottom: 3.75rem !important;
+        }
     </style>
     <link
         rel="stylesheet"

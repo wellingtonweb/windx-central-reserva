@@ -16,53 +16,108 @@
                         <span>{{$header}}</span>
                         <span class="px-3"></span>
                     </div>
-                    <div class="contract-info col-12">
-                        <div class="row card-info_ mt-2">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Consumo em Tempo Real</h5>
-                                        <p class="card-text">Login <b id="labelLogin">{{ session('customer.login') }}</b> conectado</p>
-                                        <div id="reportPage2">
-                                            <div id="loadingChartsTime" class="w-100">
-                                                <i class="fas fa-spinner fa-2x fa-spin"></i>
+                    <div class="contract-info col-12 px-0">
+                        <div class="cards d-flex flex-column flex-lg-row flex-md-row flex-sm-column bd-highlight mb-3">
+                            <div class="card bg-white flex-fill">
+                                <div class="card-body w-100">
+                                    <h5 class="card-title font-weight-bold">Consumo em Tempo Real</h5>
+                                    <p class="card-text">Login <b id="labelLogin">{{ session('customer.login') }}</b> conectado</p>
+                                    <div id="reportPage2">
+                                        <div id="loadingChartsTime" class="w-100">
+                                            <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                        </div>
+                                        <div id="chartContainerTime" class="container-fluid_ w-100 d-none">
+                                            <canvas id="realTimeChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white flex-fill">
+                                <div class="card-body w-100">
+                                    <h5 class="card-title font-weight-bold">Consumo por período</h5>
+                                    <p class="card-text">Selecione o período desejado</p>
+{{--                                    <div class="col-12">--}}
+                                        <form id="formFilterGraphics">
+                                            <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
+{{--                                            <div id="labelFilter" class="d-flex justify-content-end align-items-center">--}}
+{{--                                                Período:--}}
+{{--                                            </div>--}}
+                                            <div class="date input-group">
+                                                <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">
+                                                <div class="input-group-append btn_calendar">
+                                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                </div>
                                             </div>
-                                            <div id="chartContainerTime" class="container-fluid w-100 d-none">
-                                                <canvas id="realTimeChart"></canvas>
+                                        </form>
+{{--                                    </div>--}}
+                                    <div id="reportPage">
+                                        <div id="loadingCharts" class="w-100">
+                                            <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                        </div>
+                                        <div id="chartContainer" class="container-fluid_ w-100">
+                                            <canvas id="graphicsChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-none container-fluid">
+                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 ">
+                                <div class="col">
+                                    <div class="card bg-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Consumo em Tempo Real</h5>
+                                            <p class="card-text">Login <b id="labelLogin">{{ session('customer.login') }}</b> conectado</p>
+                                            <div id="reportPage2">
+                                                <div id="loadingChartsTime" class="w-100">
+                                                    <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                                </div>
+                                                <div id="chartContainerTime" class="container-fluid w-100 d-none">
+                                                    <canvas id="realTimeChart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card bg-white">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Consumo por período</h5>
+                                            <p class="card-text">Acompanhe o consumo de sua internet no período desejado</p>
+                                            <div class="col-12">
+                                                <form id="formFilterGraphics">
+                                                    <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                                    <div class="d-flex justify-content-end align-items-center">
+                                                        Selecione o período:
+                                                    </div>
+                                                    <div class="date input-group">
+                                                        <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">
+                                                        <div class="input-group-append btn_calendar">
+                                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div id="reportPage">
+                                                <div id="loadingCharts" class="w-100">
+                                                    <i class="fas fa-spinner fa-2x fa-spin"></i>
+                                                </div>
+                                                <div id="chartContainer" class="container-fluid w-100">
+                                                    <canvas id="graphicsChart"></canvas>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="d-none row card-info_ mt-2">
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Consumo por período</h5>
-                                        <p class="card-text">Acompanhe o consumo de sua internet no período desejado</p>
-                                        <div class="col-12">
-                                            <form id="formFilterGraphics">
-                                                <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                                <div class="d-flex justify-content-end align-items-center">
-                                                    Selecione o período:
-                                                </div>
-                                                <div class="date input-group">
-                                                    <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">
-                                                    <div class="input-group-append btn_calendar">
-                                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="reportPage">
-                                            <div id="loadingCharts" class="w-100">
-                                                <i class="fas fa-spinner fa-2x fa-spin"></i>
-                                            </div>
-                                            <div id="chartContainer" class="container-fluid w-100">
-                                                <canvas id="graphicsChart"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+
                             </div>
 
                             {{--                            <div class="col-12">Grafico Tempo Real--}}
@@ -105,7 +160,8 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: .5rem 1rem;
+            padding: .5rem 0;
+            /*padding: .5rem 1rem;*/
         }
 
         #formFilterGraphics .date {
@@ -116,13 +172,42 @@
             margin-left: 5px;
         }
 
+        .contract-info .card {
+            min-width: 50%;
+            padding: 1rem;
+        }
+
+        canvas {
+            min-height: 280px;
+        }
+
+        .contract-info .cards {
+            gap: .5rem;
+        }
+
         @media (max-width: 575.98px) {
-            #formFilterGraphics .date {
-                width: 100% !important;
+            #labelFilter {
+                display: none !important;
             }
 
+            .daterangepicker.show-calendar .ranges {
+                 margin-top: 0 !important;
+            }
+
+            #chartContainerTime canvas {
+                display: inline !important;
+                min-height: 140px !important;
+            }
+            #chartContainer canvas {
+                min-height: 250px !important;
+            }
+
+            /*#formFilterGraphics .date {*/
+            /*    width: 100% !important;*/
+            /*}*/
+
             #formFilterGraphics {
-                padding: 1rem;
+                /*padding: 1rem;*/
                 display: flex;
                 flex-direction: column;
             }
@@ -146,7 +231,30 @@
             .daterangepicker td.off.in-range,
             .daterangepicker td.off.start-date,
             .daterangepicker td.off.end-date {
-                color: #999 !important;
+                color: #dbdada !important;
+            }
+
+            .daterangepicker td{
+                color: #357ebd;
+            }
+
+            /*.daterangepicker td.active,*/
+            /*.daterangepicker td.active:hover {*/
+            /*    background-color: #357ebd;*/
+            /*    border-color: transparent;*/
+            /*    color: #fff;*/
+            /*}*/
+            .daterangepicker td:hover,
+            .daterangepicker td.available:hover,
+            .daterangepicker th.available:hover {
+                /*background-color: #eee;*/
+                /*border-color: transparent;*/
+                color: #357ebd !important;
+            }
+
+            .contract-info .card {
+                min-width: 100% !important;
+                gap: 20px 5px;
             }
         }
 

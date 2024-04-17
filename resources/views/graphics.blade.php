@@ -18,7 +18,7 @@
                     </div>
                     <div class="contract-info col-12">
                         <div class="row card-info_ mt-2">
-                            <div class="col-12 p-0">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Consumo em Tempo Real</h5>
@@ -34,11 +34,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 p-0 mt-2">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="card-title">Consumo por período</h5>
                                         <p class="card-text">Acompanhe o consumo de sua internet no período desejado</p>
+                                        <div class="col-12">
+                                            <form id="formFilterGraphics">
+                                                <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                                                <div class="d-flex justify-content-end align-items-center">
+                                                    Selecione o período:
+                                                </div>
+                                                <div class="date input-group">
+                                                    <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">
+                                                    <div class="input-group-append btn_calendar">
+                                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                         <div id="reportPage">
                                             <div id="loadingCharts" class="w-100">
                                                 <i class="fas fa-spinner fa-2x fa-spin"></i>
@@ -62,32 +76,6 @@
                             {{--                                </div>--}}
                             {{--                            </div>--}}
                         </div>
-{{--                        <div class="row card-info mt-2">--}}
-{{--                            <div class="col-12 ">--}}
-{{--                                <div id="container_filter" class="col-12">--}}
-{{--                                    <form id="formFilterGraphics">--}}
-{{--                                        <input id="token" type="hidden" name="_token" value="{{ csrf_token() }}"/>--}}
-{{--                                        <div class="d-flex justify-content-end align-items-center">--}}
-{{--                                            Filtrar por período:--}}
-{{--                                        </div>--}}
-{{--                                        <div class="date input-group">--}}
-{{--                                            <input type="text" placeholder="Data" name='period' id='period' class="form-control kt-input">--}}
-{{--                                            <div class="input-group-append btn_calendar">--}}
-{{--                                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </form>--}}
-{{--                                </div>--}}
-{{--                                <div id="reportPage">--}}
-{{--                                    <div id="loadingCharts" class="w-100">--}}
-{{--                                        <i class="fas fa-spinner fa-2x fa-spin"></i>--}}
-{{--                                    </div>--}}
-{{--                                    <div id="chartContainer" class="container-fluid w-100" style="height: 40vh">--}}
-{{--                                        <canvas id="graphicsChart"></canvas>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -113,27 +101,27 @@
             color: #fff !important;
         }
 
-        #container_filter {
+        #formFilterGraphics {
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-end;
             align-items: center;
             padding: .5rem 1rem;
         }
 
-        #container_filter .date {
+        #formFilterGraphics .date {
             width: 300px;
         }
 
-        #container_filter .date {
+        #formFilterGraphics .date {
             margin-left: 5px;
         }
 
         @media (max-width: 575.98px) {
-            #container_filter .date {
+            #formFilterGraphics .date {
                 width: 100% !important;
             }
 
-            #container_filter {
+            #formFilterGraphics {
                 padding: 1rem;
                 display: flex;
                 flex-direction: column;
@@ -267,90 +255,6 @@
             data.datasets[1].data.push(realData.upload);
             realTimeChart.update();
         }
-
-        // var timer = setInterval(sessionCount, 1000);
-        //
-        // var count = 59
-        // function sessionCount(){
-        //     $('#btn-logout-main span').text(count);
-        //     count = count - 1;
-        //     console.log('Real', count)
-        //
-        //     if(count == -1){
-        //         displayMessageQuestionLogout()
-        //         count = 59
-        //         clearInterval(timer)
-        //     }
-        // }
-
-        var sessionTime = 60;
-
-        function sessionTimer(fn, t) {
-            var timerObj = setInterval(fn, t);
-
-            this.stop = function() {
-                if (timerObj) {
-                    clearInterval(timerObj);
-                    timerObj = null;
-                }
-                return this;
-            }
-
-            this.start = function() {
-                if (!timerObj) {
-                    this.stop();
-                    timerObj = setInterval(fn, t);
-                }
-                sessionTime = 60
-                return this;
-            }
-
-            this.reset = function(newT = t) {
-                t = newT;
-                sessionTime = 60
-                return this.stop().start();
-            }
-        }
-
-        var timer = new sessionTimer(function (){
-            sessionTime--;
-            // if(sessionTime == 0){
-            //     timer.stop();
-            //     displayMessageQuestionLogout()
-            // }
-
-            if (sessionTime > 0) {
-                $('.progress-bar-system').css('width', sessionTime + '%');
-            } else {
-                timer.stop();
-                displayMessageQuestionLogout()
-            }
-        }, 1000);
-
-        let inactivitySession2 = function () {
-            document.onkeypress = resetTimer2;
-            document.onmousedown = resetTimer2;
-            document.ontouchstart = resetTimer2;
-            document.onclick = resetTimer2;
-            window.onload = resetTimer2;
-        };
-
-        function resetTimer2(){
-            timer.reset(1000)
-        }
-
-
-
-
-        // switch interval to 10 seconds
-        // timer.reset(10000);
-        //
-        // // stop the timer
-        // timer.stop();
-
-        // start the timer
-        timer.start();
-
     </script>
 
     <script>
@@ -584,5 +488,4 @@
             }
         });
     </script>
-    <script type="text/javascript" defer>inactivitySession2();</script>
 @endsection
